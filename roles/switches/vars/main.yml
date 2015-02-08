@@ -1,0 +1,6 @@
+---
+
+switches:
+- {hostname: lon-sw-1, secret: s3cr3t, ip_addr: 192.168.1.1, access_vlan: 203, default_gateway: 192.168.1.254, snmp_community: g00gl3}
+- {hostname: lon-sw-2, secret: s3cr3t, ip_addr: 192.168.1.2, access_vlan: 203, default_gateway: 192.168.1.254, snmp_community: g00gl3}
+

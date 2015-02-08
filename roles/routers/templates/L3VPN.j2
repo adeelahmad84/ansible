@@ -1,0 +1,112 @@
+logical-systems {
+    {{HOSTNAME}} {
+        interfaces {
+            {{CE_INTERFACE}} {
+                unit 1335 {
+                    description ht1nx701_ethernet_1/1_Vlan_1335;
+                    vlan-id 1335;
+                    family inet {
+                        address {{V1335_IPADDRESS}}/29; 
+                    } 
+                }
+            }
+        } 
+        policy-options {    
+            policy-statement VRF_HITOUCH_ce_export {
+                term 10 {
+                    from {
+                        protocol bgp;
+                        metric 0;
+                    }
+                    then {
+                        metric 1;
+                        tag 3489725547;
+                        accept;
+                    }
+                }
+                term 20 {
+                    from protocol bgp;
+                    then {
+                        tag 3489725547;
+                        accept;
+                    }
+                }
+                term 99 {
+                    then reject;
+                }
+            }
+            policy-statement VRF_HITOUCH_export {
+                term 10 {
+                    from protocol ospf;
+                    then {
+                        metric 0;
+                        origin incomplete;
+                        community add rt_110;
+                        community add VRF_HITOUCH_ospf_domain_id;
+                        accept;
+                    }
+                }
+                term 20 {
+                    from protocol direct;
+                    then {
+                        metric 0;
+                        origin incomplete;
+                        community add rt_110;
+                        accept;
+                    }
+                }
+                term 99 {
+                    then reject;
+                }
+            }
+            policy-statement VRF_HITOUCH_import {
+                term 10 {
+                    from {
+                        protocol bgp;
+                        community [ rt_110 rt_111 rt_126 ];
+                    }
+                    then accept;
+                }
+                term 99 {
+                    then reject;
+                }
+            } 
+            community VRF_HITOUCH_ospf_domain_id members domain:0.0.0.3:0;           
+        }
+        routing-instances {        
+            VRF_HITOUCH {
+                description Exodus_HITOUCH;
+                instance-type vrf;
+                interface {{CE_INTERFACE}}.1335;
+                route-distinguisher {{PE_LOOPBACK}}:304;
+                vrf-import VRF_HITOUCH_import;
+                vrf-export VRF_HITOUCH_export;
+                vrf-table-label;
+                routing-options {
+                    maximum-prefixes 5000 threshold 75;
+                    multipath;
+                    router-id {{LO016}};
+                    auto-export;
+                }
+                protocols {
+                    ospf {
+                        traceoptions {
+                            file {{HOSTNAME}}-vrf_hitouch-trace-file size 1m files 10;
+                            flag state detail;
+                            flag error detail;
+                        }
+                        route-type-community vendor;
+                        domain-id 0.0.0.3:0;
+                        export VRF_HITOUCH_ce_export;
+                        reference-bandwidth 10g;
+                        area 0.0.0.0 {
+                            interface {{CE_INTERFACE}}.1335 {
+                                authentication {
+                                    md5 1 key {{AUTH}};
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }

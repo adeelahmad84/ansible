@@ -1,0 +1,147 @@
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+!
+hostname lon-sw-2
+!
+logging buffered 32000
+no logging console
+enable secret 0 s3cr3t
+!
+!
+!
+!
+interface FastEthernet01
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet02
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet03
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet04
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet05
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet06
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet07
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet08
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet09
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet010
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet011
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet012
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet013
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet014
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet015
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet016
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet017
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet018
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet019
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet020
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet021
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet022
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet023
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet024
+ switchport access vlan 203
+ switchport mode access
+ spanning-tree portfast
+!
+interface Vlan1
+ ip address 192.168.1.2 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 192.168.1.254
+snmp-server community g00gl3 RO 
+!
+line con 0
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+end

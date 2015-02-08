@@ -1,0 +1,5 @@
+---
+- name: Generate configuration files
+  hosts: localhost
+  roles:
+    - switches
