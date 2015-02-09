@@ -1,5 +1,5 @@
 ---
-- name: Generate configuration files
+- name: Generate configuration files using jinja2
   hosts: localhost
   roles:
     - switches
