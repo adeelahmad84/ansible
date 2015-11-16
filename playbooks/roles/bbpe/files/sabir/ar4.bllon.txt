@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.2 password qsKoCBnnxR87kk7f
+
+interface Port-channel3.3621
+ description [core,rd=sr11.sabir:sdp266,cid=SNS:1000/LNBL-BHMA/PW/999360621] sedcanopy pw
+ encapsulation dot1Q 3621
+ xconnect 84.38.34.2 999360621 pw-class SEDCANOPY
+end

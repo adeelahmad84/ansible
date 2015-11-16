@@ -1,0 +1,22 @@
+conf t
+!
+{% if first %}
+vlan 201
+ name management for {{ hostname }}
+!
+{% endif %}
+interface Port-channel{{ port_channel }}
+ description [core,rd={{ hostname }}:lag1,cid=LOCAL,iv-s=cdn_pop] Port-Channel To {{ hostname|upper }}
+ switchport
+ switchport trunk allowed vlan add 201
+ switchport mode trunk
+!
+{% if first %}
+!
+interface Vlan201
+ description [core,rd={{ hostname }}:vlan201,cid=LOCAL,v-s=cdn]
+ ip address {{ management | ipaddr('1')|replace("/29"," ") }} {{ management | ipaddr('netmask') }}
+ no ip redirects
+!
+{% endif %}
+end

@@ -1,0 +1,12 @@
+Summary:
+Removal of a decommssioned line card
+
+Implementation Steps:
+
+Device - ar14-cdn.thlon
+Site - THLON, TFM5, Telehouse North Telehouse Europe 14 Coriander Avenue E14 2AA London United Kingdom
+Summary -
+
+Please remove the following cards from ar14-cdn.thlon:
+
+Card/slot 5

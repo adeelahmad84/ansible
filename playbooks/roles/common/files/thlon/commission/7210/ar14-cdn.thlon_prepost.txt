@@ -1,0 +1,23 @@
+#during post ensure that the ports are up, optical levels are within range and has the correct description
+show port 4/1/39 | match expression "Oper State|Oper Speed"
+show port description 4/1/39
+show port 4/1/39 optical
+show port 4/1/40 | match expression "Oper State|Oper Speed"
+show port description 4/1/40
+show port 4/1/40 optical
+
+show lag 4
+show lag 4 statistics
+show lag 4 description
+show lag 4 lacp-partner
+show lag 4 port
+show lag 4 associations
+
+show router interface "base_as102.thlon_1"
+
+#during post ensure that the pings are successful.
+
+ping 90.223.190.217  rapid
+ping 90.223.190.218  rapid
+
+#from nms please you can ping and ssh to as102.thlon

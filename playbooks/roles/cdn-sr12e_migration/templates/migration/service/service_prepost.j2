@@ -1,0 +1,31 @@
+{% for item, cdn in services|dictsort %}
+{% for port, info in  cdn['array']|dictsort %}
+show port {{ info.old_port }}
+show port {{ info.old_port }} description
+{% endfor %}
+{% if cdn.lag %}
+show lag {{ cdn.lag }}
+show lag {{ cdn.lag }} port
+show service sap-using sap lag-{{ cdn.lag }}
+{% endif %}
+{% if cdn.vpls_id %}
+show service id {{ cdn.vpls_id }} base
+show service id {{ cdn.vpls_id }} sap
+{% endif %}
+show service id {{ cdn.ies_id }} base
+show service id {{ cdn.ies_id }} interface
+show service id {{ cdn.ies_id }} arp
+# ping all addresses in the arp entry
+show router neighbor | match {{ cdn.ies_id }} context all
+# ping all ipv6 addresses in the neighbor entry
+{% endfor %}
+{% for item, cdn in cdn_services_id|dictsort %}
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match {{ cdn.v6_1 }} ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match {{ cdn.v6_2 }} ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match {{ cdn.v4_1 }}
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match {{ cdn.v4_2 }}
+{% if cdn.v4_3 %}
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match {{ cdn.v4_3 }}
+{% endif %}
+{% endfor %}
+show router policy-edits

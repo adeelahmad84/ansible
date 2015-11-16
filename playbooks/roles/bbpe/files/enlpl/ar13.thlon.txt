@@ -1,0 +1,30 @@
+configure router mpls ingress-statistics lsp "SR12.ENLPL-1-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-1-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-2-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-2-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-3-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-3-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-4-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-4-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-5-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-5-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-6-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-6-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-7-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-7-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-8-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-8-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-9-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-9-AR13THLON" sender 84.38.34.245 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENLPL-10-AR13THLON" sender 84.38.34.245
+configure router mpls ingress-statistics lsp "SR12.ENLPL-10-AR13THLON" sender 84.38.34.245 no shutdown
+

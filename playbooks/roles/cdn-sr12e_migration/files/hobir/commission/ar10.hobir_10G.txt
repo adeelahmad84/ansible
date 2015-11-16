@@ -1,0 +1,76 @@
+exit all
+configure
+    port 1/1/12
+        description "[core,ip=,rd=ar11-cdn.hobir:5-1-40,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            encap-type null
+            mtu 8222
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    router
+        interface "base_ar11-cdn.hobir_1"
+            address 2.127.241.168/31
+            description "[core-o,rd=ar11-cdn.hobir:5-1-40]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port 1/1/12
+            qos 10
+            cflowd interface both
+            no shutdown
+	exit
+        isis
+            interface "base_ar11-cdn.hobir_1"
+                level-capability level-2
+                hello-authentication-key "w4axZeTgp22ovWjK"
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 110000
+                exit
+                no shutdown
+	    exit
+	exit
+        mpls
+            interface "base_ar11-cdn.hobir_1"
+                no shutdown
+	    exit
+	exit
+        rsvp
+            interface "base_ar11-cdn.hobir_1"
+                no shutdown
+	    exit
+	exit
+        ldp
+            peer-parameters
+                peer 89.200.128.177
+                    authentication-key KoJab1ZMPNrwhnqM
+                exit
+	    exit
+            interface-parameters
+                interface "base_ar11-cdn.hobir_1"
+	exit all

@@ -1,0 +1,25 @@
+interface Bundle-Ether258
+ shutdown
+!
+interface Te0/4/0/8/3
+ shutdown
+ !
+!
+router isis 65444
+ no interface Bundle-Ether258
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.2 no password clear
+ no interface Bundle-Ether258
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether258
+ !
+!
+rsvp
+ no interface Bundle-Ether258
+ !
+!

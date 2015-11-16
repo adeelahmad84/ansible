@@ -1,0 +1,175 @@
+
+Go-live process
+
+
+Contents [hide]
+
+    1 Checklist
+        1.1 Example Activation Email to Akamai
+        1.2 Example Activation Email to Google
+        1.3 Example Activation Email to Netflix
+
+Checklist
+
+    has a new mapping policy been calculated (will need deploying for traffic to go to site)
+    http://cdn.noc.isp.sky.com/mediawiki/index.php/Pop_Guide has been updated
+    Cricket Graphs Exist.
+    Weathermap Exists.
+    Weathermap added to http://cdn.noc.isp.sky.com/popcdnwmap.html
+    Is the AR20 in "Production".
+    xRFU has been completed
+    Check interfaces are not "no-mon".
+    Confirm CHG ticket fully approved.
+    Make sure http://cdn.noc.isp.sky.com/newgraphs/popcdn.html has been updated
+    Check reverse DNS has been setup
+    Confirm that the Cricket aggregates have been updated
+    Confirm with SNS Security that Arbor IPs updated
+    \\snsfiler01b.sns.bskyb.corp\Shared_areas\NPO\Networks\NDPR-3000-Core Network Projects\NDPR-3229 Sky CDN\Master-CDN-Inventory.xlsx updated
+
+Example Activation Email to Akamai
+
+To be sent to "nocc-shift@akamai.com; nocc-tix@akamai.com;"
+
+Good morning Akamai Support
+
+Please UN-SUSPEND the Sky_Akamai_ AANP region Manchseter Poland St - EASY-MAN - 176.255.203.128/25
+
+John Styles
+CDN Team Leader
+Sky Network Services - BskyB
+CDNSupport@bskyb.com
+
+
+Example Activation Email to Google
+
+Good morning GGC team,
+
+Please enable the new GCC site [Node name: bskyb-man-1].
+
+Note: Please Apply the following traffic increases to be applied weekdays as per your policy:
+
+Day 1: 800Mbps
+Day 1: After 4 hours @ 25% maximum egress bandwidth
+Day 2: 50% maximum egress bandwidth
+Day 3: 100% maximum egress bandwidth
+
+Kind Regards,
+Kwai
+
+
+Example Activation Email to Netflix
+
+Hi Seth,
+
+Good morning.
+
+Please activate the two new Netflix regions, POMNC and MIMNC. Many thanks.
+Pomnc Netflix bgp peering: 176.255.200.114
+Mimnc Netflix bgp peering:176.255.200.106
+
+Kind Regards,
+Kwai
+
+    Page Discussion View source History
+
+    Log in / create account
+
+Navigation
+
+    Main page
+    4am Guide
+    Weathermap
+    Graphs
+    Pop Guide
+    Contacts
+    OTT Service Centre Osterley
+    Sporting Events
+    Whats Where
+    Links
+
+Search
+
+Supplier Information
+
+    Conviva
+    Level 3
+    Akamai
+    Netflix
+    Google Global Cache
+    EE
+    Talk Talk
+    CDN_Selector
+
+Solutions
+
+    SkyGo
+    Nowtv
+    Web Caching
+    Third Party Caches
+    CatchUp TV
+    Pop Site CDNs
+    Wholesale DVN
+    DNS Sieve
+    Route Servers
+    Sky Store
+    MultiCDN
+    Mapper
+    CDN Netflow
+    Velocix
+    Octopus
+
+Tech Guides
+
+    Video URLS
+    Testing Services
+    Cache Control Headers
+    5xx Errors
+    Quick Guide to DNS
+    Not a DOS
+    Cache Draining
+    Loadbalancing
+    Moving Origin
+    Network Diagram
+    Arbor
+    iOS Releases
+    Ironman DNS
+    IWF Filter
+    Conviva Alerts
+    IPv6 Testing
+    Waf IP Blocking
+    Akamai Spining Globe
+
+CDN Team Guides
+
+    Cheetsheet
+    CDN Team Lab
+    CDN Team Wiki
+    OTT Analyst Guide
+    Editing Weathermap
+    Packages Guide
+    Sports Calendar
+    Event Centre
+    Example Callouts
+    Acronym Guide
+    Router Commands
+    Heightened Awareness
+    CMP Alerts
+    Pop CDN Go-Live
+    Webscreens
+    MicroSoft Home Use Program
+    Office IP Ranges
+    ITV Stream Testing
+    ROI related content
+
+Toolbox
+
+    What links here
+    Related changes
+    Special pages
+    Printable version
+    Permanent link
+
+Powered by MediaWiki
+
+    This page was last modified on 24 February 2014, at 11:38. This page has been accessed 229 times. Privacy policy About CDNWiki Disclaimers
+

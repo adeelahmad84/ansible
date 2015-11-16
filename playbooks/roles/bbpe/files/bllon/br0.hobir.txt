@@ -1,0 +1,27 @@
+# $Id: br0.hobir.txt,v 1.2 2012/11/07 13:33:56 mivens Exp $
+exit all
+configure
+    service
+        sdp 477 mpls create
+            description "sr15.bllon"
+            far-end 84.38.34.221
+            ldp
+            path-mtu 8192
+            no shutdown
+        exit
+        vpls 400010
+            spoke-sdp 477:964247701 split-horizon-group "pe-sdp" create
+                description "PBB B-VPLS backhaul - sr15.bllon"
+                no shutdown
+            exit
+        exit
+    exit
+    router
+        ldp
+           peer-parameters
+               peer 84.38.34.221 authentication-key rM1brwMiOBgCQ4Go
+            exit
+        exit
+    exit
+exit
+

@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-AANP-LAN"
+                no prefix {{ aanp.ipv6 | ipaddr('0') }} exact
+	commit
+	exit
+        no static-route {{ aanp.ipv6 | ipaddr('0') }}
+        no static-route {{ aanp.ipv4 | ipaddr('0') }}
+exit all

@@ -1,0 +1,7 @@
+ping 90.223.194.17 
+ping 2a02:c7a:8000:70d::1
+show interface port-channel 31
+show interface TenGigabitEthernet1/27
+show interface TenGigabitEthernet1/27 status
+show interface TenGigabitEthernet1/28
+show interface TenGigabitEthernet1/28 status

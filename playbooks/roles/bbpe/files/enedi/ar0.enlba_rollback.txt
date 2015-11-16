@@ -1,0 +1,6 @@
+mpls ldp no neighbor 84.38.34.5 password
+
+interface Port-channel3.3619
+ description [no-mon,core,rd=sr12.enedi:sdp267,cid=SNS:1000/LNBL-EDBA/PW/999364619] sedcanopy pw
+ shutdown
+end

@@ -1,0 +1,29 @@
+exit all
+configure
+    port 10/1/4
+        description "[no-mon,core,rd=ar21.syost:te1-13,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C06"
+        shutdown
+    exit    
+    port 10/1/5
+        description "[no-mon,core,rd=ar21.syost:te1-14,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C06"
+        shutdown
+    exit    
+    port 10/1/6
+        description "[no-mon,core,rd=ar21.syost:te1-15,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C06"
+        shutdown
+    exit    
+    lag 51
+	description "[no-mon,core,rd=ar21.syost:pc3,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar21.syost"
+	shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK-2"
+	    description "[no-mon,core,rd=ar21.syost:pc3,iv-s=cdn_pop]"
+	    shutdown
+	exit
+        bgp
+            group "remote-popcdn-ipv4"
+		shutdown
+                neighbor 2.120.8.63 
+		    shutdown
+                exit all

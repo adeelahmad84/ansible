@@ -1,0 +1,143 @@
+##mcdn-1##
+exit all
+configure
+    port 4/1/11
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/41"
+        shutdown
+    exit
+    port 4/1/12
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/42"
+        shutdown
+    exit
+    port 4/1/13
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/43"
+        shutdown
+    exit
+    port 4/1/14
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/44"
+        shutdown
+    exit
+    port 4/1/15
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/45"
+        shutdown
+    exit
+    port 4/1/16
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/46"
+        shutdown
+    exit
+    port 4/1/17
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/47"
+        shutdown
+    exit
+    port 4/1/18
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/48"
+        shutdown
+    exit
+    port 4/1/9
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/39"
+        shutdown
+    exit
+    port 4/1/10
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/40"
+        shutdown
+    exit
+    lag 41
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX"
+        no port 4/1/11
+        no port 4/1/12
+        no port 4/1/13
+        no port 4/1/14
+        no port 4/1/15
+        no port 4/1/16
+        no port 4/1/17
+        no port 4/1/18
+        no port 4/1/9
+        no port 4/1/10
+        shutdown
+    exit
+    service
+        ies 220362
+            interface "ies220362_-PDL-Edge-2"
+                description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Edge-2"
+                no address 90.223.224.1/26
+                ipv6
+                    no address 2a02:c7a:8000:fc05::1/64
+                exit
+            exit
+            shutdown
+exit all
+##mcdn-1_end##
+##aanp-begin##
+exit all
+configure
+    port 4/1/6
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_1"
+        shutdown
+    exit
+    port 4/1/7
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_2"
+        shutdown
+    exit
+    port 4/1/1
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_3"
+        shutdown
+    exit
+    port 4/1/2
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_4"
+        shutdown
+    exit
+    port 4/1/4
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_5"
+        shutdown
+    exit
+    port 4/1/5
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_6"
+        shutdown
+    exit
+    port 4/1/8
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_7"
+        shutdown
+    exit
+    port 4/1/3
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_8"
+        shutdown
+    exit
+    lag 45
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch"
+        no port 4/1/6
+        no port 4/1/7
+        no port 4/1/1
+        no port 4/1/2
+        no port 4/1/4
+        no port 4/1/5
+        no port 4/1/8
+        no port 4/1/3
+        shutdown
+    exit
+    service
+        ies 220263
+            interface "ies220263_-Akamai-AANP_3"
+		shutdown
+                description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Akamai LAG_45"
+                no secondary 2.127.246.65/26
+                no secondary 90.223.216.129/26
+                no secondary 90.223.246.1/25
+                no address 90.223.174.1/27
+                ipv6
+                    no address 2a02:c7a:8000:fc03::1/64
+                exit
+            exit
+            shutdown
+        exit
+    exit
+    router
+        interface "AANP_OFFNET-LOOPBACK"
+            no address
+            shutdown
+        exit
+        bgp
+            group "cdn-aanp_offnet-ipv4"
+                neighbor 195.245.126.50
+		    shutdown
+exit all
+##aanp-end##

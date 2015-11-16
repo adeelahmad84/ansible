@@ -1,0 +1,45 @@
+policy-map system-cpp-policy
+ class system-cpp-bpdu-range
+ class system-cpp-mcast-cfm
+ class system-cpp-ucast-cfm
+ class system-cpp-rfc3330-deny
+    police 32000 1000    conform-action drop     exceed-action drop
+ class system-cpp-rfc1918-dcn-icmp
+ class system-cpp-rfc1918-dcn-ssh
+ class system-cpp-rfc1918-cust-sky-priv-icmp
+ class system-cpp-rfc1918-rfc6598-deny
+    police 32000 1000    conform-action drop     exceed-action drop
+ class system-cpp-nme
+ class system-cpp-icmp
+ class system-cpp-ovn-core-ssh
+ class system-cpp-ovn-core-traceroute
+ class system-cpp-exchanges-traceroute
+ class system-cpp-ovn-core-bgp-est
+ class system-cpp-ovn-core-bgp
+ class system-cpp-cdn-pop-ggc-bgp-est
+ class system-cpp-cdn-pop-ggc-bgp
+ class system-cpp-cdn-pop-aanp-bgp-est
+ class system-cpp-cdn-pop-aanp-bgp
+ class system-cpp-cdn-pop-aanp-mh-bgp-est
+ class system-cpp-cdn-pop-aanp-mh-bgp
+ class system-cpp-cdn-pop-netflix-bgp-est
+ class system-cpp-cdn-pop-netflix-bgp
+ class system-cpp-ipv6-ovn-private-bgp-est
+ class system-cpp-ipv6-ndp-police-300000
+    police cir 300000    conform-action transmit     exceed-action drop
+ class system-cpp-ipv6-rs-police-200000
+    police cir 200000    conform-action transmit     exceed-action drop
+ class sys-cpp-ipv6-private-icmp-police-100000
+    police cir 100000    conform-action transmit     exceed-action drop
+ class sys-cpp-ipv6-external-icmp-police-100000
+    police cir 100000    conform-action transmit     exceed-action drop
+ class system-cpp-ipv4-LAST-POLICY-deny-all
+    police 32000 1000    conform-action drop     exceed-action drop
+ class system-cpp-ipv6-LAST-POLICY-deny-all
+    police 32000 1000    conform-action drop     exceed-action drop
+ class class-default
+    police 32000 1000    conform-action transmit     exceed-action drop
+!
+control-plane
+ service-policy input system-cpp-policy
+!

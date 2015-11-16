@@ -1,0 +1,99 @@
+Summary:
+
+{% for key, cdn in services|dictsort %}
+C2: New {{ cdn_name|upper }} Region - {{ cdn.array|length }} x 10G links [TG{{ cdn.tgref }}]
+
+Business Justification:
+
+This change is to add a new {{ cdn_name|upper }} Region into {{ site_id }}, this is the network configuration required bringing the region into service
+This is to accommodate the accelerated growth of {{ cdn_name|upper }} service demands.
+The change being on hold will impact the capacity SNS can provide for {{ cdn_name|upper }} services.
+
+
+
+
+
+
+
+Implementation Steps:
+
+Tech Summary
+*******************
+The implementation steps should take approxiately 20 minutes to complete.
+
+This change is to:
+- Add {{ cdn.array|length }} x 10G links into one LAG
+- Create a new IES service with IPv4/IPv6 and the newly created LAG to the service interface
+- Add the v4/v6 prefixes to the existing named prefix-list.
+
+1. After running the pre-checks please apply the commands found in the file named {{ hostname }}.txt
+2. move onto post-checks found in Test Plan
+
+
+
+
+
+
+
+
+Test Plan:
+
+Pre-Checks
+***************
+1. Please run the following command in your jumphost to ensure the IP ranges do not already exist on SNS production network:
+
+findip2 {{ cdn.ipv4 | ipaddr('1') }}
+findip2 {{ cdn.ipv6 | ipaddr('1') }}
+
+- expect to not find the IP range.
+
+2. Please check to see if the IP ranges have the appropriate DNS entries:
+
+host {{ cdn.ipv4 | ipaddr('1') | regex_replace('/.*', ' ') }}
+host {{ cdn.ipv6 | ipaddr('1') | regex_replace('/.*', ' ') }}
+
+- expect to see the following:
+
+{{ cdn.ipv4 | ipaddr('revdns') }} domain name pointer host1-range{{ cdn.range }}-{{ prefix_name|lower }}.cdn.{{ site_id }}.isp.sky.com
+{{ cdn.ipv6 | ipaddr('revdns') }} domain name pointer range{{ cdn.range }}-{{ prefix_name|lower }}.cdn.{{ site_id }}.isp.sky.com
+
+3. Please go to the URL: https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells and ensure that the ports referenced TG{{ cdn.tgref }} matches the configuration attached to the change.
+
+4. Please run the following commands found in bbpe_prepost.txt and expect
+- to see the ports down
+- to see no Bundle (if applicable) found
+- to see no prefixes found.
+
+
+Post-Checks
+***************
+Please run the commands found in the file named {{ hostname }}_prepost.txt
+
+- expect to see the ports down (still)
+- expect to see LAG and service-id configured and admin state up.
+- expect to see prefixes in the prefix-list but not advertised.
+
+
+
+
+
+
+
+Backout Plan:
+
+If the post-check ouputs do not satisfy your expectation then please follow this action in the below situations:
+
+- if ports are up = Shut them down
+- LAG/Service-id isn't configured or not admin up = please reconfigure and ensure they are not shut down.
+- if prefixes are not visible in the prefix-list = please add the prefixes to the prefix-list.
+
+If the implementation was to impact any live services then proceed to back out with the file named {{ hostname }}_rollback.txt.
+Upon completing rollback please re run the commands found in the file named {{ hostname }}_prepost.txt  AND compare the results with the output of the precheck = ensure they are identical.
+
+
+Risk Assessment:
+
+This is a network configuration to be in place prior to introducing the new {{ cdn_name|upper }} region.  No live services are anticipated to be impacted.
+If the change went wrong such as configuring the a duplicate IP address then any services with the same IP could be at risk.
+The chances are slim as a pre-check will be done using the findip2 tool to determine whether the IP range exists.
+{% endfor %}

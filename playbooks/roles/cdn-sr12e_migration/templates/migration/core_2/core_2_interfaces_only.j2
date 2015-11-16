@@ -1,0 +1,23 @@
+configure terminal
+!
+interface Bundle-Ether{{ old_last_octet|int + 256 }}
+ description [no-mon,core-o,rd={{ old_node_name }}:lag{{ old_core_2_lag.1.lag }},iv-s=vcdn_sc]
+ shutdown
+!
+interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ description [core-o,rd={{ node_name }}:lag2,iv-s=vcdn_sc]
+ no shutdown
+!
+{% for key, value in core_2|dictsort %}
+interface Hu0/{{ value.port }}
+ description [core-o,rd={{ node_name }}:{{ value.remote_port|replace('/','-') }},cid={{ value.cid }},iv-s=bb]
+ bundle id {{ system_last_octet|int + 256 }} mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+{% endfor %}
+commit

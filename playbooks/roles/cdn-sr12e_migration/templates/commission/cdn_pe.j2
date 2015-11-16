@@ -1,0 +1,2717 @@
+exit all
+configure
+#--------------------------------------------------
+echo "System Configuration"
+#--------------------------------------------------
+    system
+        name "{{ node_name }}"
+        contact "SNS Network Operations: incident.sns@bskyb.com / 44 (0)20 7032 8006"
+        location "{{ location }}"
+        l4-load-balancing
+        lsr-load-balancing lbl-ip
+        snmp
+            no shutdown
+            packet-size 8192
+        exit
+        login-control
+            ssh
+                inbound-max-sessions 10
+            exit
+            telnet
+                inbound-max-sessions 10
+            exit
+            idle-timeout 15
+            pre-login-message "==============================================================================\n\rThis system and data is the property of British Sky Broadcasting Ltd.\n\r\n\r** STRICTLY AUTHORISED USERS ONLY **\n\r\n\rIf you have any problems or queries contact SNS Network Operations at:\n\r\n\rE: service.ops@bskyb.com\n\rP: +44 (0)20 7032 7060\n\r\n\rIf you are not an Authorised User - DISCONNECT IMMEDIATELY!\n\r\n\rUnauthorised access is an offence under the Computer Misuse Act 1990\n\r==============================================================================\n\r\n\r"
+        exit
+        time
+            ntp
+                no authentication-check
+                server 84.38.45.194
+                server 84.38.45.195
+                server 84.38.45.196
+                server 84.38.47.197
+                server 84.38.47.198
+                no shutdown
+            exit
+            sntp
+                shutdown
+            exit
+            dst-zone BST
+                start last sunday march 02:00
+                end last sunday october 02:00
+            exit
+            zone GMT
+        exit
+        thresholds
+            rmon
+            exit
+            cflash-cap-alarm cf3-A: rising-threshold 1600000000 interval 3600
+            cflash-cap-alarm cf3-B: rising-threshold 1600000000 interval 3600
+            kb-memory-use-alarm rising-threshold 2833612 interval 3600
+        exit
+        lldp
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "System Security Configuration"
+#--------------------------------------------------
+    system
+        security
+            password
+                authentication-order tacplus local  exit-on-reject
+                admin-password r3p3nt
+            exit
+            tacplus
+                accounting
+                server 1 address 84.38.41.73 secret "{{ tacacs_secret }}"
+                server 2 address 84.38.41.201 secret "{{ tacacs_secret }}"
+            exit
+            user-template "tacplus_default"
+                profile "administrative"
+            exit
+            no user "admin"
+            user "networks"
+                password r3p3nt
+                access console
+                console
+                    no member "default"
+                    member "administrative"
+                exit
+            exit
+            snmp
+                view "cutdown" subtree "1"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.6.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.2.1.63"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.2.1.64"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.2.1.4.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.2.1.15.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.6.3.10.2.1"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.6.3.11.2.1"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.6.3.15.1.1"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.2.1.68.1.7.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.66"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.67"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.70"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.71"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.53"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.69"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.72"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.29.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.40.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.1.13.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.2.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.5.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.5.103"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.1"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.31.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.22.9.5"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.22.9.6"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.22.9.7"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.22.9.8"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.22.9.9"
+                    mask ff
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.33.1.82"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.51.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.51.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.63.11.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.63.11.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.63.11.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.1"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.1.1.64"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.26"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.27"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.32"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.35"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.36"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.37"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.38"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.39"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.70"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.71"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.72"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.73"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.74"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.75"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.76"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.77"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.78"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.79"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.80"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.81"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.82"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.83"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.84"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.85"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.86"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.87"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.88"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.89"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.90"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.91"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.92"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.93"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.94"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.95"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.96"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.97"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.98"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.99"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.100"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.101"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.54.1.102"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.60.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.60.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.60.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.63.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.65.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.65.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.65.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.65.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.65.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.72.1.1"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.3.72.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.26"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.19.1.39"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.19.1.40"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.19.1.41"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.21.19.1.42"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.48.19.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.48.19.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.48.19.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.48.19.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.63.11.1.1"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.63.11.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.1.3.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.1.3.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.1.3.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.1.3.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.1.4.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.2.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.4.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.4.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.4.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.4.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.6.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.35"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.36"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.37"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.41"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.42"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.43"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.11.1.52"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.26.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.26.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.3.26.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.4.1.4.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.4.2.2.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.2.2.1.52"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.2.2.1.53"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.3.3.1.49"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.3.3.1.50"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.3.5.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.4.7.1.51"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.4.7.1.52"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.14.4.10.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.3.12.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.3.12.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.3.12.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.3.12.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.4.3.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.4.8.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.4.8.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.4.8.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.4.8.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.4.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.4.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.4.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.4.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.5.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.5.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.5.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.16.27.5.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.2.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.2.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.3.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.3.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.6.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.6.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.8.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.18.2.8.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.23.2.10.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.33.1.5.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.33.1.17.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.33.1.17.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.40.1.2.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.51.1.21.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.61.1.1.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.61.1.1.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.61.1.1.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.61.1.1.1.32"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.2.3.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.5.1.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.5.1.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.5.2.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.74.5.2.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.2.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.2.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.2.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.2.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.2.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.26"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.27"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.32"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.35"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.36"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.37"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.38"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.39"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.40"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.41"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.42"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.4.1.43"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.6.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.6.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.8.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.8.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.8.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.8.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.1"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.26"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.27"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.32"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.35"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.36"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.37"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.38"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.39"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.40"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.41"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.42"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.43"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.44"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.45"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.46"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.47"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.48"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.49"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.50"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.51"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.52"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.53"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.54"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.55"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.56"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.57"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.58"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.59"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.10.1.60"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.12.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.14.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.14.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.14.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.14.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.16.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.16.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.16.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.26"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.27"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.32"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.35"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.36"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.37"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.38"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.39"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.40"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.41"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.42"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.43"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.44"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.45"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.46"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.17.1.47"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.11"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.16"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.17"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.18"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.19"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.20"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.23"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.24"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.25"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.26"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.27"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.28"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.29"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.18.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.2"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.3"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.4"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.5"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.6"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.7"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.8"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.9"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.82.1.19.1.10"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.8.2.1.1.12"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.8.2.1.1.13"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.8.2.1.1.14"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.8.2.1.1.15"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.8.2.1.1.21"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.2.8.2.1.1.22"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.12.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.12.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.12.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.12.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.16.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.16.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.1.1.20.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.6.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.6.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.6.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.6.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.8.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.8.1.34"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.17.2.2.10.1.33"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.65.1.2.1.1.30"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.65.1.2.1.1.31"
+                    mask ff type excluded
+                exit
+                view "cutdown" subtree "1.3.6.1.4.1.6527.3.1.2.65.1.2.1.1.32"
+                    mask ff type excluded
+                exit
+                access group "cutdown" security-model snmpv2c security-level no-auth-no-privacy read "cutdown" notify "cutdown"
+                usm-community kN8qpTxH group "cutdown"
+            exit
+            ssh
+                preserve-key
+            exit
+            per-peer-queuing
+            cpm-queue
+                queue 33 create
+                    rate 5 cir 5
+                exit
+            exit
+            cpu-protection
+                policy 3 create
+                    out-profile-rate 6000 log-events
+                exit
+                policy 254 create
+                exit
+                policy 255 create
+                exit
+                protocol-protection
+            exit
+            vprn-network-exceptions
+        exit
+    exit
+#--------------------------------------------------
+echo "Log Configuration"
+#--------------------------------------------------
+    log
+       filter 1
+            description "Filter for SNMP traps to Netcool"
+            entry 10
+                action drop
+                description "Drop tmnxOspfAsMaxAgeLsa traps"
+                match
+                    application eq "ospf"
+                    number eq 2026
+                exit
+            exit
+            entry 20
+                action drop
+                description "Drop tmnxConfigModify traps"
+                match
+                    application eq "system"
+                    number eq 2006
+                exit
+            exit
+            entry 30
+                action drop
+                description "Drop tmnxConfigCreate traps"
+                match
+                    application eq "system"
+                    number eq 2007
+                exit
+            exit
+            entry 40
+                action drop
+                description "Drop tmnxConfigDeletetraps"
+                match
+                    application eq "system"
+                    number eq 2008
+                exit
+            exit
+            entry 50
+                action drop
+                description "Drop tmnxTrapDropped"
+                match
+                    application eq "system"
+                    number eq 2011
+                exit
+            exit
+            entry 70
+                action drop
+                description "Drop tmnxSubAcctPlcyFailure"
+                match
+                    application eq "svcmgr"
+                    number eq 2503
+                exit
+            exit
+            entry 80
+                action drop
+                description "Drop tmnxSubAcctPlcyRadSerOperStatChg"
+                match
+                    application eq "svcmgr"
+                    number eq 2506
+                exit
+            exit
+            entry 90
+                action drop
+                description "Drop tmnxSubRadSapSubAuthError"
+                match
+                    application eq "svcmgr"
+                    number eq 2513
+                exit
+            exit
+            entry 100
+                action drop
+                description "Drop tmnxLogFileRollover"
+                match
+                    application eq "logger"
+                    number eq 2008
+                exit
+            exit
+            entry 110
+                action drop
+                description "Drop tmnxLogFileDeleted"
+                match
+                    application eq "logger"
+                    number eq 2009
+                exit
+            exit
+        exit
+        filter 90
+            default-action forward
+            description "Filter for events sent to syslog"
+            entry 10
+                action drop
+                description "Drop tmnxDhcpSvrSubnetMinFreeExc"
+                match
+                    application eq "dhcps"
+                    number eq 2001
+                exit
+            exit
+            entry 20
+                action drop
+                description "Drop tmnxConfigModify for Base DHCPS$"
+                match
+                    application eq "system"
+                    number eq 2006
+                    subject eq "Base DHCPS$" regexp
+                exit
+            exit
+            entry 30
+                action drop
+                description "Drop tmnxConfigCreate for Base DHCPS$"
+                match
+                    application eq "system"
+                    number eq 2007
+                    subject eq "Base DHCPS$" regexp
+                exit
+            exit
+            entry 40
+                action drop
+                description "Drop tmnxConfigDelete for Base DHCPS$"
+                match
+                    application eq "system"
+                    number eq 2008
+                    subject eq "Base DHCPS$" regexp
+                exit
+            exit
+           entry 50
+                action drop
+                description "Drop tmnxTrapDropped for Base DHCPS$"
+                match
+                    application eq "system"
+                    number eq 2011
+                    subject eq "Base DHCPS$" regexp
+                exit
+            exit
+            entry 60
+                action drop
+                description "Drop Base PPPoE session failure$"
+                match
+                    application eq "pppoe"
+                    number eq 2001
+                    subject eq "Base PPPoE session failure$" regexp
+                exit
+            exit
+            entry 70
+                action drop
+                description "Drop tmnxNatFwdEntryAdded"
+                match
+                    application eq "nat"
+                    number eq 2019
+                exit
+            exit
+        exit
+        filter 92
+            default-action drop
+            description "Filter for events sent to Netcool via syslog"
+            entry 20
+                action forward
+                description "forward IP events"
+                match
+                    application eq "ip"
+                exit
+            exit
+            entry 30
+                action forward
+                description "Make sure critical socket events get forwarded (#2016 and #2017)"
+                match
+                    application eq "system"
+                    number lte 2017
+                    severity eq critical
+                exit
+            exit
+            entry 40
+                action forward
+                description "Forward event bgpNoMemoryPeer"
+                match
+                    application eq "bgp"
+                    number eq 2015
+                exit
+            exit
+            entry 50
+                action forward
+                description "Forward event srrpPacketDiscarded"
+                match
+                    application eq "mc_redundancy"
+                    number eq 2025
+                exit
+            exit
+            entry 60
+                action forward
+                description "Forward event sdpKeepAliveProbeFailure"
+                match
+                    application eq "svcmgr"
+                    number eq 2309
+                exit
+            exit
+        exit
+        event-control "chassis" 2058 generate major throttle
+        event-control "chassis" 2059 generate major throttle
+        event-control "chassis" 2063 generate major throttle
+        event-control "chassis" 2098 generate major throttle
+        event-control "chassis" 2099 generate major throttle
+        event-control "chassis" 2101 generate major throttle
+        event-control "chassis" 2102 generate major throttle
+        event-control "chassis" 2103 generate major throttle
+        event-control "chassis" 2104 generate major throttle
+        event-control "chassis" 2105 generate major throttle
+        event-control "chassis" 2110 generate major throttle
+        event-control "dhcps" 2001 suppress
+        event-control "dhcps" 2013 generate major throttle
+        event-control "dhcps" 2014 suppress
+        event-control "dhcps" 2015 generate critical throttle
+        event-control "nat" 2019 generate
+        event-control "nat" 2031 generate
+        event-control "pppoe" 2001 suppress
+        event-control "pppoe" 2002 suppress
+        event-control "svcmgr" 2500 suppress
+        event-control "svcmgr" 2501 suppress
+        event-control "svcmgr" 2502 suppress
+
+        syslog 1
+            description "syslog1.nme.bllon"
+            address 84.38.45.214
+        exit
+        syslog 2
+            description "syslog1.nme.enedi"
+            address 84.38.47.214
+        exit
+        syslog 3
+            description "syslog-to-netcool-bllon"
+            address 84.38.45.208
+        exit
+        syslog 4
+            description "syslog-to-netcool-enedi"
+            address 84.38.47.208
+        exit
+        snmp-trap-group 1
+            description "Netcool SNMP trap targets"
+            trap-target "netcool-bllon" address 84.38.45.209 snmpv2c notify-community "r84MgWk7"
+            trap-target "netcool-enedi" address 84.38.47.209 snmpv2c notify-community "r84MgWk7"
+        exit
+        log-id 1
+            description "snmp-traps-to-netcool"
+            filter 1
+            time-format local
+            from main security change
+            to snmp
+        exit
+        log-id 90
+            description "syslog-to-syslog1.nme.bllon"
+            filter 90
+            time-format local
+            from main security change
+            to syslog 1
+        exit
+        log-id 91
+            description "syslog-to-syslog1.nme.enedi"
+            time-format local
+            from main security change
+            to syslog 2
+        exit
+        log-id 92
+            description "syslog-to-netcool-bllon"
+            filter 92
+            time-format local
+            from main security change
+            to syslog 3
+        exit
+        log-id 93
+            description "syslog-to-netcool-enedi"
+            filter 92
+            time-format local
+            from main security change
+            to syslog 4
+        exit
+        log-id 99
+            time-format local
+            from main security change
+        exit
+        route-preference primary inband secondary outband
+    exit
+#--------------------------------------------------
+echo "System Security Cpm Hw Filters Configuration"
+#--------------------------------------------------
+    system
+        security
+            cpm-filter
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Cflowd Configuration"
+#--------------------------------------------------
+    cflowd
+        active-timeout 1
+        cache-size 250000
+        rate 10000
+        collector 84.38.45.97:9996 version 9
+            description "[rd=sodncp01.nme.bllon] Sev1Collector"
+            template-set mpls-ip
+        exit
+    exit
+#--------------------------------------------------
+echo "QoS Policy Configuration"
+#--------------------------------------------------
+    qos
+        network-queue "network-queue-imm4-100gb-cxp" create
+            description "Network queue policy for imm4-100gb-cxp"
+            queue 1 create
+                port-parent level 3 cir-level 3
+                rate 100 cir 6
+                mbs 63.64
+                cbs 3.94
+                high-prio-only 10
+            exit
+            queue 4 expedite create
+                port-parent level 3 cir-level 5
+                rate 100 cir 53
+                mbs 13.13
+                cbs 6.95
+            exit
+            queue 5 expedite create
+                port-parent cir-level 6
+                rate 40 cir 40
+                mbs 5.25
+                cbs 5.25
+            exit
+            queue 6 expedite create
+                port-parent cir-level 7
+                rate 5 cir 1
+                mbs 1.31
+                cbs 0.26
+            exit
+            queue 9 multipoint create
+                mbs 50
+                high-prio-only 10
+            exit
+            fc be create
+                multicast-queue 9
+                queue 1
+                egress-hsmda
+                    queue 1
+                exit
+            exit
+            fc ef create
+                multicast-queue 9
+                queue 5
+                egress-hsmda
+                    queue 5
+                exit
+            exit
+            fc h2 create
+                multicast-queue 9
+                queue 4
+                egress-hsmda
+                    queue 4
+                exit
+            exit
+            fc nc create
+                multicast-queue 9
+                queue 6
+                egress-hsmda
+                    queue 6
+                exit
+            exit
+        exit
+        network-queue "network-queue-imm-2pac-fp3" create
+            description "Network queue policy for imm-2pac-fp3/p1-100g-cfp"
+            queue 1 create
+                port-parent level 3 cir-level 3
+                rate 100 cir 6
+                mbs 63.64
+                cbs 3.94
+                high-prio-only 10
+            exit
+            queue 4 expedite create
+                port-parent level 3 cir-level 5
+                rate 100 cir 53
+                mbs 13.13
+                cbs 6.95
+            exit
+            queue 5 expedite create
+                port-parent cir-level 6
+                rate 40 cir 40
+                mbs 5.25
+                cbs 5.25
+            exit
+            queue 6 expedite create
+                port-parent cir-level 7
+                rate 5 cir 1
+                mbs 1.31
+                cbs 0.26
+            exit
+            queue 9 multipoint create
+                mbs 50
+                high-prio-only 10
+            exit
+            fc be create
+                multicast-queue 9
+                queue 1
+                egress-hsmda
+                    queue 1
+                exit
+            exit
+        exit
+        slope-policy "Sky slope-policy" create
+            description "Sky slope-policy"
+            high-slope
+                shutdown
+            exit
+            low-slope
+                no shutdown
+            exit
+        exit
+        port-scheduler-policy "P-CORE-EGRESS-100G" create
+            level 3 rate max cir 6000000
+            level 5 rate max cir 53000000
+            level 6 rate 4000000 cir 40000000
+            level 7 rate 500000 cir 1000000
+        exit
+    exit
+#--------------------------------------------------
+echo "Switch Fabric Configuration"
+#--------------------------------------------------
+    sfm 1
+        sfm-type m-sfm5-12e
+        no shutdown
+    exit
+    sfm 2
+        sfm-type m-sfm5-12e
+        no shutdown
+    exit
+    sfm 3
+        sfm-type m-sfm5-12e
+        no shutdown
+    exit
+    sfm 4
+        sfm-type m-sfm5-12e
+        no shutdown
+    exit
+#------------------------------------------------t                                                                       -
+echo "Port Configuration"
+#--------------------------------------------------
+{% for key, value in core_1|dictsort %}
+    port {{ value.remote_port }}
+        description "[no-mon,core,ip=,rd={{ core_1_hostname }}:{{ value.port|replace("/","-") }},cid={{ value.cid }},iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm4-100gb-cxp"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+	    exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% for key, value in first_interconnect|dictsort %}
+    port {{ value.port_new }}
+        description "[core,ip=,rd={{ node_name }}:{{ value.port_old|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-imm40-10gb-sfp"
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% for key, value in pe_interconnect_ports|dictsort %}
+    port {{ value.port_new }}
+        description "[no-mon,core,ip=,rd={{ old_node_name }}:{{ value.port_old|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm-2pac-fp3"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+	    exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% for key, value in core_2|dictsort %}
+    port {{ value.remote_port }}
+        description "[no-mon,core,ip=,rd={{ core_2_hostname }}:{{ value.port|replace("/","-") }},cid={{ value.cid }},iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm4-100gb-cxp"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+			exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+{% endfor %}
+#--------------------------------------------------
+echo "System Sync-If-Timing Configuration"
+#--------------------------------------------------
+    system
+        sync-if-timing
+            begin
+            commit
+        exit
+    exit
+#--------------------------------------------------
+echo "LAG Configuration"
+#--------------------------------------------------
+    lag 1
+        description "[no-mon,core,ip=,rd={{ core_1_hostname }}:be{{ system_last_octet|int + 256 }},iv-s=vcdn_sc]"
+        encap-type null
+{% for key, value in core_1|dictsort %}
+	port {{ value.remote_port }}
+{% endfor %}
+	lacp active
+	port-threshold {{ ((core_1|length / 3)|round|int * 2) - 1 }}
+        no shutdown
+    exit
+    lag 2
+        description "[no-mon,core,ip=,rd={{ core_2_hostname }}:be{{ system_last_octet|int + 256 }},iv-s=vcdn_sc]"
+        encap-type null
+{% for key, value in core_2|dictsort %}
+	port {{ value.remote_port }}
+{% endfor %}
+	lacp active
+	port-threshold {{ ((core_2|length / 3)|round|int * 2) - 1 }}
+        no shutdown
+    exit
+    lag 176
+	description "[no-mon,core,ip=,rd={{ old_node_name }}:lag176,iv-s=vcdn_sc]"
+{% for key, value in pe_interconnect_ports|dictsort %}
+	port {{ value.port_new }}
+{% endfor %}
+	lacp active
+	port-threshold {{ ((pe_interconnect_ports|length / 3)|round|int * 2) - 1 }}
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Redundancy Configuration"
+#--------------------------------------------------
+    redundancy
+        synchronize config
+    exit
+#--------------------------------------------------
+echo "QoS Policy Configuration"
+#--------------------------------------------------
+    qos
+       network 10 create
+            ingress
+                dscp be fc be profile out
+                dscp ef fc ef profile in
+                dscp nc1 fc nc profile in
+                dscp af11 fc af profile in
+                dscp af41 fc h2 profile in
+                lsp-exp 0 fc be profile out
+                lsp-exp 3 fc af profile in
+                lsp-exp 4 fc h2 profile in
+                lsp-exp 5 fc ef profile in
+                lsp-exp 6 fc nc profile in
+            exit
+            egress
+                fc af
+                    dscp-out-profile af11
+                    lsp-exp-out-profile 3
+                exit
+                fc h2
+                    dscp-out-profile af41
+                exit
+                fc nc
+                    dscp-in-profile nc1
+                    dscp-out-profile nc1
+                    lsp-exp-in-profile 6
+                    lsp-exp-out-profile 6
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+    exit
+
+#--------------------------------------------------
+echo "Router (Network Side) Configuration"
+#--------------------------------------------------
+    router
+        interface "base_{{ core_1_hostname }}_1"
+            cflowd interface both
+            address {{ core_1_to_edge_address_range | ipaddr('1') }}
+            description "[no-mon,core-o,rd={{ core_1_hostname }}:be{{ system_last_octet|int + 256 }}]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port lag-1
+            qos 10
+        exit
+        interface "base_{{ core_2_hostname }}_1"
+            cflowd interface both
+            address {{ core_2_to_edge_address_range | ipaddr('1') }}
+            description "[no-mon,core-o,rd={{ core_2_hostname }}:be{{ system_last_octet|int + 256 }}]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port lag-2
+            qos 10
+        exit
+        interface "base_{{ old_node_name }}_1"
+            cflowd interface both
+            address {{ old_to_new_cdn_pe_address_range | ipaddr('1') }}
+            description "[no-mon,core-o,rd={{ old_node_name }}:{{ first_interconnect.1.port_old|replace("/","-") }}]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port {{ first_interconnect.1.port_new }}
+            qos 10
+        exit
+        interface "system"
+            address {{ system_address }}/32
+        exit
+        autonomous-system 65444
+        confederation 4589 members 65044 65444
+	ecmp 16
+#--------------------------------------------------
+echo "Static Route Configuration"
+#--------------------------------------------------
+        static-route 192.0.2.0/24 black-hole
+#--------------------------------------------------
+echo "SGT Mapping Configuration"
+#--------------------------------------------------
+        sgt-qos
+            application bgp dscp nc1
+            application cflowd dscp cs2
+            application dhcp dscp cs2
+            application dns dscp cs2
+            application ftp dscp cs2
+            application icmp dscp cs2
+            application igmp dscp nc1
+            application l2tp dscp cs2
+            application ldp dscp nc1
+            application mld dscp nc1
+            application msdp dscp nc1
+            application ndis dscp cs2
+            application ntp dscp cs2
+            application ospf dscp nc1
+            application pim dscp nc1
+            application radius dscp cs2
+            application rip dscp nc1
+            application rsvp dscp nc1
+            application snmp dscp cs2
+            application snmp-notification dscp cs2
+            application srrp dscp nc1
+            application ssh dscp cs2
+            application syslog dscp cs2
+            application tacplus dscp cs2
+            application telnet dscp cs2
+            application tftp dscp cs2
+            application traceroute dscp cs2
+            application vrrp dscp nc1
+            application arp dot1p none
+            application isis dot1p none
+            application pppoe dot1p none
+            dscp cs2 fc h2
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis
+            ignore-lsp-errors
+            level-capability level-2
+            graceful-restart
+            exit
+            area-id 49.0001
+            authentication-key i9OjcR6PJsmGEQ9b
+            authentication-type message-digest
+            lsp-lifetime 65535
+            export-limit 500 log 80
+            overload-on-boot timeout 360
+            traffic-engineering
+            advertise-passive-only
+            spf-wait 1 10 50
+            level 2
+                wide-metrics-only
+            exit
+            interface "system"
+                level-capability level-2
+                passive
+            exit
+            interface "base_{{ core_1_hostname }}_1"
+                level-capability level-2
+                hello-authentication-key {{ core_1_isis_auth }}
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 9100000
+                exit
+            exit
+            interface "base_{{ core_2_hostname }}_1"
+                level-capability level-2
+                hello-authentication-key {{ core_2_isis_auth }}
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 9100000
+                exit
+            exit
+            interface "base_{{ old_node_name }}_1"
+                level-capability level-2
+                hello-authentication-key {{ old_to_new_pe_auth }}
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 100000
+                exit
+            exit
+        exit
+#--------------------------------------------------
+echo "MPLS Configuration"
+#--------------------------------------------------
+        mpls
+            interface "system"
+            exit
+            interface "base_{{ core_1_hostname }}_1"
+            exit
+            interface "base_{{ core_2_hostname }}_1"
+            exit
+            interface "base_{{ old_node_name }}_1"
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "RSVP Configuration"
+#--------------------------------------------------
+        rsvp
+            interface "system"
+            exit
+            interface "base_{{ core_1_hostname }}_1"
+            exit
+            interface "base_{{ core_2_hostname }}_1"
+            exit
+            interface "base_{{ old_node_name }}_1"
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "MPLS LSP Configuration"
+#--------------------------------------------------
+        mpls
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "LDP Configuration"
+#--------------------------------------------------
+        ldp
+            graceful-restart
+                maximum-recovery-time 180
+            exit
+            tunnel-down-damp-time 3
+            no shortcut-transit-ttl-propagate
+            peer-parameters
+              peer {{ core_1_loopback }}
+                    authentication-key {{ core_1_ldp_auth }}
+                exit
+                peer {{ core_2_loopback }}
+                    authentication-key {{ core_2_ldp_auth }}
+                exit
+                peer {{ old_system_address }}
+                    authentication-key {{ old_to_new_cdn_ldp_auth }}
+                exit
+            exit
+            interface-parameters
+                keepalive 180 3
+                interface "base_{{ core_1_hostname }}_1"
+                exit
+                interface "base_{{ core_2_hostname }}_1"
+                exit
+		interface "base_{{ old_node_name }}_1"
+		exit
+            exit
+            targeted-session
+                hello 90 9
+                keepalive 180 3
+            exit
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service
+        customer 1 create
+            description "Default customer"
+        exit
+        vprn 99000001 customer 1 create
+            interface "loopback99"  create
+            exit
+        exit
+        vprn 99000001 customer 1 create
+            description "Test VRPN/VRF 'pe' used for testing VPN connectivity"
+            vrf-import "PE-VRF-import"
+            vrf-export "PE-VRF-export"
+            autonomous-system 65444
+            route-distinguisher 4589:99000001
+            auto-bind ldp
+            interface "loopback99"  create
+{% if system_last_octet < 1 %}
+                address 10.244.43.{{ system_last_octet + 256 }}/32
+{% else %}
+                address 10.244.43.{{ system_last_octet }}/32
+{% endif %}
+                loopback
+            exit
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "CPM Filter Router and Svc-id Match Configuration"
+#--------------------------------------------------
+    system
+        security
+            cpm-filter
+                ip-filter
+                    no shutdown
+                exit
+                ipv6-filter
+                    no shutdown
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Router (Service Side) Configuration"
+#--------------------------------------------------
+    router
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis
+        exit
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            prefix-list "system"
+                prefix {{ system_address }}/32 exact
+            exit
+            prefix-list "loopback99"
+{% if system_last_octet < 1 %}
+                prefix 10.244.43.{{ system_last_octet + 256 }}/32 exact
+{% else %}
+                prefix 10.244.43.{{ system_last_octet }}/32 exact
+{% endif %}
+            exit
+            prefix-list "no-redist-bgp"
+                prefix 0.0.0.0/0 exact
+                prefix 2.120.0.0/20 through 32
+                prefix 10.0.0.0/8 through 32
+                prefix 80.238.32.0/19 through 32
+                prefix 84.38.37.0/24 through 32
+                prefix 89.200.128.0/21 through 32
+                prefix 127.0.0.0/8 through 32
+                prefix 169.254.0.0/16 through 32
+                prefix 172.16.0.0/12 through 32
+                prefix 192.0.2.0/24 through 32
+                prefix 192.168.0.0/16 through 32
+                prefix 224.0.0.0/3 through 32
+            exit
+            prefix-list "redist-bgp-subconfed-only"
+                prefix 2.120.0.0/13 through 32
+                prefix 2.216.0.0/13 through 32
+                prefix 5.64.0.0/13 through 32
+                prefix 46.64.0.0/15 through 32
+                prefix 78.86.0.0/16 through 32
+                prefix 78.105.0.0/16 through 32
+                prefix 85.188.192.0/18 through 32
+                prefix 87.80.0.0/15 through 32
+                prefix 90.192.0.0/11 through 32
+                prefix 93.96.0.0/16 through 32
+                prefix 94.0.0.0/12 through 32
+                prefix 94.192.0.0/14 through 32
+                prefix 149.241.0.0/16 through 32
+                prefix 151.224.0.0/13 through 32
+                prefix 176.24.0.0/14 through 32
+                prefix 176.248.0.0/13 through 32
+                prefix 188.220.0.0/14 through 32
+            exit
+            community "LSR-Interface" members 4589:6 5607:6 no-export 4589:{{ site_community_id }} 5607:{{ site_community_id }}
+            community "BSKYB-OVN-WATCHMAN-NME-SNS" members "target:65444:32301"
+            community "pe-vrf-export" members target:4589:0 target:4589:99000001
+            community "pe-vrf-import" members target:4589:99000001
+            community "Subconfed-local" members 4589:4 4589:{{ site_community_id }} 5607:{{ site_community_id }} no-export-subconfed
+            community "Domestic-subconfed" members 4589:5 no-export 4589:{{ site_community_id }} 5607:{{ site_community_id }}
+            policy-statement "PE-VRF-export"
+                description "Test VRPN/VRF 'pe' used for testing VPN connectivity"
+                entry 10
+                    from
+                        protocol direct
+                        prefix-list "loopback99"
+                    exit
+                    to
+                        protocol bgp-vpn
+                    exit
+                    action accept
+                        community add "pe-vrf-export"
+                        origin incomplete
+                        metric set 0
+                    exit
+                exit
+            exit
+            policy-statement "PE-VRF-import"
+                description "Test VRPN/VRF 'pe' used for testing VPN connectivity"
+                entry 10
+                    from
+                        community "pe-vrf-import"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP"
+                entry 10
+                    description "Do not send system address to IPv4 RRs"
+                    from
+                        protocol direct
+                        prefix-list "system"
+                    exit
+                    action reject
+                exit
+                entry 20
+                    description "Connected routes in prefix-list no-redist-bgp should not be redistributed"
+                    from
+                        protocol direct
+                        prefix-list "no-redist-bgp"
+                    exit
+                    action reject
+                exit
+                entry 30
+                    description "Pfxs in redist-bgp-subconfed-only: tag with 4589:4, local-AS & location"
+                    from
+                        protocol direct
+                        prefix-list "redist-bgp-subconfed-only"
+                    exit
+                    action accept
+                        community add "Subconfed-local"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+                entry 40
+                    description "All other connected routes: tag with 4589:5, no-export & location"
+                    from
+                        protocol direct
+                    exit
+                    action accept
+                        community add "Domestic-subconfed"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+                entry 50
+                    description "Static routes in prefix-list no-redist-bgp should not be redistributed"
+                    from
+                        protocol static
+                        prefix-list "no-redist-bgp"
+                    exit
+                    action reject
+                exit
+                entry 60
+                    description "Statics in redist-bgp-subconfed-only: tag with 4589:4, local-AS & location"
+                    from
+                        protocol static
+                        prefix-list "redist-bgp-subconfed-only"
+                    exit
+                    action accept
+                        community add "Subconfed-local"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+                entry 65
+                    description "Statics tagged with 290581: add 4589:5, no-export & location"
+                    from
+                        protocol static
+                        tag 290581
+                    exit
+                    action accept
+                        community add "Domestic-subconfed"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP-LABELLED-UNICAST"
+                description "IPv4 labelled-unicast session with the VPVv4 route reflectors for inter-AS VPNs"
+                entry 10
+                    description "Only send system address to VPNv4 RRs, add 4589:6, no-export & location"
+                    from
+                        protocol direct
+                        prefix-list "system"
+                    exit
+                    action accept
+                        community add "LSR-Interface"
+                        origin igp
+                        metric set 0
+                    exit
+                exit
+                default-action reject
+            exit
+            commit
+        exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            graceful-restart
+            exit
+            best-path-selection
+                always-compare-med infinity
+            exit
+            min-route-advertisement 3
+            igp-shortcut ldp
+            path-mtu-discovery
+            no enable-peer-tracking
+            rapid-withdrawal
+            group "internal-ipv4"
+                family ipv4
+                damping
+                next-hop-self
+                type internal
+                export "EXPORT-TO-IBGP"
+                disable-communities extended
+                neighbor 89.200.128.88
+                    description "rr0.bllon"
+                    authentication-key {{ rr0_bllon_bgp_auth }}
+                exit
+                neighbor 89.200.128.90
+                    description "rr0.enlba"
+                    authentication-key {{ rr0_enlba_bgp_auth }}
+                exit
+            exit
+            group "internal-VPNv4"
+                family ipv4 vpn-ipv4
+                type internal
+                export "EXPORT-TO-IBGP-LABELLED-UNICAST"
+                neighbor 89.200.128.89
+                    description "rr1.bllon"
+                    authentication-key {{ rr1_bllon_bgp_auth }}
+                    advertise-label ipv4
+                exit
+                neighbor 89.200.128.91
+                    description "rr1.enlba"
+                    authentication-key {{ rr1_enlba_bgp_auth }}
+                    advertise-label ipv4
+                exit
+            exit
+            group "internal-ipv6"
+                family ipv6
+                damping
+                next-hop-self
+                type internal
+                export "EXPORT-TO-IBGP6"
+                disable-communities extended
+                neighbor 89.200.128.12
+                    description "rr3.bllon"
+                    authentication-key {{ rr3_bllon_bgp_auth }}
+                    advertise-label ipv6
+                exit
+                neighbor 89.200.128.14
+                    description "rr3.enlba"
+                    authentication-key {{ rr3_enlba_bgp_auth }}
+                    advertise-label ipv6
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Source IP Address Configuration"
+#--------------------------------------------------
+    system
+        security
+            source-address
+                application tacplus "system"
+                application cflowd "system"
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "System Time NTP Configuration"
+#--------------------------------------------------
+    system
+        time
+            ntp
+            exit
+        exit
+    exit
+exit all

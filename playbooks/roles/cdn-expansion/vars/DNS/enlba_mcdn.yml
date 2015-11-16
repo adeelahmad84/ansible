@@ -1,0 +1,33 @@
+---
+hostname: ar10.enlba
+site_id: enlba
+cdn: mcdn
+ies: 
+lag: 
+ipv4: "90.211.179.64/26"
+ipv6: "2a02:c7a:8000:130c::/64"
+#array:
+#  1:
+#    port: 1/1/1
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 3 of LAG 40 to HP2910 Akamai Managed Switch"
+#  2:
+#    port: 1/1/2
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 4 of LAG 40 to HP2910 Akamai Managed Switch"
+#  3:
+#    port: 1/1/3
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 5 of LAG 40 to HP2910 Akamai Managed Switch"
+#  4:
+#    port: 1/1/4
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 6 of LAG 40 to HP2910 Akamai Managed Switch"
+#  5:
+#    port: 1/1/5
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 7 of LAG 40 to HP2910 Akamai Managed Switch"
+#  6:
+#    port: 1/1/6
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 8 of LAG 40 to HP2910 Akamai Managed Switch"
+#  7:
+#    port: 1/1/7
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 9 of LAG 40 to HP2910 Akamai Managed Switch"
+#  8:
+#    port: 1/1/8
+#    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 10 of LAG 40 to HP2910 Akamai Managed Switch"

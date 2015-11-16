@@ -1,0 +1,589 @@
+---
+system_address: "89.200.128.177"
+system_last_octet: "-79"
+
+location: "Rack H/I02 Console: 10.200.24.105 port 12 (SFM A) / port 13 (SFM B)"
+dcn_primary_address: "10.200.24.137"
+dcn_secondary_address: "10.200.24.138"
+
+old_dcn_pri: '10.200.24.72'
+old_dcn_sec: '10.200.24.73'
+old_console: '10.200.24.99 port 13 (SFM A), port 14 (SFM B)'
+decom_tg: 2437
+
+node_name: ar11-cdn.hobir
+tacacs_secret: AmFuqVfQpquhTE2Q
+
+cards:
+  - 6
+  - 7
+
+#old_device_details
+old_node_name: ar10.hobir
+old_system_address: '84.38.34.30'
+old_last_octet: 30
+
+old_core_1_lag:
+  1:
+    lag: 3
+    description: "[core,ip=,rd=pr2.hobir:be286,iv-s=vcdn_sc]"
+
+old_core_2_lag:
+  1:
+    lag: 4
+    description: "[core,ip=,rd=pr3.hobir:be286,iv-s=vcdn_sc]"
+
+core_1_hostname: pr2.hobir
+core_1_loopback: "89.200.128.102"
+core_2_hostname: pr3.hobir
+core_2_loopback: "89.200.128.116"
+
+core_1:
+  1:
+    port: "2/0/0"
+    old_port: "5/1/1"
+    remote_port: "1/1/1"
+    cid: LOCAL
+  2:
+    port: "2/0/2"
+    old_port: "5/2/1"
+    remote_port: "1/1/2"
+    cid: LOCAL
+  3:
+    port: "1/0/0"
+    old_port: "5/2/1"
+    remote_port: "1/1/3"
+    cid: LOCAL
+
+core_2:
+  1:
+    port: "2/0/0"
+    old_port: "6/1/1"
+    remote_port: "9/1/1"
+    cid: LOCAL
+  2:
+    port: "2/0/1"
+    old_port: "3/1/1"
+    remote_port: "9/1/2"
+    cid: LOCAL
+  3:
+    port: "2/0/3"
+    old_port: "3/2/1"
+    remote_port: "9/1/3"
+    cid: LOCAL
+
+first_interconnect:
+  1:
+    port_old:
+    port_new:
+
+pe_interconnect_ports:
+  1:
+    port_old: "5/1/1"
+    port_new: "6/1/1"
+
+  2:
+    port_old: "5/2/1"
+    port_new: "6/2/1"
+
+  3:
+    port_old: "6/2/1"
+    port_new: "7/1/1"
+
+core_1_to_edge_address_range: '89.200.131.225/31'
+core_2_to_edge_address_range: '89.200.132.49/31'
+old_to_new_cdn_pe_address_range: '2.127.8.94/31'
+old_to_new_cdn_ldp_auth: KoJab1ZMPNrwhnqM
+
+core_1_isis_auth: 7kk3IYpKwwLNhKTB
+core_2_isis_auth: Yy8x0iASrCDQth2m
+old_to_new_pe_auth: w4axZeTgp22ovWjK
+
+isis_metric: "100000"
+
+core_1_ldp_auth: 1GMRBnCCfzF8U7HO
+core_2_ldp_auth: mf8k8h9mllgyKUOF
+
+rr0_bllon_bgp_auth: j3OIQnVTofPJwNHR
+rr0_enlba_bgp_auth: 2vBLCnHEEjMxeRMP
+rr1_bllon_bgp_auth: 4kiWLq46foRWkCci
+rr1_enlba_bgp_auth: C3cQpu6qwzPuKbi9
+rr3_bllon_bgp_auth: VDZCX79FpfsatBVg
+rr3_enlba_bgp_auth: k7f635LjjkLQ9Kqb
+
+old_rr0_bllon_bgp_auth: j3OIQnVTofPJwNHR
+old_rr0_enlba_bgp_auth: 2vBLCnHEEjMxeRMP
+old_rr1_bllon_bgp_auth: 4kiWLq46foRWkCci
+old_rr1_enlba_bgp_auth: C3cQpu6qwzPuKbi9
+old_rr3_bllon_bgp_auth: VDZCX79FpfsatBVg
+old_rr3_enlba_bgp_auth: k7f635LjjkLQ9Kqb
+
+cdn_services_id:
+#  ggc:
+#    cdn: "google"
+#    entry: "25"
+#    v6entry: "295"
+#    svc_comm_id: "1003"
+#    cust_id: "16"
+#    v4_1: "2.127.251.64/26"
+#    v4_2: "2.127.251.128/26"
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:205::/64"
+#    v6_2: "2A02:C7A:8000:206::/64"
+
+#  aanp:
+#    cdn: "aanp"
+#    entry: "26"
+#    v6entry: "294"
+#    svc_comm_id: "1001"
+#    cust_id: "20"
+#    v4_1: "176.255.246.0/25"
+#    v4_2:
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:201::/64"
+#    v6_2:
+#
+#  mcdn:
+#    cdn: "AANP MCDN"
+#    entry: "27"
+#    v6entry: "296"
+#    svc_comm_id: "1002"
+#    cust_id: "21"
+#    v4_1: "90.197.188.0/25"
+#    v4_2: "90.197.188.128/25"
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:204::/64"
+#    v6_2: "2A02:C7A:8000:20C::/64"
+
+#  videocdn:
+#    cdn: "VideoCDN - CiscoCDS"
+#    entry:
+#    v6entry:
+#    svc_comm_id:
+#    cust_id: "12"
+#    v4_1: "90.223.205.144/28"
+#    v4_2: "90.223.206.0/28"
+#    v4_3:
+#    v6_1:
+#    v6_2:
+#
+#  l3dec:
+#    cdn: "l3dec"
+#    entry: "29"
+#    v6entry: "298"
+#    svc_comm_id: "1004"
+#    cust_id: "12"
+#    v4_1: "2.127.242.0/27"
+#    v4_2: "2.127.242.96/27"
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:208::/64"
+#    v6_2: "2A02:C7A:8000:20F::/64"
+
+#  l3glo:
+#    name: "level3-glo"
+#    cdn: "Level3-global"
+#    entry: "28"
+#    v6entry: "299"
+#    svc_comm_id: "1005"
+#    cust_id: "12"
+#    v4_1: "2.127.242.32/27"
+#    v4_2: "2.127.242.64/27"
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:20A::/64"
+#    v6_2: "2A02:C7A:8000:20D::/64"
+#
+#  nflx:
+#    name: "netflix"
+#    cdn: "netflix"
+#    entry: "24"
+#    v6entry: "297"
+#    svc_comm_id: "1006"
+#    cust_id: "27"
+#    v4_1: "90.223.194.208/29"
+#    v4_2: "90.208.115.0/28"
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:207::/64"
+#    v6_2: "2A02:C7A:8000:211::/64"
+
+#  dvn:
+#    name: "dvn"
+#    cdn: "CDN-DVN-Origin Cache Farm"
+#    entry: "27"
+#    v6entry: "297"
+#    svc_comm_id: "1002"
+#    cust_id: "48"
+#    v4_1: "90.223.229.0/26"
+#    v4_2: "90.223.230.0/26"
+#    v4_3:
+#    v6_1: "2a02:c7a:8000:1004::/64"
+#    v6_2: "2a02:c7a:8000:1008::/64"
+
+services:
+#  aanp_data1:
+#    cust_id: "20"
+#    ipv4: "176.255.246.0/25"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:201::/64"
+#    ies_id: "220201"
+#    ies_desc: "ext,iv-g=aanp,iv-s=cdn_aanp] Akamai AANP"
+#    vpls_id:
+#    lag: "51"
+#    lag_desc: "[ext,iv-g=aanp,iv-s=cdn_aanp] LAG_51 to AANP_1 Aggregation"
+#    array:
+#      1:
+#        old_port: "2/1/5"
+#        new_port: "5/1/21"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of Port-Channel 51 to Akamai Managed  HP Switch Slot A P_1 for AANP"
+#      2:
+#        old_port: "2/1/6"
+#        new_port: "5/1/22"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of Port-Channel 51 to Akamai Managed HP Switch Slot A P_2 for AANP"
+
+#  ggc_data1:
+#    ipv4: "2.127.251.64/26"
+#    ipv6: "2A02:C7A:8000:205::/64"
+#    vpls_id: "220105"
+#    ies_id: "220102"
+#    ies_desc: "ext,iv-g=ggc,iv-s=cdn_ggc] Google GGC Data Farm A"
+#  #enter 'true' or 'false' below
+#    1G: false
+#    lag:
+#    ggc_mgt:
+#      ipv4:
+#      ies:
+#    cust_id: "16"
+#    array:
+#          1:
+#            old_port: "7/1/1"
+#            new_port: "4/1/17"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server A"
+#          2:
+#            old_port: "7/1/2"
+#            new_port: "4/1/18"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server B"
+#          3:
+#            old_port: "1/1/7"
+#            new_port: "4/1/19"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server C"
+#          4:
+#            old_port: "1/1/8"
+#            new_port: "4/1/20"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server D"
+#          5:
+#            old_port: "1/1/9"
+#            new_port: "4/1/21"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server E"
+#          6:
+#            old_port: "4/1/1"
+#            new_port: "4/1/22"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server F"
+#          7:
+#            old_port: "4/1/2"
+#            new_port: "4/1/23"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server G"
+#          8:
+#            old_port: "4/1/3"
+#            new_port: "4/1/24"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server H"
+#  ggc_data2:
+#    ipv4: "2.127.251.128/26"
+#    ipv6: "2A02:C7A:8000:206::/64"
+#    vpls_id: "220111"
+#    ies_id: "220103"
+#    ies_desc: "[ext,iv-g=ggc,iv-s=cdn_ggc] Google GGC Data Farm B"
+#  #enter 'true' or 'false' below
+#    1G: false
+#    lag:
+#    ggc_mgt:
+#      ipv4:
+#      ies:
+#    cust_id: "16"
+#    array:
+#          1:
+#            old_port: "10/1/1"
+#            new_port: "4/1/29"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server I"
+#          2:
+#            old_port: "10/1/2"
+#            new_port: "4/1/30"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server J"
+#          3:
+#            old_port: "10/1/3"
+#            new_port: "4/1/31"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server K"
+#          4:
+#            old_port: "10/1/5"
+#            new_port: "4/1/32"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server L"
+#          5:
+#            old_port: "10/1/6"
+#            new_port: "4/1/33"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server M"
+#          6:
+#            old_port: "10/1/7"
+#            new_port: "4/1/34"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server N"
+#          7:
+#            old_port: "10/1/8"
+#            new_port: "4/1/35"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server O"
+#          8:
+#            old_port: "10/1/9"
+#            new_port: "4/1/36"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] Google server P"
+#  mcdn_data1:
+#    ipv4: "90.197.188.128/25"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:20C::/64"
+#    ies_id: "220302"
+#    ies_desc: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-2"
+#    vpls_id:
+#    lag: "62"
+#    lag_desc: "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX7 FOC1608R13Y RACK_H/I004"
+#    cust_id: "21"
+#    array:
+#          1:
+#            old_port: "9/1/7"
+#            new_port: "5/1/1"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/39"
+#          2:
+#            old_port: "9/1/8"
+#            new_port: "5/1/2"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/40"
+#          3:
+#            old_port: "9/1/9"
+#            new_port: "5/1/3"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/41"
+#          4:
+#            old_port: "9/1/10"
+#            new_port: "5/1/4"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/42"
+#          5:
+#            old_port: "9/1/11"
+#            new_port: "5/1/5"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/43"
+#          6:
+#            old_port: "9/1/12"
+#            new_port: "5/1/6"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/44"
+#          7:
+#            old_port: "7/1/5"
+#            new_port: "5/1/7"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/45"
+#          8:
+#            old_port: "7/1/6"
+#            new_port: "5/1/8"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/46"
+#          9:
+#            old_port: "9/1/5"
+#            new_port: "5/1/9"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/47"
+#          10:
+#            old_port: "9/1/6"
+#            new_port: "5/1/10"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/48"
+
+#  mcdn_data2:
+#    ipv4: "90.197.188.0/25"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:204::/64"
+#    ies_id: "220301"
+#    ies_desc: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-1"
+#    vpls_id:
+#    lag: "61"
+#    lag_desc: "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX6 FOC1608R15N RACK_H/I004"
+#    cust_id: "21"
+#    array:
+#          1:
+#            old_port: "4/1/7"
+#            new_port: "5/1/11"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/39"
+#          2:
+#            old_port: "4/1/8"
+#            new_port: "5/1/12"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/40"
+#          3:
+#            old_port: "4/1/9"
+#            new_port: "5/1/13"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/41"
+#          4:
+#            old_port: "4/1/10"
+#            new_port: "5/1/14"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/42"
+#          5:
+#            old_port: "4/1/11"
+#            new_port: "5/1/15"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/43"
+#          6:
+#            old_port: "4/1/12"
+#            new_port: "5/1/16"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/44"
+#          7:
+#            old_port: "4/1/5"
+#            new_port: "5/1/17"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/45"
+#          8:
+#            old_port: "4/1/6"
+#            new_port: "5/1/18"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/46"
+#          9:
+#            old_port: "2/1/9"
+#            new_port: "5/1/19"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/47"
+#          10:
+#            old_port: "2/1/10"
+#            new_port: "5/1/20"
+#            description: "ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/48"
+
+#  l3dec1:
+#    ipv4: "2.127.242.0/27"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:208::/64"
+#    ies_id: "220000"
+#    ies_desc: "ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server Content"
+#    vpls_id:
+#    lag: "11"
+#    lag_desc: "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server A Content  - LAG_11 to L3 Force10 Agg Switch Rack_1"
+#    cust_id: "12"
+#    array:
+#          1:
+#            old_port: "9/1/1"
+#            new_port: "4/1/3"
+#            description: "ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server Content - Link 1 of LAG to L3 Force10 Agg Switch"
+#          2:
+#            old_port: "9/1/2"
+#            new_port: "4/1/4"
+#            description: "ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server Content - Link 2 of LAG to L3 Force10 Agg Switch"
+#
+#  l3dec2:
+#    ipv4: "2.127.242.96/27"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:20F::/64"
+#    ies_id: "22062"
+#    ies_desc: "ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server content Rack_4"
+#    vpls_id:
+#    lag: "14"
+#    lag_desc: "[ext,iv-g=l3dec,iv-s=cdn_l3dec]L3 DEC Server content - Lag to L3 Force10 agg Switch Rack_D"
+#    cust_id: "12"
+#    array:
+#          1:
+#            old_port: "2/1/11"
+#            new_port: "4/1/1"
+#            description: "ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server content - Link 1 of Lag to L3 DEC_2 Force10 agg Switch Rack_4"
+#          2:
+#            old_port: "2/1/12"
+#            new_port: "4/1/2"
+#            description: "ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server content - Link 2 of Lag to L3 DEC_2 Force10 agg Switch Rack_4"
+
+#  netflix1:
+#    ipv4: "90.223.194.208/29"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:207::/64"
+#    ies_id: "220401"
+#    ies_desc: "ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-C Gateway IP"
+#    vpls_id: "220402"
+#    lag: "40"
+#    cust_id: "27"
+#    array:
+#          40:
+#            old_port: "7/1/12"
+#            new_port: "5/1/11"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server A"
+#          40:
+#            old_port: "7/1/11"
+#            new_port: "5/1/12"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server A"
+#          41:
+#            old_port: "7/1/10"
+#            new_port: "5/1/13"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server B"
+#          41:
+#            old_port: "7/1/9"
+#            new_port: "5/1/14"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server B"
+#          42:
+#            old_port: "7/1/8"
+#            new_port: "5/1/15"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server C"
+#          42:
+#            old_port: "7/1/7"
+#            new_port: "5/1/16"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server C"
+#
+#  netflix2:
+#    ipv4: "90.208.115.0/28"
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6: "2A02:C7A:8000:211::/64"
+#    ies_id: "220411"
+#    ies_desc: "ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-C Gateway IP"
+#    vpls_id: "220412"
+#    lag: "43"
+#    cust_id: "27"
+#    array:
+#          43:
+#            old_port: "1/1/1"
+#            new_port: "4/1/5"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+#          43:
+#            old_port: "1/1/2"
+#            new_port: "4/1/6"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+#          44:
+#            old_port: "1/1/3"
+#            new_port: "4/1/7"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server E"
+#          44:
+#            old_port: "1/1/4"
+#            new_port: "4/1/8"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server E"
+#          45:
+#            old_port: "1/1/5"
+#            new_port: "4/1/9"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server F"
+#          45:
+#            old_port: "1/1/6"
+#            new_port: "4/1/10"
+#            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server F"
+
+  dvn:
+    ipv4: "90.208.115.0/28"
+    ipv4_2:
+    ipv4_3:
+    ipv6: "2A02:C7A:8000:211::/64"
+    ies_id: "220411"
+    ies_desc: "ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-C Gateway IP"
+    vpls_id: "220412"
+    lag: "43"
+    cust_id: "27"
+    array:
+          43:
+            old_port: "1/1/1"
+            new_port: "4/1/5"
+            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+          43:
+            old_port: "1/1/2"
+            new_port: "4/1/6"
+            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+          44:
+            old_port: "1/1/3"
+            new_port: "4/1/7"
+            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server E"
+          44:
+            old_port: "1/1/4"
+            new_port: "4/1/8"
+            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server E"
+          45:
+            old_port: "1/1/5"
+            new_port: "4/1/9"
+            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server F"
+          45:
+            old_port: "1/1/6"
+            new_port: "4/1/10"
+            description: "ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server F"

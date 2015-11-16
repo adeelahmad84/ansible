@@ -1,0 +1,89 @@
+rr0.bllon
+-----------------------------
+router bgp 65444
+ neighbor 89.200.128.128 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 89.200.128.128 description ar10.encax
+ neighbor 89.200.128.128 password 7 0725386065052B520F380A02507B73032B
+ !
+ address-family ipv4
+ neighbor 89.200.128.128 activate
+ neighbor 89.200.128.128 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr0.enlba
+-----------------------------
+router bgp 65444
+ neighbor 89.200.128.128 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 89.200.128.128 description ar10.encax
+ neighbor 89.200.128.128 password 7 14023E081A53047C3506151305240D1557
+ !
+ address-family ipv4
+ neighbor 89.200.128.128 activate
+ neighbor 89.200.128.128 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr1.bllon
+-----------------------------
+router bgp 65444
+ neighbor 89.200.128.128 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 89.200.128.128 description ar10.encax
+ neighbor 89.200.128.128 password 7 1232370F262A021012097C1A301D0A2924
+ !
+ address-family ipv4
+ neighbor 89.200.128.128 activate
+ neighbor 89.200.128.128 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 89.200.128.128 activate
+ neighbor 89.200.128.128 send-community extended
+ neighbor 89.200.128.128 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr1.enlba
+-----------------------------
+router bgp 65444
+ neighbor 89.200.128.128 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 89.200.128.128 description ar10.encax
+ neighbor 89.200.128.128 password 7 106122213D1A25065B1D0E38372A260F0D
+ !
+ address-family ipv4
+ neighbor 89.200.128.128 activate
+ neighbor 89.200.128.128 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 89.200.128.128 activate
+ neighbor 89.200.128.128 send-community extended
+ neighbor 89.200.128.128 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr3.bllon
+-----------------------------
+router bgp 65444
+ neighbor 89.200.128.128 inherit peer-session CORE-RR-client
+ neighbor 89.200.128.128 description ar10.encax
+ neighbor 89.200.128.128 password 7 023E0B5358070A311B4B1C00041F471F04
+ !
+ address-family ipv6
+  neighbor 89.200.128.128 activate
+  neighbor 89.200.128.128 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!
+
+rr3.enlba
+-----------------------------
+router bgp 65444
+ neighbor 89.200.128.128 inherit peer-session CORE-RR-client
+ neighbor 89.200.128.128 description ar10.encax
+ neighbor 89.200.128.128 password 7 104D011C131E17380453232E37203C6411
+ !
+ address-family ipv6
+  neighbor 89.200.128.128 activate
+  neighbor 89.200.128.128 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!

@@ -1,0 +1,203 @@
+Slice breakout on pr3.bllon. Weight the traffic off the below links as members of these bundles will flap when we apply the slice configuration.
+
+Use the isisweight script with the below parameters
+
+pr3.bllon, BE285
+pr3.bllon, BE104
+
+After traffic has been weighted off the below links, proceed with the breakout configuration. When the configuration is applied, we will see flapping on any of the circuits attached. Turn on term mon and when the slices are up and we see no further flapping we can weight traffic back onto the bundles.
+
+pr3.bllon
+=========
+term mon
+conf t
+hw-module location 0/2/CPU0 slice 3 breakout 10G
+
+Give the line cards about 5 minutes to perform the slice commands.
+
+Ensure the slices are all up
+
+show platform | inc 0/2
+
+Ensure the ten gig ports are now visible.
+
+show int desc | inc 0/2/0/6/
+show int desc | inc 0/2/0/7/
+
+perform a "show log" to ensure all flapping on the line card 2 have ceased. If this is the case, please weight traffic back onto the bundles below.
+
+Use the isisweight script with the below parameters
+
+pr3.bllon, BE285
+pr3.bllon, BE104
+
+SNMP mibd_interface process restart
+
+========================================================================
+pr3.bllon - Pre-checks
+========================================================================
+
+Wed Aug 19 01:19:23.508 BST
+
+RP/0/RP0/CPU0:pr3.bllon#show processes mibd_interface
+Wed Aug 19 01:23:02.973 BST
+Job Id: 163
+PID: 6097
+Process name: mibd_interface
+Executable path: /opt/cisco/XR/packages/iosxr-infra.rp-5.2.3/bin/mibd
+Instance #: 1
+Args: -g interface
+Version ID: 00.00.0000
+Respawn: ON
+Respawn count: 1
+Last started: Fri Jul 24 03:35:10 2015
+Process state: Run
+Package state: Normal
+Process group: netmgmt
+core: MAINMEM
+Max. core: 0
+Placement: None
+startup_path: /opt/cisco/XR/packages/iosxr-infra.rp-5.2.3/startup/mibd_interface.startup
+Ready: 0.256s
+Process cpu time: 1819.840 user, 875.620 kernel, 2695.460 total
+JID TID Stack pri state NAME rt_pri
+163 6097 0K 20 Sleeping mibd 0
+163 6114 0K 20 Sleeping lwm_debug_threa 0
+163 6115 0K 20 Sleeping mibd 0
+163 6116 0K 20 Sleeping lwm_service_thr 0
+163 6117 0K 20 Sleeping qsm_service_thr 0
+163 6119 0K 20 Sleeping mibd 0
+163 6228 0K 20 Sleeping mibd 0
+163 6229 0K 20 Sleeping mibd 0
+163 6232 0K 20 Sleeping aaa_tty_th 0
+163 6233 0K 20 Sleeping aaa_util_th 0
+163 6234 0K 20 Sleeping aaa_client_th 0
+163 6235 0K 20 Sleeping mibd 0
+163 6255 0K 20 Sleeping mibd 0
+163 6256 0K 20 Sleeping mibd 0
+163 6257 0K 20 Sleeping mibd 0
+163 6260 0K 20 Sleeping mibd 0
+163 6307 0K 20 Sleeping mibd 0
+163 6308 0K 20 Sleeping async 0
+163 21172 0K 20 Sleeping mibd 0
+163 21180 0K 20 Sleeping mibd 0
+-------------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr3.bllon#
+
+
+
+Confirm if alias not pulling any description from scripts2:
+
+adeel.ahmad@scripts2:~$
+
+adeel.ahmad@scripts2:~$ /usr/bin/snmpwalk -v 2c -c kN8qpTxH pr3.bllon 1.3.6.1.2.1.31.1.1.1.1.758
+adeel.ahmad@scripts2:~$
+
+adeel.ahmad@scripts2:~$ /usr/bin/snmpwalk -v 2c -c kN8qpTxH pr3.bllon 1.3.6.1.2.1.31.1.1.1.18.758
+IF-MIB::ifAlias.758 = STRING:
+adeel.ahmad@scripts2:~$
+
+
+========================================================================
+pr3.bllon - Implementation
+========================================================================
+
+RP/0/RP0/CPU0:pr3.bllon#term mon
+Wed Aug 19 01:23:57.613 BST
+RP/0/RP0/CPU0:pr3.bllon#process restart mibd_interface
+Wed Aug 19 01:24:10.959 BST
+RP/0/RP0/CPU0:Aug 19 01:24:11.179 : sysmgr_control[66567]: %OS-SYSMGR-4-PROC_RESTART_NAME : User adeel.ahmad (vty0) requested a restart of process mibd_interface at 0/RP0/CPU0
+RP/0/RP0/CPU0:pr3.bllon#
+RP/0/RP0/CPU0:pr3.bllon#
+
+
+========================================================================
+pr3.bllon - Post-checks
+========================================================================
+Confirm NOC are not seeing any unexpected alarms for NCS
+
+adeel.ahmad@scripts2:~$ /usr/bin/snmpwalk -v 2c -c kN8qpTxH pr3.bllon 1.3.6.1.2.1.31.1.1.1.1.758
+adeel.ahmad@scripts2:~$ /usr/bin/snmpwalk -v 2c -c kN8qpTxH pr3.bllon 1.3.6.1.2.1.31.1.1.1.18.758
+IF-MIB::ifAlias.758 = STRING: [core-o,rd=sr10.eneve:1-1-2,cid=SNS:1000/EVMA-LNBL/10GLAN/OVN2,iv-s=bb]
+adeel.ahmad@scripts2:~$
+
+
+RP/0/RP0/CPU0:pr3.bllon#show processes mibd_interface
+Wed Aug 19 01:25:23.637 BST
+Job Id: 163
+PID: 21530
+Process name: mibd_interface
+Executable path: /opt/cisco/XR/packages/iosxr-infra.rp-5.2.3/bin/mibd
+Instance #: 1
+Args: -g interface
+Version ID: 00.00.0000
+Respawn: ON
+Respawn count: 2
+Last started: Wed Aug 19 01:24:11 2015
+Process state: Run (last exit due to SIGTERM)
+Package state: Normal
+Process group: netmgmt
+core: MAINMEM
+Max. core: 0
+Placement: None
+startup_path: /opt/cisco/XR/packages/iosxr-infra.rp-5.2.3/startup/mibd_interface.startup
+Ready: 0.264s
+Process cpu time: 1.400 user, 0.250 kernel, 1.650 total
+JID TID Stack pri state NAME rt_pri
+163 21530 0K 20 Sleeping mibd 0
+163 21531 0K 20 Sleeping lwm_debug_threa 0
+163 21532 0K 20 Sleeping mibd 0
+163 21533 0K 20 Sleeping lwm_service_thr 0
+163 21534 0K 20 Sleeping qsm_service_thr 0
+163 21536 0K 20 Sleeping mibd 0
+163 21537 0K 20 Sleeping mibd 0
+163 21538 0K 20 Sleeping mibd 0
+163 21539 0K 20 Sleeping aaa_tty_th 0
+163 21540 0K 20 Sleeping aaa_util_th 0
+163 21541 0K 20 Sleeping aaa_client_th 0
+163 21542 0K 20 Sleeping mibd 0
+163 21543 0K 20 Sleeping mibd 0
+163 21544 0K 20 Sleeping async 0
+163 21551 0K 20 Sleeping mibd 0
+163 21552 0K 20 Sleeping mibd 0
+163 21553 0K 20 Sleeping mibd 0
+163 21555 0K 20 Sleeping mibd 0
+163 21556 0K 20 Sleeping mibd 0
+163 21557 0K 20 Sleeping mibd 0
+-------------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr3.bllon#
+
+RP/0/RP0/CPU0:pr3.bllon#sh log last 50
+Wed Aug 19 01:25:42.651 BST
+Syslog logging: enabled (0 messages dropped, 0 flushes, 0 overruns)
+Console logging: Disabled
+Monitor logging: level debugging, 2743 messages logged
+Trap logging: level informational, 62650 messages logged
+Logging to 84.38.45.6, 12530 message lines logged
+Logging to 84.38.45.208, 12530 message lines logged
+Logging to 84.38.45.219, 12530 message lines logged
+Logging to 84.38.47.208, 12530 message lines logged
+Logging to 84.38.47.219, 12530 message lines logged
+Buffer logging: level debugging, 23779 messages logged
+
+Log Buffer (10485760 bytes):
+
+LC/0/7/CPU0:Aug 19 01:08:10.572 : npu_driver[239]: %L2-PLIM_ETHER-6-TRANSCEIVER_INSERTED : Interface TenGigE0/2/0/6/6, Optic Interface Module inserted
+LC/0/7/CPU0:Aug 19 01:08:10.572 : npu_driver[239]: %L2-PLIM_ETHER-6-TRANSCEIVER_INSERTED : Interface TenGigE0/2/0/6/7, Optic Interface Module inserted
+LC/0/7/CPU0:Aug 19 01:08:10.572 : npu_driver[239]: %L2-PLIM_ETHER-6-TRANSCEIVER_INSERTED : Interface TenGigE0/2/0/6/8, Optic Interface Module inserted
+LC/0/7/CPU0:Aug 19 01:08:10.572 : npu_driver[239]: %L2-PLIM_ETHER-6-TRANSCEIVER_INSERTED : Interface TenGigE0/2/0/6/9, Optic Interface Module inserted
+RP/0/RP1/CPU0:Aug 19 01:08:26.788 : syslog_dev[116]: invmgr_proxy[310]: Uninitialized handle passed to function wavl_search
+RP/0/RP1/CPU0:Aug 19 01:08:27.090 : syslog_dev[116]: invmgr_proxy[310]: Uninitialized handle passed to function wavl_search
+RP/0/RP1/CPU0:Aug 19 01:08:27.394 : syslog_dev[116]: invmgr_proxy[310]: Uninitialized handle passed to function wavl_search
+LC/0/7/CPU0:Aug 19 01:08:27.608 : SPIO-EA[147]: spio_pd_dataplane_attach: Entered
+LC/0/7/CPU0:Aug 19 01:08:33.240 : SPIO-EA[147]: spio_pd_dataplane_attach: Entered
+LC/0/7/CPU0:Aug 19 01:09:04.666 : SPIO-EA[147]: spio_pd_dataplane_attach: Entered
+LC/0/7/CPU0:Aug 19 01:09:23.237 : SPIO-EA[147]: spio_pd_dataplane_attach: Entered
+RP/0/RP0/CPU0:Aug 19 01:24:11.179 : sysmgr_control[66567]: %OS-SYSMGR-4-PROC_RESTART_NAME : User adeel.ahmad (vty0) requested a restart of process mibd_interface at 0/RP0/CPU0
+RP/0/RP0/CPU0:pr3.bllon#
+
+
+
+
+
+

@@ -1,0 +1,412 @@
+exit all
+configure
+    port 5/1/21
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of Port-Channel 51 to Akamai Managed  HP Switch Slot A P_1 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/22
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of Port-Channel 51 to Akamai Managed HP Switch Slot A P_2 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/19
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/47"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/20
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/48"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/17
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/45"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/18
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/46"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/11
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/39"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/12
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/40 "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/13
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/41"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/14
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/42"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/15
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/43"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/16
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/44"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 51
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] LAG_51 to AANP_1 Aggregation"
+        mode access
+        port 5/1/21
+        port 5/1/22
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    lag 61
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX6 FOC1608R15N RACK_H/I004"
+        mode access
+        port 5/1/19
+        port 5/1/20
+        port 5/1/17
+        port 5/1/18
+        port 5/1/11
+        port 5/1/12
+        port 5/1/13
+        port 5/1/14
+        port 5/1/15
+        port 5/1/16
+        lacp active
+        port-threshold 6 action down
+        no shutdown
+    exit
+    service
+        customer 20 create
+            description "AANP Akamai"
+        exit
+        customer 21 create
+            description "PDL Edge"
+        exit
+        ies 220201 customer 20 create
+            interface "ies220201_Akamai-AANP_1" create
+                description "[ext,iv-g=aanp,iv-s=cdn_aanp] Akamai_1 LAG_51"
+                address 176.255.246.1/25
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:201::1/64
+                exit
+                sap lag-51 create
+                exit
+            exit
+            service-name "ies220201_-Akamai-AANP_1"
+            no shutdown
+        exit
+        ies 220301 customer 21 create
+            interface "ies220301_-PDL-Edge-1" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-1 "
+                address 90.197.188.1/25
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:204::1/64
+                exit
+                sap lag-61 create
+                exit
+            exit
+            service-name "ies220301_-PDL-Edge-1"
+            no shutdown
+        exit
+    exit
+    router
+        interface "AANP_OFFNET-LOOPBACK"
+            address 90.207.251.216/32
+            loopback
+            no shutdown
+        exit
+        static-route 2.120.0.0/13 black-hole
+        static-route 2.216.0.0/13 black-hole
+        static-route 5.64.0.0/13 black-hole
+        static-route 84.38.36.141/32 next-hop 2.122.212.120 tag 290581
+        static-route 87.80.0.0/15 black-hole
+        static-route 90.192.0.0/11 black-hole
+        static-route 90.192.0.0/12 black-hole
+        static-route 94.0.0.0/12 black-hole
+        static-route 94.0.0.0/13 black-hole
+        static-route 151.224.0.0/13 black-hole
+        static-route 176.24.0.0/14 black-hole
+        static-route 176.248.0.0/13 black-hole
+        static-route 176.248.0.0/14 black-hole
+        static-route 192.0.2.0/24 black-hole
+        policy-options
+            begin
+            prefix-list "PL-SKY-IP-RANGE"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 46.64.0.0/15 exact
+                prefix 78.86.0.0/16 exact
+                prefix 78.105.0.0/16 exact
+                prefix 80.238.0.0/19 exact
+                prefix 80.238.32.0/19 exact
+                prefix 84.38.32.0/20 exact
+                prefix 85.188.192.0/18 exact
+                prefix 87.80.0.0/15 exact
+                prefix 90.192.0.0/11 exact
+                prefix 91.103.32.0/21 exact
+                prefix 93.96.0.0/16 exact
+                prefix 94.0.0.0/12 exact
+                prefix 94.116.0.0/14 exact
+                prefix 94.192.0.0/14 exact
+                prefix 149.241.0.0/16 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 188.220.0.0/14 exact
+                prefix 194.42.124.0/23 exact
+            exit
+            prefix-list "90.223.205.144/28"
+                prefix 90.223.206.0/28 exact
+            exit
+            prefix-list "AKAMAI-AANP-BLLON"
+                prefix 90.207.224.0/27 exact
+                prefix 90.207.224.128/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENBGK"
+                prefix 90.207.224.64/27 exact
+                prefix 90.207.224.192/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENEDI"
+                prefix 90.207.224.32/27 exact
+                prefix 90.207.224.64/27 exact
+                prefix 90.207.224.160/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENSHF"
+                prefix 90.207.224.96/27 exact
+                prefix 90.207.224.224/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-HOBIR"
+                prefix 90.207.242.0/26 exact
+                prefix 90.223.197.64/26 exact
+            exit
+            prefix-list "SKY_SUPERNETS_GLOBAL"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 87.80.0.0/15 exact
+                prefix 90.192.0.0/11 exact
+                prefix 94.0.0.0/12 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+            exit
+            prefix-list "CORE-CDN-IPV4-AKAMAI-AANP-LAN"
+                prefix 176.255.246.0/25 exact
+            exit
+            prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                prefix 90.197.188.0/25 exact
+                prefix 90.197.188.128/25 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-AANP-LAN"
+                prefix 2A02:C7A:8000:201::/64 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:204::/64 exact
+                prefix 2A02:C7A:8000:20C::/64 exact
+            exit
+            community "cdn-hobir-akamai-aanp" members "4589:4" "5607:1001" "4589:14470" "5607:14470" "no-export-subconfed"
+            community "cdn-hobir-akamai-mcdn" members "4589:4" "5607:1002" "4589:14470" "5607:14470" "no-export-subconfed"
+            community "cdn-primary-Akamai-export-comm" members "4589:14424"
+            community "cdn-secondary-Akamai-export-comm" members "4589:14425"
+            as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI" "41012+"
+            policy-statement "DENY-ALL"
+                description "Deny all traffic"
+                entry 10
+                    from
+                        protocol bgp
+                    exit
+                    action reject
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP"
+                entry 26
+                    description "Akamai AANP LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-AKAMAI-AANP-LAN"
+                    exit
+                    action accept
+                        community add "cdn-hobir-akamai-aanp"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+                entry 27
+                    description "Akamai MCDN LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                    exit
+                    action accept
+                        community add "cdn-hobir-akamai-mcdn"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 294
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-AKAMAI-AANP-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-hobir-akamai-aanp"
+                        next-hop-self
+                    exit
+                exit
+                entry 296
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-hobir-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "DENY_SKY_SUPERNETS_TO_RR"
+                entry 10
+                    description "Deny SKY_SUPERNETS to upstream RR"
+                    from
+                        protocol static
+                        prefix-list "SKY_SUPERNETS_GLOBAL"
+                    exit
+                    action reject
+                exit
+                entry 20
+                    description "Allow everything else to pass to EXPORT-TO-IBGP policy"
+                    action next-policy
+                    exit
+                exit
+            exit
+            policy-statement "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                description "Export All Sky supernets to Akamai and set Community"
+                entry 10
+                    description "Prmary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-BLLON" "AKAMAI-AANP-ENBGK"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 20
+                    description "Secondary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-ENSHF" "AKAMAI-AANP-ENEDI" "AKAMAI-AANP-HOBIR"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                entry 50
+                    description "Announce Cloud to Akamai"
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 60
+                    description "Sky Range Prefix List to AANP"
+                    from
+                        prefix-list "PL-SKY-IP-RANGE"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                default-action reject
+            exit
+	    commit
+	exit
+	bgp
+            group "cdn-aanp_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL"
+                export "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.50
+                    description "Off-Net Peer"
+                    authentication-key ".m3bXs/di5Djh5Gb/A0rFGpdWl/iNtDq1JY1uMvdaSG33nhzXwqmbu/cTIWYMsmBuSC1LcBYCQg" hash2
+                    local-address 90.207.251.216
+                exit
+            exit
+            group "internal-ipv4"
+                export "DENY_SKY_SUPERNETS_TO_RR" "EXPORT-TO-IBGP" "export-vpn" 
+            exit all

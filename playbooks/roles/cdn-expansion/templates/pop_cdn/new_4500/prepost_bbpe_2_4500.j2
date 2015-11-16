@@ -1,0 +1,37 @@
+{% for cdn, info in bbpe.2.ports|dictsort %}
+show port {{ info.port }} | match expression "Oper Speed|Oper State"
+
+{# note the values - temperature #}
+show port {{ info.port  }} optical | match temperature ignore-case post-lines 4     
+
+{% endfor %}
+
+{# note the admin/oper status (should be up) #}
+show lag {{ bbpe.2.lag }}
+
+{# note the partner #}
+show lag {{ bbpe.2.lag }} lacp-partner
+
+show lag {{ bbpe.2.lag }} associations
+
+{% if second %}
+show router interface "IN-POP-CDN-LINK-2"
+
+{# below command is to check the ipv6 neighbour #}
+show router neighbor "IN-POP-CDN-LINK-2"
+
+{% else %}
+show router interface "IN-POP-CDN-LINK"
+
+{# below command is to check the ipv6 neighbour #}
+show router neighbor "IN-POP-CDN-LINK"
+{% endif %}
+
+show router policy "EXPORT-TO-IBGP" | match "entry 48" context children
+
+{# note tag and next hop #}
+show router static-route | match {{ loopback }} context all
+
+{# note ping success #}
+show router bgp neighbor {{ bbpe.2.ipv4_p2p | ipaddr('1')|replace('/31',' ') }}
+ping {{ loopback | ipaddr('address')}}

@@ -1,0 +1,19 @@
+This change to accomodate the netflix commission/expansion for enyrk.
+
+n.b. this change is going ahead of the server plug ups therefore ports will be operationally down.
+
+Please apply the following steps:
+
+1. Run the prechecks specified in ar11-cdn.enyrk_netflix_prepost.txt
+
+Note: Please save the output for comparison later.
+
+2. Please apply the implementation commands in ar11-cdn.enyrk_netflix.txt
+
+3. Run the postchecks specified in ar11-cdn.enyrk_netflix_prepost.txt
+
+    Run a diff between the two, you should see new services, ports, prefixes although they will be down.
+
+4. if for any reason the implementation has impacted any live services please proceed to rollback using ar11-cdn.enyrk_netflix_rollback.txt
+
+N.B. AS THIS IS A NEW SERVICE TO BE DEPLOYED, IF POST-CHECKS ARE NOT WHAT YOU EXPECT; AS LONG AS NO LIVE SERVICES ARE IMPACTED PLEASE DO NOT ROLLBACK THE DEPLOYMENT.  ALL PORTS/INTERFACES HAVE BEEN SET UP WITH 'NO-MON', PLEASE DOUBLE CHECK BEFORE CLOSING OFF THE CHANGE.

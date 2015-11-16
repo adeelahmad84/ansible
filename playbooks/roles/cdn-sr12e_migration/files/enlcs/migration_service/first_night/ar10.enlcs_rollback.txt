@@ -1,0 +1,435 @@
+##mcdn-1##
+exit all
+configure
+    port 1/1/1
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/41"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/2
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/42"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/3
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/43"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/4
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/44"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/5
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/45"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/6
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/46"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/7
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/47"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/8
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/48"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/4
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/39"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 6/1/4
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX 1/40"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 41
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX"
+        mode access
+        port 1/1/1
+        port 1/1/2
+        port 1/1/3
+        port 1/1/4
+        port 1/1/5
+        port 1/1/6
+        port 1/1/7
+        port 1/1/8
+        port 5/1/4
+        port 6/1/4
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 21 create
+            description "PDL Edge"
+        exit
+        ies 220362 customer 21 create
+            interface "ies220362_-PDL-Edge-2" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Edge-2"
+                address 90.223.224.1/26
+                ipv6
+                    address 2a02:c7a:8000:fc05::1/64
+                exit
+                sap lag-41 create
+                exit
+            exit
+            service-name "ies220361_-PDL-Edge-2"
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                prefix 90.223.224.0/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2a02:c7a:8000:fc05::/64 exact
+            exit
+            community "cdn-enlcs-akamai-mcdn" members "4589:4" "5607:1002" "4589:14447" "5607:14447" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 27
+                    description "Akamai MCDN LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                    exit
+                    action accept
+                        community add "cdn-enlcs-akamai-mcdn"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+                entry 296
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlcs-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+##mcdn-1_end##
+##aanp-begin##
+exit all
+configure
+    port 5/1/1
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_1"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/2
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/5
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_3"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/6
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_4"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/9
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_5"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/10
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_6"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 6/1/1
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_7"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 6/1/2
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch NIC_8"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 45
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH45 to AANP Switch"
+        mode access
+        port 5/1/1
+        port 5/1/2
+        port 5/1/5
+        port 5/1/6
+        port 5/1/9
+        port 5/1/10
+        port 6/1/1
+        port 6/1/2
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 20 create
+            description "AANP Akamai"
+        exit
+        ies 220263 customer 20 create
+            interface "ies220263_-Akamai-AANP_3" create
+                description "[ext,iv-g=aanp,iv-s=cdn_aanp] Akamai LAG_45"
+                address 90.223.174.1/27
+                secondary 2.127.246.65/26
+                secondary 90.223.216.129/26
+                secondary 90.223.246.1/25
+                ipv6
+                    address 2a02:c7a:8000:fc03::1/64
+                exit
+                sap lag-45 create
+                exit
+            exit
+            service-name "ies220263_-Akamai-AANP_3"
+            no shutdown
+        exit
+    exit
+    router
+        interface "AANP_OFFNET-LOOPBACK"
+            address 90.207.251.217/32
+            loopback
+            no shutdown
+        exit
+        policy-options
+            begin
+            prefix-list "PL-SKY-IP-RANGE"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 46.64.0.0/15 exact
+                prefix 78.86.0.0/16 exact
+                prefix 78.105.0.0/16 exact
+                prefix 80.238.0.0/19 exact
+                prefix 80.238.32.0/19 exact
+                prefix 84.38.32.0/20 exact
+                prefix 85.188.192.0/18 exact
+                prefix 87.80.0.0/15 exact
+                prefix 89.200.128.0/21 exact
+                prefix 90.192.0.0/11 exact
+                prefix 91.103.32.0/21 exact
+                prefix 93.96.0.0/16 exact
+                prefix 94.0.0.0/12 exact
+                prefix 94.116.0.0/14 exact
+                prefix 94.192.0.0/14 exact
+                prefix 149.241.0.0/16 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 185.32.40.0/22 exact
+                prefix 188.220.0.0/14 exact
+                prefix 194.42.124.0/23 exact
+            exit
+            prefix-list "AKAMAI-AANP-BLLON"
+                prefix 90.207.224.0/27 exact
+                prefix 90.207.224.128/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENBGK"
+                prefix 90.207.224.64/27 exact
+                prefix 90.207.224.192/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENEDI"
+                prefix 90.207.224.32/27 exact
+                prefix 90.207.224.160/27 exact
+                prefix 90.207.242.64/26 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENSHF"
+                prefix 90.207.224.96/27 exact
+                prefix 90.207.224.224/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-HOBIR"
+                prefix 90.207.242.0/26 exact
+                prefix 90.223.197.64/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV4-AKAMAI-AANP-LAN"
+                prefix 2.127.246.64/26 exact
+                prefix 90.223.174.0/27 exact
+                prefix 90.223.216.128/26 exact
+                prefix 90.223.246.0/27 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-AANP-LAN"
+                prefix 2a02:c7a:8000:fc01::/64 exact
+                prefix 2a02:c7a:8000:fc02::/64 exact
+            exit
+            community "cdn-enlcs-akamai-aanp" members "4589:4" "5607:1001" "4589:14447" "5607:14447" "no-export-subconfed"
+            community "cdn-enlcs-akamai-aanp" members "4589:4" "5607:1001" "4589:14447" "5607:14447" "no-export-subconfed"
+            community "cdn-primary-Akamai-export-comm" members "4589:14424"
+            community "cdn-secondary-Akamai-export-comm" members "4589:14425"
+            as-path "ASPATH-EXPORT-CLOUD-TO-SUPERNETS" expression "41012+"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 26
+                    description "Akamai AANP LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-AKAMAI-AANP-LAN"
+                    exit
+                    action accept
+                        community add "cdn-enlcs-akamai-aanp"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 294
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-AKAMAI-AANP-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlcs-akamai-aanp"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                description "Export All Sky supernets to Akamai and set Community"
+                entry 10
+                    description "Primary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-BLLON"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 20
+                    description "Secondary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-ENSHF" "AKAMAI-AANP-ENBGK" "AKAMAI-AANP-ENEDI" "AKAMAI-AANP-HOBIR"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                entry 50
+                    description "Announce Cloud to Akamai"
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-TO-SUPERNETS"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 60
+                    description "Sky Range Prefix List to AANP"
+                    from
+                        prefix-list "PL-SKY-IP-RANGE"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                default-action reject
+            exit
+            commit
+        exit
+        bgp
+            group "cdn-aanp_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL"
+                export "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.50
+                    description "Off-Net Peer"
+                    authentication-key ".m3bXs/di5Djh5Gb/A0rFGpdWl/iNtDq1JY1uMvdaSErdmwTagFzXkpA8j8j7peMTOUOB7CKRJg" hash2
+                    local-address 90.207.251.217
+exit all
+##aanp-end##

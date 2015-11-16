@@ -1,0 +1,4 @@
+Hostname: sr15.bllon
+System IP: 84.38.34.221
+dist-bng IP address: 90.208.114.216/32 (2a02:c79:1::477/128)
+dist-gea IP address: 90.208.114.217/32 (2a02:c79:2::477/128)

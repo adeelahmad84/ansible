@@ -1,0 +1,11 @@
+---
+
+- name: generating for cache upgrade
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+   - { src: 'core_cdn/cache_upgrade/cache.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/{{ hostname }}.txt' }
+   - { src: 'core_cdn/cache_upgrade/patch.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/patching_ticket.txt' }
+   - { src: 'core_cdn/cache_upgrade/cache_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/{{ hostname }}_rollback.txt' }
+   - { src: 'core_cdn/cache_upgrade/prepost.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/{{ hostname }}_prepost.txt' }
+   - { src: 'core_cdn/cache_upgrade/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/procedure.txt' }

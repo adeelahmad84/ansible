@@ -1,0 +1,11 @@
+---
+
+cdn_lag: 80
+cdn_name: cdn_name
+cdn_svc: 220900
+cust_id: 80
+prefix_name: cdn_name
+service_name: cdn_name
+svc_comm: 1008
+v4_entry: 28
+v6_entry: 296

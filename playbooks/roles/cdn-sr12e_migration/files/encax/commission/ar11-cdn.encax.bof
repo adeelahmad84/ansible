@@ -1,0 +1,13 @@
+bof address          10.200.48.77/24 active
+bof address          10.200.48.78/24 standby
+bof static-route     10.200.0.0/15 next-hop 10.200.48.1
+bof static-route     84.38.45.0/24 next-hop 10.200.48.1
+bof static-route     84.38.47.0/24 next-hop 10.200.48.1
+bof static-route     90.207.236.0/23 next-hop 10.200.48.1
+bof static-route     90.207.238.0/24 next-hop 10.200.48.1
+bof static-route     90.223.196.0/24 next-hop 10.200.48.1
+bof static-route     90.223.208.0/23 next-hop 10.200.48.1
+
+bof primary-image    cf3:\IMAGES\TiMOS-12.0R5
+bof primary-config   cf3:\CFG\ar11-cdn.encax.cfg
+bof secondary-image  cf3:\IMAGES\TiMOS-10.0R5

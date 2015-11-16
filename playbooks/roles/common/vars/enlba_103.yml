@@ -1,0 +1,16 @@
+---
+# Enter the name of the decommissioned 7210 #
+hostname: as103
+site_id: enlba
+# Enter Service ID for VPLS and IES below #
+ies: 220141
+vpls: 220140
+lag: 30
+vlan: 201
+# Enter the name of the pe #
+pe: ar10.enlba
+ports: 
+
+  - 6/1/5 
+  - 6/1/6
+

@@ -1,0 +1,18 @@
+---
+
+# shell: pwgen 16 -s
+# register: pwgen
+
+# include: pop_new.yml
+# include: dns.yml
+# include: pop_service.yml
+# include: pop_upgrade.yml
+# include: cache_upgrade.yml
+# include: pop_ggc.yml
+# include: pop_ntf.yml
+# include: pop_aanp.yml
+# include: pop_mcdn.yml
+# include: core_new.yml
+# include: generic.yml
+# include: pop_cache_new.yml
+- include: pop_lag_upgrade.yml

@@ -1,0 +1,4 @@
+Hostname: {{ node_name }}
+System IP: {{ system_address }}
+dist-bng IP address: {{ distbng_unnumbered_address }}/32 (2a02:c79:1::{{ last_octet_system_address|int + 256 }}/128)
+dist-gea IP address: {{ distgea_interface }}/32 (2a02:c79:2::{{ last_octet_system_address|int + 256 }}/128)

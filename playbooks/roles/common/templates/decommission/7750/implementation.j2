@@ -1,0 +1,81 @@
+rr0.bllon
+-----------------------------
+router bgp 65444
+ no neighbor {{ system_address }}
+ !
+ address-family ipv4
+ no neighbor {{ system_address }}
+ exit-address-family
+!
+
+rr0.enlba
+-----------------------------
+router bgp 65444
+ no neighbor {{ system_address }}
+ !
+ address-family ipv4
+ no neighbor {{ system_address }}
+ exit-address-family
+!
+
+rr1.bllon
+-----------------------------
+router bgp 65444
+ no neighbor {{ system_address }}
+ !
+ address-family ipv4
+ no neighbor {{ system_address }}
+ exit-address-family
+ !
+ address-family vpnv4
+ no neighbor {{ system_address }}
+ exit-address-family
+!
+
+rr1.enlba
+-----------------------------
+router bgp 65444
+ no neighbor {{ system_address }}
+ !
+ address-family ipv4
+ no neighbor {{ system_address }}
+ exit-address-family
+ !
+ address-family vpnv4
+ no neighbor {{ system_address }}
+ exit-address-family
+!
+
+pr2.bllon
+-----------------------------
+configure terminal
+no mpls ldp neighbor {{ system_address }}:0 password
+no mpls ldp address-family ipv4 label remote accept from {{ system_address }}:0 for loopback-only
+commit
+
+pr3.bllon
+-----------------------------
+configure terminal
+no mpls ldp neighbor {{ system_address }}:0 password
+no mpls ldp address-family ipv4 label remote accept from {{ system_address }}:0 for loopback-only
+commit
+
+rr3.bllon
+-----------------------------
+router bgp 65444
+ no neighbor {{ system_address }}
+ !
+ address-family ipv6
+  no neighbor {{ system_address }}
+ exit-address-family
+!
+
+rr3.enlba
+-----------------------------
+router bgp 65444
+ no neighbor {{ system_address }}
+ !
+ address-family ipv6
+  no neighbor {{ system_address }}
+ exit-address-family
+!

@@ -1,0 +1,22 @@
+#during post ensure that the ports are up, optical levels are within range and has the correct description
+{% for key, info in ports|dictsort %}
+show port {{ info.remote_port }} | match expression "Oper State|Oper Speed"
+show port description {{ info.remote_port }}
+show port {{ info.remote_port }} optical
+{% endfor %}
+
+show lag {{ lag }}
+show lag {{ lag }} statistics
+show lag {{ lag }} description
+show lag {{ lag }} lacp-partner
+show lag {{ lag }} port
+show lag {{ lag }} associations
+
+show router interface "base_{{ hostname }}_1"
+
+#during post ensure that the pings are successful.
+
+ping {{ management | ipaddr('1')|replace("/29"," ")  }} rapid
+ping {{ management | ipaddr('2')|replace("/29"," ")  }} rapid
+
+#from nms please you can ping and ssh to {{ hostname }}

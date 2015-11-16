@@ -1,0 +1,8 @@
+rr0.bllon; rr0.enlba; rr1.bllon; rr1.enlba; rr3.bllon; rr3.enlba
+-----------------------------------------------------------------
+conf t
+!
+router bgp 65444
+ no neighbor {{ old_system_address }}
+ !
+end

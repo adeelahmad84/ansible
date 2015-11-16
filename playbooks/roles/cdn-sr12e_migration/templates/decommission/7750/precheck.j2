@@ -1,0 +1,398 @@
+*******************
+rr0.bllon
+*******************
+rr0.bllon#show ip bgp neighbors {{ old_system_address }} | include Description|BGP state
+
+ Description: {{ old_node_name }}
+  BGP state = Established, up for 2w2d
+
+
+*******************
+rr0.enlba
+*******************
+rr0.enlba#show ip bgp neighbors {{ old_system_address }} | include Description|BGP state
+
+ Description: {{ old_node_name }}
+  BGP state = Established, up for 2w2d
+
+
+*******************
+rr1.bllon
+*******************
+rr1.bllon#show ip bgp neighbors {{ old_system_address }} | include Description|BGP state
+
+ Description: {{ old_node_name }}
+  BGP state = Established, up for 2w2d
+
+
+*******************
+rr1.enlba
+*******************
+rr1.enlba#show ip bgp neighbors {{ old_system_address }} | include Description|BGP state
+
+ Description: {{ old_node_name }}
+  BGP state = Established, up for 2w2d
+
+
+*******************
+rr3.bllon
+*******************
+rr3.bllon#show bgp ipv6 unicast neighbors {{ old_system_address }} | include Description|BGP state
+ Description: {{ old_node_name }}
+  BGP state = Established, up for 16w4d
+
+
+*******************
+rr3.enlba
+*******************
+rr3.enlba#show bgp ipv6 unicast neighbors {{ old_system_address }} | include Description|BGP state
+ Description: {{ old_node_name }}
+  BGP state = Established, up for 16w4d
+
+
+******************
+{{ core_1_hostname }}
+*****************
+RP/0/RP0/CPU0:{{ core_1_hostname }}#sh isis database {{ old_node_name }}.00-00 detail
+Thu Nov 12 16:49:58.490 GMT
+
+IS-IS 65444 (Level-2) Link State Database
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime  ATT/P/OL
+{{ old_node_name }}.00-00      0x0000160a   0x77ac        64771           0/0/0
+  Area Address: 49.0001
+  NLPID:        0xcc
+  Hostname:     {{ old_node_name }}
+  Router ID:    {{ old_system_address }}
+  IP Address:   2.120.8.94
+  IP Address:   {{ old_system_address }}
+  Metric: 1000       IS-Extended {{ node_name }}.00
+  Metric: 0          IP-Extended {{ old_system_address }}/32
+  Auth:         Algorithm HMAC-MD5, Length: 17
+
+
+
+IS-IS 65444 ()
+
+******************
+{{ core_2_hostname }}
+*****************
+RP/0/RP0/CPU0:{{ core_2_hostname }}#sh isis database {{ old_node_name }}.00-00 detail
+Thu Nov 12 16:49:58.490 GMT
+
+IS-IS 65444 (Level-2) Link State Database
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime  ATT/P/OL
+{{ old_node_name }}.00-00      0x0000160a   0x77ac        64771           0/0/0
+  Area Address: 49.0001
+  NLPID:        0xcc
+  Hostname:     {{ old_node_name }}
+  Router ID:    {{ old_system_address }}
+  IP Address:   2.120.8.94
+  IP Address:   {{ old_system_address }}
+  Metric: 1000       IS-Extended {{ node_name }}.00
+  Metric: 0          IP-Extended {{ old_system_address }}/32
+  Auth:         Algorithm HMAC-MD5, Length: 17
+
+
+*******************************
+{{ node_name }}
+*****************************
+A:{{ node_name }}# show router rsvp interface "base_{{ old_node_name }}_1"
+
+===============================================================================
+RSVP Interface : base_{{ old_node_name }}_1
+===============================================================================
+Interface                        Total    Active    Total BW  Resv BW   Adm Opr
+                                 Sessions Sessions  (Mbps)    (Mbps)
+-------------------------------------------------------------------------------
+base_{{ old_node_name }}_1                0        0         300000    0         Up  Up
+===============================================================================
+
+
+A:{{ node_name }}# show router ldp session {{ old_system_address }}:0
+
+==============================================================================
+LDP Sessions
+==============================================================================
+Peer LDP Id        Adj Type   State         Msg Sent  Msg Recv  Up Time
+------------------------------------------------------------------------------
+{{ old_system_address }}:0      Link       Established   1033761   984083    42d 15:35:57
+------------------------------------------------------------------------------
+No. of Sessions: 1
+==============================================================================
+
+
+A:{{ node_name }}# show router ldp discovery interface "base_{{ old_node_name }}_1"
+
+===============================================================================
+LDP Hello Adjacencies
+===============================================================================
+Interface Name                   Local Addr      Peer Addr       AdjType State
+-------------------------------------------------------------------------------
+base_{{ old_node_name }}_1                {{ system_address }}  {{ old_system_address }}     Link    Estab
+-------------------------------------------------------------------------------
+No. of Hello Adjacencies: 1
+===============================================================================
+
+
+A:{{ node_name }}# show router mpls interface "base_{{ old_node_name }}_1"
+
+===============================================================================
+MPLS Interfaces
+===============================================================================
+Interface                           Port-id           Adm    Opr    TE-metric
+-------------------------------------------------------------------------------
+base_{{ old_node_name }}_1                   lag-176           Up     Up     None
+  Admin Groups                      None
+  SRLG Groups                       None
+-------------------------------------------------------------------------------
+Interfaces : 1
+===============================================================================
+
+
+A:{{ node_name }}# show router isis adjacency "base_{{ old_node_name }}_1"
+
+===============================================================================
+ISIS Adjacency
+===============================================================================
+System ID                Usage State Hold Interface                     MT-ID
+-------------------------------------------------------------------------------
+{{ old_node_name }}               L2    Up    30   base_{{ old_node_name }}_1             0
+-------------------------------------------------------------------------------
+Adjacencies : 1
+===============================================================================
+
+
+A:{{ node_name }}# show router isis interface "base_{{ old_node_name }}_1"
+
+===============================================================================
+ISIS Interfaces
+===============================================================================
+Interface                        Level CircID  Oper State   L1/L2 Metric
+-------------------------------------------------------------------------------
+base_{{ old_node_name }}_1                L2    2       Up           -/100000
+-------------------------------------------------------------------------------
+Interfaces : 1
+===============================================================================
+
+
+A:{{ node_name }}# show router interface "base_{{ old_node_name }}_1"
+
+===============================================================================
+Interface Table (Router: Base)
+===============================================================================
+Interface-Name                   Adm         Opr(v4/v6)  Mode    Port/SapId
+   IP-Address                                                    PfxState
+-------------------------------------------------------------------------------
+base_{{ old_node_name }}_1                Up          Up/Down     Network lag-176
+   2.120.8.95/31                                                 n/a
+-------------------------------------------------------------------------------
+Interfaces : 1
+===============================================================================
+
+
+A:{{ node_name }}# show lag 176 associations
+
+===============================================================================
+Interface Table
+===============================================================================
+Router/ServiceId                Name                            Encap Val
+-------------------------------------------------------------------------------
+Router: Base                    base_{{ old_node_name }}_1
+-------------------------------------------------------------------------------
+Interfaces
+===============================================================================
+
+
+A:{{ node_name }}# show lag 176 port
+
+===============================================================================
+Lag Port States
+LACP Status: e - Enabled, d - Disabled
+===============================================================================
+Lag-id Port-id   Adm   Act/Stdby Opr   Primary  Sub-group     Forced  Priority
+-------------------------------------------------------------------------------
+176(e) 6/1/1     up    active    up    yes      1             -       32768
+       6/2/1     up    active    up             1             -       32768
+       7/1/1     up    active    up             1             -       32768
+===============================================================================
+
+
+A:{{ node_name }}# show lag 176 description
+
+===============================================================================
+Lag Port States
+LACP Status: e - Enabled, d - Disabled
+===============================================================================
+Lag-id Port-id   Adm   Act/Stdby Opr   Description
+-------------------------------------------------------------------------------
+176(e)           up              up    [core,ip=,rd={{ old_node_name }}:lag176,iv-
+                                       s=vcdn_sc]
+       6/1/1     up    active    up    [core,ip=,rd={{ old_node_name }}:5-1-
+                                       1,cid=LOCAL,iv-s=vcdn_sc]
+       6/2/1     up    active    up    [core,ip=,rd={{ old_node_name }}:5-2-
+                                       1,cid=LOCAL,iv-s=vcdn_sc]
+       7/1/1     up    active    up    [core,ip=,rd={{ old_node_name }}:6-2-
+                                       1,cid=LOCAL,iv-s=vcdn_sc]
+===============================================================================
+
+
+A:{{ node_name }}# show lag 176 lacp-partner
+
+===============================================================================
+LAG Partner information
+===============================================================================
+Partner system ID           : 0c:a4:02:10:60:01
+Partner system priority     : 32768
+Partner operational key     : 32773
+===============================================================================
+
+===============================================================================
+LAG 176 Ports Partner operational information
+===============================================================================
+Port                        Actor Port  Prio  Key
+                            port
+-------------------------------------------------------------------------------
+6/1/1                       38977 37953 32768 32773
+6/2/1                       39041 38017 32768 32773
+7/1/1                       40001 39041 32768 32773
+===============================================================================
+
+===============================================================================
+LAG 176 Ports Partner operational state information
+===============================================================================
+Port                        Exp  Def  Dist Col  Syn  Aggr Time Act
+                                                          out
+-------------------------------------------------------------------------------
+6/1/1                       No   No   Yes  Yes  Yes  Yes  Yes  Yes
+6/2/1                       No   No   Yes  Yes  Yes  Yes  Yes  Yes
+7/1/1                       No   No   Yes  Yes  Yes  Yes  Yes  Yes
+===============================================================================
+
+
+A:{{ node_name }}# show port 6/1/1
+
+===============================================================================
+Ethernet Interface
+===============================================================================
+Description        : [core,ip=,rd={{ old_node_name }}:5-1-1,cid=LOCAL,iv-s=vcdn_sc]
+Interface          : 6/1/1                      Oper Speed       : 100 Gbps
+Link-level         : Ethernet                   Config Speed     : N/A
+Admin State        : up                         Oper Duplex      : full
+Oper State         : up - Active in LAG 176     Config Duplex    : N/A
+Physical Link      : Yes                        MTU              : 8222
+Single Fiber Mode  : No                         Min Frame Length : 64 Bytes
+IfIndex            : 203456512                  Hold time up     : 5 seconds
+Last State Change  : 10/01/2015 02:16:29        Hold time down   : 0 seconds
+Last Cleared Time  : 09/28/2015 11:55:52        DDM Events       : Enabled
+Phys State Chng Cnt: 5
+
+Configured Mode    : network                    Encap Type       : null
+Dot1Q Ethertype    : 0x8100                     QinQ Ethertype   : 0x8100
+PBB Ethertype      : 0x88e7
+Ing. Pool % Rate   : 100                        Egr. Pool % Rate : 100
+Ing. Pool Policy   : n/a
+Egr. Pool Policy   : n/a
+Net. Egr. Queue Pol: network-queue-imm-2pac-fp3
+Egr. Sched. Pol    : n/a
+Auto-negotiate     : N/A                        MDI/MDX          : N/A
+Oper Phy-tx-clock  : not-applicable
+Accounting Policy  : None                       Collect-stats    : Disabled
+Acct Plcy Eth Phys : None                       Collect Eth Phys : Disabled
+Egress Rate        : Default                    Ingress Rate     : Default
+Load-balance-algo  : Default                    LACP Tunnel      : Disabled
+
+Down-when-looped   : Disabled                   Keep-alive       : 10
+Loop Detected      : False                      Retry            : 120
+Use Broadcast Addr : False
+
+Sync. Status Msg.  : Disabled                   Rx Quality Level : N/A
+Tx DUS/DNU         : Disabled                   Tx Quality Level : N/A
+SSM Code Type      : sdh
+
+Down On Int. Error : Disabled
+
+CRC Mon SD Thresh  : Disabled                   CRC Mon Window   : 10 seconds
+CRC Mon SF Thresh  : Disabled
+
+Configured Address : 00:d0:f6:f4:1b:be
+Hardware Address   : 00:d0:f6:f4:1b:be
+Cfg Alarm          : remote local
+
+Transceiver Data
+
+Transceiver Type   : CFP
+Model Number       : 3HE06771AAAA01  ALU  IP9IANFEAA
+TX Laser Wavelength: 840 nm                     Diag Capable     : yes
+Number of Lanes    : 10
+Connector Code     : MU                         Vendor OUI       : 00:90:65
+Manufacture date   : 2014/07/21                 Media            : Ethernet
+Serial Number      : US409G5
+Part Number        : FTLC8281RCNM-A5
+Optical Compliance : 100GBASE-SR10
+Link Length support: 100m for MMF
+
+===============================================================================
+Transceiver Digital Diagnostic Monitoring (DDM)
+===============================================================================
+                              Value High Alarm  High Warn   Low Warn  Low Alarm
+-------------------------------------------------------------------------------
+Temperature (C)               +29.5     +74.0      +70.0       +0.0       -4.0
+Supply Voltage (V)             3.31      3.66       3.46       3.13       2.93
+===============================================================================
+
+===============================================================================
+Transceiver Lane Digital Diagnostic Monitoring (DDM)
+===============================================================================
+                                 High Alarm   High Warn    Low Warn   Low Alarm
+-------------------------------------------------------------------------------
+Lane Tx Bias Current (mA)              15.0        14.0         5.0         4.0
+
+-------------------------------------------------------------------------------
+Lane ID Temp(C)/Alm       Tx Bias(mA)/Alm   Tx Pwr(dBm)/Alm   Rx Pwr(dBm)/Alm
+-------------------------------------------------------------------------------
+    1              -              10.2                 -                 -
+    2              -              10.2                 -                 -
+    3              -              10.2                 -                 -
+    4              -              10.2                 -                 -
+    5              -              10.2                 -                 -
+    6              -              10.2                 -                 -
+    7              -              10.2                 -                 -
+    8              -              10.2                 -                 -
+    9              -              10.2                 -                 -
+    10             -              10.2                 -                 -
+===============================================================================
+
+===============================================================================
+Traffic Statistics
+===============================================================================
+                                                   Input                 Output
+-------------------------------------------------------------------------------
+Octets                                     7478251347091            77740012939
+Packets                                       5012413333              558801533
+Errors                                                 0                      0
+===============================================================================
+
+===============================================================================
+Port Statistics
+===============================================================================
+                                                   Input                 Output
+-------------------------------------------------------------------------------
+Unicast Packets                               4968684592              516759675
+Multicast Packets                               43728734               42041853
+Broadcast Packets                                      7                      5
+Discards                                               0                      0
+Unknown Proto Discards                                 0
+===============================================================================
+
+===============================================================================
+Ethernet-like Medium Statistics
+===============================================================================
+
+Alignment Errors :                   0  Sngl Collisions  :                   0
+FCS Errors       :                   0  Mult Collisions  :                   0
+SQE Test Errors  :                   0  Late Collisions  :                   0
+CSE              :                   0  Excess Collisns  :                   0
+Too long Frames  :                   0  Int MAC Tx Errs  :                   0
+Symbol Errors    :                   0  Int MAC Rx Errs  :                   0
+In Pause Frames  :                   0  Out Pause Frames :                   0
+===============================================================================

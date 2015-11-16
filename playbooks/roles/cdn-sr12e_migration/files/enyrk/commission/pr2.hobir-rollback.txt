@@ -1,0 +1,23 @@
+configure terminal
+!
+interface Bundle-Ether309
+ no ipv4 address
+!
+router isis 65444
+ interface Bundle-Ether309
+  shutdown
+ !
+!
+mpls ldp
+ no neighbor 89.200.128.53
+ no interface Bundle-Ether309
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether309
+ !
+!
+rsvp
+ no interface Bundle-Ether309
+!
+commit

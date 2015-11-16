@@ -1,0 +1,89 @@
+rr0.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.30 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.30 description ar10.hobir
+ neighbor 84.38.34.30 password j3OIQnVTofPJwNHR
+ !
+ address-family ipv4
+ neighbor 84.38.34.30 activate
+ neighbor 84.38.34.30 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr0.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.30 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.30 description ar10.hobir
+ neighbor 84.38.34.30 password 2vBLCnHEEjMxeRMP
+ !
+ address-family ipv4
+ neighbor 84.38.34.30 activate
+ neighbor 84.38.34.30 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr1.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.30 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.30 description ar10.hobir
+ neighbor 84.38.34.30 password 4kiWLq46foRWkCci
+ !
+ address-family ipv4
+ neighbor 84.38.34.30 activate
+ neighbor 84.38.34.30 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 84.38.34.30 activate
+ neighbor 84.38.34.30 send-community extended
+ neighbor 84.38.34.30 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr1.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.30 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.30 description ar10.hobir
+ neighbor 84.38.34.30 password C3cQpu6qwzPuKbi9
+ !
+ address-family ipv4
+ neighbor 84.38.34.30 activate
+ neighbor 84.38.34.30 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 84.38.34.30 activate
+ neighbor 84.38.34.30 send-community extended
+ neighbor 84.38.34.30 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr3.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.30 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.30 description ar10.hobir
+ neighbor 84.38.34.30 password VDZCX79FpfsatBVg
+ !
+ address-family ipv6
+  neighbor 84.38.34.30 activate
+  neighbor 84.38.34.30 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!
+
+rr3.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.30 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.30 description ar10.hobir
+ neighbor 84.38.34.30 password k7f635LjjkLQ9Kqb
+ !
+ address-family ipv6
+  neighbor 84.38.34.30 activate
+  neighbor 84.38.34.30 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!

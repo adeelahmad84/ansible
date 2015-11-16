@@ -1,0 +1,34 @@
+show port 9/1/1 | match expression "Oper Speed|Oper State"
+
+show port 9/1/1 optical | match temperature ignore-case post-lines 4     
+
+show port 9/1/2 | match expression "Oper Speed|Oper State"
+
+show port 9/1/2 optical | match temperature ignore-case post-lines 4     
+
+show port 9/1/3 | match expression "Oper Speed|Oper State"
+
+show port 9/1/3 optical | match temperature ignore-case post-lines 4     
+
+show port 9/1/4 | match expression "Oper Speed|Oper State"
+
+show port 9/1/4 optical | match temperature ignore-case post-lines 4     
+
+
+show lag 50
+
+show lag 50 lacp-partner
+
+show lag 50 associations
+
+show router interface "IN-POP-CDN-LINK"
+show router interface "IN-POP-CDN-LINK" arp
+
+show router neighbor "IN-POP-CDN-LINK"
+
+show router policy "EXPORT-TO-IBGP" | match "entry 48" context children
+
+show router static-route | match 84.38.34.232/32 context all
+
+show router bgp neighbor 2.120.9.227 
+ping 84.38.34.232

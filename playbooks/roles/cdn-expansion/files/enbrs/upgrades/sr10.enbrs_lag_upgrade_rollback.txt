@@ -1,0 +1,12 @@
+/configure
+    port 9/1/4
+        shutdown
+    exit
+    port 9/1/6
+        shutdown
+    exit
+    lag 50
+        no port 9/1/4
+        no port 9/1/6
+        no port-threshold
+    exit all

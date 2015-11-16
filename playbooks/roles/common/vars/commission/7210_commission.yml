@@ -1,0 +1,27 @@
+---
+
+#[7210_RELATED BEGINS AS101, AS102...etc]
+hostname:
+# ADDRESS AND RACK LOCATIONS #
+site_id:
+# ADDRESS AND RAK LOCATION #
+location:
+# GENERATE NEW KEY #
+tacacs:
+# PLEASE ADD RANGE IP #
+management: 
+#PLEASE USE 1/1/24
+mgt_port: 1/1/24
+ports:
+  1:
+    remote_port:
+    port: "1/1/25"
+  2:
+    remote_port:
+    port: "1/1/26"
+
+#[CDN_PE_RELATED]
+# USE NEXT AVAILABLE LAG#
+lag:
+# NAME OF UPLINK PE #
+pe:

@@ -1,0 +1,89 @@
+exit all
+configure
+    port 5/1/29
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-1"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/30
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/31
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-3"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/32
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-4"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/33
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-5"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/34
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-6"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/35
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-7"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/36
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-8"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 51
+	shutdown
+	no lacp
+	port 5/1/29
+	port 5/1/30
+	port 5/1/31
+	port 5/1/32
+	port 5/1/33
+	port 5/1/34
+	port 5/1/35
+	port 5/1/36
+        lacp active
+        no shutdown
+    exit
+exit all

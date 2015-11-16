@@ -1,0 +1,492 @@
+version 15.1
+service nagle
+no service pad
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+service password-encryption
+service linenumber
+service internal
+service compress-config
+service sequence-numbers
+service counters max age 10
+!
+hostname ar21.syost
+!
+!
+!
+vrf definition 10
+ !
+ address-family ipv4
+ exit-address-family
+!
+vrf definition mgmtVrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging buffered 100000
+logging rate-limit all 500 except errors
+no logging console
+enable secret r3p3nt
+!
+username networks privilege 15 secret r3p3nt
+aaa new-model
+!
+!
+aaa authentication fail-message ^CC Failed login. Try again.^C
+aaa authentication login default group tacacs+ local
+aaa accounting update newinfo
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 0 default stop-only group tacacs+
+aaa accounting commands 1 default stop-only group tacacs+
+aaa accounting commands 2 default stop-only group tacacs+
+aaa accounting commands 3 default stop-only group tacacs+
+aaa accounting commands 4 default stop-only group tacacs+
+aaa accounting commands 5 default stop-only group tacacs+
+aaa accounting commands 6 default stop-only group tacacs+
+aaa accounting commands 7 default stop-only group tacacs+
+aaa accounting commands 8 default stop-only group tacacs+
+aaa accounting commands 9 default stop-only group tacacs+
+aaa accounting commands 10 default stop-only group tacacs+
+aaa accounting commands 11 default stop-only group tacacs+
+aaa accounting commands 12 default stop-only group tacacs+
+aaa accounting commands 13 default stop-only group tacacs+
+aaa accounting commands 14 default stop-only group tacacs+
+aaa accounting commands 15 default stop-only group tacacs+
+aaa accounting network default start-stop group tacacs+
+aaa accounting connection default start-stop group tacacs+
+aaa accounting system default start-stop group tacacs+
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone GMT 0 0
+clock summer-time BST recurring last Sun Mar 2:00 last Sun Oct 2:00
+!
+ip vrf Liin-vrf
+!
+no ip domain-lookup
+ip domain-name isp.sky.com
+!
+!
+ipv6 unicast-routing
+ipv6 multicast rpf use-bgp
+vtp mode transparent
+!
+!
+!
+system mtu 1552
+power redundancy-mode redundant
+!
+mac access-list extended system-control-packet-bpdu-range
+ permit any 0180.c200.0000 0000.0000.0003
+!
+!
+!
+!
+!
+!
+!
+ip ssh time-out 60
+ip ssh version 2
+ip scp server enable
+!
+!
+vlan internal allocation policy ascending
+!
+!
+vlan 901
+ name OVN_MGT_VRF
+!
+ip tftp source-interface Loopback0
+!
+interface Loopback0
+ description GRT Management Purposes Only
+ ip address 89.200.128.115 255.255.255.255
+ no ip redirects
+!
+interface FastEthernet1
+ description **Do Not enable Port-Bug-CSCue76243** [OOB MGT LAN]
+ vrf forwarding mgmtVrf
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface range TenGigabitEthernet 1/1 - 32
+ shutdown
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface range TenGigabitEthernet 2/1 - 8
+ shutdown
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface Port-channel1
+ description [core,rd=sr15.syost:lag51,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO SR15.SYOST
+ mtu 8226
+ ip address 2.120.8.59  255.255.255.254
+ no ip redirects
+ ipv6 address 2a02:c78:1:19::5/127
+!
+interface Port-channel2
+ description [core,rd=sr16.syost:lag51,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO SR16.SYOST
+ mtu 8226
+ ip address 2.120.8.61  255.255.255.254
+ no ip redirects
+ ipv6 address 2a02:c78:1:19::7/127
+!
+interface Port-channel3
+ description [core,rd=sr17.syost:lag51,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO SR17.SYOST
+ mtu 8226
+ ip address 2.120.8.63  255.255.255.254
+ no ip redirects
+ ipv6 address 2a02:c78:1:19::9/127
+!
+interface TenGigabitEthernet1/1
+ description [core,rd=sr15.syost:9-1-6,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR15.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/2
+ description [core,rd=sr15.syost:9-2-3,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR15.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/3
+ description [core,rd=sr15.syost:9-2-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_3 TO SR15.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/7
+ description [core,rd=sr16.syost:9-2-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR16.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/8
+ description [core,rd=sr16.syost:9-2-2,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR16.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/9
+ description [core,rd=sr16.syost:9-2-5,cid=LOCAL,iv-s=cdn_pop] UPLINK_3 TO SR16.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/13
+ description [core,rd=sr17.syost:10-1-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR17.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/14
+ description [core,rd=sr17.syost:10-1-5,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR17.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/15
+ description [core,rd=sr17.syost:10-1-6,cid=LOCAL,iv-s=cdn_pop] UPLINK_3 TO SR17.SYOST
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+router bgp 65444
+ template peer-policy OVN-IPV4-IBGP
+  route-map RM-IMPORT-FROM-IBGP in
+  route-map RM-DENY-ALL out
+  next-hop-self
+  send-community
+ exit-peer-policy
+ !
+ template peer-session OVN-PEER-SESSION-BB-PE
+  remote-as 65444
+  ttl-security hops 254
+ exit-peer-session
+ !
+ bgp router-id 89.200.128.115
+ bgp always-compare-med
+ bgp log-neighbor-changes
+ bgp confederation identifier 4589
+!
+ neighbor 2.120.8.58 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 2.120.8.58 description sr15.syost
+ neighbor 2.120.8.58 password m0Pd5UmXLk8q4Aim
+ neighbor 2.120.8.60 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 2.120.8.60 description sr16.syost
+ neighbor 2.120.8.60 password iecee8eiBeegeosi
+ neighbor 2.120.8.62 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 2.120.8.62 description sr17.syost
+ neighbor 2.120.8.62 password Kia2koungeQu6iec
+ !
+ address-family ipv4
+  bgp nexthop trigger delay 1
+  redistribute static route-map RM-REDISTRIBUTE-STATIC
+  neighbor 2.120.8.58 activate
+  neighbor 2.120.8.58 inherit peer-policy OVN-IPV4-IBGP
+  neighbor 2.120.8.60 activate
+  neighbor 2.120.8.60 inherit peer-policy OVN-IPV4-IBGP
+  neighbor 2.120.8.62 activate
+  neighbor 2.120.8.62 inherit peer-policy OVN-IPV4-IBGP
+ exit-address-family
+!
+ip prefix-list PL-LARGE-PREFIX-SETS seq 5 permit 0.0.0.0/0 le 26
+!
+logging trap debugging
+logging source-interface Loopback0
+logging host 84.38.45.208
+logging host 84.38.47.208
+logging host 84.38.45.219
+logging host 84.38.47.219
+!
+access-list 82 permit 84.38.45.0 0.0.0.255
+access-list 82 permit 84.38.47.0 0.0.0.255
+access-list 82 permit 90.207.236.0 0.0.1.255
+access-list 82 permit 90.223.208.0 0.0.1.255
+access-list 82 permit 90.223.196.0 0.0.1.255
+access-list 83 permit 84.38.45.0 0.0.0.255
+access-list 83 permit 84.38.47.0 0.0.0.255
+access-list 83 permit 195.128.190.0 0.0.1.127
+access-list 83 permit 195.128.190.128 0.0.1.31
+access-list 83 permit 90.207.236.0 0.0.1.255
+access-list 83 permit 90.223.208.0 0.0.1.255
+access-list 83 permit 90.223.196.0 0.0.1.255
+access-list 84 permit 195.128.190.0 0.0.1.15
+access-list 85 permit 195.128.190.0 0.0.1.15
+access-list 85 permit 195.128.190.64 0.0.1.63
+access-list 85 permit 195.128.190.128 0.0.1.31
+access-list 86 permit 10.200.0.0 0.0.255.255
+access-list 86 permit 89.200.128.0 0.0.0.255
+access-list 86 permit 84.38.34.0 0.0.0.255
+access-list 86 permit 84.38.45.0 0.0.0.255
+access-list 86 permit 84.38.47.0 0.0.0.255
+access-list 86 permit 195.128.190.0 0.0.1.127
+access-list 86 permit 90.207.236.0 0.0.1.255
+access-list 86 permit 90.223.208.0 0.0.1.255
+access-list 86 permit 90.223.196.0 0.0.1.255
+access-list 88 permit 84.38.45.6
+access-list 88 permit 195.128.190.20
+!
+no cdp run
+!
+ip route 0.0.0.0 0.0.0.0 2.120.8.58
+ipv6 route ::/0 2a02:c78:1:19::4
+!
+ip route 0.0.0.0 0.0.0.0 2.120.8.60
+ipv6 route ::/0 2a02:c78:1:19::6
+!
+ip route 0.0.0.0 0.0.0.0 2.120.8.62
+ipv6 route ::/0 2a02:c78:1:19::8
+!
+route-map RM-REDISTRIBUTE-STATIC permit 10
+ match ip address prefix-list PL-SYOST-DNS
+!
+route-map RM-IMPORT-FROM-IBGP permit 10
+ description Match User Prefixes from  Local BB-PE
+ match community 10
+!
+route-map RM-IMPORT-FROM-IBGP deny 50
+ description Explicit Deny All
+!
+route-map RM-EXPORT-FROM-IBGP permit 10
+ description Match User Prefixes from  Local BB-PE
+ match community 10
+ continue 20
+!
+route-map RM-EXPORT-FROM-IBGP permit 20
+ description Only_Advertise_/26_prefixes_&_shorter
+ match ip address prefix-list PL-LARGE-PREFIX-SETS
+!
+route-map RM-EXPORT-FROM-IBGP deny 50
+ description Explicit Deny All
+!
+route-map RM-DENY-ALL deny 10
+ description Deny All routes via EBGP
+!
+!
+no ip http server
+no ip http secure-server
+!
+ip bgp-community new-format
+ip community-list 10 permit 5607:14427
+ip community-list expanded CL-LOCAL-PE-PREFIXES permit 5607:14427
+!
+ip tacacs source-interface Loopback0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+snmp-server view REPMON iso excluded
+snmp-server view REPMON rmon included
+snmp-server view REPMON ciscoPingMIB included
+snmp-server view REPMON ciscoRttMonMIB included
+snmp-server view cutdown iso included
+snmp-server view cutdown at excluded
+snmp-server view cutdown ip.21 excluded
+snmp-server view cutdown ip.22 excluded
+snmp-server view cutdown ipForward excluded
+snmp-server view cutdown ciscoFlashMIB excluded
+snmp-server view cutdown ciscoSyslogMIB excluded
+snmp-server view cutdown ciscoProcessMIB excluded
+snmp-server view cutdown lip.2 excluded
+snmp-server view cnc-view iso included
+snmp-server view cnc-view at excluded
+snmp-server view cnc-view ip.21 excluded
+snmp-server view cnc-view ip.22 excluded
+snmp-server view cnc-view ipForward excluded
+snmp-server view cnc-view ciscoFlashMIB excluded
+snmp-server view cnc-view ciscoSyslogMIB excluded
+snmp-server view cnc-view ciscoProcessMIB excluded
+snmp-server community kN8qpTxH view cutdown RO 83
+snmp-server community Tu5ahEQu view cnc-view RO 88
+snmp-server community Le8qZjYe view REPMON RW 85
+snmp-server trap-source Loopback0
+snmp-server tftp-server-list 84
+snmp-server location "Osterley"
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps transceiver all
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps rf
+snmp-server enable traps memory
+snmp-server enable traps cpu_threshold
+snmp-server enable traps flex-links status
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps ether-oam
+snmp-server enable traps aaa_server
+snmp-server enable traps flash insertion removal
+snmp-server enable traps l2tc threshold sys-threshold
+snmp-server enable traps power-ethernet police
+snmp-server enable traps rep
+snmp-server enable traps udld link-fail-rpt status-change
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps port-security
+snmp-server enable traps ethernet evc status create delete
+snmp-server enable traps energywise
+snmp-server enable traps ipsla
+snmp-server enable traps bgp
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps isis
+snmp-server enable traps msdp
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps errdisable
+snmp-server enable traps ethernet cfm alarm
+snmp-server enable traps vlan-membership
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server host 84.38.45.209 r84MgWk7
+snmp-server host 84.38.47.209 r84MgWk7
+snmp-server file-transfer access-group 84 protocol tftp
+snmp ifmib ifalias long
+!
+tacacs-server host 84.38.41.73
+tacacs-server host 84.38.41.201
+tacacs-server timeout 2
+tacacs-server key dehchothiD3Vahe
+!
+!
+!
+!
+!
+!
+banner login ^CC
+==============================================================================
+This system and data is the property of British Sky Broadcasting Ltd.
+** STRICTLY AUTHORISED USERS ONLY **
+If you have any problems or queries contact SNS Network Operations at:
+E: service.ops@bskyb.com
+P: +44 (0)20 7032 7060
+If you are not an Authorised User - DISCONNECT IMMEDIATELY!
+Unauthorised access is an offence under the Computer Misuse Act 1990
+==============================================================================
+^C
+!
+line con 0
+ location rd=port 1
+ exec-timeout 30 0
+ stopbits 1
+line vty 0 4
+ access-class 86 in
+ exec-timeout 720 0
+ transport input ssh
+line vty 5 14
+ access-class 86 in
+ exec-timeout 720 0
+ transport input ssh
+!
+scheduler runtime netinput 300
+ntp source Loopback0
+ntp access-group peer 82
+ntp update-calendar
+ntp server 84.38.45.194
+ntp server 84.38.45.195
+ntp server 84.38.45.196
+ntp server 84.38.47.197
+ntp server 84.38.47.198
+end

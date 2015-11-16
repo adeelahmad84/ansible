@@ -1,0 +1,893 @@
+
+Pop Guide
+Contents [hide]
+
+1 Pop Site Addresses
+2 Clarity Codes
+3 Access requirements
+3.1 Telehouse Docklands
+4 Core Site Details
+4.1 Brick Lane (BLLON)
+4.1.1 Postal Address
+4.1.2 Rack Location and IP Addresses
+4.1.2.1 Core
+4.1.2.2 Pop
+4.1.3 Cabinet Codes
+4.2 Telehouse(THLON)
+4.2.1 Postal Address
+4.2.2 Rack Location and IP Addresses
+4.2.3 Cabinet Codes
+4.3 Basingstoke (ENBGK)
+4.3.1 Postal Address
+4.3.2 Rack Location and IP Addresses
+4.3.3 Cabinet Codes
+4.4 Leeds (ENLBA)
+4.4.1 Postal Address
+4.4.2 Rack Location and IP Addresses
+4.4.2.1 Core
+4.4.2.2 Pop
+4.4.3 Cabinet Codes
+4.5 York (ENYRK)
+4.5.1 Postal Address
+4.5.2 Rack Location and IP Addresses
+4.5.3 Cabinet Codes
+4.6 Birmingham Hockley (HOBIR)
+4.6.1 Postal Address
+4.6.2 Rack Location and IP Addresses
+4.6.3 Cabinet Codes
+4.7 Leicester (ENLCS)
+4.7.1 Postal Address
+4.7.2 Rack Location and IP Addresses
+4.7.3 Cabinet Codes
+4.8 Carlisle (ENCAX)
+4.8.1 Postal Address
+4.8.2 Rack Location and IP Addresses
+5 POP Site CDN Sites
+5.1 POP Site Information Docs
+5.2 Manchester Missouri (MIMNC)
+5.2.1 Address
+5.2.2 IP Addresses
+5.2.3 Cabinet Codes
+5.3 Manchester Poland Street
+5.3.1 Address
+5.3.2 Rack Location and IP Addresses
+5.3.3 Cabinet Codes
+5.4 Glasgow (ENGLW)
+5.4.1 Address
+5.4.2 IP Addresses
+5.4.3 Cabinet Codes
+5.5 Newcastle (ENNCL)
+5.5.1 Address
+5.5.2 IP Addresses
+5.5.3 Cabinet Codes
+5.6 Sheffield (ENSHF)
+5.6.1 Address
+5.6.2 IP Addresses
+5.6.3 Cabinet Codes
+5.7 Bristol (ENBRS)
+5.7.1 Address
+5.7.2 IP Addresses
+5.7.3 Cabinet Codes
+5.8 Newbury (ENNBY)
+5.8.1 Address
+5.8.2 IP Addresses
+5.8.3 Cabinet Codes
+5.9 Gloucester (ENGLO)
+5.9.1 Address
+5.9.2 IP Addresses
+5.9.3 Cabinet Codes
+5.10 Hayes (ENHMI)
+5.10.1 Address
+5.10.2 IP Addresses
+5.10.3 Cabinet Codes
+5.11 Liverpool(ENLPL)
+5.11.1 Address
+5.11.2 IP Addresses
+5.11.3 Cabinet Codes
+5.12 Woking (ENWKG)
+5.12.1 Address
+5.12.2 IP Addresses
+5.12.3 Cabinet Codes
+5.13 Slough (ENSLO)
+5.13.1 Address
+5.13.2 IP Addresses
+5.13.3 Cabinet Codes
+5.14 Nottingham (ENNTG)
+5.14.1 Address
+5.14.2 IP Addresses
+5.14.3 Cabinet Codes
+5.15 Cardiff (ENCDF)
+5.15.1 Address
+5.15.2 IP Addresses
+5.15.3 Cabinet Codes
+5.16 Belfast (ENBEL)
+5.16.1 Address
+5.16.2 IP Addresses
+5.16.3 Cabinet Codes
+5.17 Chilworth (SYCWR)
+5.17.1 Address
+5.17.2 IP Addresses
+5.17.3 Cabinet Codes
+5.18 Osterley (SYOST)
+5.18.1 Address
+5.18.2 IP Addresses
+5.18.3 Cabinet Codes
+5.19 Edinborgh (ENEDI)
+5.19.1 Address
+5.19.2 IP Addresses
+5.19.3 Cabinet Codes
+5.20 Telehouse(THLON) POP
+5.20.1 Postal Address
+5.20.2 Rack Location and IP Addresses
+5.20.3 Cabinet Codes
+5.21 Aberdeen(ENABD) POP
+5.21.1 Postal Address
+5.21.2 Rack Location and IP Addresses
+5.21.3 Cabinet Codes
+
+Pop Site Addresses
+
+\\snsfiler01b.sns.bskyb.corp\shared_areas\SNS NOC\CDN\Pop Guide\Location\Pop Site Addresses.xls
+Clarity Codes
+
+The Clarity codes for ICC engineers.
+
+412502
+
+Access requirements
+Telehouse Docklands
+
+Date / Time
+Engineers Name
+Telephone Number
+Car registration Number
+Company
+Which room / rack within Telehouse (Please note this is a far bigger site than others)
+What work – Akamai Ticket number / Spark Ticket reference
+
+Core Site Details
+Brick Lane (BLLON)
+Postal Address
+
+Sky Network Services
+1 Brick Lane
+London
+E1 6PU
+
+Rack Location and IP Addresses
+Core
+Supplier  What  Rack Location   Service provide tag   IP Range
+SNS ar10.bllon  Rack J06,MC6    84.38.34.29/32
+Google  as101.bllon, as102.bllon  TBC, MC6    90.222.188.192/26
+Level3  cdn-l3dec-data_a  TBC,MC6     2.127.242.192/27
+Level3  cdn-l3dec-data_b  TBC,MC6     2.127.242.224/27
+Level3  cdn_L3_Server_A    ???    2.127.243.161/28
+Akamai  pdl-edge-1  TBC,MC6     90.223.194.64/27
+Akamai  pdl-edge-2  TBC,MC6     90.223.194.97/27
+Netflix_1 N/A   TBC,MC6     90.223.194.200/29
+Netflix_2 N/A   TBC,MC6     90.208.115.81/28
+SNS Video CDS   TBC     TBC
+Akamai  AANP  D10,D11   EASY-LON3   176.255.202.115/25
+Akamai  MCDN   ?  BSKYB-LON3/LON5   90.207.233.128/25
+Akamai  MCDN   ?  BSKYB-LON3/LON5   90.223.198.128/25
+Pop
+
+MCDN Brick lane 176.255.200.192/26
+L3 DEC Brick Lane 2.127.244.128/27
+
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Telehouse(THLON)
+Postal Address
+
+TFM5, Telehouse North
+Telehouse Europe
+14 Coriander Avenue
+E14 2AA London
+United Kingdom
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Level3  cdn-l3dec-data_1  Unit D17 Rack 22    2.127.243.0/27
+Google  ggc-datafarm-a_1  Unit D17 Rack 22    2.127.252.128/26
+Google  ggc-datafarm-b_1  Unit D17 Rack 22    2.127.252.192/26
+Netflix cdn-netflix       90.223.194.217/29
+Netflix cdn-netflix       90.208.115.113/28
+Akamai  MCDN-Edge-1   AC Rack 1 Tile 7P BSKYB-LON6/LON7   90.207.233.128/25
+Akamai  MCDN-Edge-2   AC Rack 1 Tile 7P BSKYB-LON6/LON7   90.223.198.128/25
+
+(POP) AANP Telehouse 90.223.204.0/25
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Basingstoke (ENBGK)
+Postal Address
+
+Unit 2
+Trident Centre
+Armstrong Road
+Basingstoke
+RG24 8NU
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  ggc-datafarm-a_1  Rack D03    90.223.244.64/26
+Akamai  Akamai-AANP_1 Rack D03  easy-lon2   2.127.241.10/31
+Akamai  Akamai-AANP_2 Rack D03  easy-lon2   2.127.241.8/31
+Akamai  MCDN-Edge-1 Rack D03  BSKYB-LON1/LON2   90.223.227.0/24
+Akamai  MCDN-Edge-2 Rack D03  BSKYB-LON1/LON2   90.223.228.0/24
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Leeds (ENLBA)
+Postal Address
+
+Units 3 & 4
+Royds Court
+Whitehall Road
+Rothwell
+Leeds
+LS12 4TU
+
+Rack Location and IP Addresses
+Core
+Supplier  What  Rack Location   Service provide tag   IP Range
+Level3  cdn-l3DEC-data_a      2.127.242.128/27
+Level3  cdn-l3DEC-data_b      2.127.243.128/27
+Level3  cdn_L3_Server_A     2.127.243.177/28
+Google  ggc-datafarm      2.127.237.128/26
+Google  ggc-datafarm      2.127.237.192/26
+Akamai  Akamai-AANP_1     176.255.246.128/25
+Netflix cdn-netflix_a       2.127.239.150/30
+Netflix cdn-netflix_b       2.127.239.160/30
+Netflix cdn-netflix       90.223.194.192/29
+Netflix cdn-netflix_1       90.208.115.97/28
+Level3  cdn-l3global-data_a       2.127.242.160/27
+Level3  cdn-l3global-data_A       2.127.243.176/28
+Akamai  MCDN-Edge-1     BSKYB-LBA3/LBA5   176.255.200.128/26
+Akamai  MCDN-Edge-2     BSKYB-LBA3/LBA5   90.223.198.0/25
+Pop
+
+MCDN Leeds 90.208.114.0/26
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+York (ENYRK)
+Postal Address
+
+Easynet UK
+Unit 1
+Centurion Way
+Clifton Moor
+York
+YO33 4WW
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range  IP Range  IP Range
+Google  ggc-datafarm-a_1      90.223.244.0/26
+Google  ggc-datafarm-a_2      90.201.124.192/26
+Google  ggc-datafarm-a_3      90.201.124.1/26
+Akamai  Akamai-AANP_1     easy-lba  90.223.233.1/25   90.223.216.193/26   2.127.246.193/26
+Akamai  Akamai-AANP_2     easy-lba  2.127.241.14/31
+Akamai  MCDN-Edge-1     BSKYB-LBA1/LBA2   90.223.229.0/24
+Akamai  MCDN-Edge-2     BSKYB-LBA1/LBA2   90.223.230.0/24
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Birmingham Hockley (HOBIR)
+Postal Address
+
+Unit 5&6
+Hockey Industrial Estate
+Pitsford Street
+Birmingham.
+B18 6PT
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  MCDN-1    BSKYB-BHX6/BHX7   90.223.194.0/27
+Akamai  MCDN-2    BSKYB-BHX6/BHX7   90.223.194.32/27
+Akamai  Akamai-AANP_1       176.255.246.0/25
+Level3  cdn-l3global-data_a       2.127.242.32/27
+Level3  cdn-l3global-data_b       2.127.242.64/27
+Level3  cdn-l3dec-data_1      2.127.242.0/27
+Level3  cdn-l3dec-data_2      2.127.242.96/27
+Google  ggc-datafarm-a_1      2.127.251.64/26
+Google  ggc-datafarm-b_1      2.127.251.128/26
+NETFLIX   Cache       90.223.194.208/29
+NETFLIX   Cache       90.208.115.1/28
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Leicester (ENLCS)
+Postal Address
+
+Unit 6B
+Trevanth Road
+Leicester
+LE4 9LS
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  Akamai-AANP_1     EASY-BHX  90.223.174.1/27
+2.127.246.65/26
+90.223.216.129/26
+90.223.246.1/27
+Akamai  PDL-Edge-1      90.223.225.0/26
+Akamai  PDL-Edge-2      90.223.224.0/26
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Carlisle (ENCAX)
+Postal Address
+
+Easynet UK
+Units 1c&1d
+Port Road Business Park
+Carlisle
+CA2 7AJ
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  cdn-ggc       90.223.205.192/26
+Akamai  Akamai-AANP_1   Rack D001     2.127.241.0/31
+Akamai  Akamai-AANP_2   Rack D001     2.127.241.2/31
+Akamai  PDL-Edge-2  Rack C13    90.223.231.0/25
+Akamai  PDL-Edge-1  Rack C13    90.223.242.0/25
+
+
+GGC Carlise 90.223.205.192/26
+
+POP Site CDN Sites
+POP Site Information Docs
+
+The following link has site information for all sites, it is maintained by the Networks Team.
+
+\\Snsfiler01b.sns.bskyb.corp\shared_areas\Network Infrastructure\Fibre Records\National_core_network_Documentation\Site_Documentation
+
+
+Manchester Missouri (MIMNC)
+Address
+
+Unit 1,
+Missouri Avenue,
+off Eccles New Road,
+Salford,
+Manchester.
+M5 2NP
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  cdn-ggc1      90.223.229.64/26
+Google  cdn-ggc3      90.210.66.1/26
+Netflix cdn-netflix_1       176.255.200.105/30
+Netflix cdn-netflix_2       90.208.115.65/28
+Akamai  Akamai-AANP_1   Rack D001     176.255.203.0/25
+Akamai  cdn_mcdn  Rack C13    176.255.171.1/27
+Level(3)  DEC Rack C18    90.210.66.208/28 (Data), 90.223.174.196/30 (Mgmt)
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Manchester Poland Street
+Address
+
+Units 1,2&3
+City Court Trading Estate
+Poland Street
+Manchester
+M4 6AL
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  cdn-ggc1    bskyb-man2  90.223.230.64/26
+Google  cdn-ggc2    bskyb-man4  90.210.66.64/26
+Netflix cdn-netflix_1       176.255.200.113/30
+Netflix cdn-netflix_2       90.208.115.129/28
+Akamai  Akamai-AANP_1       176.255.203.128/25
+Akamai  cdn_mcdn      176.255.171.224/27
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Glasgow (ENGLW)
+Address
+
+2 Port Dundas Business Park
+Borran street
+Glasgow
+G4 9XG
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Level3  Dec       90.210.66.192/28
+Google  cdn-ggc2      90.201.124.65/26
+Netflix cdn-netflix_1       176.255.200.120/30
+Netflix cdn-netflix_2       90.208.115.145/28
+Akamai  Akamai-AANP_1   Rack D001     176.255.202.128/25
+Akamai  Akamai-MCDN       90.201.125.193/27
+
+
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Newcastle (ENNCL)
+Address
+
+Unit 10
+Bellway Industrial Estate
+Long Benton
+Newcastle
+NE12 9SW
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  cdn-ggc1      90.223.228.64/26
+Netflix cdn-netflix       176.255.200.96/30
+AKAMAI  MCDN      90.201.125.97/27
+
+
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Sheffield (ENSHF)
+Address
+
+Unit 6
+Fieldhouse Way
+Petre
+Sheffield
+S4 7SF
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  cdn-ggc1      90.223.225.64/26
+Netflix cdn-netflix       176.255.200.88/30
+Akamai  cdn_mcdn  Rack C13    176.255.171.96/27
+Akamai  Akamai-AANP_1   Rack D001     94.15.95.128/25
+
+
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Bristol (ENBRS)
+Address
+
+Unit 4
+Newbridge Trading Estate
+Whitby Road
+Bristol.
+BS4 3QF
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Netflix cdn-netflix_1       176.255.200.81/30
+Netflix cdn-netflix_2       90.208.115.49/28    Akamai  Akamai-AANP     94.15.95.1/25
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Newbury (ENNBY)
+Address
+
+The Paddocks
+Hambridge Road
+Newbury.
+RG14 5TU
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  ggc-datafarm      176.255.201.129/26
+
+
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Gloucester (ENGLO)
+Address
+
+Unit 11c
+Barnwood Fields
+Barnett Way
+Gloucester.
+GL4 3RT
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  ggc-datafarm      90.223.224.65/26
+Netflix cdn-netflix       176.255.200.73/30
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Hayes (ENHMI)
+Address
+
+Unit 7,
+Clayton Business Centre,
+Trevor Road,
+Uxbridge,
+Hayes
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  ggc-datafarm      176.255.201.193/26
+Google  ggc-datafarm      90.222.188.129/26
+Level3  cdn-l3DEC-data_b      2.127.243.65/27
+Akamai  Akamai-AANP_1     90.223.204.129/25
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Liverpool(ENLPL)
+Address
+
+Unit 18&20
+Sandon Way Industrial Estate,
+Boundary Street,
+Liverpool
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Netflix cdn-netflix_a       176.255.200.65/30
+Netflix cdn-netflix_b       176.255.200.69/30
+Netflix cdn-netflix_c       90.208.115.17/28
+Akamai  MCDN-Edge-1       176.255.171.65/27
+Google  ggc-datafarm      176.255.201.65/26
+Google  ggc-datafarm      90.201.126.65/26
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Woking (ENWKG)
+Address
+
+Unit 3
+Monument Business Centre,
+Monument Way East,
+Woking,
+Surrey
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Level3  cdn-l3global-data       2.127.243.33/27
+GGC   GGC-DATA      90.201.126.1/26
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+
+Slough (ENSLO)
+Address
+
+Units 230/231
+Berwick Avenue,
+Slough Trading Estate,
+Slough.
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Netflix cdn-netflix       176.255.200.101/30
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Nottingham (ENNTG)
+Address
+
+Unit 9
+Easter Park
+Lenton Lane Industrial Estate
+Nottingham
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Google  ggc-datafarm      90.211.177.193/26
+Netflix cdn-netflix       176.255.200.93/30
+Akamai  Akamai-MCDN       90.201.125.161/27
+
+
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Cardiff (ENCDF)
+Address
+
+Easynet Cabin,
+Surf Telecom,
+Cardiff East Radio station,
+Colchester Avenue,
+Cardiff
+CF23 9XN
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Netflix1  cdn-netflix       176.255.200.117/30
+Google  ggc-datafarm      90.223.217.1/26
+Netflix2  cdn-netflix       90.208.115.161/28
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+
+Belfast (ENBEL)
+Address
+
+EirCom,
+1st Floor,
+Benmore House,
+345 Lisburn Road,
+Belfast
+BT 97EP
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Netflix cdn-netflix       176.255.200.125/30
+Google  ggc-datafarm  SNS Rack I5     176.255.201.1/26
+Akamai  MCDN      90.201.125.1/27
+Level(3)  DEC Rack 016, main room     90.210.66.224/28 (Data), 90.223.174.200/30 (Mgmt)
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+
+Chilworth (SYCWR)
+Address
+
+Rack B06 & B07
+Building 6 (MAC)
+SNS Pop Room 1
+British Sky Broadcasting Ltd
+University Parkway
+Southampton Science Park
+Southampton
+Hampshire
+SO16 7NP
+
+This will require Platform Support Chilworth <PlatformSupportChilworth@bskyb.com> to approve access / support.
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  Akamai-AANP Rack B06 & B07, Building 6 (MAC), SNS Pop Room 1    90.223.224.129/25
+Netflix Netflix 1&2       90.208.115.193/28
+Google  bskyb-sou1      90.210.66.129/26
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+
+Osterley (SYOST)
+Address
+
+British Sky Broadcasting,
+7 Centaurs Business Centre,
+Grant Way,
+Isleworth
+TW7 5QD
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  Akamai-AANP     90.223.225.129/25
+Netflix cdn-netflix       90.208.115.33/28
+Akamai  Akamai-MCDN     90.201.125.129/27
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Edinborgh (ENEDI)
+Address
+
+Unit 12 West Craigs Industrial Estate,
+Turnhouse Road,
+Edinburgh.
+EH12 0BD
+
+IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  Akamai-AANP     176.255.247.1/25
+Netflix cdn-netflix_1       176.255.200.109/30
+Netflix cdn-netflix_2       90.208.115.177/28
+Akamai  MCDN-Edge       176.255.171.33/27
+Google  ggc-datafarm A      90.211.177.129/26
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Telehouse(THLON) POP
+Postal Address
+
+TFM5, Telehouse North
+Telehouse Europe
+14 Coriander Avenue
+E14 2AA London
+United Kingdom
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  Akamai-AANP       90.223.204.0/25
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Aberdeen(ENABD) POP
+Postal Address
+
+Redmoss sub-station,
+Langdykes Road,
+Cove Bay,
+Aberdeen,
+AB12 3SG.
+
+Rack Location and IP Addresses
+Supplier  What  Rack Location   Service provide tag   IP Range
+Akamai  Akamai-MCDN       90.201.125.33/27
+Level(3)  DEC   Suite B Rack 3    90.210.66.240/28 (Data), 90.223.174.204/30 (Mgmt)
+Cabinet Codes
+
+The cabinet codes for field engineers will be one of the following:
+
+662, 759, 357, cx2468
+
+Page Discussion View source History
+
+Log in / create account
+
+Navigation
+
+Main page
+4am Guide
+Weathermap
+Graphs
+Pop Guide
+Contacts
+OTT Service Centre Osterley
+Sporting Events
+Whats Where
+Links
+
+Search
+
+Supplier Information
+
+Conviva
+Level 3
+Akamai
+Netflix
+Google Global Cache
+EE
+Talk Talk
+CDN_Selector
+
+Solutions
+
+SkyGo
+Nowtv
+Web Caching
+Third Party Caches
+CatchUp TV
+Pop Site CDNs
+Wholesale DVN
+DNS Sieve
+Route Servers
+Sky Store
+MultiCDN
+Mapper
+CDN Netflow
+Velocix
+Octopus
+
+Tech Guides
+
+Video URLS
+Testing Services
+Cache Control Headers
+5xx Errors
+Quick Guide to DNS
+Not a DOS
+Cache Draining
+Loadbalancing
+Moving Origin
+Network Diagram
+Arbor
+iOS Releases
+Ironman DNS
+IWF Filter
+Conviva Alerts
+IPv6 Testing
+Waf IP Blocking
+Akamai Spining Globe
+
+CDN Team Guides
+
+Cheetsheet
+CDN Team Lab
+CDN Team Wiki
+OTT Analyst Guide
+Editing Weathermap
+Packages Guide
+Sports Calendar
+Event Centre
+Example Callouts
+Acronym Guide
+Router Commands
+Heightened Awareness
+CMP Alerts
+Pop CDN Go-Live
+Webscreens
+MicroSoft Home Use Program
+Office IP Ranges
+ITV Stream Testing
+ROI related content
+
+Toolbox
+
+What links here
+Related changes
+Special pages
+Printable version
+Permanent link

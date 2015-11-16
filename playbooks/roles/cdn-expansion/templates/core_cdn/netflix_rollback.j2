@@ -1,0 +1,32 @@
+\configure
+{% for item, ports in ntf['array']|dictsort %}
+{% for key, info in ports|dictsort %}
+    port {{ info.port }}
+        shutdown
+    exit
+{% endfor %}
+{% endfor %}
+{% for item, ports in ntf['array']|dictsort %}
+    lag {{ item }}
+{% for key, info in ports|dictsort %}
+        no port {{ info.port }}
+{% endfor %}
+        shutdown
+    exit
+{% endfor %}
+    service
+        vpls {{ ntf.vpls }}
+{% for item, ports in ntf['array']|dictsort %}
+            sap lag-{{ item }}
+		shutdown
+            exit
+{% endfor %}
+            shutdown
+	exit
+        ies {{ ntf.ies }}
+            interface "ies {{ ntf.ies }}_cdn-netflix"
+		shutdown
+	    exit
+            shutdown
+	exit
+    exit all

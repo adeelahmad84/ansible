@@ -1,0 +1,44 @@
+configure terminal
+!
+interface Bundle-Ether309
+ description [no-mon,core-o,rd=ar11-cdn.enyrk:lag2,iv-s=bb]
+ shutdown
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links 2
+ load-interval 30
+ dampening 1 750 2000 1
+ logging events link-status
+ ipv4 mtu 8192
+ ipv4 address 2.120.10.210 255.255.255.254
+!
+router isis 65444
+ interface Bundle-Ether309
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 ZUghzH49RUfOZ9PO
+  address-family ipv4 unicast
+   metric 9910000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor 89.200.128.53 password XSBhie6KGbktsgsi
+ interface Bundle-Ether309
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether309
+ !
+!
+rsvp
+ interface Bundle-Ether309
+  bandwidth 300G
+  signalling dscp 48
+ !
+!
+commit

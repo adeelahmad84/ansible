@@ -1,0 +1,8 @@
+exit all
+configure
+    router
+	policy-options
+	    begin
+            community "IP-SLA-ILOM-IMPORT" members "target:65444:22702"
+	    commit
+exit all

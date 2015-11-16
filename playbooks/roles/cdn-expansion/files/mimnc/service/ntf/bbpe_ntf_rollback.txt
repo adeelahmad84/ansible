@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-NETFLIX-LAN"
+                no prefix 2a02:c7a:8000:40d::/64
+	commit
+	exit
+        no static-route 2a02:c7a:8000:40d::/64
+        no static-route 90.223.194.32/28
+exit all

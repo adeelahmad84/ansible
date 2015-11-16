@@ -1,0 +1,19 @@
+exit all
+configure
+{% for key, value in first_interconnect|dictsort %}
+    port {{ value.port_new }}
+        description "[no-mon,core,ip=,rd={{ node_name }}:{{ value.port_old|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+{% endfor %}
+    lag 176
+        description "[core,ip=,rd={{ old_node_name }}:lag176,iv-s=vcdn_sc]"
+    exit
+    router
+	interface "base_{{ old_node_name }}"
+            description "[core-o,rd={{ old_node_name }}:lag176]"
+	    shutdown
+	    no port
+	    port lag-176
+	    no shutdown
+exit all

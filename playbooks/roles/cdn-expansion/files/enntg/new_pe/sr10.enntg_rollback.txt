@@ -1,0 +1,20 @@
+exit all
+configure
+    port 10/2/1
+        description "[no-mon,core,rd=ar21.enntg:te1-1,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN SUITE_B_"
+        shutdown
+    exit    
+    lag 51
+	description "[no-mon,core,rd=ar21.enntg:pc1,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar21.enntg"
+	shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK-2"
+	    description "[no-mon,core,rd=ar21.enntg:pc1,iv-s=cdn_pop]"
+	    shutdown
+	exit
+        bgp
+            group "IN-POP-CDN"
+                neighbor 2.120.7.47 
+		    shutdown
+                exit all

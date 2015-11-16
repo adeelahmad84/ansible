@@ -1,0 +1,349 @@
+exit all
+configure
+    service
+{% for cdn, info in cdn_services_id|dictsort %}
+        customer {{ info.cust_id }} create
+            description "{{ info.cdn }}"
+        exit
+{% endfor %}
+    exit
+{% for item, cdn in services|dictsort %}
+{% for port, info in  cdn['array']|dictsort %}
+    port {{ info.new_port }}
+        description "[{{ info.description }}"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% if cdn.lag %}
+    lag {{ cdn.lag }}
+	description {{ cdn.lag_desc }}
+        mode access
+{% for port, info in  cdn['array']|dictsort %}
+        port {{ info.new_port }}
+{% endfor %}
+        lacp active
+        no shutdown
+    exit
+{% endif %}
+{% endfor %}
+    service
+{% for item, cdn in services|dictsort %}
+{% if cdn.vpls_id %}
+        vpls {{ cdn.vpls_id }} customer {{ cdn.cust_id }} create
+            description "VPLS {{ item|upper }}"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls{{ cdn.vpls_id }}_cdn-{{ item }}"
+{% if cdn.lag %}
+            sap lag-{{ cdn.lag }} create
+            exit
+{% else %}
+{% for port, info in  cdn['array']|dictsort %}
+            sap {{ info.new_port }} create
+            exit
+{% endfor %}
+{% endif %}
+            no shutdown
+	exit
+{% endif %}
+        ies {{ cdn.ies_id }} customer {{ cdn.cust_id }} create
+            interface "ies{{ cdn.ies_id }}_{{ item|lower }}" create
+                description "[{{ cdn.ies_desc }}"
+                address {{ cdn.ipv4 | ipaddr('1') }}
+{% if cdn.ipv4_2 %}
+                secondary {{ cdn.ipv4_2 | ipaddr('1') }}
+{% endif %}
+{% if cdn.ipv4_3 %}
+                secondary {{ cdn.ipv4_3 | ipaddr('1') }}
+{% endif %}
+		cflowd interface
+{% if cdn.ipv6 %}
+                ipv6
+                    address {{ cdn.ipv6 | ipaddr('1') }}
+                exit
+{% endif %}
+{% if cdn.vpls_id %}
+                vpls "vpls{{ cdn.vpls_id }}_cdn-{{ item }}"
+                exit
+{% elif cdn.lag %}
+		sap lag-{{ cdn.lag }} create
+		exit
+{% else %}
+{% for port, info in  cdn['array']|dictsort %}
+		sap {{ info.new_port }} create
+		exit
+{% endfor %}
+{% endif %}
+            exit
+            service-name "ies{{ cdn.ies_id }}_{{ item|lower }}"
+            no shutdown
+        exit
+{% endfor %}
+    exit
+    router
+        static-route 0.0.0.0/0 black-hole
+        static-route 2.120.0.0/13 black-hole
+        static-route 2.124.0.0/14 black-hole
+        static-route 2.216.0.0/13 black-hole
+        static-route 2.216.0.0/14 black-hole
+        static-route 5.64.0.0/13 black-hole
+        static-route 87.80.0.0/15 black-hole
+        static-route 90.192.0.0/11 black-hole
+        static-route 90.222.191.253/32 next-hop 90.222.190.52
+        static-route 90.222.191.255/32 next-hop 90.222.190.36
+        static-route 94.0.0.0/12 black-hole
+        static-route 151.224.0.0/13 black-hole
+        static-route 176.24.0.0/14 black-hole
+        static-route 176.248.0.0/13 black-hole
+        static-route 192.0.2.0/24 black-hole
+        static-route 193.16.108.0/24 black-hole
+        static-route 193.104.140.0/24 black-hole
+	policy-options
+	    begin
+            prefix-list "PL-SKY-IP-RANGE"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 46.64.0.0/15 exact
+                prefix 78.86.0.0/16 exact
+                prefix 78.105.0.0/16 exact
+                prefix 80.238.0.0/19 exact
+                prefix 80.238.32.0/19 exact
+                prefix 84.38.32.0/20 exact
+                prefix 85.188.192.0/18 exact
+                prefix 87.80.0.0/15 exact
+                prefix 90.192.0.0/11 exact
+                prefix 91.103.32.0/21 exact
+                prefix 93.96.0.0/16 exact
+                prefix 94.0.0.0/12 exact
+                prefix 94.116.0.0/14 exact
+                prefix 94.192.0.0/14 exact
+                prefix 149.241.0.0/16 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 188.220.0.0/14 exact
+                prefix 194.42.124.0/23 exact
+            exit
+            prefix-list "AKAMAI-AANP-BLLON"
+                prefix 90.207.224.0/27 exact
+                prefix 90.207.224.128/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENBGK"
+                prefix 90.207.224.64/27 exact
+                prefix 90.207.224.192/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENEDI"
+                prefix 90.207.224.32/27 exact
+                prefix 90.207.224.160/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENSHF"
+                prefix 90.207.224.96/27 exact
+                prefix 90.207.224.224/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-HOBIR"
+                prefix 90.207.242.0/26 exact
+                prefix 90.223.197.64/26 exact
+            exit
+            prefix-list "SKY_SUPERNETS"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 90.192.0.0/11 exact
+                prefix 94.0.0.0/12 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 193.16.108.0/24 exact
+                prefix 193.104.140.0/24 exact
+            exit
+            prefix-list "SKY_SUPERNETS_GOOGLE"
+                prefix 2.124.0.0/14 exact
+                prefix 2.216.0.0/13 exact
+                prefix 2.216.0.0/14 exact
+            exit
+{% for cdn, info in cdn_services_id|dictsort %}
+            prefix-list "CORE-CDN-IPV4-{{ cdn|upper }}-LAN"
+                prefix {{ info.v4_1 }} exact
+                prefix {{ info.v4_2 }} exact
+{% if info.v4_3 %}
+                prefix {{ info.v4_3 }} exact
+{% endif %}
+            exit
+            prefix-list "CORE-CDN-IPV6-{{ cdn|upper }}-LAN"
+                prefix {{ info.v6_1 }} exact
+                prefix {{ info.v6_2 }} exact
+            exit
+{% endfor %}
+{% for cdn, info in cdn_services_id|dictsort %}
+            community "cdn-{{ cdn }}" members "4589:4" "5607:{{ info.svc_comm_id }}" "4589:{{ site_community_id }}" "5607:{{ site_community_id }}" "no-export-subconfed"
+{% endfor %}
+            community "cdn-primary-Akamai-export-comm" members "4589:14424"
+            community "cdn-secondary-Akamai-export-comm" members "4589:14425"
+            as-path "ASPATH-EXPORT-CLOUD-SUPERNETS" expression "41012+"
+            policy-statement "DENY-ALL"
+                description "Deny all traffic"
+                entry 10
+                    from
+                        protocol bgp
+                    exit
+                    action reject
+                exit
+            exit
+            policy-statement "SKY-SUPERNETS"
+                description "Announce Cloud & Sky  Supernets to Peer"
+                entry 10
+                    from
+                        protocol static
+                        prefix-list "SKY_SUPERNETS"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 15
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-SUPERNETS"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 100
+                    description "Deny everything else"
+                    action reject
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP"
+{% for cdn, info in cdn_services_id|dictsort %}
+                entry {{ info.entry }}
+                    description "{{ info.cdn }} LAN  subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-{{ cdn|upper }}-LAN"
+                    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-{{ cdn }}"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+{% endfor %}
+            exit
+            policy-statement "EXPORT-TO-IBGP6"
+{% for cdn, info in cdn_services_id|dictsort %}
+                entry {{ info.v6entry }}
+                    description "{{ info.cdn }} v6 LAN  subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-{{ cdn|upper }}-LAN"
+                    exit
+		    to
+			protocol bgp
+		    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-{{ cdn }}"
+                        next-hop-self
+                    exit
+                exit
+{% endfor %}
+            exit
+            policy-statement "DENY_SKY_SUPERNETS_TO_RR"
+                entry 10
+                    description "Deny SKY_SUPERNETS to upstream RR"
+                    from
+                        protocol static
+                        prefix-list "SKY_SUPERNETS_GOOGLE" "SKY_SUPERNETS"
+                    exit
+                    action reject
+                exit
+                entry 20
+                    description "Allow everything else to pass to EXPORT-TO-IBGP policy"
+                    action next-policy
+                    exit
+                exit
+            exit
+            policy-statement "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                description "Export All Sky supernets to Akamai and set Community"
+                entry 10
+                    description "Prmary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-ENSHF"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 20
+                    description "Secondary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-BLLON" "AKAMAI-AANP-ENEDI" "AKAMAI-AANP-ENBGK" "AKAMAI-AANP-HOBIR"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                entry 50
+                    description "Announce Cloud to Akamai"
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 60
+                    description "Sky Range Prefix List to AANP"
+                    from
+                        prefix-list "PL-SKY-IP-RANGE"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                default-action reject
+            exit
+            commit
+        exit
+            group "cdn-aanp_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL"
+                export "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.50
+                    description "Off-Net Peer "
+                    authentication-key ".m3bXs/di5Djh5Gb/A0rFGpdWl/iNtDq1JY1uMvdaSHG2eJYOVjAMlgKlToNelkWK8hw8sfjguM" hash2
+                    local-address 90.207.251.222
+                exit
+            exit
+            group "cdn-aanp_mcdn_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP MCDN AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL" 
+                export "SKY-SUPERNETS" 
+                local-as 5607
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.49
+                    description "Off-Net MCDN Peer "
+                    authentication-key okuHuek0IePohgh2
+                    local-address 176.255.247.129
+                exit
+            exit

@@ -1,0 +1,38 @@
+1. From the jumphost run the following commands:
+
+    scp -r ar10.enyrk:IMAGES/TiMOS-10.0.R5 ./
+    touch factory_default.cfg
+    touch factory_default.ndx
+    touch bof.cfg
+
+# ensure to have the above files and directories inside its own directory in your jumphost.
+
+2. edit bof.cfg and add the following contents:
+
+	    primary-image    cf3:\TiMOS-10.0.R5\
+	    primary-config   cf3:\factory_default.cfg
+	    autonegotiate
+	    duplex           full
+	    speed            100
+	    wait             3
+	    persist          on
+	    no li-local-save
+	    no li-separate
+	    console-speed    115200
+
+3. log into ar10.enyrk and delete everything in the flash by running the following commands:
+
+    file
+    rd <each_directory> force
+    delete * force
+    exit
+    logout
+
+
+4. from the jumphost transfer the contents created at 1. and 2.:
+
+        scp -r * ar10.enyrk:
+
+5. log back into ar10.enyrk via OOB management and reboot.
+
+    admin reboot.

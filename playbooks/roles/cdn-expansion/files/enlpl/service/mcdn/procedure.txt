@@ -1,0 +1,97 @@
+Summary:
+
+C2: New MCDN Region - 2 x 10G links [TG2540]
+
+Business Justification:
+
+This change is to add a new MCDN Region into enlpl, this is the network configuration required bringing the region into service
+This is to accommodate the accelerated growth of MCDN service demands.
+The change being on hold will impact the capacity SNS can provide for MCDN services.
+
+
+
+
+
+
+
+Implementation Steps:
+
+Tech Summary
+*******************
+The implementation steps should take approxiately 20 minutes to complete.
+
+This change is to:
+- Add 2 x 10G links into one LAG
+- Create a new IES service with IPv4/IPv6 and the newly created LAG to the service interface
+- Add the v4/v6 prefixes to the existing named prefix-list.
+
+1. After running the pre-checks please apply the commands found in the file named ar20.enlpl.txt
+2. move onto post-checks found in Test Plan
+
+
+
+
+
+
+
+
+Test Plan:
+
+Pre-Checks
+***************
+1. Please run the following command in your jumphost to ensure the IP ranges do not already exist on SNS production network:
+
+findip2 176.255.171.65/27
+findip2 2a02:c7a:8000:f804::1/64
+
+- expect to not find the IP range.
+
+2. Please check to see if the IP ranges have the appropriate DNS entries:
+
+host 176.255.171.65 
+host 2a02:c7a:8000:f804::1 
+
+- expect to see the following:
+
+64.171.255.176.in-addr.arpa. domain name pointer host1-rangeA-akamai-mcdn.cdn.enlpl.isp.sky.com
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.0.8.f.0.0.0.8.a.7.c.0.2.0.a.2.ip6.arpa. domain name pointer rangeA-akamai-mcdn.cdn.enlpl.isp.sky.com
+
+3. Please go to the URL: https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells and ensure that the ports referenced TG2540 matches the configuration attached to the change.
+
+4. Please run the following commands found in bbpe_prepost.txt and expect
+- to see the ports down
+- to see no Bundle (if applicable) found
+- to see no prefixes found.
+
+
+Post-Checks
+***************
+Please run the commands found in the file named ar20.enlpl_prepost.txt
+
+- expect to see the ports down (still)
+- expect to see LAG and service-id configured and admin state up.
+- expect to see prefixes in the prefix-list but not advertised.
+
+
+
+
+
+
+
+Backout Plan:
+
+If the post-check ouputs do not satisfy your expectation then please follow this action in the below situations:
+
+- if ports are up = Shut them down
+- LAG/Service-id isn't configured or not admin up = please reconfigure and ensure they are not shut down.
+- if prefixes are not visible in the prefix-list = please add the prefixes to the prefix-list.
+
+If the implementation was to impact any live services then proceed to back out with the file named ar20.enlpl_rollback.txt.
+Upon completing rollback please re run the commands found in the file named ar20.enlpl_prepost.txt  AND compare the results with the output of the precheck = ensure they are identical.
+
+
+Risk Assessment:
+
+This is a network configuration to be in place prior to introducing the new MCDN region.  No live services are anticipated to be impacted.
+If the change went wrong such as configuring the a duplicate IP address then any services with the same IP could be at risk.
+The chances are slim as a pre-check will be done using the findip2 tool to determine whether the IP range exists.

@@ -1,0 +1,77 @@
+---
+#device information
+#site_id: enwkg
+#site_community: 14449
+hostname: ar20.enwkg
+loopback: "84.38.34.235/32"
+#location: Woking
+tacacs_key:
+console:
+second: false
+rack: "RACK_FG02"
+chassis: 32
+
+#Uplink information
+bbpe:
+  1:
+            # USE NETWORK RANGE #
+    ipv4_p2p: "2.120.9.234/31"
+    ipv6_p2p: "2a02:c78:1:f::/127"
+    threshold: 5
+    ggc_tag: 20200
+    ntf_tag:
+    aanp_tag:
+    mcdn_tag:
+    l3d_tag:
+    l3g_tag:
+    channel: 1
+    lag: 50
+    hostname: sr10.enwkg
+    bgp_auth: m0Pd5UmXLk8q4Aim
+    ports:
+      1:
+        remote_port: 1/7
+        port: 10/2/4
+
+  2:
+            # USE NETWORK RANGE #
+    ipv4_p2p: "2.120.8.34/31"
+    ipv6_p2p: "2a02:c78:1:1f::/127"
+    threshold: 5
+    ggc_tag: 20210
+    ntf_tag:
+    aanp_tag:
+    mcdn_tag:
+    l3d_tag:
+    l3g_tag:
+    channel: 2
+    lag: 50
+    hostname: sr11.enwkg
+    bgp_auth: iecee8eiBeegeosi
+    ports:
+      1:
+        remote_port: 1/6
+        port: 1/2/4
+
+# Google services
+ggc:
+  vlan_id: 20
+  farm: A
+  one_gig: false
+  ipv4: "90.201.126.0/26"
+  ipv6: "2a02:c7a:8000:1502::/64"
+  # CHECK ALL SRs 10.... FOR CORRECT V6_ENTRY #
+  v6_entry: 298
+  array:
+    1:
+      port: 1/11
+      server_id: 1
+    2:
+      port: 1/12
+      server_id: 2
+    3:
+      port: 1/13
+      server_id: 3
+    4:
+      port: 1/14
+      server_id: 4

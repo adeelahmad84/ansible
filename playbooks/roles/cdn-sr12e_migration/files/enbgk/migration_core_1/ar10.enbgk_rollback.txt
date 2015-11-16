@@ -1,0 +1,52 @@
+exit all
+configure
+    port 5/1/1
+        description "[core,ip=,rd=pr3.bllon:hu0-7-0-2,cid=SNS:1003/BSGA-LNBL/100G/CDN1,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 5/2/1
+        description "[core,ip=,rd=pr3.bllon:hu0-7-0-3,cid=SNS:1003/BSGA-LNBL/100G/CDN2,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 7/1/1
+        description "[core,ip=,rd=pr3.bllon:hu0-7-0-5,cid=SNS:1003/BSGA-LNBL/100G/CDN3,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 7/2/1
+        description "[core,ip=,rd=pr3.bllon:hu0-3-0-0,cid=SNS:1003/BSGA-LNBL/100G/CDN4,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 3
+        description [core,ip=,rd=pr3.bllon:be317,iv-s=vcdn_sc]
+        no shutdown
+	port 5/1/1
+	port 5/2/1
+	port 7/1/1
+	port 7/2/1
+    exit
+    router
+	interface "base_pr3.bllon_1"
+	    no shutdown
+            address 84.38.37.213/31
+            description "[core-o,rd=pr3.bllon:be317]"
+	exit
+	isis
+	    interface "base_pr3.bllon_1"
+		no shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_pr3.bllon_1"
+		no shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_pr3.bllon_1"
+		no shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_pr3.bllon_1"
+		    no shutdown
+exit all

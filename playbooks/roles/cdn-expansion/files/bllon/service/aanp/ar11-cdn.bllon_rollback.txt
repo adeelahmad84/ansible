@@ -1,0 +1,49 @@
+exit all
+configure
+    port 5/1/29
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-1"
+        shutdown
+    exit
+    port 5/1/30
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-2"
+        shutdown
+    exit
+    port 5/1/31
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-3"
+        shutdown
+    exit
+    port 5/1/32
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-4"
+        shutdown
+    exit
+    port 5/1/33
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-5"
+        shutdown
+    exit
+    port 5/1/34
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-6"
+        shutdown
+    exit
+    port 5/1/35
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-7"
+        shutdown
+    exit
+    port 5/1/36
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] TO AGG100-Celestica PORT 0-8"
+        shutdown
+    exit
+    lag 51
+	shutdown
+	no lacp
+	no port 5/1/29
+	no port 5/1/30
+	no port 5/1/31
+	no port 5/1/32
+	no port 5/1/33
+	no port 5/1/34
+	no port 5/1/35
+	no port 5/1/36
+        lacp active
+        no shutdown
+    exit
+exit all

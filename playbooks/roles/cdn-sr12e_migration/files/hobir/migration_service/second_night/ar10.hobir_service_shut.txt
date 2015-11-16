@@ -1,0 +1,108 @@
+exit all
+configure
+    port 2/1/5
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of Port-Channel 51 to Akamai Managed  HP Switch Slot A P_1 for AANP "
+        shutdown
+    exit
+    port 2/1/6
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of Port-Channel 51 to Akamai Managed HP Switch Slot A P_2 for AANP "
+        shutdown
+    exit
+    port 2/1/9
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/47"
+        shutdown
+    exit
+    port 2/1/10
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/48"
+        shutdown
+    exit
+    port 4/1/5
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/45"
+        shutdown
+    exit
+    port 4/1/6
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/46"
+        shutdown
+    exit
+    port 4/1/7
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/39"
+        shutdown
+    exit
+    port 4/1/8
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/40 "
+        shutdown
+    exit
+    port 4/1/9
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/41"
+        shutdown
+    exit
+    port 4/1/10
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/42"
+        shutdown
+    exit
+    port 4/1/11
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/43"
+        shutdown
+    exit
+    port 4/1/12
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX6 FOC1608R15N 1/44"
+        shutdown
+    exit
+    lag 51
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] LAG_51 to AANP_1 Aggregation"
+        no port 2/1/5
+        no port 2/1/6
+        shutdown
+    exit
+    lag 61
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX6 FOC1608R15N RACK_H/I004"
+        no port 2/1/9
+        no port 2/1/10
+        no port 4/1/5
+        no port 4/1/6
+        no port 4/1/7
+        no port 4/1/8
+        no port 4/1/9
+        no port 4/1/10
+        no port 4/1/11
+        no port 4/1/12
+        shutdown
+    exit
+    service
+        ies 220201
+            interface "ies220201_Akamai-AANP_1"
+		shutdown
+                description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Akamai_1 LAG_51"
+                no address 176.255.246.1/25
+                ipv6
+                    no address 2A02:C7A:8000:201::1/64
+                exit
+                sap lag-51
+                exit
+            exit
+            shutdown
+        exit
+        ies 220301
+            interface "ies220301_-PDL-Edge-1"
+		shutdown
+                description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-1 "
+                no address 90.197.188.1/25
+                ipv6
+                    no address 2A02:C7A:8000:204::1/64
+                exit
+                sap lag-61
+                exit
+            exit
+            shutdown
+        exit
+    exit
+    router
+        interface "AANP_OFFNET-LOOPBACK"
+            no address 90.207.251.216/32
+            shutdown
+        exit
+	bgp
+            group "cdn-aanp_offnet-ipv4"
+                neighbor 195.245.126.50
+		    shutdown
+        exit all

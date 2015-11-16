@@ -1,0 +1,10 @@
+!! $Id: ar0-isp.enshf.txt,v 1.2 2012/06/25 17:20:13 mivens Exp $
+
+router bgp 65444
+ neighbor 84.38.34.245 inherit peer-session IRONMAN_PE_SESSION
+ neighbor 84.38.34.245 description sr12.enlpl - IRONMAN_PE_SUBS_2ND_POLICY
+ neighbor 84.38.34.245 password 0 JL0phKqovnLZfqCC
+ address-family ipv4
+  neighbor 84.38.34.245 activate
+  neighbor 84.38.34.245 inherit peer-policy IRONMAN_PE_SUBS_2ND_POLICY
+end

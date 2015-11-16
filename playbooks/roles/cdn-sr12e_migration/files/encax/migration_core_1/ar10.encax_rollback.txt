@@ -1,0 +1,47 @@
+exit all
+configure
+    port 9/1/1
+        description "[core,ip=,rd=pr3.hobir:hu0-7-0-2,cid=SNS:1003/BHMB-CRLA/100G/CDN1,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 8/1/1
+        description "[core,ip=,rd=pr3.hobir:hu0-7-0-3,cid=SNS:1003/BHMB-CRLA/100G/CDN3,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 8/2/1
+        description "[core,ip=,rd=pr3.hobir:hu0-7-0-4,cid=SNS:1003/BHMB-CRLA/100G/CDN2,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 4
+        description [core,ip=,rd=pr3.hobir:be384,iv-s=vcdn_sc]
+        no shutdown
+	port 9/1/1
+	port 8/1/1
+	port 8/2/1
+    exit
+    router
+	interface "base_pr3.hobir_1"
+	    no shutdown
+            address 84.38.37.219/31
+            description "[core-o,rd=pr3.hobir:be384]"
+	exit
+	isis
+	    interface "base_pr3.hobir_1"
+		no shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_pr3.hobir_1"
+		no shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_pr3.hobir_1"
+		no shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_pr3.hobir_1"
+		    no shutdown
+exit all

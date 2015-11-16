@@ -1,0 +1,8 @@
+exit all
+configure
+    router
+	policy-options
+	    begin
+            as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI" expression "41012+"
+	    commit
+exit all

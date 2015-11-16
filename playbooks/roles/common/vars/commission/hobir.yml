@@ -1,0 +1,22 @@
+---
+
+#[7210_RELATED]
+hostname: "as103.hobir"
+location: "Unit 5&6 Hockey Industrial Estate Pitsford Street Birmingham B18 6PT, console: cm5.hobir, port 14"
+first: true
+
+tacacs: "AaJzOEaf2fUCqi47"
+management: "90.222.231.232/29"
+#PLEASE USE 1/1/24
+mgt_port: "1/1/20"
+ports:
+  1:
+    remote_port: "5/1/38"
+    port: "1/1/25"
+  2:
+    remote_port: "5/1/39"
+    port: "1/1/26"
+
+#[CDN_PE_RELATED]
+lag: 3
+pe: "ar11-cdn.hobir"

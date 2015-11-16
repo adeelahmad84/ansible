@@ -1,0 +1,15 @@
+---
+# Enter the name of the decommissioned 7210 for our ref #
+hostname: as100
+site_id: enyrk
+# Enter the service_id for ies and vpls below #
+ies: 220121
+vpls: 
+vlan: 201
+lag: 20
+pe: ar10
+ports:
+
+  - 5/1/5
+  - 6/1/5
+

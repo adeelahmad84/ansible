@@ -1,0 +1,51 @@
+configure terminal
+!
+interface Bundle-Ether317
+ description [no-mon,core-o,rd=ar10.enbgk:lag3,iv-s=vcdn_sc]
+ shutdown
+!
+interface Bundle-Ether75
+ description [core-o,rd=ar11-cdn.enbgk:lag1,iv-s=vcdn_sc]
+ no shutdown
+!
+interface Hu0/7/0/2
+ description [core-o,rd=ar11-cdn.enbgk:1-1-1,cid=SNS:1003/BSGA-LNBL/100G/CDN1,iv-s=bb]
+ bundle id 75 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/7/0/3
+ description [core-o,rd=ar11-cdn.enbgk:1-2-1,cid=SNS:1003/BSGA-LNBL/100G/CDN2,iv-s=bb]
+ bundle id 75 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/7/0/5
+ description [core-o,rd=ar11-cdn.enbgk:2-1-1,cid=SNS:1003/BSGA-LNBL/100G/CDN3,iv-s=bb]
+ bundle id 75 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/3/0/0
+ description [core-o,rd=ar11-cdn.enbgk:2-2-1,cid=SNS:1003/BSGA-LNBL/100G/CDN4,iv-s=bb]
+ bundle id 75 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+commit

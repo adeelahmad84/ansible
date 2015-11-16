@@ -1,0 +1,1286 @@
+!
+! Last configuration change at 01:50:52 BST Tue Aug 25 2015 by andre.carneiro
+! NVRAM config last updated at 01:50:58 BST Tue Aug 25 2015 by andre.carneiro
+!
+version 15.1
+service nagle
+no service pad
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+service password-encryption
+service linenumber
+service internal
+service compress-config
+service sequence-numbers
+service counters max age 10
+!
+hostname ar20.enshf
+!
+boot-start-marker
+boot system flash bootflash:cat4500e-universalk9.SPA.03.04.00.SG.151-2.SG.bin
+license boot level entservices
+boot-end-marker
+!
+!
+!
+!
+!
+vrf definition mgmtVrf
+!
+ address-family ipv4
+ exit-address-family
+!
+!
+!
+logging buffered 100000
+logging rate-limit all 500 except errors
+no logging console
+enable secret 4 XjAgZXC57b0Mx5hV/3nTsGxcpjXYFBRd1nybNb3Z/J2
+!
+username networks secret 4 Q9lMWuSa4rGJrskM0zapFfcR2aV9ntGX7uetfHjeMpw
+aaa new-model
+!
+!
+aaa authentication fail-message ^CC Failed login. Try again.^C
+aaa authentication login default group tacacs+ local
+aaa authorization exec default group tacacs+ local
+aaa accounting update newinfo
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 0 default stop-only group tacacs+
+aaa accounting commands 1 default stop-only group tacacs+
+aaa accounting commands 2 default stop-only group tacacs+
+aaa accounting commands 3 default stop-only group tacacs+
+aaa accounting commands 4 default stop-only group tacacs+
+aaa accounting commands 5 default stop-only group tacacs+
+aaa accounting commands 6 default stop-only group tacacs+
+aaa accounting commands 7 default stop-only group tacacs+
+aaa accounting commands 8 default stop-only group tacacs+
+aaa accounting commands 9 default stop-only group tacacs+
+aaa accounting commands 10 default stop-only group tacacs+
+aaa accounting commands 11 default stop-only group tacacs+
+aaa accounting commands 12 default stop-only group tacacs+
+aaa accounting commands 13 default stop-only group tacacs+
+aaa accounting commands 14 default stop-only group tacacs+
+aaa accounting commands 15 default stop-only group tacacs+
+aaa accounting network default start-stop group tacacs+
+aaa accounting connection default start-stop group tacacs+
+aaa accounting system default start-stop group tacacs+
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone GMT 0 0
+clock summer-time BST recurring last Sun Mar 2:00 last Sun Oct 2:00
+!
+ip vrf Liin-vrf
+!
+no ip domain-lookup
+ip domain-name isp.sky.com
+!
+!
+ipv6 unicast-routing
+ipv6 multicast rpf use-bgp
+vtp mode transparent
+!
+!
+!
+system mtu 1552
+power redundancy-mode redundant
+!
+mac access-list extended system-control-packet-bpdu-range
+ permit any 0180.c200.0000 0000.0000.0003
+!
+!
+!
+!
+!
+!
+spanning-tree mode mst
+spanning-tree extend system-id
+spanning-tree mst 1 priority 24576
+!
+vlan internal allocation policy ascending
+!
+vlan 20
+ name GOOGLE_DATA
+!
+vlan 201
+ name Google_Management
+!
+vlan 901
+ name OVN_MGT_VRF
+!
+ip tftp source-interface Loopback0
+!
+class-map match-all system-cpp-nme
+  match access-group name system-cpp-nme
+class-map match-all system-cpp-ipv6-rs-police-200000
+  match access-group name system-cpp-ipv6-rs-police-200000
+class-map match-all system-cpp-cdn-pop-aanp-mh-bgp
+  match access-group name system-cpp-cdn-pop-aanp-mh-bgp
+class-map match-all system-cpp-rfc1918-dcn-ssh
+  match access-group name system-cpp-rfc1918-dcn-ssh
+class-map match-all system-cpp-ovn-core-traceroute
+  match access-group name system-cpp-ovn-core-traceroute
+class-map match-all system-cpp-cdn-pop-netflix-bgp-est
+  match access-group name system-cpp-cdn-pop-netflix-bgp-est
+class-map match-all system-cpp-cdn-pop-ggc-bgp-est
+  match access-group name system-cpp-cdn-pop-ggc-bgp-est
+class-map match-all sys-cpp-ipv6-private-icmp-police-100000
+  match access-group name sys-cpp-ipv6-private-icmp-police-100000
+class-map match-all system-cpp-cdn-pop-aanp-bgp
+  match access-group name system-cpp-cdn-pop-aanp-bgp
+class-map match-all system-cpp-rfc3330-deny
+  match access-group name system-cpp-rfc3330-deny
+class-map match-all system-cpp-ovn-core-bgp-est
+  match access-group name system-cpp-ovn-core-bgp-est
+class-map match-all system-cpp-ipv6-ovn-private-bgp-est
+  match access-group name system-cpp-ipv6-ovn-private-bgp-est
+class-map match-all system-cpp-bpdu-range
+  match access-group name system-cpp-bpdu-range
+class-map match-all system-cpp-exchanges-traceroute
+  match access-group name system-cpp-exchanges-traceroute
+class-map match-all system-cpp-ipv4-LAST-POLICY-deny-all
+  match access-group name system-cpp-ipv4-LAST-POLICY-deny-all
+class-map match-all system-cpp-cdn-pop-aanp-mh-bgp-est
+  match access-group name system-cpp-cdn-pop-aanp-mh-bgp-est
+class-map match-all system-cpp-ipv6-LAST-POLICY-deny-all
+  match access-group name system-cpp-ipv6-LAST-POLICY-deny-all
+class-map match-all system-cpp-mcast-cfm
+  match access-group name system-cpp-mcast-cfm
+class-map match-all system-cpp-ucast-cfm
+  match access-group name system-cpp-ucast-cfm
+class-map match-all sys-cpp-ipv6-external-icmp-police-100000
+  match access-group name sys-cpp-ipv6-external-icmp-police-100000
+class-map match-all system-cpp-cdn-pop-ggc-bgp
+  match access-group name system-cpp-cdn-pop-ggc-bgp
+class-map match-all system-cpp-cdn-pop-netflix-bgp
+  match access-group name system-cpp-cdn-pop-netflix-bgp
+class-map match-all system-cpp-ovn-core-ssh
+  match access-group name system-cpp-ovn-core-ssh
+class-map match-all system-cpp-cdn-pop-aanp-bgp-est
+  match access-group name system-cpp-cdn-pop-aanp-bgp-est
+class-map match-all system-cpp-rfc1918-cust-sky-priv-icmp
+  match access-group name system-cpp-rfc1918-cust-sky-priv-icmp
+class-map match-all system-cpp-rfc1918-dcn-icmp
+  match access-group name system-cpp-rfc1918-dcn-icmp
+class-map match-all system-cpp-icmp
+  match access-group name system-cpp-icmp
+class-map match-all system-cpp-rfc1918-rfc6598-deny
+  match access-group name system-cpp-rfc1918-rfc6598-deny
+class-map match-all system-cpp-ipv6-ndp-police-300000
+  match access-group name system-cpp-ipv6-ndp-police-300000
+class-map match-all system-cpp-ovn-core-bgp
+  match access-group name system-cpp-ovn-core-bgp
+!
+policy-map system-cpp-policy
+ class system-cpp-bpdu-range
+ class system-cpp-mcast-cfm
+ class system-cpp-ucast-cfm
+ class system-cpp-rfc3330-deny
+    police 32000 1000    conform-action drop     exceed-action drop
+ class system-cpp-rfc1918-dcn-icmp
+ class system-cpp-rfc1918-dcn-ssh
+ class system-cpp-rfc1918-cust-sky-priv-icmp
+ class system-cpp-rfc1918-rfc6598-deny
+    police 32000 1000    conform-action drop     exceed-action drop
+ class system-cpp-nme
+ class system-cpp-icmp
+ class system-cpp-ovn-core-ssh
+ class system-cpp-ovn-core-traceroute
+ class system-cpp-exchanges-traceroute
+ class system-cpp-ovn-core-bgp-est
+ class system-cpp-ovn-core-bgp
+ class system-cpp-cdn-pop-ggc-bgp-est
+ class system-cpp-cdn-pop-ggc-bgp
+ class system-cpp-cdn-pop-aanp-bgp-est
+ class system-cpp-cdn-pop-aanp-bgp
+ class system-cpp-cdn-pop-aanp-mh-bgp-est
+ class system-cpp-cdn-pop-aanp-mh-bgp
+ class system-cpp-cdn-pop-netflix-bgp-est
+ class system-cpp-cdn-pop-netflix-bgp
+ class system-cpp-ipv4-LAST-POLICY-deny-all
+    police 32000 1000    conform-action drop     exceed-action drop
+ class system-cpp-ipv6-ovn-private-bgp-est
+ class system-cpp-ipv6-ndp-police-300000
+    police cir 300000    conform-action transmit     exceed-action drop
+ class system-cpp-ipv6-rs-police-200000
+    police cir 200000    conform-action transmit     exceed-action drop
+ class sys-cpp-ipv6-private-icmp-police-100000
+    police cir 100000    conform-action transmit     exceed-action drop
+ class sys-cpp-ipv6-external-icmp-police-100000
+    police cir 100000    conform-action transmit     exceed-action drop
+ class system-cpp-ipv6-LAST-POLICY-deny-all
+    police 32000 1000    conform-action drop     exceed-action drop
+ class class-default
+    police 64000 2000    conform-action transmit     exceed-action drop
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description GRT Management Purposes Only
+ ip address 84.38.34.232 255.255.255.255
+ no ip redirects
+!
+interface Loopback101
+ description Source interface for EBGP session with Akamai
+ ip address 176.255.247.141 255.255.255.255
+ no ip redirects
+!
+interface Port-channel1
+ description [core,rd=sr10.enshf:lag50,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO SR10
+ mtu 8226
+ ip address 2.120.9.225 255.255.255.254
+ no ip redirects
+ ipv6 address 2A02:C78:1:1::1/127
+!
+interface Port-channel2
+ description [core,rd=sr11.enshf:lag50,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO SR11
+ mtu 8226
+ ip address 2.120.9.227 255.255.255.254
+ no ip redirects
+ ipv6 address 2A02:C78:1:1::3/127
+!
+interface Port-channel3
+ description [core,rd=sr12.enshf:lag50,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO SR12
+ mtu 8226
+ ip address 2.120.8.133 255.255.255.254
+ no ip redirects
+ ipv6 address 2A02:C78:1:16::1/127
+!
+interface Port-channel20
+ description [core,rd=as101.enshf:lag12,cid=LOCAL,iv-s=cdn_pop] Port-Channel To GGC as101
+ switchport
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+!
+interface Port-channel30
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] Port-Channel To Netflix_NIC Server_1
+ mtu 8226
+ ip address 176.255.200.89 255.255.255.252
+ no ip redirects
+ ipv6 address 2A02:C7A:8000:707::1/64
+!
+interface Port-channel40
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Port-Channel to Cisco 4900M Akamai Managed Switch
+ mtu 8226
+ ip address 94.15.95.129 255.255.255.128
+ no ip redirects
+!
+interface Port-channel60
+ description [ext,iv-g=mcdn,iv-s=cdn_mcdn] Port-Channel To mcdn Server
+ mtu 8226
+ ip address 176.255.171.97 255.255.255.224
+ no ip redirects
+!
+interface FastEthernet1
+ description **Do Not enable Port-Bug-CSCue76243** [ OOB MGT LAN]
+ vrf forwarding mgmtVrf
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+interface range TenGigabitEthernet 1/1 - 32
+ shutdown
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface range TenGigabitEthernet 2/1 - 8
+ shutdown
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/1
+ description [core,rd=sr10.enshf:9-1-1,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR10.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/2
+ description [core,rd=sr10.enshf:9-1-2,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR10.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/3
+ description [core,rd=sr10.enshf:9-1-3,cid=LOCAL,iv-s=cdn_pop] UPLINK_3 TO SR10.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/4
+ description [core,rd=sr10.enshf:9-1-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_4 TO SR10.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/7
+ description [core,rd=sr11.enshf:9-1-1,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR11.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/8
+ description [core,rd=sr11.enshf:9-1-2,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR11.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/9
+ description [core,rd=sr11.enshf:9-1-3,cid=LOCAL,iv-s=cdn_pop] UPLINK_3 TO SR11.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/10
+ description [core,rd=sr11.enshf:9-1-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_4 TO SR11.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/13
+ description [core,rd=sr12.enshf:2-1-1,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR12.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/14
+ description [core,rd=sr12.enshf:2-1-2,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR12.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/15
+ description [core,rd=sr12.enshf:2-1-3,cid=LOCAL,iv-s=cdn_pop] UPLINK_3 TO SR12.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/16
+ description [core,rd=sr12.enshf:1-1-6,cid=LOCAL,iv-s=cdn_pop] UPLINK_4 TO SR12.ENSHF
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/19
+ description [core,rd=as101.enshf:ge1-1-25,cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link 1 of Lag_20 to as101
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ load-interval 30
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 20 mode active
+!
+interface TenGigabitEthernet1/20
+ description [core,rd=as101.enshf:ge1-1-26,cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link 2 of LAG_20 to as101
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ load-interval 30
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 20 mode active
+!
+interface TenGigabitEthernet1/25
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] Link_1 of P-CH_30 to Netflix NIC_1 Server_1
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet1/26
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] Link_2 of P-CH_30 to Netflix NIC_2 Server_1
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet1/29
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 2 - PCH60 to mcdn NIC_2 Server
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/30
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 1 - PCH60 to mcdn NIC_1 Server
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/31
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of Port-Channel 40 to Akamai Managed HP6600 Switch Port_5 AANP RACK_D013
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 40 mode active
+!
+interface TenGigabitEthernet1/32
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of Port-Channel 40 to Akamai Managed HP6600 Switch Port_6 AANP RACK_D013
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 40 mode active
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan20
+ description [core,rd=as101.enshf:vlan20,cid=LOCAL,v-s=cdn] Logical link to as101 for Google Data
+ ip address 90.223.225.65 255.255.255.192
+ no ip redirects
+ ipv6 address 2A02:C7A:8000:705::1/64
+ ipv6 nd cache interface-limit 256
+ ipv6 nd na glean
+
+!
+interface Vlan201
+ description [core,rd=as101.enshf:vlan201,cid=LOCAL,v-s=cdn] Logical link to as101 for Google Management
+ ip address 90.223.227.121 255.255.255.248
+ no ip redirects
+!
+router bgp 65444
+ template peer-policy OVN-IPV4-IBGP
+  route-map RM-IMPORT-FROM-IBGP in
+  route-map RM-DENY-ALL out
+  next-hop-self
+  send-community
+ exit-peer-policy
+ !
+ template peer-policy CDN-IPV4-EBGP
+  route-map RM-DENY-ALL in
+  route-map RM-EXPORT-FROM-IBGP out
+  next-hop-self
+ exit-peer-policy
+ !
+ template peer-policy CDN-AANP-EBGP
+  route-map RM-DENY-ALL in
+  route-map RM-EXPORT-DNS out
+  next-hop-self
+  send-community
+ exit-peer-policy
+ !
+ template peer-policy OVN-IPV4-REMOTE-IBGP
+  route-map RM-IMPORT-FROM-REMOTE-IBGP in
+  route-map RM-DENY-ALL out
+  next-hop-self
+  send-community
+ exit-peer-policy
+ !
+ template peer-policy GOOGLE-IPV4-EBGP
+  route-map RM-DENY-ALL in
+  route-map RM-EXPORT-FROM-IBGP-FOR-GOOGLE out
+  next-hop-self
+ exit-peer-policy
+ !
+ template peer-session OVN-PEER-SESSION-BB-PE
+  remote-as 65444
+  ttl-security hops 254
+ exit-peer-session
+ !
+ template peer-session LOCAL-CDN-GOOGLE-PEER
+  remote-as 65535
+  ttl-security hops 254
+ exit-peer-session
+ !
+ template peer-session OFFNET-CDN-AANP-PEER
+  remote-as 21357
+  local-as 5607
+  ebgp-multihop 255
+  update-source Loopback101
+ exit-peer-session
+ !
+ bgp router-id 84.38.34.232
+ bgp always-compare-med
+ bgp log-neighbor-changes
+ bgp confederation identifier 4589
+ bgp confederation peers 65044
+ neighbor 2.120.8.132 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 2.120.8.132 description sr12.enshf
+ neighbor 2.120.8.132 password 7 0504110A28421C2611021F1B0909012922
+ neighbor 2.120.9.224 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 2.120.9.224 description sr10.enshf
+ neighbor 2.120.9.224 password 7 080849760611111F1D045F25231F25213D
+ neighbor 2.120.9.226 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 2.120.9.226 description sr11.enshf
+ neighbor 2.120.9.226 password 7 06270A2B49472A160A041D0E540D2F327C
+ neighbor 84.38.34.114 remote-as 65444
+ neighbor 84.38.34.114 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 84.38.34.114 description sr10.enbas
+ neighbor 84.38.34.114 shutdown
+ neighbor 84.38.34.114 transport connection-mode passive
+ neighbor 84.38.34.114 password 7 1416171A19012124232032322A160E020A
+ neighbor 84.38.34.114 update-source Loopback0
+ neighbor 84.38.34.142 remote-as 65444
+ neighbor 84.38.34.142 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 84.38.34.142 description sr10.enpet
+ neighbor 84.38.34.142 transport connection-mode passive
+ neighbor 84.38.34.142 password 7 15170E1C012F32252D353C241C0F060B04
+ neighbor 84.38.34.142 update-source Loopback0
+ neighbor 84.38.34.162 remote-as 65444
+ neighbor 84.38.34.162 inherit peer-session OVN-PEER-SESSION-BB-PE
+ neighbor 84.38.34.162 description sr11.enntg
+ neighbor 84.38.34.162 transport connection-mode passive
+ neighbor 84.38.34.162 password 7 051B0E1A285D5B08150A18031E0D0C202E
+ neighbor 84.38.34.162 update-source Loopback0
+ neighbor 90.223.225.80 inherit peer-session LOCAL-CDN-GOOGLE-PEER
+ neighbor 90.223.225.80 description CDN-GOOGLE-PEER
+ neighbor 90.223.225.80 shutdown
+ neighbor 195.245.126.50 inherit peer-session OFFNET-CDN-AANP-PEER
+ neighbor 195.245.126.50 description CDN-AKAMAI-OFFNET-PEER
+ neighbor 195.245.126.50 password 7 00051A16015213030A2345415E360D1B42
+ !
+ address-family ipv4
+  bgp nexthop trigger delay 1
+  redistribute static route-map RM-REDISTRIBUTE-STATIC
+  neighbor 2.120.8.132 activate
+  neighbor 2.120.8.132 inherit peer-policy OVN-IPV4-IBGP
+  neighbor 2.120.9.224 activate
+  neighbor 2.120.9.224 inherit peer-policy OVN-IPV4-IBGP
+  neighbor 2.120.9.226 activate
+  neighbor 2.120.9.226 inherit peer-policy OVN-IPV4-IBGP
+  neighbor 84.38.34.114 activate
+  neighbor 84.38.34.114 inherit peer-policy OVN-IPV4-REMOTE-IBGP
+  neighbor 84.38.34.142 activate
+  neighbor 84.38.34.142 inherit peer-policy OVN-IPV4-REMOTE-IBGP
+  neighbor 84.38.34.162 activate
+  neighbor 84.38.34.162 inherit peer-policy OVN-IPV4-REMOTE-IBGP
+  neighbor 90.223.225.80 activate
+  neighbor 90.223.225.80 inherit peer-policy GOOGLE-IPV4-EBGP
+  neighbor 195.245.126.50 activate
+  neighbor 195.245.126.50 inherit peer-policy CDN-AANP-EBGP
+ exit-address-family
+!
+no ip http server
+no ip http secure-server
+!
+ip bgp-community new-format
+ip community-list 10 permit 5607:14460
+ip community-list standard CL-DELETE-FROM-REMOTE-IBGP permit local-AS
+ip community-list expanded CL-LOCAL-PE-PREFXIES permit 5607:14460
+ip community-list expanded CL-REMOTE-PE-PREFIXES permit 5607:24403
+ip community-list expanded CL-REMOTE-PE-PREFIXES permit 5607:
+ip community-list expanded CL-REMOTE-PE-PREFIXES permit 5607:14444
+ip community-list expanded CL-REMOTE-PE-PREFIXES permit 5607:14440
+ip community-list expanded CL-REMOTE-PE-PREFIXES permit 5607:24417
+ip route 0.0.0.0 0.0.0.0 2.120.8.132
+ip route 0.0.0.0 0.0.0.0 2.120.9.226
+ip route 0.0.0.0 0.0.0.0 2.120.9.224
+ip route 2.120.0.0 255.248.0.0 2.120.9.224
+ip route 2.120.0.0 255.248.0.0 2.120.9.226
+ip route 2.216.0.0 255.248.0.0 2.120.9.224
+ip route 2.216.0.0 255.248.0.0 2.120.9.226
+ip route 5.64.0.0 255.248.0.0 2.120.9.224
+ip route 5.64.0.0 255.248.0.0 2.120.9.226
+ip route 46.64.0.0 255.254.0.0 2.120.9.226
+ip route 46.64.0.0 255.254.0.0 2.120.9.224
+ip route 78.86.0.0 255.255.0.0 2.120.9.226
+ip route 78.86.0.0 255.255.0.0 2.120.9.224
+ip route 78.105.0.0 255.255.0.0 2.120.9.226
+ip route 78.105.0.0 255.255.0.0 2.120.9.224
+ip route 80.238.0.0 255.255.224.0 2.120.9.224
+ip route 80.238.0.0 255.255.224.0 2.120.9.226
+ip route 80.238.8.0 255.255.255.0 2.120.9.224
+ip route 80.238.8.0 255.255.255.0 2.120.9.226
+ip route 80.238.9.0 255.255.255.0 2.120.9.224
+ip route 80.238.9.0 255.255.255.0 2.120.9.226
+ip route 87.80.0.0 255.254.0.0 2.120.9.224
+ip route 87.80.0.0 255.254.0.0 2.120.9.226
+ip route 90.192.0.0 255.224.0.0 2.120.9.224
+ip route 90.192.0.0 255.224.0.0 2.120.9.226
+ip route 90.207.224.49 255.255.255.255 2.120.9.224
+ip route 90.207.224.49 255.255.255.255 2.120.9.226
+ip route 90.207.224.50 255.255.255.255 2.120.9.226
+ip route 90.207.224.50 255.255.255.255 2.120.9.224
+ip route 90.207.224.58 255.255.255.255 2.120.9.224
+ip route 90.207.224.58 255.255.255.255 2.120.9.226
+ip route 90.207.224.59 255.255.255.255 2.120.9.226
+ip route 90.207.224.59 255.255.255.255 2.120.9.224
+ip route 90.207.224.60 255.255.255.255 2.120.9.224
+ip route 90.207.224.60 255.255.255.255 2.120.9.226
+ip route 90.207.224.61 255.255.255.255 2.120.9.224
+ip route 90.207.224.61 255.255.255.255 2.120.9.226
+ip route 90.207.224.62 255.255.255.255 2.120.9.224
+ip route 90.207.224.62 255.255.255.255 2.120.9.226
+ip route 90.207.224.63 255.255.255.255 2.120.9.224
+ip route 90.207.224.63 255.255.255.255 2.120.9.226
+ip route 91.103.32.0 255.255.254.0 2.120.9.224
+ip route 91.103.32.0 255.255.254.0 2.120.9.226
+ip route 91.103.34.0 255.255.255.0 2.120.9.224
+ip route 91.103.34.0 255.255.255.0 2.120.9.226
+ip route 93.96.0.0 255.255.0.0 2.120.9.226
+ip route 93.96.0.0 255.255.0.0 2.120.9.224
+ip route 94.0.0.0 255.240.0.0 2.120.9.224
+ip route 94.0.0.0 255.240.0.0 2.120.9.226
+ip route 94.116.0.0 255.255.0.0 2.120.9.224
+ip route 94.116.0.0 255.255.0.0 2.120.9.226
+ip route 94.117.0.0 255.255.0.0 2.120.9.224
+ip route 94.117.0.0 255.255.0.0 2.120.9.226
+ip route 94.118.0.0 255.255.0.0 2.120.9.224
+ip route 94.118.0.0 255.255.0.0 2.120.9.226
+ip route 94.119.8.0 255.255.248.0 2.120.9.224
+ip route 94.119.8.0 255.255.248.0 2.120.9.226
+ip route 94.119.64.0 255.255.192.0 2.120.9.224
+ip route 94.119.64.0 255.255.192.0 2.120.9.226
+ip route 94.119.128.0 255.255.192.0 2.120.9.224
+ip route 94.119.128.0 255.255.192.0 2.120.9.226
+ip route 94.119.255.0 255.255.255.0 2.120.9.224
+ip route 94.119.255.0 255.255.255.0 2.120.9.226
+ip route 94.192.0.0 255.252.0.0 2.120.9.226
+ip route 94.192.0.0 255.252.0.0 2.120.9.224
+ip route 149.241.0.0 255.255.0.0 2.120.9.226
+ip route 149.241.0.0 255.255.0.0 2.120.9.224
+ip route 151.224.0.0 255.248.0.0 2.120.9.224
+ip route 151.224.0.0 255.248.0.0 2.120.9.226
+ip route 176.24.0.0 255.252.0.0 2.120.9.224
+ip route 176.24.0.0 255.252.0.0 2.120.9.226
+ip route 176.248.0.0 255.248.0.0 2.120.9.224
+ip route 176.248.0.0 255.248.0.0 2.120.9.226
+ip route 188.220.0.0 255.252.0.0 2.120.9.226
+ip route 188.220.0.0 255.252.0.0 2.120.9.224
+ip route 194.42.124.0 255.255.254.0 2.120.9.224
+ip route 194.42.124.0 255.255.254.0 2.120.9.226
+ip route 195.245.126.50 255.255.255.255 2.120.9.224
+ip route 195.245.126.50 255.255.255.255 2.120.9.226
+ip tacacs source-interface Loopback0
+!
+ip access-list extended epc_acl_v4GAVCAP
+ permit udp host 84.38.34.228 any
+ip access-list extended system-cpp-cdn-pop-aanp-bgp
+ permit tcp 94.15.95.0 0.0.0.255 94.15.95.0 0.0.0.255 eq bgp
+ permit tcp 176.255.202.0 0.0.1.255 176.255.202.0 0.0.1.255 eq bgp
+ permit tcp 94.15.95.0 0.0.0.255 eq bgp 94.15.95.0 0.0.0.255
+ permit tcp 176.255.202.0 0.0.1.255 eq bgp 176.255.202.0 0.0.1.255
+ip access-list extended system-cpp-cdn-pop-aanp-bgp-est
+ permit tcp 94.15.95.0 0.0.0.255 94.15.95.0 0.0.0.255 eq bgp established
+ permit tcp 176.255.202.0 0.0.1.255 176.255.202.0 0.0.1.255 eq bgp established
+ permit tcp 94.15.95.0 0.0.0.255 eq bgp 94.15.95.0 0.0.0.255 established
+ permit tcp 176.255.202.0 0.0.1.255 eq bgp 176.255.202.0 0.0.1.255 established
+ip access-list extended system-cpp-cdn-pop-aanp-mh-bgp
+ permit tcp host 195.245.126.49 90.207.251.216 0.0.0.7 eq bgp
+ permit tcp host 195.245.126.49 176.255.247.128 0.0.0.15 eq bgp
+ permit tcp host 195.245.126.50 90.207.251.216 0.0.0.7 eq bgp
+ permit tcp host 195.245.126.50 176.255.247.128 0.0.0.15 eq bgp
+ permit tcp host 195.245.126.49 eq bgp 90.207.251.216 0.0.0.7
+ permit tcp host 195.245.126.49 eq bgp 176.255.247.128 0.0.0.15
+ permit tcp host 195.245.126.50 eq bgp 90.207.251.216 0.0.0.7
+ permit tcp host 195.245.126.50 eq bgp 176.255.247.128 0.0.0.15
+ip access-list extended system-cpp-cdn-pop-aanp-mh-bgp-est
+ permit tcp host 195.245.126.49 90.207.251.216 0.0.0.7 eq bgp established
+ permit tcp host 195.245.126.49 176.255.247.128 0.0.0.15 eq bgp established
+ permit tcp host 195.245.126.50 90.207.251.216 0.0.0.7 eq bgp established
+ permit tcp host 195.245.126.50 176.255.247.128 0.0.0.15 eq bgp established
+ permit tcp host 195.245.126.49 eq bgp 90.207.251.216 0.0.0.7 established
+ permit tcp host 195.245.126.49 eq bgp 176.255.247.128 0.0.0.15 established
+ permit tcp host 195.245.126.50 eq bgp 90.207.251.216 0.0.0.7 established
+ permit tcp host 195.245.126.50 eq bgp 176.255.247.128 0.0.0.15 established
+ip access-list extended system-cpp-cdn-pop-ggc-bgp
+ permit tcp 176.255.201.0 0.0.0.255 176.255.201.0 0.0.0.255 eq bgp
+ permit tcp 176.255.201.0 0.0.0.255 eq bgp 176.255.201.0 0.0.0.255
+ permit tcp 90.223.224.64 0.0.1.63 90.223.224.64 0.0.1.63 eq bgp
+ permit tcp 90.223.224.64 0.0.1.63 eq bgp 90.223.224.64 0.0.1.63
+ permit tcp 90.223.228.64 0.0.3.63 90.223.228.64 0.0.3.63 eq bgp
+ permit tcp 90.223.228.64 0.0.3.63 eq bgp 90.223.228.64 0.0.3.63
+ip access-list extended system-cpp-cdn-pop-ggc-bgp-est
+ permit tcp 176.255.201.0 0.0.0.255 176.255.201.0 0.0.0.255 eq bgp established
+ permit tcp 176.255.201.0 0.0.0.255 eq bgp 176.255.201.0 0.0.0.255 established
+ permit tcp 90.223.224.64 0.0.1.63 90.223.224.64 0.0.1.63 eq bgp established
+ permit tcp 90.223.224.64 0.0.1.63 eq bgp 90.223.224.64 0.0.1.63 established
+ permit tcp 90.223.228.64 0.0.3.63 90.223.228.64 0.0.3.63 eq bgp established
+ permit tcp 90.223.228.64 0.0.3.63 eq bgp 90.223.228.64 0.0.3.63 established
+ip access-list extended system-cpp-cdn-pop-netflix-bgp
+ permit tcp 176.255.200.64 0.0.0.63 176.255.200.64 0.0.0.63 eq bgp
+ permit tcp 176.255.200.64 0.0.0.63 eq bgp 176.255.200.64 0.0.0.63
+ip access-list extended system-cpp-cdn-pop-netflix-bgp-est
+ permit tcp 176.255.200.64 0.0.0.63 176.255.200.64 0.0.0.63 eq bgp established
+ permit tcp 176.255.200.64 0.0.0.63 eq bgp 176.255.200.64 0.0.0.63 established
+ip access-list extended system-cpp-exchanges-traceroute
+ permit udp 2.127.128.0 0.0.63.255 any range 33434 33523
+ permit udp 80.238.32.0 0.0.31.255 any range 33434 33523
+ permit udp 82.108.10.0 0.0.1.255 any range 33434 33523
+ permit udp 82.111.96.0 0.0.15.255 any range 33434 33523
+ permit udp 85.188.192.0 0.0.63.255 any range 33434 33523
+ permit udp 87.86.63.0 0.0.0.255 any range 33434 33523
+ permit udp 87.87.0.0 0.0.63.255 any range 33434 33523
+ permit udp 87.87.64.0 0.0.31.255 any range 33434 33523
+ permit udp 87.87.96.0 0.0.31.255 any range 33434 33523
+ permit udp 87.87.128.0 0.0.63.255 any range 33434 33523
+ permit udp 87.87.196.0 0.0.3.255 any range 33434 33523
+ permit udp 87.87.200.0 0.0.7.255 any range 33434 33523
+ permit udp 87.87.224.0 0.0.7.255 any range 33434 33523
+ permit udp 87.87.248.0 0.0.7.255 any range 33434 33523
+ permit udp 90.223.0.0 0.0.63.255 any range 33434 33523
+ permit udp 90.223.64.0 0.0.31.255 any range 33434 33523
+ permit udp 90.223.96.0 0.0.31.255 any range 33434 33523
+ permit udp 90.223.176.0 0.0.7.255 any range 33434 33523
+ permit udp 195.189.158.0 0.0.1.255 any range 33434 33523
+ permit udp 217.206.240.0 0.0.15.255 any range 33434 33523
+ip access-list extended system-cpp-icmp
+ permit icmp any any echo
+ permit icmp any any echo-reply
+ permit icmp any any ttl-exceeded
+ permit icmp any any unreachable
+ip access-list extended system-cpp-ipv4-LAST-POLICY-deny-all
+ permit tcp any any
+ permit udp any any
+ permit icmp any any
+ permit ip any any
+ip access-list extended system-cpp-nme
+ permit ip 84.38.41.64 0.0.0.63 any
+ permit ip 84.38.45.0 0.0.0.255 any
+ permit ip 84.38.41.192 0.0.0.63 any
+ permit ip 84.38.47.0 0.0.0.255 any
+ permit ip 90.207.236.0 0.0.1.255 any
+ permit ip 90.223.208.0 0.0.1.255 any
+ permit ip 90.223.196.0 0.0.0.255 any
+ip access-list extended system-cpp-ovn-core-bgp
+ permit tcp 2.120.0.0 0.0.15.255 2.120.0.0 0.0.15.255 eq bgp
+ permit tcp 2.120.0.0 0.0.15.255 84.38.34.0 0.0.0.255 eq bgp
+ permit tcp 2.120.0.0 0.0.15.255 89.200.128.0 0.0.0.255 eq bgp
+ permit tcp 84.38.34.0 0.0.0.255 2.120.0.0 0.0.15.255 eq bgp
+ permit tcp 84.38.34.0 0.0.0.255 84.38.34.0 0.0.0.255 eq bgp
+ permit tcp 84.38.34.0 0.0.0.255 89.200.128.0 0.0.0.255 eq bgp
+ permit tcp 89.200.128.0 0.0.0.255 2.120.0.0 0.0.15.255 eq bgp
+ permit tcp 89.200.128.0 0.0.0.255 84.38.34.0 0.0.0.255 eq bgp
+ permit tcp 89.200.128.0 0.0.0.255 89.200.128.0 0.0.0.255 eq bgp
+ permit tcp 2.120.0.0 0.0.15.255 eq bgp 2.120.0.0 0.0.15.255
+ permit tcp 2.120.0.0 0.0.15.255 eq bgp 84.38.34.0 0.0.0.255
+ permit tcp 2.120.0.0 0.0.15.255 eq bgp 89.200.128.0 0.0.0.255
+ permit tcp 84.38.34.0 0.0.0.255 eq bgp 2.120.0.0 0.0.15.255
+ permit tcp 84.38.34.0 0.0.0.255 eq bgp 84.38.34.0 0.0.0.255
+ permit tcp 84.38.34.0 0.0.0.255 eq bgp 89.200.128.0 0.0.0.255
+ permit tcp 89.200.128.0 0.0.0.255 eq bgp 2.120.0.0 0.0.15.255
+ permit tcp 89.200.128.0 0.0.0.255 eq bgp 84.38.34.0 0.0.0.255
+ permit tcp 89.200.128.0 0.0.0.255 eq bgp 89.200.128.0 0.0.0.255
+ip access-list extended system-cpp-ovn-core-bgp-est
+ permit tcp 2.120.0.0 0.0.15.255 2.120.0.0 0.0.15.255 eq bgp established
+ permit tcp 2.120.0.0 0.0.15.255 84.38.34.0 0.0.0.255 eq bgp established
+ permit tcp 2.120.0.0 0.0.15.255 89.200.128.0 0.0.0.255 eq bgp established
+ permit tcp 84.38.34.0 0.0.0.255 2.120.0.0 0.0.15.255 eq bgp established
+ permit tcp 84.38.34.0 0.0.0.255 84.38.34.0 0.0.0.255 eq bgp established
+ permit tcp 84.38.34.0 0.0.0.255 89.200.128.0 0.0.0.255 eq bgp established
+ permit tcp 89.200.128.0 0.0.0.255 2.120.0.0 0.0.15.255 eq bgp established
+ permit tcp 89.200.128.0 0.0.0.255 84.38.34.0 0.0.0.255 eq bgp established
+ permit tcp 89.200.128.0 0.0.0.255 89.200.128.0 0.0.0.255 eq bgp established
+ permit tcp 2.120.0.0 0.0.15.255 eq bgp 2.120.0.0 0.0.15.255 established
+ permit tcp 2.120.0.0 0.0.15.255 eq bgp 84.38.34.0 0.0.0.255 established
+ permit tcp 2.120.0.0 0.0.15.255 eq bgp 89.200.128.0 0.0.0.255 established
+ permit tcp 84.38.34.0 0.0.0.255 eq bgp 2.120.0.0 0.0.15.255 established
+ permit tcp 84.38.34.0 0.0.0.255 eq bgp 84.38.34.0 0.0.0.255 established
+ permit tcp 84.38.34.0 0.0.0.255 eq bgp 89.200.128.0 0.0.0.255 established
+ permit tcp 89.200.128.0 0.0.0.255 eq bgp 2.120.0.0 0.0.15.255 established
+ permit tcp 89.200.128.0 0.0.0.255 eq bgp 84.38.34.0 0.0.0.255 established
+ permit tcp 89.200.128.0 0.0.0.255 eq bgp 89.200.128.0 0.0.0.255 established
+ip access-list extended system-cpp-ovn-core-ssh
+ permit tcp 2.120.0.0 0.0.15.255 2.120.0.0 0.0.15.255 eq 22
+ permit tcp 84.38.34.0 0.0.0.255 84.38.34.0 0.0.0.255 eq 22
+ permit tcp 89.200.128.0 0.0.0.255 89.200.128.0 0.0.0.255 eq 22
+ permit tcp any eq 22 2.120.0.0 0.0.15.255 established
+ permit tcp any eq 22 84.38.34.0 0.0.0.255 established
+ permit tcp any eq 22 89.200.128.0 0.0.0.255 established
+ip access-list extended system-cpp-ovn-core-traceroute
+ permit udp 2.120.0.0 0.0.15.255 any range 33434 33523
+ permit udp 2.127.236.0 0.0.0.255 any range 33434 33523
+ permit udp 2.127.237.0 0.0.0.127 any range 33434 33523
+ permit udp 2.127.238.0 0.0.0.255 any range 33434 33523
+ permit udp 82.108.57.0 0.0.0.255 any range 33434 33523
+ permit udp 84.38.32.0 0.0.7.255 any range 33434 33523
+ permit udp 89.200.128.0 0.0.7.255 any range 33434 33523
+ permit udp 90.207.238.0 0.0.0.63 any range 33434 33523
+ permit udp 90.223.197.128 0.0.0.63 any range 33434 33523
+ permit udp 90.223.207.0 0.0.0.127 any range 33434 33523
+ permit udp 90.223.221.128 0.0.0.63 any range 33434 33523
+ permit udp 90.223.244.128 0.0.0.127 any range 33434 33523
+ permit udp 194.50.165.0 0.0.0.255 any range 33434 33523
+ip access-list extended system-cpp-rfc1918-cust-sky-priv-icmp
+ permit icmp 10.64.0.0 0.63.255.255 any echo
+ permit icmp 10.64.0.0 0.63.255.255 any echo-reply
+ permit icmp 10.64.0.0 0.63.255.255 any ttl-exceeded
+ permit icmp 10.64.0.0 0.63.255.255 any unreachable
+ permit icmp 10.128.0.0 0.63.255.255 any echo
+ permit icmp 10.128.0.0 0.63.255.255 any echo-reply
+ permit icmp 10.128.0.0 0.63.255.255 any ttl-exceeded
+ permit icmp 10.128.0.0 0.63.255.255 any unreachable
+ permit icmp 100.64.0.0 0.63.255.255 any echo
+ permit icmp 100.64.0.0 0.63.255.255 any echo-reply
+ permit icmp 100.64.0.0 0.63.255.255 any ttl-exceeded
+ permit icmp 100.64.0.0 0.63.255.255 any unreachable
+ip access-list extended system-cpp-rfc1918-dcn-icmp
+ permit icmp 10.200.0.0 0.1.255.255 10.200.0.0 0.1.255.255 echo
+ permit icmp 10.200.0.0 0.1.255.255 10.200.0.0 0.1.255.255 echo-reply
+ip access-list extended system-cpp-rfc1918-dcn-ssh
+ permit tcp 10.200.0.0 0.1.255.255 10.200.0.0 0.1.255.255 eq 22
+ permit tcp 10.200.0.0 0.1.255.255 eq 22 10.200.0.0 0.1.255.255 established
+ip access-list extended system-cpp-rfc1918-rfc6598-deny
+ permit ip 10.0.0.0 0.255.255.255 any
+ permit ip 172.16.0.0 0.15.255.255 any
+ permit ip 192.168.0.0 0.0.255.255 any
+ permit ip 100.64.0.0 0.63.255.255 any
+ip access-list extended system-cpp-rfc3330-deny
+ permit ip host 0.0.0.0 any
+ permit ip 127.0.0.0 0.255.255.255 any
+ permit ip 169.254.0.0 0.0.255.255 any
+ permit ip 192.0.2.0 0.0.0.255 any
+ permit ip 224.0.0.0 31.255.255.255 any
+!
+!
+ip prefix-list PL-ENSHF-DNS seq 5 permit 90.207.224.58/32
+ip prefix-list PL-ENSHF-DNS seq 10 permit 90.207.224.59/32
+ip prefix-list PL-ENSHF-DNS seq 15 permit 90.207.224.49/32
+ip prefix-list PL-ENSHF-DNS seq 20 permit 90.207.224.50/32
+ip prefix-list PL-ENSHF-DNS seq 25 permit 90.207.224.60/32
+ip prefix-list PL-ENSHF-DNS seq 30 permit 90.207.224.61/32
+ip prefix-list PL-ENSHF-DNS seq 35 permit 90.207.224.62/32
+ip prefix-list PL-ENSHF-DNS seq 40 permit 90.207.224.63/32
+!
+ip prefix-list PL-GOOGLE-PREFIX-SETS seq 5 permit 0.0.0.0/0 le 26
+!
+ip prefix-list PL-LARGE-PREFIX-SETS seq 6 permit 0.0.0.0/0 le 26
+!
+ip prefix-list PL-SKY-IP-RANGE seq 5 permit 46.64.0.0/15
+ip prefix-list PL-SKY-IP-RANGE seq 10 permit 78.86.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 15 permit 78.105.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 20 permit 93.96.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 25 permit 94.192.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 30 permit 149.241.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 35 permit 188.220.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 40 permit 2.120.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 45 permit 2.216.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 50 permit 5.64.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 55 permit 80.238.0.0/19
+ip prefix-list PL-SKY-IP-RANGE seq 60 permit 80.238.32.0/19
+ip prefix-list PL-SKY-IP-RANGE seq 65 permit 84.38.32.0/20
+ip prefix-list PL-SKY-IP-RANGE seq 70 permit 85.188.192.0/18
+ip prefix-list PL-SKY-IP-RANGE seq 75 permit 87.80.0.0/15
+ip prefix-list PL-SKY-IP-RANGE seq 80 permit 89.200.128.0/21
+ip prefix-list PL-SKY-IP-RANGE seq 85 permit 90.192.0.0/11
+ip prefix-list PL-SKY-IP-RANGE seq 90 permit 91.103.32.0/21
+ip prefix-list PL-SKY-IP-RANGE seq 95 permit 94.0.0.0/12
+ip prefix-list PL-SKY-IP-RANGE seq 100 permit 94.116.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 105 permit 151.224.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 110 permit 176.24.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 115 permit 176.248.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 120 permit 185.32.40.0/22
+ip prefix-list PL-SKY-IP-RANGE seq 125 permit 194.42.124.0/23
+logging trap debugging
+logging source-interface Loopback0
+logging host 84.38.45.208
+logging host 84.38.47.208
+logging host 84.38.45.219
+logging host 84.38.47.219
+access-list 82 permit 84.38.45.0 0.0.0.255
+access-list 82 permit 84.38.47.0 0.0.0.255
+access-list 82 permit 90.207.236.0 0.0.1.255
+access-list 82 permit 90.223.208.0 0.0.1.255
+access-list 82 permit 90.223.196.0 0.0.0.255
+access-list 83 permit 84.38.45.0 0.0.0.255
+access-list 83 permit 84.38.47.0 0.0.0.255
+access-list 83 permit 90.207.236.0 0.0.1.255
+access-list 83 permit 90.223.208.0 0.0.1.255
+access-list 83 permit 90.223.196.0 0.0.0.255
+access-list 84 permit 90.207.236.0 0.0.1.255
+access-list 84 permit 90.223.208.0 0.0.1.255
+access-list 84 permit 90.223.196.0 0.0.0.255
+access-list 85 permit 90.207.236.0 0.0.1.255
+access-list 85 permit 90.223.208.0 0.0.1.255
+access-list 85 permit 90.223.196.0 0.0.0.255
+access-list 86 permit 10.200.0.0 0.0.255.255
+access-list 86 permit 89.200.128.0 0.0.0.255
+access-list 86 permit 84.38.34.0 0.0.0.255
+access-list 86 permit 84.38.45.0 0.0.0.255
+access-list 86 permit 84.38.47.0 0.0.0.255
+access-list 86 permit 90.207.236.0 0.0.1.255
+access-list 86 permit 90.223.208.0 0.0.1.255
+access-list 86 permit 90.223.196.0 0.0.0.255
+access-list 88 permit 84.38.45.6
+access-list 88 permit 90.207.236.0 0.0.1.255
+access-list 88 permit 90.223.208.0 0.0.1.255
+access-list 88 permit 90.223.196.0 0.0.0.255
+no cdp run
+ipv6 route ::/0 2A02:C78:1:1::
+ipv6 route ::/0 2A02:C78:1:1::2
+ipv6 route ::/0 2A02:C78:1:16::
+!
+route-map RM-REDISTRIBUTE-STATIC permit 10
+ match ip address prefix-list PL-ENSHF-DNS
+!
+route-map RM-REDISTRIBUTE-STATIC permit 20
+ match ip address prefix-list PL-SKY-IP-RANGE
+!
+route-map RM-IMPORT-FROM-REMOTE-IBGP permit 10
+ description Match User Prefixes from Remote-PE
+ match community CL-REMOTE-PE-PREFIXES
+ set comm-list CL-DELETE-FROM-REMOTE-IBGP delete
+!
+route-map RM-IMPORT-FROM-REMOTE-IBGP deny 50
+ description Explicit Deny
+!
+route-map RM-IMPORT-FROM-IBGP permit 10
+ description Match User Prefixes from  Local BB-PE
+ description Match User Prefixes from  Local & Remote  BB-PE
+ match community 10 CL-LOCAL-PE-PREFIXES CL-REMOTE-PE-PREFIXES
+!
+route-map RM-IMPORT-FROM-IBGP deny 50
+ description Explicit Deny All
+!
+route-map RM-EXPORT-DNS permit 10
+ description Match DNS Prefixes Allocated to POP & Set Primary Akamai Community
+ match ip address prefix-list PL-ENSHF-DNS
+ set community 4589:14424
+!
+route-map RM-EXPORT-DNS permit 20
+ description Match Sky IP Range & Set Secondary Akamai Community
+ match ip address prefix-list PL-SKY-IP-RANGE
+ set community 4589:14425
+!
+route-map RM-DENY-ALL deny 10
+ description Deny All routes via EBGP
+!
+route-map RM-EXPORT-FROM-IBGP-FOR-GOOGLE permit 10
+ description Match User prefixes from Local BBPEs
+ match community CL-LOCAL-PE-PREFIXES CL-REMOTE-PE-PREFIXES
+ continue 20
+!
+route-map RM-EXPORT-FROM-IBGP-FOR-GOOGLE permit 20
+ match ip address prefix-list PL-GOOGLE-PREFIX-SETS
+!
+route-map RM-EXPORT-FROM-IBGP-FOR-GOOGLE deny 50
+ description Explicit Deny All
+!
+snmp-server view REPMON iso excluded
+snmp-server view REPMON rmon included
+snmp-server view REPMON ciscoPingMIB included
+snmp-server view REPMON ciscoRttMonMIB included
+snmp-server view cutdown iso included
+snmp-server view cutdown at excluded
+snmp-server view cutdown ip.21 excluded
+snmp-server view cutdown ip.22 excluded
+snmp-server view cutdown ipForward excluded
+snmp-server view cutdown ciscoFlashMIB excluded
+snmp-server view cutdown ciscoSyslogMIB excluded
+snmp-server view cutdown ciscoProcessMIB excluded
+snmp-server view cutdown lip.2 excluded
+snmp-server view cnc-view iso included
+snmp-server view cnc-view at excluded
+snmp-server view cnc-view ip.21 excluded
+snmp-server view cnc-view ip.22 excluded
+snmp-server view cnc-view ipForward excluded
+snmp-server view cnc-view ciscoFlashMIB excluded
+snmp-server view cnc-view ciscoSyslogMIB excluded
+snmp-server view cnc-view ciscoProcessMIB excluded
+snmp-server community kN8qpTxH view cutdown RO 83
+snmp-server community Tu5ahEQu view cnc-view RO 88
+snmp-server community Le8qZjYe view REPMON RW 85
+snmp-server trap-source Loopback0
+snmp-server tftp-server-list 84
+snmp-server location "Rack_E015, 2 Port Dundas Business Park, Borran street, Glasgow"
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps transceiver all
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps rf
+snmp-server enable traps memory
+snmp-server enable traps cpu_threshold
+snmp-server enable traps flex-links status
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps ether-oam
+snmp-server enable traps aaa_server
+snmp-server enable traps flash insertion removal
+snmp-server enable traps l2tc threshold sys-threshold
+snmp-server enable traps power-ethernet police
+snmp-server enable traps rep
+snmp-server enable traps udld link-fail-rpt status-change
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps port-security
+snmp-server enable traps ethernet evc status create delete
+snmp-server enable traps energywise
+snmp-server enable traps ipsla
+snmp-server enable traps bgp
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps isis
+snmp-server enable traps msdp
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps errdisable
+snmp-server enable traps ethernet cfm alarm
+snmp-server enable traps vlan-membership
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server host 84.38.45.209 r84MgWk7
+snmp-server host 84.38.47.209 r84MgWk7
+snmp-server file-transfer access-group 84 protocol tftp
+snmp ifmib ifalias long
+!
+tacacs-server host 84.38.41.73
+tacacs-server host 84.38.41.201
+tacacs-server timeout 2
+tacacs-server key 7 0008120F0E5259010A281A4B0C21511616
+!
+!
+!
+ipv6 access-list sys-cpp-ipv6-external-icmp-police-100000
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  echo-request
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  echo-request
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  echo-request
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  echo-request
+ permit icmp any 2A02:C7A::/31  echo-request
+ permit icmp any 2A02:C7C::/30  echo-request
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  echo-request
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  echo-request
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  echo-reply
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  echo-reply
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  echo-reply
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  echo-reply
+ permit icmp any 2A02:C7A::/31  echo-reply
+ permit icmp any 2A02:C7C::/30  echo-reply
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  echo-reply
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  echo-reply
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  unreachable
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  packet-too-big
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  time-exceeded
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  parameter-problem
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  unreachable
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  packet-too-big
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  time-exceeded
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  parameter-problem
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  unreachable
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  packet-too-big
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  time-exceeded
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  parameter-problem
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  unreachable
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  packet-too-big
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  time-exceeded
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  parameter-problem
+ permit icmp any 2A02:C7A::/31  unreachable
+ permit icmp any 2A02:C7A::/31  packet-too-big
+ permit icmp any 2A02:C7A::/31  time-exceeded
+ permit icmp any 2A02:C7A::/31  parameter-problem
+ permit icmp any 2A02:C7C::/30  unreachable
+ permit icmp any 2A02:C7C::/30  packet-too-big
+ permit icmp any 2A02:C7C::/30  time-exceeded
+ permit icmp any 2A02:C7C::/30  parameter-problem
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  unreachable
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  packet-too-big
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  time-exceeded
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  parameter-problem
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  unreachable
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  packet-too-big
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  time-exceeded
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  parameter-problem
+!
+ipv6 access-list sys-cpp-ipv6-private-icmp-police-100000
+ permit icmp 2A02:C78::/32 2A02:C78::/32  echo-request
+ permit icmp 2A02:C78::/32 2A02:C78::/32  echo-reply
+ permit icmp 2A02:C78::/32 2A02:C78::/32  unreachable
+ permit icmp 2A02:C78::/32 2A02:C78::/32  packet-too-big
+ permit icmp 2A02:C78::/32 2A02:C78::/32  time-exceeded
+ permit icmp 2A02:C78::/32 2A02:C78::/32  parameter-problem
+!
+ipv6 access-list system-cpp-ipv6-LAST-POLICY-deny-all
+ permit ipv6 any any
+!
+ipv6 access-list system-cpp-ipv6-external-icmp-police-100000
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  echo-request
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  echo-request
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  echo-request
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  echo-request
+ permit icmp any 2A02:C7A::/31  echo-request
+ permit icmp any 2A02:C7C::/30  echo-request
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  echo-request
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  echo-request
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  echo-reply
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  echo-reply
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  echo-reply
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  echo-reply
+ permit icmp any 2A02:C7A::/31  echo-reply
+ permit icmp any 2A02:C7C::/30  echo-reply
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  echo-reply
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  echo-reply
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  unreachable
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  packet-too-big
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  time-exceeded
+ permit icmp 2A02:C7A::/31 2A02:C7A::/31  parameter-problem
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  unreachable
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  packet-too-big
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  time-exceeded
+ permit icmp 2A02:C7A::/31 2A02:C7C::/30  parameter-problem
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  unreachable
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  packet-too-big
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  time-exceeded
+ permit icmp 2A02:C7C::/30 2A02:C7A::/31  parameter-problem
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  unreachable
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  packet-too-big
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  time-exceeded
+ permit icmp 2A02:C7C::/30 2A02:C7C::/30  parameter-problem
+ permit icmp any 2A02:C7A::/31  unreachable
+ permit icmp any 2A02:C7A::/31  packet-too-big
+ permit icmp any 2A02:C7A::/31  time-exceeded
+ permit icmp any 2A02:C7A::/31  parameter-problem
+ permit icmp any 2A02:C7C::/30  unreachable
+ permit icmp any 2A02:C7C::/30  packet-too-big
+ permit icmp any 2A02:C7C::/30  time-exceeded
+ permit icmp any 2A02:C7C::/30  parameter-problem
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  unreachable
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  packet-too-big
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  time-exceeded
+ permit icmp 2A02:C79::/32 2A02:C7A::/31  parameter-problem
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  unreachable
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  packet-too-big
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  time-exceeded
+ permit icmp 2A02:C79::/32 2A02:C7C::/30  parameter-problem
+!
+ipv6 access-list system-cpp-ipv6-ndp-police-300000
+ permit icmp any any  nd-ns
+ permit icmp any any  nd-na
+!
+ipv6 access-list system-cpp-ipv6-ovn-private-bgp-est
+ permit tcp 2A02:C78::/39 2A02:C78::/39  eq bgp established
+ permit tcp 2A02:C78::/39  eq bgp 2A02:C78::/39 established
+ permit tcp 2A02:C78::/39 2A02:C78::/39  eq bgp
+ permit tcp 2A02:C78::/39  eq bgp 2A02:C78::/39
+!
+ipv6 access-list system-cpp-ipv6-rs-police-200000
+ permit icmp any any  router-solicitation
+!
+control-plane
+ service-policy input system-cpp-policy
+!
+!
+banner login ^CC
+==============================================================================
+This system and data is the property of British Sky Broadcasting Ltd.
+** STRICTLY AUTHORISED USERS ONLY **
+If you have any problems or queries contact SNS Network Operations at:
+E: service.ops@bskyb.com
+P: +44 (0)20 7032 7060
+If you are not an Authorised User - DISCONNECT IMMEDIATELY!
+Unauthorised access is an offence under the Computer Misuse Act 1990
+==============================================================================
+^C
+!
+line con 0
+ location rd=cm0.enshf:2
+ exec-timeout 30 0
+ stopbits 1
+line vty 0 4
+ access-class 86 in
+ exec-timeout 720 0
+ transport input ssh
+line vty 5 14
+ access-class 86 in
+ exec-timeout 720 0
+ transport input ssh
+!
+scheduler runtime netinput 300
+ntp source Loopback0
+ntp access-group peer 82
+ntp update-calendar
+ntp server 84.38.45.194
+ntp server 84.38.45.195
+ntp server 84.38.45.196
+ntp server 90.223.208.13
+ntp server 90.207.236.13
+ntp server 84.38.47.197
+ntp server 84.38.47.198
+end

@@ -1,0 +1,68 @@
+exit all
+configure
+    port 5/1/23
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 3 of LAG 51 to Akamai Managed  HP Switch Slot A P_3 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/24
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 4 of LAG 51 to Akamai Managed HP Switch Slot A P_4 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/25
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 5 of LAG 51 to Akamai Managed  HP Switch Slot A P_5 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/26
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 6 of LAG 51 to Akamai Managed HP Switch Slot A P_6 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/27
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 7 of LAG 51 to Akamai Managed  HP Switch Slot A P_7 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/28
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 8 of LAG 51 to Akamai Managed HP Switch Slot A P_8 for AANP "
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 51
+	shutdown
+	no lacp
+        port 5/1/23
+        port 5/1/24
+        port 5/1/25
+        port 5/1/26
+        port 5/1/27
+        port 5/1/28
+        lacp active
+        no shutdown
+    exit all

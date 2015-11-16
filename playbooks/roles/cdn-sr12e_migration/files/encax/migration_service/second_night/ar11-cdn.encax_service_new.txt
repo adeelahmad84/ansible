@@ -1,0 +1,713 @@
+##AANP-BEGIN##
+configure
+    port 4/1/5
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of LAG 20 to WS-C4900M-te-2-1 Akamai Managed Switch for AANP"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/6
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of LAG 20 to WS-C4900M-te-2-2 Akamai Managed Switch for AANP"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/7
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] 1 of LAG 21 to Akamai Managed WS-C4900M-te-2-3 for AANP_2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/8
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] 2 of LAG 21 to Akamai Managed WS-C4900M-te-2-4 for AANP_2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 20
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] To WS-C4900M Akamai Managed Switch for AANP"
+        mode access
+        port 4/1/5
+        port 4/1/6
+        lacp active
+        no shutdown
+    exit
+    lag 21
+        description "[ext,iv-g=aanp,iv-s=cdn_aanp] To WS-C4900M Akamai Managed Switch for AANP_2"
+        mode access
+        port 4/1/7
+        port 4/1/8
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 20 create
+            description "AANP Akamai"
+        exit
+        ies 220271 customer 20 create
+            interface "ies220271_Akamai-AANP_1" create
+                address 2.127.241.0/31
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:F01::1/64
+                exit
+                sap lag-20 create
+                exit
+            exit
+            service-name "ies220271_Akamai-AANP_1"
+            no shutdown
+        exit
+        ies 220272 customer 20 create
+            interface "ies220272_Akamai-AANP_2" create
+                description "[ext,iv-g=aanp,iv-s=cdn_aanp]"
+                address 2.127.241.2/31
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:F02::1/64
+                exit
+                sap lag-21 create
+                exit
+            exit
+            service-name "ies220272_Akamai-AANP_2"
+            no shutdown
+        exit
+    exit
+    router
+        interface "AANP_OFFNET-LOOPBACK"
+            address 90.207.251.218/32
+            loopback
+            no shutdown
+        exit
+        policy-options
+            begin
+            prefix-list "PL-SKY-IP-RANGE"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 46.64.0.0/15 exact
+                prefix 78.86.0.0/16 exact
+                prefix 78.105.0.0/16 exact
+                prefix 80.238.0.0/19 exact
+                prefix 80.238.32.0/19 exact
+                prefix 84.38.32.0/20 exact
+                prefix 85.188.192.0/18 exact
+                prefix 87.80.0.0/15 exact
+                prefix 90.192.0.0/11 exact
+                prefix 91.103.32.0/21 exact
+                prefix 93.96.0.0/16 exact
+                prefix 94.0.0.0/12 exact
+                prefix 94.116.0.0/14 exact
+                prefix 94.192.0.0/14 exact
+                prefix 149.241.0.0/16 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 188.220.0.0/14 exact
+                prefix 194.42.124.0/23 exact
+            exit
+            prefix-list "AKAMAI-AANP-BLLON"
+                prefix 90.207.224.0/27 exact
+                prefix 90.207.224.128/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENBGK"
+                prefix 90.207.224.64/27 exact
+                prefix 90.207.224.192/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENEDI"
+                prefix 90.207.224.32/27 exact
+                prefix 90.207.224.160/27 exact
+                prefix 90.207.242.64/26 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENSHF"
+                prefix 90.207.224.96/27 exact
+                prefix 90.207.224.224/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-HOBIR"
+                prefix 90.207.242.0/26 exact
+                prefix 90.223.197.64/26 exact
+            exit
+            prefix-list "IRONMAN-SITE-BL-AND-BGK"
+                prefix 90.207.224.192/27 exact
+                prefix 90.207.242.0/26 exact
+            exit
+            prefix-list "IRONMAN-SITE-SHF-AND-EDI"
+                prefix 90.207.224.32/27 exact
+                prefix 90.207.224.96/27 exact
+                prefix 90.207.242.64/26 exact
+            exit
+            prefix-list "AKAMAI-AANP-PERMIT-LAN-RANGES"
+                prefix 2.127.246.0/26 exact
+                prefix 90.223.216.64/26 exact
+                prefix 90.223.246.128/25 exact
+            exit
+            prefix-list "CORE-CDN-IPV4-AKAMAI-AANP-LAN"
+                prefix 2.127.241.0/31 exact
+                prefix 2.127.241.2/31 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-AANP-LAN"
+                prefix 2A02:C7A:8000:F01::/64 exact
+                prefix 2A02:C7A:8000:F02::/64 exact
+            exit
+            prefix-list "BLLONIRONMAN-EXTRA-FOR-ENCAXCDN"
+                prefix 90.207.242.22/32 exact
+                prefix 90.207.242.23/32 exact
+            exit
+            community "cdn-encax-akamai-aanp" members "4589:4" "5607:1001" "4589:14415" "5607:14415" "no-export-subconfed"
+            community "cdn-primary-Akamai-export-comm" members "4589:14424"
+            community "cdn-secondary-Akamai-export-comm" members "4589:14425"
+            as-path "ASPATH-EXPORT-CLOUD-TO-SUPERNETS" expression "41012+"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 26
+                    description "Akamai AANP LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-AKAMAI-AANP-LAN"
+                    exit
+                    action accept
+                        community add "cdn-encax-akamai-aanp"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 294
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-AKAMAI-AANP-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-encax-akamai-aanp"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "AANP-PERMIT-EBGP_AS20940-RANGES"
+                description "Allow prefixes advertised by Akamai CDN"
+                entry 10
+                    from
+                        protocol bgp
+                        prefix-list "AKAMAI-AANP-PERMIT-LAN-RANGES"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 100
+                    description "Deny everything else"
+                    action reject
+                exit
+            exit
+            policy-statement "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                description "Export All Sky supernets to Akamai and set Community"
+                entry 10
+                    description "Primary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-ENEDI" "BLLONIRONMAN-EXTRA-FOR-ENCAXCDN"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 20
+                    description "Secondary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-BLLON" "AKAMAI-AANP-ENSHF" "AKAMAI-AANP-ENBGK"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                entry 50
+                    description "Announce Cloud to Akamai"
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-TO-SUPERNETS"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 60
+                    description "Sky Range Prefix List to AANP"
+                    from
+                        prefix-list "PL-SKY-IP-RANGE"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                default-action reject
+            exit
+            commit
+        exit
+        bgp
+            group "cdn-aanp-ipv4"
+                description "eBGP to AANP AS20940"
+                family ipv4
+                type external
+                import "AANP-PERMIT-EBGP_AS20940-RANGES"
+                export "EXPORT-DEFAULT"
+                peer-as 20940
+                disable-communities extended
+                neighbor 2.127.241.1
+                    description "AANP ServerFarm A"
+                    local-address 2.127.241.0
+                exit
+                neighbor 2.127.241.3
+                    description "AANP ServerFarm B"
+                    local-address 2.127.241.2
+                exit
+            exit
+            group "cdn-aanp_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL"
+                export "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.50
+                    description "Off-Net Peer"
+                    authentication-key ".m3bXs/di5Djh5Gb/A0rFGpdWl/iNtDq1JY1uMvdaSErdmwTagFzXkpA8j8j7peMTOUOB7CKRJg" hash2
+                    local-address 90.207.251.218
+                exit
+            exit
+            no shutdown
+        exit all
+##AANP-END##
+####GGC-BEGIN###
+exit all
+configure
+    port 4/1/3
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server A"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/4
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server B"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/1
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server C"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/2
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server D"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    service
+        customer 16 create
+            description "Google GGC"
+        exit
+        vpls 220162 customer 16 create
+            description "VPLS Interconnect Google Servers"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220162_cdn-ggc-data"
+            sap 4/1/3 create
+            exit
+            sap 4/1/4 create
+            exit
+            sap 4/1/1 create
+            exit
+            sap 4/1/2 create
+            exit
+            no shutdown
+        exit
+        ies 220161 customer 16 create
+            interface "ies 220161_cdn-ggc" create
+                description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google Servers Gateway IP"
+                address 90.223.205.193/26
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:F05::1/64
+                exit
+                vpls "vpls220162_cdn-ggc-data"
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CORE-CDN-IPV4-GGC-LAN"
+                prefix 90.223.205.192/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-GGC-LAN"
+                prefix 2A02:C7A:8000:F05::/64 exact
+            exit
+            community "cdn-encax-google" members "4589:4" "5607:1003" "4589:14415" "5607:14415" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 25
+                    description "GGC LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-GGC-LAN"
+                    exit
+                    action accept
+                        community add "cdn-encax-google"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 295
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-GGC-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-encax-google"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+	exit
+        router-advertisement
+            interface "ies 220161_cdn-ggc"
+                prefix 2A02:C7A:8000:F05::/64
+                exit
+                no shutdown
+exit all
+##GGC-END##
+##VELOCIX-BEGIN##
+configure
+    port 5/1/19
+        description "[ext,rd=ac1.sky1cax1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/20
+        description "[ext,rd=ac1.sky1cax1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/21
+        description "[ext,rd=ac2.sky1cax1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/22
+        description "[ext,rd=ac2.sky1cax1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 55
+        description "[ext,rd=ac1.sky1cax1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        mode access
+        port 5/1/19
+        port 5/1/20
+        lacp active
+        no shutdown
+    exit
+    lag 56
+        description "[ext,rd=ac2.sky1cax1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        mode access
+        port 5/1/21
+        port 5/1/22
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 30 create
+            description "Velocix CDN"
+        exit
+        vpls 220805 customer 30 create
+            description "Moonraker Data Node LAN"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220805_Moonraker_Data_Node"
+            sap lag-55 create
+            exit
+            sap lag-56 create
+            exit
+            no shutdown
+        exit
+        ies 220804 customer 30 create
+            interface "ies_220804_moonraker_Data_node" create
+                description "[Moonraker CDN Hardware Data Node]"
+                address 90.222.190.129/27
+                ipv6
+                    address 2A02:C7A:8000:F0B::1/120
+                exit
+                vpls "vpls220805_Moonraker_Data_Node"
+                exit
+            exit
+            service-name "ies220804-moonraker-data-node"
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CDN-IPV4-VELOCIX-LAN"
+                prefix 90.222.190.0/23 longer
+            exit
+            prefix-list "CDN-IPV6-VELOCIX-LAN"
+                prefix 2A02:C7A:8000:F0B::/120 exact
+            exit
+            community "cdn-encax-velocix" members "4589:4" "5607:1007" "5607:14415" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 28
+                    description "Velocix LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CDN-IPV4-VELOCIX-LAN"
+                    exit
+                    action accept
+                        community add "cdn-encax-velocix"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 298
+                    from
+                        protocol direct
+                        prefix-list "CDN-IPV6-VELOCIX-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-encax-velocix"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+###VELOCIX-END##
+####MCDN-BEGIN####
+exit all
+configure
+    port 4/1/19
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 1 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/20
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 2 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/21
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 3 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/22
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 4 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/23
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 5 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/24
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 6 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/25
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 7 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/26
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 8 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/27
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 9 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/28
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 10 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 41
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] To HP2910 Akamai Managed Switch for PDL-2"
+        mode access
+        port 4/1/19
+        port 4/1/20
+        port 4/1/21
+        port 4/1/22
+        port 4/1/23
+        port 4/1/24
+        port 4/1/25
+        port 4/1/26
+        port 4/1/27
+        port 4/1/28
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 21 create
+            description "PDL Edge"
+        exit
+        ies 220372 customer 21 create
+            interface "ies220372_-PDL-Edge-2" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge]"
+                address 90.223.231.1/26
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:F08::1/64
+                exit
+                sap lag-41 create
+                exit
+            exit
+            service-name "ies220372_-PDL-Edge-2"
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                prefix 90.223.231.0/26 exact
+                prefix 90.223.242.0/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:F04::/64 exact
+                prefix 2A02:C7A:8000:F08::/64 exact
+            exit
+            community "cdn-encax-akamai-mcdn" members "4589:4" "5607:1002" "4589:14415" "5607:14415" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 27
+                    description "Akamai MCDN LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                    exit
+                    action accept
+                        community add "cdn-encax-akamai-mcdn"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-encax-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+####MCDN-END####

@@ -1,0 +1,4 @@
+Please remove the following DNS record as this device is decommissioned:
+
+ar10.encax.isp.sky.com	    in	A	89.200.128.128
+128.128.200.89.in-addr.arpa.	in	PTR	ar10.encax.isp.sky.com

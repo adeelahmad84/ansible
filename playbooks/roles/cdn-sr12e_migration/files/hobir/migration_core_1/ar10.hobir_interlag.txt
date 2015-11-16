@@ -1,0 +1,116 @@
+exit all
+configure
+    port 5/1/1
+        description "[core,ip=,rd=ar11-cdn.hobir:6-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm4-100gb-cxp"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+	    exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 5/2/1
+        description "[core,ip=,rd=ar11-cdn.hobir:6-2-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm4-100gb-cxp"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+	    exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 6/2/1
+        description "[core,ip=,rd=ar11-cdn.hobir:7-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm4-100gb-cxp"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+	    exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port None
+        description "[no-mon,core,ip=,rd=ar11-cdn.hobir:None,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 176
+        description "[core,ip=,rd=ar11-cdn.hobir:lag176,iv-s=vcdn_sc]"
+	port 5/1/1
+	port 5/2/1
+	port 6/2/1
+	lacp active
+	port-threshold 1 action down
+        no shutdown
+    exit
+    router
+        interface "base_ar11-cdn.hobir_1"
+            description "[core-o,rd=ar11-cdn.hobir:lag-176]"
+	    shutdown
+            no port
+	    port lag-176
+            no shutdown
+exit all

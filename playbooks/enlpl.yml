@@ -1,0 +1,13 @@
+---
+
+- name: Generate CDN configuration files
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars_files:
+    - roles/common/vars/sites/enlpl.yml
+    - roles/bbpe/vars/enlpl.yml
+
+  roles:
+    - bbpe

@@ -1,0 +1,23 @@
+configure terminal
+!
+interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ no ipv4 address
+!
+router isis 65444
+ interface Bundle-Ether{{ system_last_octet|int + 256 }}
+  shutdown
+ !
+!
+mpls ldp
+ no neighbor {{ system_address }} password
+ no interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ !
+!
+rsvp
+ no interface Bundle-Ether{{ system_last_octet|int + 256 }}
+!
+commit

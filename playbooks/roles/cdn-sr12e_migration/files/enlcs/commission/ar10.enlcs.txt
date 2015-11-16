@@ -1,0 +1,72 @@
+configure
+    port 5/1/7
+        description "[core,ip=,rd=ar11-cdn.enlcs:4-1-40,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    router
+        interface "base_ar11-cdn.enlcs_1"
+            address 2.120.8.112/31
+            description "[core-o,rd=ar11-cdn.enlcs:4/1/40]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port 5/1/7
+            qos 10
+            cflowd interface both
+            no shutdown
+	exit
+        isis
+            interface "base_ar11-cdn.enlcs_1"
+                level-capability level-2
+                hello-authentication-key "raopuleesaejaico"
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 99100000
+                exit
+                no shutdown
+	    exit
+	exit
+        mpls
+            interface "base_ar11-cdn.enlcs_1"
+                no shutdown
+	exit
+        rsvp
+            interface "base_ar11-cdn.enlcs_1"
+                no shutdown
+	exit
+        ldp
+	    peer-parameters
+		peer 89.200.128.110	
+		    authentication-key kahjahkiughoizez
+		exit
+	    exit
+            interface-parameters
+                interface "base_ar11-cdn.enlcs_1"
+	exit all

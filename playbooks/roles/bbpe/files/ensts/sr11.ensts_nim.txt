@@ -1,0 +1,4 @@
+Hostname: sr11.ensts
+System IP: 84.38.34.3
+dist-bng IP address: 90.208.114.194/32 (2a02:c79:1::259/128)
+dist-gea IP address: 90.208.114.195/32 (2a02:c79:2::259/128)

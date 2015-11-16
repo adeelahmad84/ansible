@@ -1,0 +1,2 @@
+ar11-cdn.enyrk.isp.sky.com	A 89.200.128.53
+ar11-cdn.enyrk.isp.sky.com	PTR 53.128.200.89.in-addr.arpa.

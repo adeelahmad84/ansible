@@ -1,0 +1,19 @@
+##########
+pr2.enlba
+##########
+configure terminal
+!
+mpls ldp
+ neighbor 84.38.34.170 password clear p8u9p0LXglFFZIW0
+!
+commit
+
+##########
+pr3.thlon
+##########
+configure terminal
+!
+mpls ldp
+ neighbor 84.38.34.170 password clear WZKnNTDAyM6rGmq8
+!
+commit

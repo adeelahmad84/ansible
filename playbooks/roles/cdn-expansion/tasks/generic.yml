@@ -1,0 +1,6 @@
+---
+
+- name: generating for cdn dns
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+   - { src: 'pop_cdn/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/procedure.txt' }

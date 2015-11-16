@@ -1,0 +1,12 @@
+{% for key, cdn in services|dictsort %}
+{% for key, info in cdn.array|dictsort %}
+show port {{ info.port }} | match expression "Oper State|Oper Speed"
+{% endfor %}
+{% if cdn_lag %}
+show lag {{ cdn_lag + cdn.lag }}
+show lag {{ cdn_lag + cdn.lag }} description
+show lag {{ cdn_lag + cdn.lag }} port
+show lag {{ cdn_lag + cdn.lag }} lacp-partner
+monitor lag {{ cdn_lag + cdn.lag }} repeat 5
+{% endif %}
+{% endfor %}

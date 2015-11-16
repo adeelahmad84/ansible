@@ -1,0 +1,42 @@
+Business Justification:
+=========================
+As part of the CDN Growth project, a secondary PE is being deployed.  This is so that the CDN network can accomodate the growing capacity of server farms housed in SNS.
+This is the commissioning of ar21.syost in readiness of its DRFU.
+If this was not to go ahead then it will impact the capacity handling of the CDN traffic for this site.
+
+
+Implementation:
+=========================
+Please apply the configuration of the respected devices in the following order:
+
+    sr15.syost.txt
+    sr16.syost.txt
+    sr17.syost.txt
+
+Test Plan:
+===========
+Please use the following files to run your prechecks and postchecks:
+
+    sr15.syost_prepost.txt
+    sr16.syost_prepost.txt
+    sr17.syost_prepost.txt
+
+Please save the output of both checks and run a comparision between the two.  During postchecks expect to see similar results as the attached file below:
+
+postchecks_output_exampls.txt
+
+Backout Plan:
+=============
+In case the implementation was to impact any existing services.  Please apply the config in the following:
+
+    sr15.syost_rollback.txt
+    sr16.syost_rollback.txt
+    sr17.syost_rollback.txt
+
+Run the prepost checks again to ensure they are the same as precheck output.
+
+Risk Assessment:
+==================
+No services are anticipated to be impacted as no service traffic will be carried.  New device is being introduced with no traffic on it.
+
+If the change went wrong the worst will be that BGP/LAG/ports to ar21.syost will fail to come up, which is still not impacting live services.  As this change been carried out several times, multipele reviews will take place prior to approvakl, thus minimising any human errors.

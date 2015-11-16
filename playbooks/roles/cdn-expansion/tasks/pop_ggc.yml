@@ -1,0 +1,25 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+#[PROCEDURE]
+    - { src: 'pop_cdn/ggc/ggc_proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/procedure.txt' }
+    # { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/procedure.txt' }
+
+#[4500]
+    - { src: 'pop_cdn/ggc/ggc_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ hostname }}_ggc.txt' }
+    - { src: 'pop_cdn/ggc/prepost_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ hostname }}_ggc_prepost.txt' }
+    - { src: 'pop_cdn/ggc/ggc_4500_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ hostname }}_ggc_rollback.txt' }
+
+#[DNS]
+    # { src: 'ggc_dns.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ hostname }}_google_dns.txt' }
+
+#[BBPE]
+    - { src: 'pop_cdn/ggc/prepost_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/bbpe_ggc_prepost.txt' }
+    - { src: 'pop_cdn/ggc/bbpe1_ggc_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ bbpe.1.hostname }}_ggc_prefix_add.txt' }
+    - { src: 'pop_cdn/ggc/bbpe2_ggc_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ bbpe.2.hostname }}_ggc_prefix_add.txt' }
+    - { src: 'pop_cdn/ggc/bbpe_ggc_prefix_add-rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/bbpe_ggc_rollback.txt' }
+
+    - { src: 'pop_cdn/ggc/bbpe3_ggc_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/{{ bbpe.3.hostname }}_ggc_prefix_add.txt' }

@@ -1,0 +1,14 @@
+hostname:
+services:
+  1:
+    tgref:
+    lag:
+    remote_svr:
+    svc_id:
+    range:
+    ipv4:
+    ipv6:
+    array:
+      1:
+        port:
+        remote_port:

@@ -1,0 +1,8 @@
+show router interface "base_as103.hobir_1"
+
+#during post ensure that the pings are successful.
+
+ping 90.222.231.233  rapid
+ping 90.222.231.234  rapid
+
+#from nms please you can ping and ssh to 90.222.231.234

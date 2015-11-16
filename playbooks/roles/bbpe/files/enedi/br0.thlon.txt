@@ -1,0 +1,27 @@
+# $Id: br0.thlon.txt,v 1.1 2013/03/27 16:50:28 mivens Exp $
+exit all
+configure
+    service
+        sdp 261 mpls create
+            description "sr12.enedi"
+            far-end 84.38.34.5
+            ldp
+            path-mtu 8192
+            no shutdown
+        exit
+        vpls 400010
+            spoke-sdp 261:964226101 split-horizon-group "pe-sdp" create
+                description "PBB B-VPLS backhaul - sr12.enedi"
+                no shutdown
+            exit
+        exit
+    exit
+    router
+        ldp
+           peer-parameters
+               peer 84.38.34.5 authentication-key jSyKmr1GhaEKmt2F
+            exit
+        exit
+    exit
+exit
+

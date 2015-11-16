@@ -1,0 +1,19 @@
+configure router mpls ingress-statistics lsp "SR17.SYOST-1-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-2-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-3-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-4-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-5-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-6-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-7-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-8-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-9-AR13ENLBA" sender 84.38.34.6 shutdown
+
+configure router mpls ingress-statistics lsp "SR17.SYOST-10-AR13ENLBA" sender 84.38.34.6 shutdown

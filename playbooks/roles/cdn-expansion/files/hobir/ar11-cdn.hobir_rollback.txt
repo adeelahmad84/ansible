@@ -1,0 +1,32 @@
+exit all
+configure
+    port 5/1/23
+        shutdown
+    exit
+    port 5/1/24
+        shutdown
+    exit
+    port 5/1/25
+        shutdown
+    exit
+    port 5/1/26
+        shutdown
+    exit
+    port 5/1/27
+        shutdown
+    exit
+    port 5/1/28
+        shutdown
+    exit
+    lag 51
+	shutdown
+	no lacp
+        no port 5/1/23
+        no port 5/1/24
+        no port 5/1/25
+        no port 5/1/26
+        no port 5/1/27
+        no port 5/1/28
+        lacp active
+        no shutdown
+    exit all

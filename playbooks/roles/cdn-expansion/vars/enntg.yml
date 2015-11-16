@@ -1,0 +1,222 @@
+---
+#device information
+
+hostname: ar21.enntg
+site_id: enntg
+location: Unit 9, Easter Park, Lenton Lane Industrial Estate, Nottingham
+site_community: 14444
+loopback: "84.38.34.12/32"
+tacacs_key: UFeepahth0wo4Va5
+console: "port 1"
+second: true
+rack: "RACK_E006"
+chassis: 16
+
+#Uplink information
+bbpe:
+  1:
+    ipv4: '2.120.7.46/31'
+    ipv6: '2a02:c78:1:c::4/127'
+    bundle: 2
+    tgref: 2557
+    hostname: sr10.enntg
+    lag: 51
+    array:
+      1:
+        a_end: '1/1/10'
+        b_end: '1/2'
+        cid: LOCAL
+#Uplink information
+bbpe:
+  1:
+    tgref: TG2557
+    ipv4_p2p: "2.120.7.46/31"
+    ipv6_p2p: "2a02:c78:1:c::4/127"
+    ggc_tag: 
+    ntf_tag: 
+    aanp_tag:
+    mcdn_tag:
+    l3d_tag:
+    l3g_tag:
+    channel: 1
+    lag: 51
+    hostname: sr10.enntg
+    bgp_auth: Ahwae4ESh1oochai
+    ports:
+#     1:
+#       remote_port: 1/1
+#       port: 10/2/1
+      2:
+        remote_port: 1/2
+        port: 1/1/10
+##      3:
+##        remote_port: 1/3
+##        port: 10/2/4
+#
+  2:
+    ipv4_p2p: "2.120.7.48/31"
+    ipv6_p2p: "2a02:c78:1:c::6/127"
+    ggc_tag:
+    ntf_tag:
+    aanp_tag:
+    mcdn_tag:
+    l3d_tag:
+    l3g_tag:
+    channel: 2
+    lag: 51
+    hostname: sr11.enntg
+    bgp_auth: ecu7iyoolohs6ziL
+    ports:
+      1:
+        remote_port: 1/5
+        port: 1/1/7
+#      2:
+#        remote_port: 1/5
+#        port: 1/1/7
+#      3:
+#        remote_port: 1/6
+#        port: 10/2/1
+#  3:
+#    ipv4_p2p: "2.120.8.86/31"
+#    ipv6_p2p: "2a02:c78:1:18::a/127"
+#    ggc_tag: 
+#    ntf_tag:
+#    aanp_tag:
+#    mcdn_tag:
+#    l3d_tag:
+#    l3g_tag:
+#    channel: 3
+#    lag: 51
+#    hostname: sr12.enntg
+#    bgp_auth: Chel9eiwiaz0due1
+#    ports:
+#      1:
+#        remote_port: 1/7
+#        port: 10/2/2
+#      2:
+#        remote_port: 1/8
+#        port: 10/2/3
+#      3:
+#        remote_port: 1/9
+#        port: 10/2/4
+
+# Google services
+#ggc:
+#  vlan_id: 20
+# farm: B
+# ipv4: "90.201.126.128/26"
+# ipv6: "2a02:c7a:8000:1907::/64"
+# array:
+#   1:
+#     port: 1/25
+#     server_id: 1
+#   2:
+#     port: 1/26
+#     server_id: 2
+#   3:
+#     port: 1/27
+#     server_id: 3
+#   4:
+#     port: 1/28
+#     server_id: 4
+#   5:
+#     port: 1/29
+#     server_id: 5
+#   6:
+#     port: 1/30
+#     server_id: 6
+#   7:
+#     port: 1/31
+#     server_id: 7
+#   8:
+#     port: 1/32
+#     server_id: 8
+
+# Netflix services # 08/09/2015 17:22 including ports below #ADEEL
+#ntf:
+#  channel: 30
+#  routed: true
+#  farm: A
+#  ipv4: "176.255.200.105/30"
+#  ipv6: "2A02:C7A:8000:407::/64"
+#  array:
+#    1:
+#      port: 2/1
+#      server_id: 1
+#    2:
+#      port: 2/2
+#      server_id: 2
+#    3:
+#      port: 2/3
+#      server_id: 3
+#    4:
+#      port: 2/4
+#      server_id: 4
+#ntf:
+#  channel: 31
+#  routed: false
+#  farm: B
+#  ipv4: "90.223.194.32/28"
+#  ipv6: "2a02:c7a:8000:40d::/64"
+#  array:
+#    1:
+#      port: 2/5
+#      server_id: 1
+#    2:
+#      port: 2/6
+#      server_id: 2
+#    3:
+#      port: 2/7
+#      server_id: 3
+#    4:
+#      port: 2/8
+#      server_id: 4
+
+
+mcdn:
+  channel: 60
+  routed: true
+  ipv4: "90.201.125.96/27"
+  ipv6: "2A02:C7A:8000:1804::/64"
+  v6_entry: 295
+  array:
+    1:
+      port: 1/13
+      server_id: 1
+    2:
+      port: 1/14
+      server_id: 2
+    3:
+      port: 1/15
+      server_id: 3
+    4:
+      port: 1/16
+      server_id: 4
+
+#services:
+#  mcdn:
+#    tgref: 2551 2554
+#    lag: 60
+#    remote_svr: "MCDN"
+#    svc_id: "N/A"
+#    range: A
+#    tag: 20170
+##   farm: A
+##   channel: 60
+##   routed: true
+#    ipv4: "90.201.125.96/27"
+#    ipv6: "2A02:C7A:8000:1804::/64"
+##   v6_entry: 295
+#    array:
+#      1:
+#        port: 1/13
+#        server_id: 1
+#      2:
+#        port: 1/14
+#        server_id: 2
+#      3:
+#        port: 1/15
+#        server_id: 3
+#      4:
+#        port: 1/16
+#        server_id: 4

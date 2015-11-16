@@ -1,0 +1,17 @@
+---
+
+# Enter the name of the decommssioned 7210 for our ref #
+hostname: as101
+site_id: hobir
+# Enter service_id for IES and VPLS below #
+ies: 220101
+vpls: 220100
+vlan: 201
+lag: 30
+# Enter the pe name which this config applies to #
+pe: ar10.hobir
+ports:
+
+  - 2/1/3
+  - 2/1/4
+

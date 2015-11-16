@@ -1,0 +1,74 @@
+configure
+{% for key, value in first_interconnect|dictsort %}
+    port {{ value.port_old }}
+        description "[core,ip=,rd={{ node_name }}:{{ value.port_new|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+{% endfor %}
+    router
+        interface "base_{{ node_name }}_1"
+            address {{ old_to_new_cdn_pe_address_range | ipaddr('0') }}
+            description "[core-o,rd={{ node_name }}:{{ first_interconnect.1.port_new }}]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port {{ first_interconnect.1.port_old }}
+            qos 10
+            cflowd interface both
+            no shutdown
+	exit
+        isis
+            interface "base_{{ node_name }}_1"
+                level-capability level-2
+                hello-authentication-key "{{ old_to_new_pe_auth }}"
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 99100000
+                exit
+                no shutdown
+	    exit
+	exit
+        mpls
+            interface "base_{{ node_name }}_1"
+                no shutdown
+	exit
+        rsvp
+            interface "base_{{ node_name }}_1"
+                no shutdown
+	exit
+        ldp
+	    peer-parameters
+		peer {{ system_address }}	
+		    authentication-key {{ old_to_new_cdn_ldp_auth }}
+		exit
+	    exit
+            interface-parameters
+                interface "base_{{ node_name }}_1"
+	exit all

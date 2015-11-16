@@ -1,0 +1,77 @@
+Summary:
+
+C2: Card commissioning on CDN PE [{{ site_id|upper }}][{{ hostname|upper }}]
+
+
+Business Justification:
+
+This change is to add a new line card into {{ hostname }}.
+This is to accomodate the accelerated growth of CDN capacity.
+The change being on hold will impact the capacity SNS can provide for CDN services.
+
+
+
+
+Implementation Steps:
+
+Tech Summary
+*******************
+The implementation steps should take approxiately 20 minutes to complete.
+
+This change is to:
+- Configure a new line card in {{ hostname }}.
+
+1. After running the pre-checks please instruct the FE to install the line card into slot {{ card }}.
+2. Please apply the commands found in the file named {{ hostname }}.txt
+3. Move onto post-checks found in Test Plan
+
+
+
+Test Plan:
+
+Pre-Checks
+***************
+1. Please verify with the FE that you both have the slot information.  The slot in question is {{ card }}.
+
+2. Please run the commands found in the file named {{ hostname }}_prepost.txt
+- expect to see no card provisioned on slot {{ card }}:
+
+	MINOR: CLI No card in slot "{{ card }}".
+	MINOR: CLI No Matching Entries.
+
+N.B. If you do see a card already installed in slot {{ card }} which has live ports then please backout the change.
+
+Post-Checks
+***************
+Please run the commands found in the file named {{ hostname }}_prepost.txt
+
+- expect to see the card provisioned, ports visible from card {{ card }}.
+
+===============================================================================
+Card Summary
+===============================================================================
+Slot   Provisioned Type                            Admin Operational   Comments
+           Equipped Type (if different)            State State
+-------------------------------------------------------------------------------
+{{ card }}      imm40-10gb-sfp                              up    up
+
+
+
+
+
+
+Backout Plan:
+
+If the change causes an impact on existing services or the expected results are not produced then please proceed with running the commands found in {{ hostname }}_rollback.txt.
+Please instuct the FE to leave the card in its place as the card will be shut down.  The next working day this can be further investigated.
+Please re-run the commands found in the file named {{ hostname }}_prepost.txt and ensure the card in slot {{ card }} is administratively down.
+
+
+
+
+
+Risk Assessment
+
+This is a new card commissioning procedure which is BAU.  Therefore no impact on existing services anticipated.
+If change went wrong such as trying to provision a card on a slot which has live services, then the risks are that services residing the line card in question will have disruption.
+The pre-checks will ensure that the slot {{ card }} will have no pre-existing provisioning therefore mitigating this risk.

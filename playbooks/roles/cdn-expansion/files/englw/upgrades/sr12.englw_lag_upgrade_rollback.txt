@@ -1,0 +1,12 @@
+/configure
+    port 2/2/3
+        shutdown
+    exit
+    port 2/2/4
+        shutdown
+    exit
+    lag 50
+        no port 2/2/3
+        no port 2/2/4
+        no port-threshold
+    exit all

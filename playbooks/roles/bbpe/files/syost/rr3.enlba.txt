@@ -1,0 +1,13 @@
+! $Id: rr3.enlba.txt,v 1.1 2014/04/02 11:59:22 AJA09 Exp $
+router bgp 65444
+ neighbor 84.38.34.6 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.6 description sr17.syost
+ neighbor 84.38.34.6 password 0 ItnzDKzJpJdemxU7
+!
+ address-family ipv6
+ neighbor 84.38.34.6 activate
+ neighbor 84.38.34.6 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+end
+
+
+

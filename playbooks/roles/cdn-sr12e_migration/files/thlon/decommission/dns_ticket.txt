@@ -1,0 +1,4 @@
+Please remove the following DNS record as this device is decommissioned:
+
+ar10.thlon.isp.sky.com	    in	A	84.38.34.78
+78.34.38.84.in-addr.arpa.	in	PTR	ar10.thlon.isp.sky.com

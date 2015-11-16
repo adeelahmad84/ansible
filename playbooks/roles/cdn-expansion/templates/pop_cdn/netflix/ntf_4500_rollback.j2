@@ -1,0 +1,12 @@
+configure terminal
+!
+interface Port-channel{{ ntf.vlan_id }}
+ shutdown
+!
+{% for key, value in ntf.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ shutdown
+!
+{% endfor %}
+!
+end

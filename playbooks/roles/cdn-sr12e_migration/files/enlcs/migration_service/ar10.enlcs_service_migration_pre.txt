@@ -1,0 +1,88 @@
+show port 5/1/3
+show port 5/1/3 description
+show port 6/1/3
+show port 6/1/3 description
+show port 10/1/1
+show port 10/1/1 description
+show port 10/1/2
+show port 10/1/2 description
+show port 10/1/3
+show port 10/1/3 description
+show port 10/1/4
+show port 10/1/4 description
+show port 10/1/5
+show port 10/1/5 description
+show port 10/1/6
+show port 10/1/6 description
+show port 10/1/7
+show port 10/1/7 description
+show port 10/1/8
+show port 10/1/8 description
+show lag 40
+show lag 40 port
+show service sap-using sap lag-40
+show service id 220361 base
+show service id 220361 interface
+show service id 220361 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220361 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 1/1/9
+show port 1/1/9 description
+show port 1/1/10
+show port 1/1/10 description
+show port 1/1/11
+show port 1/1/11 description
+show port 1/1/12
+show port 1/1/12 description
+show port 10/1/9
+show port 10/1/9 description
+show port 10/1/10
+show port 10/1/10 description
+show port 10/1/11
+show port 10/1/11 description
+show port 10/1/12
+show port 10/1/12 description
+show lag 60
+show lag 60 port
+show service sap-using sap lag-60
+show service id 220401 base
+show service id 220401 sap
+show service id 220400 base
+show service id 220400 interface
+show service id 220400 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220400 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 6/1/9
+show port 6/1/9 description
+show port 6/1/10
+show port 6/1/10 description
+show port 6/1/11
+show port 6/1/11 description
+show port 6/1/12
+show port 6/1/12 description
+show lag 55
+show lag 55 port
+show service sap-using sap lag-55
+show service id 220801 base
+show service id 220801 sap
+show service id 220800 base
+show service id 220800 interface
+show service id 220800 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220800 context all
+# ping all ipv6 addresses in the neighbor entry
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match None ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2a02:c7a:8000:fc05::/64 ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.223.224.0/26
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match None
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2a02:c7a:8000:fc08::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match None ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.223.190.144/28
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match None
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2a02:c7a:8000:fb0b::/120 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2a02:c7a:1::1/128 ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.222.190.0/23
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match None
+show router policy-edits

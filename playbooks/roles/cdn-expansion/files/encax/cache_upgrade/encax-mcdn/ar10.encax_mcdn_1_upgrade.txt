@@ -1,0 +1,88 @@
+exit all
+configure
+    port 1/1/1
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 3 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/2
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 4 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/3
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 5 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/4
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 6 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/5
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 7 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/6
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 8 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/7
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 9 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/8
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 10 of LAG 40 to HP2910 Akamai Managed Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 40
+	shutdown
+	no port 1/1/1
+	no port 1/1/2
+	no port 1/1/3
+	no port 1/1/4
+	no port 1/1/5
+	no port 1/1/6
+	no port 1/1/7
+	no port 1/1/8
+        no lacp
+        lacp active
+        no shutdown
+exit all

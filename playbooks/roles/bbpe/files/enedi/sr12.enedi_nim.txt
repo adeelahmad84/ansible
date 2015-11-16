@@ -1,0 +1,4 @@
+Hostname: sr12.enedi
+System IP: 84.38.34.5
+dist-bng IP address: 90.208.114.212/32 (2a02:c79:1::261/128)
+dist-gea IP address: 90.208.114.213/32 (2a02:c79:2::261/128)

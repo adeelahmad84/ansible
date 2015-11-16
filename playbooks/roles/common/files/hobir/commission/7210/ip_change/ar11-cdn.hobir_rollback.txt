@@ -1,0 +1,7 @@
+exit all
+configure
+    router
+	interface "base_as103.hobir_1"
+	    description "[no-mon,agg,rd=as103.hobir:lag1]"
+            shutdown
+        exit all

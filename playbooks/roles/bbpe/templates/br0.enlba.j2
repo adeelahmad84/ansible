@@ -1,0 +1,27 @@
+# $Id$
+exit all
+configure
+    service
+        sdp {{ last_octet_system_address|int + 256 }} mpls create
+            description "{{ node_name }}"
+            far-end {{ system_address }}
+            ldp
+            path-mtu 8192
+            no shutdown
+        exit
+        vpls 400010
+            spoke-sdp {{ last_octet_system_address|int + 256 }}:9642{{ last_octet_system_address|int + 256 }}01 split-horizon-group "pe-sdp" create
+                description "PBB B-VPLS backhaul - {{ node_name }}"
+                no shutdown
+            exit
+        exit
+    exit
+    router
+        ldp
+           peer-parameters
+               peer {{ system_address }} authentication-key {{ br0_enlba_ldp_key }}
+            exit
+        exit
+    exit
+exit
+

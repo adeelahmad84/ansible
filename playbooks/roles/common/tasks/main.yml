@@ -1,0 +1,5 @@
+---
+
+# include: 7210_decom.yml
+- include: 7210_commission.yml
+# include: card.yml

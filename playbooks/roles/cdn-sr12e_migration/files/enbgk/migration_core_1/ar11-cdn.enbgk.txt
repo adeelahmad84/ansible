@@ -1,0 +1,23 @@
+exit all
+configure
+    port 1/1/1
+        description "[core,ip=,rd=pr3.bllon:7-0-2,cid=SNS:1003/BSGA-LNBL/100G/CDN1,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 1/2/1
+        description "[core,ip=,rd=pr3.bllon:7-0-3,cid=SNS:1003/BSGA-LNBL/100G/CDN2,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 2/1/1
+        description "[core,ip=,rd=pr3.bllon:7-0-5,cid=SNS:1003/BSGA-LNBL/100G/CDN3,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 2/2/1
+        description "[core,ip=,rd=pr3.bllon:3-0-0,cid=SNS:1003/BSGA-LNBL/100G/CDN4,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 1
+        description "[core,ip=,rd=pr3.bllon:be75,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+exit all

@@ -1,0 +1,30 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+#[CORE_1]
+    - { src: 'migration/core_1/core_1_procedure.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/procedure.txt' }
+    - { src: 'migration/core_1/core_1_interfaces_only.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ core_1_hostname }}.txt' }
+    - { src: 'migration/core_1/core_1_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ core_1_hostname }}_rollback.txt' }
+
+    - { src: 'migration/core_1/ar10_core_1_shut.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ old_node_name }}_shut.txt' }
+    - { src: 'migration/core_1/ar10_core_1_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ old_node_name }}_rollback.txt' }
+    - { src: 'migration/core_1/ar10_interlag.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ old_node_name }}_interlag.txt' }
+    - { src: 'migration/core_1/ar10_interlag_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ old_node_name }}_interlag_rollback.txt' }
+    - { src: 'migration/core_1/ar11_interlag.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ node_name }}_interlag.txt' }
+    - { src: 'migration/core_1/ar11_interlag_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ node_name }}_interlag_rollback.txt' }
+
+    - { src: 'migration/core_1/ar11.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ node_name }}.txt' }
+    - { src: 'migration/core_1/ar11_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_1/{{ node_name }}_rollback.txt' }
+
+#[CORE_2]
+    - { src: 'migration/core_2/core_2_procedure.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/procedure.txt' }
+    - { src: 'migration/core_2/core_2_interfaces_only.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/{{ core_2_hostname }}.txt' }
+    - { src: 'migration/core_2/core_2_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/{{ core_2_hostname }}_rollback.txt' }
+
+    - { src: 'migration/core_2/ar10_core_2_shut.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/{{ old_node_name }}_shut.txt' }
+    - { src: 'migration/core_2/ar10_core_2_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/{{ old_node_name }}_rollback.txt' }
+
+    - { src: 'migration/core_2/ar11.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/{{ node_name }}.txt' }
+    - { src: 'migration/core_2/ar11_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_core_2/{{ node_name }}_rollback.txt' }

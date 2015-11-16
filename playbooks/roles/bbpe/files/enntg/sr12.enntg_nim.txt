@@ -1,0 +1,4 @@
+Hostname: sr12.enntg
+System IP: 84.38.34.170
+dist-bng IP address: 90.208.114.200/32 (2a02:c79:1::426/128)
+dist-gea IP address: 90.208.114.201/32 (2a02:c79:2::426/128)

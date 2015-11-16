@@ -1,0 +1,1273 @@
+========================================================================
+CHG0212332/ -
+========================================================================
+
+------------------------------------------------------------------------
+Implementation Steps
+------------------------------------------------------------------------
+Outline of Steps
+================
+1.0 - Check Resiliency
+2.0 - Pre-Checks
+3.0 - Weight Traffic Off
+4.0 - Migrate Circuits
+5.0 - Check new circuits + L3 Test
+6.0 - Apply Configuration
+7.0 - Perform Post-Checks
+8.0 - Weight Traffic On
+9.0 - Weight off resilient leg/ all traffic via NCS
+10.0 - Weight on resilient leg
+11.0 - Configuration Clean Up
+12.0 - Post-checks - Collect PE Information - Check versus pre-checks
+
+------------------------------------------------------------------------
+Roll back Steps:
+------------------------------------------------------------------------
+13.0 - Weight Traffic Off (Roll Back)
+14.0 - Apply Configuration
+15.0 - Migrate Circuits
+16.0 - Post-Checks
+17.0 - Weight Traffic On
+18.0 - Configuration Clean Up
+19.0 - Post-Checks
+
+------------------------------------------------------------------------
+Patching Schedule:
+------------------------------------------------------------------------
+Old PE	    Old Port	New PE	    New Port	PR	    Port	CID
+{% for key, value in core_1|dictsort %}
+{{ old_node_name }}   {{ value.old_port }}	{{ node_name }}   {{ value.remote_port }}	{{ core_1_hostname }} {{ value.port }}   ESY:1002/LNTN-SHFA/10GLAN/IRM1
+
+------------------------------------------------------------------------
+CHG Prerequisites:
+------------------------------------------------------------------------
+Before starting change please ensure the following prerequisites are met:
+
+- Send email confirming CHG status to Service.Ops@bskyb.com; NetworkRepairTeam-IP@bskyb.com; NetworkRepairTeamTra@bskyb.com; NetworkServicesSupport@bskyb.com and CHG requester if required
+- Call into the NOC to check for alarms, confirm there are no other conflicting CHGs or INCs: 0207 032 7060
+- Ensure you are able to access ar0-isp.enshf, pr0.thlon and pr2.thlon inband.
+
+===========================================
+1.0 - Check Resiliency
+===========================================
+
+Check that ISIS and LDP are functioning as expected and check for traffic running over the link from ar0-isp.enshf to pr1.enlba
+
+
+PR/0/RP0/CPU0:pr1.enlba#
+term mon
+term len 0
+term width 512
+
+show isis neighbors | in ar0-isp.enshf
+show mpls ldp neighbor 89.200.128.190
+show mpls ldp bindings neighbor 89.200.128.190
+show interface description | include ar0-isp.enshf
+monitor interface Te0/0/0/7
+
+============================================
+2.0 - Pre-Checks
+=============================================
+
+Check and gather snapshots of service graphs (https://servicegraphs.isp.sky.com/group/all)
+We should see service traffic on the target IM site.
+
+Capture device baselines
+Confirm there are no existing issues or INC relating to this IM site
+
+ar0-isp.enshf#
+term len 0
+term width 512
+!
+show ver
+show mod
+show redundancy
+show run
+show int desc
+show int summary
+show ip int brie
+show int | inc protocol|Desc|rate |error
+show ip protocols
+show ip route summary
+show svclc rhi-routes 4
+show ip route static
+show ip vrf interfaces
+show ip vrf detail
+show ip route vrf uk-ips-mgmt-0000 summary
+show ip route vrf uk-ironman-back-000 summary
+show ip route vrf uk-ironman-mgmt-000 summary
+show isis neighbors
+show bgp ipv4 unicast summary
+show bgp vpnv4 unicast all summary
+show mpls ldp sum
+show mpls ldp neighbor
+show cdp neighbors
+show rsvp session
+show mpls traffic-eng tunnels brief
+show log
+!
+
+------------------------------------------------------------------------
+2.1 Open sessions to both pr0.thlon and pr1.enlba to monitor traffic on the interfaces during the traffic shifting
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+show interface description | include ar0-isp.enshf
+monitor interface te0/15/0/18
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+show interface description | include ar0-isp.enshf
+monitor interface Te0/0/0/7
+!
+
+------------------------------------------------------------------------
+2.2 Pre-Check current isis metrics
+------------------------------------------------------------------------
+- Best effort has been taken to provide accurate metrics. However due to strategic metric changes by Operations team this may be out of date by the time this change gets implemented.
+- Please ensure the metric used in this configuration (100000) is consistent with the metric currently configured on the device.
+- If the metrics differ to that of the current configuration please make the appropriate changes when pasting on the configuration.
+
+A:ar0-isp.enshf#
+show run interface te9/1 | in metric
+#
+
+RP/0/RP0/CPU0:pr0.thlon#
+show config run router isis 65444 interface te0/15/0/18 | inc  metric
+!
+
+-----------------------------------------------------------------------
+2.5 Pre-Checks
+-----------------------------------------------------------------------
+- Check the ports in question are included in the current ISIS topology.
+- Check the amount of circuits currently connected to the pr.
+- Check there is a current LDP session and that it is in an operational status and has bindings.
+- Check the LDP to IGP Sync has been achieved. Sync status: Ready & Peer shows (GR).
+- Check there is traffic currently traversing the circuits.
+- Check bfd session
+
+
+RP/0?rp0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+show isis neighbors | in ar0-isp.enshf
+show isis topology | inc te0/15/0/18
+show mpls ldp neighbor te0/15/0/18
+show mpls ldp igp sync interface te0/15/0/18
+show interface description | include ar0-isp.enshf
+show bfd session interface te0/15/0/18
+monitor interface te0/15/0/18
+
+==============================================
+3.0 - Weight Traffic Off
+==============================================
+
+- Run the ISIS weighting script to shift traffic off the target interface
+
+<your-username>@scripts2:~$
+/home/mark.ellis/scripts/costout/isisweight.pl
+pr0.thlon, te0/15/0/18
+
+CHANGE REF: CHG0212332i
+
+NOTE: WE SHOULD BE USING THE ISIS WEIGHTING SCRIPT TO SHIFT TRAFFIC ON/OFF THE TARGET LAG, THE CONFIGURATION BELOW IS TO BE USED ONLY IF WE NEED TO PERFORM MANUAL TRAFFIC SHIFTS
+
+
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+router isis 65444
+interface te0/15/0/18 address-family ipv4 unicast metric 10000099 level 2
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-3.0
+!
+end
+!
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te9/1
+isis metric 10000099 level-2
+!
+end
+
+------------------------------------------------------------------------
+Monitor interfaces to ensure traffic has dropped off all links.
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+monitor interface te0/15/0/18
+
+====================================
+4.0 - Migrate Circuits
+====================================
+
+------------------------------------------------------------------------
+4.1 Confirm new ncs interfaces are not already in use
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+show interface te0/4/0/8/2 description
+!
+
+------------------------------------------------------------------------
+4.2 Make sure the new ncs interfaces on pr2.thlon are in a shut down state.
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te0/4/0/8/2
+shutdown
+!
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-4.2
+!
+end
+!
+
+------------------------------------------------------------------------
+4.3 Default the new ncs interfaces on  in case of any old redundant configuration
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+default interface te0/4/0/8/2
+!
+default router isis 65444 interface te0/4/0/8/2
+!
+default rsvp interface te0/4/0/8/2
+!
+default mpls ldp interface te0/4/0/8/2
+!
+default mpls traffic-eng interface te0/4/0/8/2
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-4.3
+!
+end
+!
+
+------------------------------------------------------------------------
+4.4 Shut down the old interfaces on pr0.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te0/15/0/18 shutdown
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-4.4
+!
+end
+!
+
+------------------------------------------------------------------------
+4.5 Add the following configuration to pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+
+config t
+!
+interface te0/4/0/8/2
+description [core-o,rd=ar0-isp.enshf:te9-1,cid=ESY:1002/LNTN-SHFA/10GLAN/IRM1,iv-s=bb]
+mtu 8222
+ipv4 mtu 8192
+ipv4 address 89.200.134.199/31
+load-interval 30
+dampening 1 750 2000 1
+no shut
+!
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-4.5
+!
+end
+!
+
+------------------------------------------------------------------------
+4.6 Add the following configuration to ar0-isp.enshf
+------------------------------------------------------------------------
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te9/1
+description [core,ip=,rd=pr2.thlon:te0-4-0-8-2,cid=ESY:1002/LNTN-SHFA/10GLAN/IRM1,iv-s=bb]
+
+#
+
+------------------------------------------------------------------------
+Ask the field engineer to move the circuits to the corresponding ports on pr2.thlon according to the patching schedule
+------------------------------------------------------------------------
+Old PR	    Old Port	New PR	    New Port	SR	    Port	CID
+pr0.thlon   te0/15/0/18	pr2.thlon   te0/4/0/8/2	ar0-isp.enshf	te9/1 ESY:1002/LNTN-SHFA/10GLAN/IRM1
+
+======================================
+5.0 - Check new circuits + L3 Test
+======================================
+
+------------------------------------------------------------------------
+5.1 Confirm new ncs interface status and descriptions
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+show interface  description | i ar0-isp.enshf
+!
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+show interface description | in pr2.thlon
+#
+
+------------------------------------------------------------------------
+5.2 Check the light levels for each target circuit on pr2.thlon. Also check that the correct optic has been inserted.
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+show controller te0/4/0/8/2 phy | include "Rx power|Tx power|SFP|CPAK|CXP"
+!
+
+Check the light levels are within specifications (below).If there are any issues with the light levels please perform basic troubleshooting with the field engineer. This may mean cleaning or swapping fibres and trying different optics.
+If you cannot get acceptable light levels on all the circuits then you need to roll back the change. Please follow the rollback procedure located at the bottom of this document for details on how to do this.
+
+Light Level Specifications:
+Product                 Type                         Transmit Power(dBm)         Receive Power(dBm)
+                                                      Max             Min         Max              Min
+SFP-10G-SR              10GBASE-SR    850nm MMF      -1.2**          -7.3        -1.0             -9.9
+SFP-10G-LR              10GBASE-LR    1310nm SMF      0.5            -8.2         0.5             -14.4
+CXP-10GBASE-SR          10GBASE-SR    850nm MMF       5.4            -11.6        6.4             -13.6
+CPAK-10GBASE-LR4        10GBASE-LR    1310nm SMF      7.5            -8.5         4.5             -10.6
+CPAK-10X10G-LR          10GBASE-LR10  1310nm SMF      0.5            -8.2         0.5             -14.4
+
+
+------------------------------------------------------------------------
+5.3 Layer 3 Testing (Scripted)
+------------------------------------------------------------------------
+USE THE L3 TEST SCRIPT FOR THIS STEP IF POSSIBLE, IT IS IMPORTANT THAT THE NEW INTERFACE DESCRIPTIONS ARE CORRECT ON EITHER SIDE OF THE CIRCUITS FOR THE SCRIPT TO FUNCTION
+
+<your-username>@scripts2:~$
+/home/mark.ellis/scripts/l3Test.pl -chg CHG0212332 -ping 100000
+
+pr2.thlon, te0/4/0/8/2
+
+
+------------------------------------------------------------------------
+5.4 Layer 3 Testing (Manual)
+------------------------------------------------------------------------
+
+
+........................................................................
+Clear the interface counters on ar0-isp.enshf and pr2.thlon
+........................................................................
+A:ar0-isp.enshf#
+clear counters te9/1
+#
+
+RP/0/RP0/CPU0:pr2.thlon#
+clear counters te0/4/0/8/2
+!
+
+........................................................................
+Now lets run our ping test from the pr2.thlon end.
+........................................................................
+RP/0/RP0/CPU0:pr2.thlon#
+ping 89.200.134.198 count 10 size 8192 donotfrag
+ping 89.200.134.198 count 10000 size 8192 donotfrag
+!
+
+........................................................................
+Wait for this to finish, ensure there is no packet loss, input errors or CRCs.
+........................................................................
+RP/0/RP0/CPU0:pr2.thlon#
+show interface te0/4/0/8/2 | inc error
+!
+
+A:ar0-isp.enshf#
+show interface te9/1 | inc error
+#
+
+If there are any issues whatsoever with any of the circuits, please perform standard troubleshooting. This may involve cleaning the fibres, swapping the optics or trying an alternate fibre. If the problems still can not be rectified, we must roll back the
+change, please follow the roll back procedure.
+
+
+
+6.0 - Apply Configuration
+============================
+------------------------------------------------------------------------
+6.1 First double check the interfaces are down on the pr0.thlon end, otherwise we may see duplicate IP alarms.
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+
+show interface te0/15/0/18
+!
+
+------------------------------------------------------------------------
+6.2 Apply configuration to pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te0/4/0/8/2
+description [core-o,rd=ar0-isp.enshf:te9-1,cid=ESY:1002/LNTN-SHFA/10GLAN/IRM1,iv-s=bb]
+mtu 8222
+ipv4 address 89.200.134.199/31
+service-policy input P-CORE-INGRESS
+service-policy output P-CORE-EGRESS
+ipv4 mtu 8192
+load-interval 30
+dampening 1 750 2000 1
+no shut
+!
+
+router isis 65444
+
+ interface te0/4/0/8/2
+  suppressed
+  circuit-type level-2-only
+  bfd minimum-interval 500
+  bfd multiplier 3
+  bfd fast-detect ipv4
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 clear YddyGwo8pySJfNP7
+  address-family ipv4 unicast
+   metric 10000099 level 2
+   mpls ldp sync
+  !
+ !
+!
+
+ mpls ldp
+ neighbor 89.200.128.190 password clear YbCkOyNZDJp5t8vf
+ address-family ipv4
+  label
+   remote
+    accept
+     from 89.200.128.190:0 for loopback-only
+     !
+    !
+   !
+  !
+
+ interface te0/4/0/8/2
+
+rsvp
+ interface te0/4/0/8/2
+  bandwidth 10000000
+  signalling dscp 48
+
+ mpls traffic-eng
+ interface te0/4/0/8/2
+ !
+
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-6.2
+!
+end
+!
+
+------------------------------------------------------------------------
+6.3 Apply configuration to ar0-isp.enshf
+------------------------------------------------------------------------
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+
+key chain Ten91
+ key 1
+   key-string 0 YddyGwo8pySJfNP7
+
+mpls ldp neighbor 89.200.128.105 password 0 YbCkOyNZDJp5t8vf
+!
+end
+============================
+7.0 - Perform Post-Checks
+==========================
+
+- Check there is a current ISIS adjacency and that it is in an up state.
+- Check there is a current LDP session and that it is in an operational status and has bindings.
+- Check the LDP to IGP Sync has been achieved. Sync status: Ready & Peer shows (GR)
+- Check the LDP password and 'mpls label accept' lines have been configured correctly.
+- Check that we are receiving label bindings from ar0-isp.enshf
+- Check bfd session
+
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+
+show interface te0/4/0/8/2
+show isis adjacency te0/4/0/8/2 | begin System
+show mpls ldp neighbor te0/4/0/8/2
+show mpls ldp igp sync interface te0/4/0/8/2
+
+show mpls ldp bindings detail neighbor 89.200.128.190
+show run mpls ldp | include 89.200.128.190
+show bfd session interface te0/4/0/8/2
+
+!
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+
+show interface te9/1
+
+show isis neighbor
+
+show mpls ldp neighbor te9/1
+show mpls ldp igp sync interface te9/1
+
+show mpls ldp bindings neighbor 89.200.128.105
+show bfd neighbor
+
+==================================
+8.0 - Weight Traffic On
+===================================
+------------------------------------------------------------------------
+8.1 Open sessions to both pr2.thlon and pr1.enlba to monitor traffic on the interfaces during the traffic shifting
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+monitor interface te0/4/0/8/2
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+------------------------------------------------------------------------
+8.2 Weight traffic onto the interfaces on pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+router isis 65444
+interface te0/4/0/8/2 address-family ipv4 unicast metric 100000 level 2
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-8.2
+!
+end
+!
+
+------------------------------------------------------------------------
+8.3 Weight traffic onto the interfaces on ar0-isp.enshf.
+------------------------------------------------------------------------
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te9/1
+isis metric 100000 level-2
+!
+end
+
+------------------------------------------------------------------------
+8.4 Check NCS interfaces to confirm there are no accumulating drops/errors/crc
+------------------------------------------------------------------------
+If errors are observed shift traffic back off and troubleshoot with FE.
+
+RP/0/RP0/CPU0:pr2.thlon#
+show interface te0/4/0/8/2 | i "Desc|drop|error|parity"
+!
+
+
+========================================================================
+9.0 Weight off resilient leg / all traffic via NCS
+========================================================================
+
+------------------------------------------------------------------------
+Open sessions to both pr2.thlon and pr1.enlba to monitor traffic on the interfaces during the traffic shifting
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+monitor interface te0/4/0/8/2
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+------------------------------------------------------------------------
+Weight traffic off the resilient interfaces on pr1.enlba
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr1.enlba#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+router isis 65444
+interface Te0/0/0/7 address-family ipv4 unicast metric 10000099 level 2
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-8.5
+!
+end
+!
+
+------------------------------------------------------------------------
+Weight traffic off the resilient interfaces on ar0-isp.enshf.
+------------------------------------------------------------------------
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface Te8/1
+isis metric 10000099 level-2
+!
+end
+
+------------------------------------------------------------------------
+Check interfaces to confirm there are no accumulating drops/errors/crc
+------------------------------------------------------------------------
+If errors are observed shift traffic back off and troubleshoot with FE.
+
+RP/0/RP0/CPU0:pr2.thlon#
+show interface te0/4/0/8/2 | i "Desc|drop|error|parity"
+!
+
+========================================================================
+10.0 Weight on resilient leg
+========================================================================
+
+------------------------------------------------------------------------
+Open sessions to both pr2.thlon and pr1.enlba to monitor traffic on the interfaces during the traffic shifting
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+monitor interface te0/4/0/8/2
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+------------------------------------------------------------------------
+Weight traffic back to the resilient interfaces on pr1.enlba
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr1.enlba#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+router isis 65444
+interface Te0/0/0/7 address-family ipv4 unicast metric 100000 level 2
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-8.6
+!
+end
+!
+
+------------------------------------------------------------------------
+Weight traffic back to the resilient interfaces on ar0-isp.enshf.
+------------------------------------------------------------------------
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface Te8/1
+isis metric 100000 level-2
+!
+end
+
+------------------------------------------------------------------------
+Confirm traffic has returned to both pr2.thlon and pr1.enlba interfaces via previously opened monitoring sessions
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+monitor interface te0/4/0/8/2
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+===============================================
+11.0 - Configuration Clean Up
+===============================================
+------------------------------------------------------------------------
+11.1 Clean up old configuration on pr0.thlon
+------------------------------------------------------------------------
+Not: There is a known bug with defaulting router isis interfaces where it will place 'no router-id' under mpls ldp. As long as the default router isis interface command is not done while in the mpls ldp configuration mode the problem should not be apparent.
+But please pay special attention to the 'show config' output of the next section and ensure there is no trace of 'no router-id' anywhere in the configuration. If there is, do not apply the configuration.
+
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+
+default interface te0/15/0/18
+default router isis 65444 interface te0/15/0/18
+default mpls ldp interface te0/15/0/18
+
+!
+interface te0/15/0/18
+shutdown
+!
+mpls ldp
+no neighbor 89.200.128.190 password
+!
+! NOTE: Confirm configuration change is correct before committing. Ensure there is no 'no router-id' anywhere in the config
+show configuration
+!
+commit comment CHG0212332-9.1
+!
+end
+!
+-----------------------------------------------------------------------
+11.2 Clean up old configuration on ar0-isp.enshf
+------------------------------------------------------------------------
+ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+no mpls ldp neighbor 89.200.128.4 password
+!
+end
+
+========================================================================
+12.0 - Post-checks -  Collect PE information - Check versus pre-checks
+========================================================================
+
+Check and gather snapshots of service graphs (https://servicegraphs.isp.sky.com/group/all)
+We should see service traffic on the target IM site.
+
+Capture device baselines
+Confirm there are no existing issues or INC relating to this IM site
+
+term len 0
+term width 512
+!
+show ver
+show mod
+show redundancy
+show run
+show int desc
+show int summary
+show ip int brie
+show int | inc protocol|Desc|rate |error
+show ip protocols
+show ip route summary
+show svclc rhi-routes 4
+show ip route static
+show ip vrf interfaces
+show ip vrf detail
+show ip route vrf uk-ips-mgmt-0000 summary
+show ip route vrf uk-ironman-back-000 summary
+show ip route vrf uk-ironman-mgmt-000 summary
+show isis neighbors
+show bgp ipv4 unicast summary
+show bgp vpnv4 unicast all summary
+show mpls ldp sum
+show mpls ldp neighbor
+show cdp neighbors
+show rsvp session
+show mpls traffic-eng tunnels brief
+show log
+!
+
+========================================================================
+Change Complete
+========================================================================
+- At this stage, the change is now complete.
+- Send email confirming CHG status to Service.Ops@bskyb.com; NetworkRepairTeam-IP@bskyb.com; NetworkRepairTeamTra@bskyb.com; NetworkServicesSupport@bskyb.com and CHG requester if required
+- Check with NOC for any outstanding alarms that may relate to this change
+
+
+
+Roll Back
+===============================
+
+13.0: Weight Traffic Off
+14.0: Apply Configuration
+15.0: Migrate Circuits
+16.0: Post-Checks
+17.0: Weight Traffic On
+18.0: Configuration Clean Up
+19.0: Post-Checks
+
+
+========================================================================
+13.0 Weight traffic off (Roll Back)
+========================================================================
+
+------------------------------------------------------------------------
+13.1 Open sessions to both pr2.thlon and pr1.enlba to monitor traffic on the interfaces during the traffic shifting
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+monitor interface te0/4/0/8/2
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+------------------------------------------------------------------------
+13.2 Weight traffic off the interfaces on pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+router isis 65444
+interface te0/4/0/8/2 address-family ipv4 unicast metric 10000099 level 2
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-11.2
+!
+end
+!
+
+------------------------------------------------------------------------
+Weight traffic off the interfaces on ar0-isp.enshf.
+------------------------------------------------------------------------
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te9/1
+isis metric 10000099 level-2
+
+!
+end
+
+------------------------------------------------------------------------
+13.3 Monitor traffic on the interfaces and ensure traffic has dropped off all links on pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:ar0-isp.enshf#
+monitor interface te9/1
+!
+
+RP/0/RP0/CPU0:pr2.thlon#
+monitor interface Te0/0/0/7
+!
+
+
+========================================================================
+14.0: Apply Configuration (Roll Back)
+========================================================================
+
+------------------------------------------------------------------------
+14.1 Shutdown interfaces on pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+
+interface te0/4/0/8/2
+shutdown
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-12.1
+!
+end
+!
+
+------------------------------------------------------------------------
+Confirm ncs interfaces are shut
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+show interface description | include ar0-isp.enshf
+!
+
+------------------------------------------------------------------------
+14.2 Apply configuration to pr0.thlon.
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te0/15/0/18
+ description [core-o,rd=ar0-isp.enshf:te9-1,cid=ESY:1002/LNTN-SHFA/10GLAN/IRM1,iv-s=bb]
+ cdp
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS
+ carrier-delay up 0 down 20
+ ipv4 mtu 8192
+ ipv4 address 89.200.134.199 255.255.255.254
+ load-interval 30
+ dampening
+ no shutdown
+!
+
+router isis 65444
+
+ interface te0/15/0/18
+  suppressed
+  circuit-type level-2-only
+  bfd minimum-interval 500
+  bfd multiplier 3
+  bfd fast-detect ipv4
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 clear YddyGwo8pySJfNP7
+  address-family ipv4 unicast
+   metric 10000099 level 2
+   mpls ldp sync
+  !
+ !
+!
+
+mpls ldp
+
+ interface te0/15/0/18
+
+
+ neighbor 89.200.128.190 password clear YbCkOyNZDJp5t8vf
+!
+
+rsvp
+ interface te0/15/0/18
+  bandwidth 10000000
+  signalling dscp 48
+
+ mpls traffic-eng
+ interface te0/15/0/18
+ !
+
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-14.2
+!
+end
+!
+
+------------------------------------------------------------------------
+14.3 Apply old configuration back onto ar0-isp.enshf
+------------------------------------------------------------------------
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te9/1
+description [core,ip=,rd=pr0.thlon:te0-15-0-18,cid=ESY:1002/LNTN-SHFA/10GLAN/IRM1,iv-s=bb]
+
+#
+mpls ldp neighbor 89.200.128.4 password 0 YbCkOyNZDJp5t8vf
+!
+no mpls ldp neighbor 89.200.128.105 password
+
+========================================================================
+15.0 - Migrate Circuits (Roll Back)
+========================================================================
+
+------------------------------------------------------------------------
+15.1 Ask the field engineer to move the circuits to the corresponding ports on pr0.thlon according to the patching schedule below
+------------------------------------------------------------------------
+Old PR      Old Port    New PR      New Port    SR      Port        CID
+pr0.thlon    te0/15/0/18  pr2.thlon    te0/4/0/8/2  ar0-isp.enshf    te9/1       ESY:1002/LNTN-SHFA/10GLAN/IRM1
+
+------------------------------------------------------------------------
+15.2 Check the light levels for each circuit on pr0.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+show controller te0/15/0/18 phy | include "Rx power|Tx power|SFP|CPAK|CXP"
+!
+
+Check the light levels are within specifications (below).If there are any issues with the light levels please troubleshoot with the field engineer.
+
+Light Level Specifications:
+Product                 Type                         Transmit Power(dBm)         Receive Power(dBm)
+                                                      Max             Min         Max              Min
+SFP-10G-SR              10GBASE-SR    850nm MMF      -1.2**          -7.3        -1.0             -9.9
+SFP-10G-LR              10GBASE-LR    1310nm SMF      0.5            -8.2         0.5             -14.4
+CXP-10GBASE-SR          10GBASE-SR    850nm MMF       5.4            -11.6        6.4             -13.6
+CPAK-10GBASE-LR4        10GBASE-LR    1310nm SMF      7.5            -8.5         4.5             -10.6
+CPAK-10X10G-LR          10GBASE-LR10  1310nm SMF      0.5            -8.2         0.5             -14.4
+
+
+========================================================================
+16.0 - Post-Checks (Roll Back)
+========================================================================
+- Check there is a current ISIS adjacency and that it is in an up state.
+- Check there is a current LDP session and that it is in an operational status and has bindings.
+- Check the LDP to IGP Sync has been achieved. Sync status: Ready & Peer shows (GR)
+- Check the LDP password and 'mpls label accept' lines have been configured correctly.
+- Check that we are receiving label bindings from ar0-isp.enshf
+- Check bfd session
+
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+
+show isis adjacency te0/15/0/18 | begin System
+show mpls ldp neighbor te0/15/0/18
+show mpls ldp igp sync interface te0/15/0/18
+show mpls ldp bindings detail neighbor 89.200.128.190
+show run mpls ldp | include 89.200.128.190
+show bfd session interface te0/15/0/18
+
+
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+
+show interface
+show isis neighbor
+show mpls ldp neighbor te9/1
+show mpls ldp igp sync interface te9/1
+show mpls ldp bindings neighbor 89.200.128.4
+show bfd neighbor
+
+========================================================================
+17.0 - Weight Traffic On (Roll Back)
+========================================================================
+
+------------------------------------------------------------------------
+17.1 Open sessions to both pr0.thlon and pr1.enlba to monitor traffic on the interfaces during the traffic shifting
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+monitor interface te0/15/0/18
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+------------------------------------------------------------------------
+17.2 Weight traffic back to the interfaces on pr0.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+router isis 65444
+
+interface te0/15/0/18 address-family ipv4 unicast metric 100000 level 2
+!
+
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-17.2
+!
+end
+!
+
+------------------------------------------------------------------------
+Weight traffic back to the interfaces on ar0-isp.enshf
+------------------------------------------------------------------------
+A:ar0-isp.enshf#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+interface te9/1
+isis metric 100000 level-2
+!
+end
+
+------------------------------------------------------------------------
+17.3 - Monitor interfaces to ensure traffic has returned to pr0.thlon interfaces
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr0.thlon#
+monitor interface te0/15/0/18
+!
+
+RP/0/RP0/CPU0:pr1.enlba#
+monitor interface Te0/0/0/7
+!
+
+
+========================================================================
+18.0 - Configuration Clean Up (Roll Back)
+========================================================================
+------------------------------------------------------------------------
+18.1 Remove configuration from pr2.thlon
+------------------------------------------------------------------------
+RP/0/RP0/CPU0:pr2.thlon#
+term mon
+term len 0
+term width 512
+!
+config t
+!
+default interface te0/4/0/8/2
+default router isis 65444 interface te0/4/0/8/2
+default mpls ldp interface te0/4/0/8/2
+!
+interface te0/4/0/8/2 shutdown
+!
+mpls ldp
+no neighbor 89.200.128.190 password
+no label accept for loopback-only from 89.200.128.190
+!
+! NOTE: Confirm configuration change is correct before committing
+show configuration
+!
+commit comment CHG0212332-18.1
+!
+end
+!
+
+========================================================================
+19.0 - Post-checks (Roll Back)
+========================================================================
+
+Check and gather snapshots of service graphs (https://servicegraphs.isp.sky.com/group/all)
+We should see service traffic on the target IM site.
+
+Capture device baselines
+Confirm there are no existing issues or INC relating to this IM site
+
+ar0-isp.enshf#
+term len 0
+term width 512
+!
+show ver
+show mod
+show redundancy
+show run
+show int desc
+show int summary
+show ip int brie
+show int | inc protocol|Desc|rate |error
+show ip protocols
+show ip route summary
+show svclc rhi-routes 4
+show ip route static
+show ip vrf interfaces
+show ip vrf detail
+show ip route vrf uk-ips-mgmt-0000 summary
+show ip route vrf uk-ironman-back-000 summary
+show ip route vrf uk-ironman-mgmt-000 summary
+show isis neighbors
+show bgp ipv4 unicast summary
+show bgp vpnv4 unicast all summary
+show mpls ldp sum
+show mpls ldp neighbor
+show cdp neighbors
+show rsvp session
+show mpls traffic-eng tunnels brief
+show log
+!
+
+
+========================================================================
+Roll Back Complete
+========================================================================
+- At this stage, the Roll Back is now complete.
+- Send email confirming CHG status to Service.Ops@bskyb.com; NetworkRepairTeam-IP@bskyb.com; NetworkRepairTeamTra@bskyb.com; NetworkServicesSupport@bskyb.com and CHG requester if required
+- Check with NOC for any outstanding alarms that may relate to this change

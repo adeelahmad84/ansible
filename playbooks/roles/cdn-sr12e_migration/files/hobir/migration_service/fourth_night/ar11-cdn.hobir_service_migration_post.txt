@@ -1,0 +1,20 @@
+show service id 22063 base
+show service id 22063 interface
+show service id 22063 arp
+show router neighbor | match 22063 post-lines 1
+show service id 220001 base
+show service id 220001 interface
+show service id 220001 arp
+show router neighbor | match 220001 post-lines 1
+show service id 220504 base
+show service id 220504 interface
+show service id 220504 arp
+show router neighbor | match 220504 post-lines 1
+show service id 220502 base
+show service id 220502 interface
+show service id 220502 arp
+show router neighbor | match 220502 post-lines 1
+show router bgp neighbor 89.200.128.[88..90] advertised-routes | match 2.127.244.0/30
+show router bgp neighbor 89.200.128.[88..90] advertised-routes | match 2.127.244.4/30
+show router bgp neighbor 89.200.128.[88..90] advertised-routes | match 2.127.244.8/30
+show router bgp neighbor 89.200.128.[88..90] advertised-routes | match 2.127.244.12/30

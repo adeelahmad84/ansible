@@ -1,0 +1,59 @@
+---
+#device information
+site_id: enbgk
+site_community: 14474
+hostname: ar10.enbgk
+loopback: "84.38.34.61/32"
+location: "Easynet UK Unit 1 Centurion Way Clifton Moor York YO33 4WW"
+tacacs_key: 
+console: 
+
+# Netflix services
+ntf:
+  farm: A
+  ipv4: "90.223.190.160/28"
+  v4_entry: 24
+  ipv6: "2a02:c7a:8000:1b03::/64"
+  v6_entry: 299
+  ies: 220400
+  vpls: 220401
+  array:
+    40:
+      1:
+        port: 3/1/7
+        server_id: "G"
+        link_no: 1
+      2:
+        port: 3/1/8
+        server_id: "G"
+        link_no: 2
+
+    41:
+      1:
+        port: 4/1/1
+        server_id: "H"
+        link_no: 1
+      2:
+        port: 4/1/2
+        server_id: "H"
+        link_no: 2
+
+    42:
+      1:
+        port: 4/1/7
+        server_id: "I"
+        link_no: 1
+      2:
+        port: 4/1/8
+        server_id: "I"
+        link_no: 2
+
+    43:
+      1:
+        port: 4/1/9
+        server_id: "J"
+        link_no: 1
+      2:
+        port: 4/1/10
+        server_id: "J"
+        link_no: 2

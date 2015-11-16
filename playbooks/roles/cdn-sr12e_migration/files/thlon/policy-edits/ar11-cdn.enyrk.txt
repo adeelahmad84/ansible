@@ -1,0 +1,11 @@
+exit all
+configure
+    router
+	policy-options
+	    begin
+            as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI" expression "41012+"
+            prefix-list "CORE-CDN-IPV6-AANP-LAN"
+                prefix 2a02:c7a:8000:1001::/64 exact
+            exit
+	    commit
+exit all

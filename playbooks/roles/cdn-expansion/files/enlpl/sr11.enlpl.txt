@@ -1,0 +1,66 @@
+exit all
+/configure
+    port 3/1/3
+        description "[core,rd=ar20.enlpl:te1-12,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    lag 
+	description "[core,rd=ar20.enlpl:pc2,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar20.enlpl"
+	port 3/1/3
+		
+	lacp active
+        port-threshold -1 action down
+        no shutdown
+    exit
+    router
+        interface "IN-POP-CDN-LINK"
+	    address 2.120.9.244/31
+            description "[core,rd=ar20.enlpl:pc2,iv-s=cdn_pop]"
+            port lag-
+            ipv6
+                address 2A02:C78:1:12::3/127
+            exit
+            cflowd interface both
+            no shutdown
+        exit
+	static-route 84.38.34.238/32 next-hop 2.120.9.245  tag 20110
+	policy-options
+	    begin
+	    prefix-list "PL-POP-CDN-LOOPBACK"
+		prefix 84.38.34.238/32 exact
+	    exit
+	    policy-statement "EXPORT-TO-IBGP"
+		entry 48
+		    description "CDN-AR20-Lo0 static needs to be allowed prior to blocking infrastructure range"
+		    from
+			protocol static
+			prefix-list "PL-POP-CDN-LOOPBACK"
+			tag 0x4e8e
+		    exit
+		    to
+			protocol bgp
+		    exit
+		    action accept
+			community add "Subconfed-local"
+			next-hop-self
+		    exit
+		exit
+	    exit
+	    commit
+	exit all
+        bgp
+            group "remote-popcdn-ipv4"
+                family ipv4
+                damping
+                next-hop-self
+                type internal
+                export "EXPORT-TO-IBGP" 
+                disable-communities extended
+                neighbor 2.120.9.243 
+                    description "ar20.enlpl"
+                    authentication-key "None"
+                exit all

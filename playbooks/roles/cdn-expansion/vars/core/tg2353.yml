@@ -1,0 +1,35 @@
+hostname: 'ar11-cdn.bllon'
+services:
+  1:
+    tgref: 2353
+    lag: 1
+    remote_svr: 'AGG100-Celestica'
+    svc_id:
+    range:
+    ipv4:
+    ipv6:
+    array:
+      0:
+        port: '5/1/29'
+        remote_port: '0/1'
+      1:
+        port: '5/1/30'
+        remote_port: '0/2'
+      2:
+        port: '5/1/31'
+        remote_port: '0/3'
+      3:
+        port: '5/1/32'
+        remote_port: '0/4'
+      4:
+        port: '5/1/33'
+        remote_port: '0/5'
+      5:
+        port: '5/1/34'
+        remote_port: '0/6'
+      6:
+        port: '5/1/35'
+        remote_port: '0/7'
+      7:
+        port: '5/1/36'
+        remote_port: '0/8'

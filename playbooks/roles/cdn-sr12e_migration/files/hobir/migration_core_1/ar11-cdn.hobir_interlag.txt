@@ -1,0 +1,17 @@
+exit all
+configure
+    port None
+        description "[no-mon,core,ip=,rd=ar11-cdn.hobir:None,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 176
+        description "[core,ip=,rd=ar10.hobir:lag176,iv-s=vcdn_sc]"
+    exit
+    router
+	interface "base_ar10.hobir"
+            description "[core-o,rd=ar10.hobir:lag176]"
+	    shutdown
+	    no port
+	    port lag-176
+	    no shutdown
+exit all

@@ -1,0 +1,397 @@
+Summary - Provision 4x100G circuits between ar11-cdn.enbgk and pr3.bllon
+
+Outline of Steps
+0) - AR10 Weight off/port shut
+1) - Circuit Testing
+2) - Re-Configuration
+3) - Post-Checks
+4) - Weight Traffic On
+
+Patching Schedule
+=================
+
+OLD_DEVICE		OLD_PORT		NEW_DEVICE		NEW_PORT		B'END_DEVICE		B'END_PORT
+ar10.enbgk	5/1/1	ar11-cdn.enbgk		1/1/1	pr3.bllon	    Hu0/7/0/2
+ar10.enbgk	5/2/1	ar11-cdn.enbgk		1/2/1	pr3.bllon	    Hu0/7/0/3
+ar10.enbgk	7/1/1	ar11-cdn.enbgk		2/1/1	pr3.bllon	    Hu0/7/0/5
+ar10.enbgk	7/2/1	ar11-cdn.enbgk		2/2/1	pr3.bllon	    Hu0/3/0/0
+
+Pre-Checks
+===========
+
+On ar10.enbgk please run the following commands and record the output for comparision later:
+
+\show port 5/1/1 | match expression "Oper State | Oper Speed"
+\show port 5/1/1 optical
+\show port 5/2/1 | match expression "Oper State | Oper Speed"
+\show port 5/2/1 optical
+\show port 7/1/1 | match expression "Oper State | Oper Speed"
+\show port 7/1/1 optical
+\show port 7/2/1 | match expression "Oper State | Oper Speed"
+\show port 7/2/1 optical
+\show lag 3
+\show lag 3 associations
+\show router interface "base_pr3.bllon_1"
+\show router interface "base_pr3.bllon_1" detail | match Protocols
+\show router isis interface "base_pr3.bllon_1"
+\show router mpls interface "base_pr3.bllon_1"
+\show router rsvp interface "base_pr3.bllon_1"
+\show router ldp interface "base_pr3.bllon_1"
+\show router isis topology
+\show router isis adjacency
+\show router isis routes | match No.
+\show router isis database | match (2)
+
+
+AR10 Weight off/port shut
+###################
+
+To free up links from ar10.enbgk, the pr3.bllon interconnects need to be weighted off + shutdown
+
+pr3.bllon
+=========
+
+conf t
+!
+router isis 65444
+ interface Bundle-Ether317
+  address-family ipv4 unicast
+   metric 10000099 level 2
+  !
+ !
+!
+
+
+ar10.enbgk
+==========
+
+/configure router isis interface "base_pr3.bllon_1" level 2 metric 1000099
+
+Monitor the traffic levels to ensure it drops off the circuit
+
+monitor lag 3 repeat 5
+
+At this point, ask the FE to cutover the fibres as per the patching schedule above
+
+**** DO NOT CUT THE CIRCUITS OVER UNTIL ALL TRAFFIC HAS DRAINED OFF THE LINK ****
+
+
+Step 1.0 - Circuit Testing
+####################
+
+
+Check the light levels on both circuits. Ensure that NONE OF THE LANES are out of specification below (ignoring the total value)
+
+show controller Hu0/7/0/2 phy | include "Rx power|Tx power"
+show controller Hu0/7/0/3 phy | include "Rx power|Tx power"
+show controller Hu0/7/0/5 phy | include "Rx power|Tx power"
+show controller Hu0/3/0/0 phy | include "Rx power|Tx power"
+
+##example output:
+
+THRESHOLDS
+                        High Alarm     Low Alarm     High Warning      Low Warning
+   Temperature     C        70.0          0.0           65.0            5.0
+   Voltage         mV       3663          2937          3531            3069
+   Transmit power dBm       7.5          -8.5           4.5             -4.3
+   Receive power  dBm       4.5          -10.6          3.0             -10.0
+
+Total Tx power: 5.27 mW (  7.22 dBm)    >>>> Ignore this value
+  Lane 0 Tx power: 0.49 mW ( -3.12 dBm)
+  Lane 1 Tx power: 0.56 mW ( -2.53 dBm)
+  Lane 2 Tx power: 0.53 mW ( -2.76 dBm)
+  Lane 3 Tx power: 0.62 mW ( -2.08 dBm)
+Total Rx power: 5.59 mW (  7.48 dBm)    >>>> Ignore this value
+  Lane 0 Rx power: 0.57 mW ( -2.43 dBm)
+  Lane 1 Rx power: 0.58 mW ( -2.37 dBm)
+  Lane 2 Rx power: 0.61 mW ( -2.15 dBm)
+  Lane 3 Rx power: 0.58 mW ( -2.36 dBm)
+
+If there are any lanes of the 100G circuit out of specification please perform basic troubleshooting. Get the field engineer to clean the fibres and attempt different optics to isolate the issue.
+
+If you cannot resolve poor light readings, please perform the roll back procedure located at the bottom of this document.
+
+Assuming the light levels are satisfactory, we will test the circuits. Apply the configuration below to test the new circuit
+
+ar11-cdn.enbgk
+==============
+
+clear port 1/1/1 statistics
+clear port 1/2/1 statistics
+clear port 2/1/1 statistics
+clear port 2/2/1 statistics
+
+/configure lag 1
+no port 1/1/1
+no port 1/2/1
+no port 2/1/1
+no port 2/2/1
+
+/configure port 1/1/1 no shutdown
+/configure port 1/2/1 no shutdown
+/configure port 2/1/1 no shutdown
+/configure port 2/2/1 no shutdown
+
+/configure router interface "base_pr3.bllon_l3_test"
+port 1/1/1
+address 84.38.37.249/31
+no shutdown
+
+pr3.bllon
+=========
+
+clear counters HundredGigE0/7/0/2
+clear counters HundredGigE0/7/0/3
+clear counters HundredGigE0/7/0/5
+clear counters HundredGigE0/3/0/0
+
+configure terminal
+
+interface Hu0/7/0/2
+no bundle id
+ip address 84.38.37.248/31
+no shut
+
+ping 84.38.37.249 count 1000 donotfrag
+
+
+Repeat for the remaining 3 pairs of ports :
+
+ar11-cdn.enbgk		1/1/1					pr3.bllon				Hu0/7/0/2
+ar11-cdn.enbgk		1/2/1					pr3.bllon				Hu0/7/0/3
+ar11-cdn.enbgk		2/1/1					pr3.bllon				Hu0/7/0/5
+ar11-cdn.enbgk		2/2/1					pr3.bllon				Hu0/3/0/0
+
+Ensure there is no packet loss, if there is please perform standard troubleshooting before rolling back, this may include cleaning the fibres, trying different fibres or optics.
+
+Check the interfaces for errors
+
+pr3.bllon
+=========
+show interface Hu0/7/0/2 | inc error
+show interface Hu0/7/0/3 | inc error
+show interface Hu0/7/0/5 | inc error
+show interface Hu0/3/0/0 | inc error
+
+ar11-cdn.enbgk
+==========
+show port 1/1/1
+show port 1/2/1
+show port 2/1/1
+show port 2/2/1
+
+Ensure there are no errors on either interface, if there is and the issues can not be resolved we must roll back.
+
+Now lets default the interfaces in question and continue with the migration.
+
+pr3.bllon
+=========
+default interface Hu0/7/0/2
+default interface Hu0/7/0/3
+default interface Hu0/7/0/5
+default interface Hu0/3/0/0
+
+ar11-cdn.enbgk
+==========
+/configure router interface "base_pr3.bllon_l3Test"
+  no port
+  shutdown
+/configure router
+  no interface base_pr3.bllon_l3Test
+
+
+Step 2.0 - Re-Configuration
+####################
+
+Apply the configuration contained in the below file:
+
+"pr3.bllon.txt"
+
+Apply the below configuration to ar11-cdn.enbgk
+
+ar11-cdn.enbgk
+==========
+
+Add the ports back into LAG
+
+/configure lag 1
+port 1/1/1
+port 1/2/1
+port 2/1/1
+port 2/2/1
+exit all
+
+These ports have been preconfigured
+
+/configure port 1/1/1 no shutdown
+/configure port 1/1/1 description [core,ip=,rd=pr3.bllon:hu0-7-0-2,cid=SNS:1003/BSGA-LNBL/100G/CDN1,iv-s=vcdn_sc]
+/configure port 1/2/1 no shutdown
+/configure port 1/2/1 description [core,ip=,rd=pr3.bllon:hu0-7-0-3,cid=SNS:1003/BSGA-LNBL/100G/CDN2,iv-s=vcdn_sc]
+/configure port 2/1/1 no shutdown
+/configure port 2/1/1 description [core,ip=,rd=pr3.bllon:hu0-7-0-5,cid=SNS:1003/BSGA-LNBL/100G/CDN3,iv-s=vcdn_sc]
+/configure port 2/2/1 no shutdown
+/configure port 2/2/1 description [core,ip=,rd=pr3.bllon:hu0-3-0-0,cid=SNS:1003/BSGA-LNBL/100G/CDN4,iv-s=vcdn_sc]
+
+Step 3.0 - Post-Checks
+##################
+
+After all the configuration has been applied we must to check to make sure the port enter the bundle successfully and that all protocols are operating as expected
+
+Perform the following post-checks on pr3.bllon
+
+Ensure the bundle is operating as expected and that the members are in an active state
+
+    show bundle Bundle-Ether 75 | include Local
+
+Check the ISIS adjacency is in an up status:
+
+    show isis adjacency Bundle-Ether 75
+
+Check the LDP neighborshp is in an up status
+
+    show mpls ldp neighbor Bundle-Ether 75
+
+Check MPLS traffic engineering has been configured correctly
+
+    show mpls traffic-eng link-management interfaces Bundle-Ether 75 | inc	Physical
+
+Check that RSVP has been configured correctly
+
+    show rsvp interface Bundle-Ether 75
+
+
+Check that IGP to LDP sync has been achieved
+
+    show mpls ldp igp sync interface Bundle-Ether 75
+
+ar11-cdn.enbgk
+---------------------
+\show port 1/1/1 | match expression "Oper State | Oper Speed"
+\show port 1/1/1 optical
+\show port 1/2/1 | match expression "Oper State | Oper Speed"
+\show port 1/2/1 optical
+\show port 2/1/1 | match expression "Oper State | Oper Speed"
+\show port 2/1/1 optical
+\show port 2/2/1 | match expression "Oper State | Oper Speed"
+\show port 2/2/1 optical
+\show lag 1
+\show lag 1 associations
+\show router interface "base_pr3.bllon_1"
+\show router interface "base_pr3.bllon_1" detail | match Protocols
+\show router isis interface "base_pr3.bllon_1"
+\show router mpls interface "base_pr3.bllon_1"
+\show router rsvp interface "base_pr3.bllon_1"
+\show router ldp interface "base_pr3.bllon_1"
+\show router isis topology
+\show router isis adjacency
+\show router isis routes | match No.
+\show router isis database | match (2)
+monitor lag 1 repeat 5
+
+N.B. the Port IDs won't match to the precheck output.
+
+
+After post-checks has been performed successfully we can weight traffic back onto the circuits
+
+Step 4.0 - Weight Traffic On
+################
+
+Apply the following configuration
+
+pr3.bllon
+=========
+conf t
+!
+router isis 65444
+ interface Bundle-Ether75
+  address-family ipv4 unicast
+   metric 100000 level 2
+  !
+ !
+!
+
+ar11-cdn.enbgk
+==========
+
+/configure router isis interface "base_pr3.bllon_1" level 2 metric 100000
+
+Monitor the traffic levels to ensure traffic begins to flow over the circuits again
+
+    monitor interface Bundle-Ether75
+
+ar10.enbgk
+===========
+
+/configure router isis interface "base_ar11-cdn.enbgk_1" level 2 metric 199000
+
+
+Step 5.0 - Clear up
+===================
+
+Apply the configuration contained in the below file on ar10.enbgk
+
+"ar10.enbgk_shut.txt"
+
+Ensure all syntax applies correctly
+
+Step 6.0 - Inter-LAG capacity increase.
+========================================
+Please proceed in this step if all the above steps have been successful.  Please issue the commands attached in the below files:
+
+ar10.enbgk_interlag.txt
+ar11-cdn.enbgk_interlag.txt
+
+6.1 - Inter-LAG Post-Check.
+
+Run the following commands to verify the LAG capacity and its bound to the relevent interface. Run this on both ar10.enbgk and ar11-cdn.enbgk:
+
+show lag 176 port
+show lag 176 associations
+
+Expect to see the same ports configured in the LAG but most importantly that is bound to the routed interface.
+
+#example:
+===============================================================================
+Interface Table
+===============================================================================
+Router/ServiceId                Name                            Encap Val
+-------------------------------------------------------------------------------
+Router: Base                    base_ar10.enbgk_1
+#OR...(depending on which box you run the command from.  It should be the remote device.)
+Router: Base                    base_ar11-cdn.enbgk_1
+-------------------------------------------------------------------------------
+Interfaces
+===============================================================================
+
+Roll Back Scenario
+==================
+
+Should there be any issues with the post-checks a complete roll back configuration is provided below.
+
+Firstly we must ensure there is no traffic running over the circuit. Apply the below configuration to weight traffic off either end of the circuit.
+
+**PLEASE NOTE**
+If the interlag post-checks do not meet the acceptance criteria then the rollback will be the complete rollback of the LAG migration also.
+
+**FOR NCS DEVICES ONLY**
+If your commit(s) was/were the last ones use the "rollback configuration <last|to>" command.
+
+If there have been subsequent commits you do not wish to rollback:
+
+Identify your commit ID using the command
+    show config commit list
+
+Use the command
+     show configuration rollback changes <n>
+to identify the necessary configuration needed to rollback for the commit.
+
+The above are the preferable ways to rollback as they are less prone to error.
+
+Manual backout documented in below files.
+
+ar10.enbgk_interlag_rollback.txt
+ar11-cdn.enbgk_interlag_rollback.txt
+
+ar10.enbgk-rollback.txt
+ar11-cdn.enbgk-rollback.txt
+pr3.bllon-rollback.txt

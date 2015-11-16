@@ -1,0 +1,16 @@
+Device - ar11-cdn.hobir
+Site - hobir, Unit 5&6 Hockey Industrial Estate Pitsford Street Birmingham.  B18 6PT
+Circuit - LOCAL
+Config - N/A
+Summary - Please patch the following as per TG2577 in https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells
+
+ar11-cdn.hobir	3/1/31	    FEBE-01	     0/39
+ar11-cdn.hobir	3/1/32	    FEBE-01	     0/40
+ar11-cdn.hobir	3/1/33	    FEBE-01	     0/41
+ar11-cdn.hobir	3/1/34	    FEBE-01	     0/42
+ar11-cdn.hobir	3/1/35	    FEBE-01	     0/43
+ar11-cdn.hobir	3/1/36	    FEBE-01	     0/44
+ar11-cdn.hobir	3/1/37	    FEBE-01	     0/45
+ar11-cdn.hobir	3/1/38	    FEBE-01	     0/46
+ar11-cdn.hobir	3/1/39	    FEBE-01	     0/47
+ar11-cdn.hobir	3/1/40	    FEBE-01	     0/48

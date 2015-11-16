@@ -1,0 +1,9 @@
+\configure port 3/2/1 no shutdown
+\configure port 3/1/1 no shutdown
+\configure port 8/1/1 no shutdown
+\configure lag 3 no shutdown
+\configure router interface "base_pr2.enlba_1"  no shutdown
+\configure router isis interface "base_pr2.enlba_1" no shutdown
+\configure router mpls interface "base_pr2.enlba_1" no shutdown
+\configure router rsvp interface "base_pr2.enlba_1" no shutdown
+\configure router ldp interface-parameters interface "base_pr2.enlba_1" no shutdown

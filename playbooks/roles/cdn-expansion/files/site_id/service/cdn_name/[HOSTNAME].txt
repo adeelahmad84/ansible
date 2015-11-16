@@ -1,0 +1,85 @@
+exit all
+configure
+    port [LOCAL_PORT]
+        description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 80
+        description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME]_0"
+        mode access
+	port [LOCAL_PORT]
+	port [LOCAL_PORT]
+	port [LOCAL_PORT]
+	port [LOCAL_PORT]
+	port [LOCAL_PORT]
+        lacp active
+        no shutdown
+    exit
+    service
+        ies 220900 customer 80 create
+            interface "ies220900_cdn_name-0" create
+                description "[ext,iv-g=cdn_name,iv-s=cdn_cdn_name] cdn_name-0 Gateway"
+                address 192.168.0.1/24
+                cflowd interface
+                ipv6
+                    address 2a08:def0::1/64
+                exit
+                sap lag-80 create
+                exit
+            exit
+            service-name "ies220900_cdn_name-0"
+            no shutdown
+        exit
+    exit
+    router
+	policy-options
+	    begin
+            prefix-list "CORE-CDN-IPV4-CDN_NAME-LAN"
+                prefix 192.168.0.0/24 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-CDN_NAME-LAN"
+                prefix 2a08:def0::/64 exact
+            exit
+	    commit
+exit all

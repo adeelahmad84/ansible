@@ -1,0 +1,8 @@
+exit all
+configure
+    card 6
+        mda 1
+            shutdown
+        exit
+        shutdown
+exit all

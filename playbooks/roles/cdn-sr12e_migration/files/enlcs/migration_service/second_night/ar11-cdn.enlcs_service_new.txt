@@ -1,0 +1,441 @@
+##mcdn-2-begin##
+exit all
+configure
+    port 4/1/19
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/39"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/20
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/40"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/21
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/41"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/22
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/42"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/23
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/43"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/24
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/44"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/25
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/45"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/26
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/46"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/27
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/47"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/28
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/48"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 40
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2"
+        mode access
+        port 4/1/19
+        port 4/1/20
+        port 4/1/21
+        port 4/1/22
+        port 4/1/23
+        port 4/1/24
+        port 4/1/25
+        port 4/1/26
+        port 4/1/27
+        port 4/1/28
+        lacp active
+        no shutdown
+    exit
+    service
+        ies 220361 customer 21 create
+            interface "ies220361_-PDL-Edge-1" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Edge-1 "
+                address 90.223.225.1/26
+                ipv6
+                    address 2a02:c7a:8000:fc04::1/64
+                exit
+                sap lag-40 create
+                exit
+            exit
+            service-name "ies220361_-PDL-Edge-1"
+            no shutdown
+        exit
+    exit
+    router
+	policy-options
+	    begin
+            prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                prefix 90.223.225.0/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2a02:c7a:8000:fc04::/64 exact
+            exit
+	    commit
+exit all
+##mcdn-2-end##
+##netflix-begin##
+exit all
+configure
+    port 4/1/29
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server A"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/30
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server A"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/31
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server B"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/32
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server B"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/33
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server C"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/34
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server C"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/35
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/36
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server D"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 60
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server A "
+        mode access
+        port 4/1/29
+        port 4/1/30
+        lacp active
+        no shutdown
+    exit
+    lag 61
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server B "
+        mode access
+        port 4/1/31
+        port 4/1/32
+        lacp active
+        no shutdown
+    exit
+    lag 62
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server C"
+        mode access
+        port 4/1/33
+        port 4/1/34
+        lacp active
+        no shutdown
+    exit
+    lag 63
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server D"
+        mode access
+        port 4/1/35
+        port 4/1/36
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 27 create
+            description "Netflix"
+        exit
+        vpls 220401 customer 27 create
+            description "VPLS Interconnect Netflix Servers A-D"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220401_cdn-netflix"
+            sap lag-60 create
+            exit
+            sap lag-61 create
+            exit
+            sap lag-62 create
+            exit
+            sap lag-63 create
+            exit
+            no shutdown
+        exit
+        ies 220400 customer 27 create
+            interface "ies 220400_cdn-netflix" create
+                description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-D Gateway IP"
+                address 90.223.190.145/28
+                cflowd interface
+                ipv6
+                    address 2a02:c7a:8000:fc08::1/64
+                exit
+                vpls "vpls220401_cdn-netflix"
+                exit
+            exit
+            service-name "ies220400_cdn-netflix"
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+                prefix 90.223.190.144/28 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+                prefix 2a02:c7a:8000:fc08::/64 exact
+            exit
+            community "cdn-enlcs-netflix" members "4589:4" "5607:1006" "4589:14447" "5607:14447" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 24
+                    description "NETFLIX LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+                    exit
+                    action accept
+                        community add "cdn-enlcs-netflix"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 293
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlcs-netflix"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+##netflix-end##
+##velocix-begin##
+exit all
+configure
+    port 5/1/1
+        description "[ext,rd=ac1.sky1lcs1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+        exit
+        no shutdown
+    exit
+    port 5/1/2
+        description "[ext,rd=ac1.sky1lcs1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+        exit
+        no shutdown
+    exit
+    port 5/1/3
+        description "[ext,rd=ac2.sky1lcs1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+        exit
+        no shutdown
+    exit
+    port 5/1/4
+        description "[ext,rd=ac2.sky1lcs1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+        ethernet
+            mode access
+        exit
+        no shutdown
+    exit
+    lag 55
+        description "[ext,rd=ac1.sky1lcs1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        mode access
+        port 5/1/1
+        port 5/1/2
+        lacp active
+        no shutdown
+    exit
+    lag 56
+        description "[ext,rd=ac2.sky1lcs1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        mode access
+        port 5/1/3
+        port 5/1/4
+        lacp active
+        no shutdown
+    exit
+    service
+        customer 30 create
+            description "Velocix CDN"
+        exit
+        vpls 220801 customer 30 create
+            description "Moonraker Data Node LAN"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220801_Moonraker_Data_Node"
+            sap lag-55 create
+            exit
+            sap lag-56 create
+            exit
+            no shutdown
+        exit
+        ies 220800 customer 30 create
+            interface "ies_220800_moonraker_Data_node" create
+                description "[Moonraker CDN Hardware Data Node]"
+                address 90.222.190.97/27
+                ipv6
+                    address 2a02:c7a:8000:fb0b::1/120
+                exit
+                vpls "vpls220801_Moonraker_Data_Node"
+                exit
+            exit
+            service-name "ies220800-moonraker-data-node"
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CDN-IPV4-VELOCIX-LAN"
+                prefix 90.222.190.0/23 longer
+            exit
+            prefix-list "CDN-IPV6-VELOCIX-LAN"
+                prefix 2a02:c7a:8000:fb0b::/120 exact
+            exit
+            community "cdn-enlcs-velocix" members "4589:4" "5607:1007" "5607:14447" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 28
+                    description "Velocix LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CDN-IPV4-VELOCIX-LAN"
+                    exit
+                    action accept
+                        community add "cdn-enlcs-velocix"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 298
+                    from
+                        protocol direct
+                        prefix-list "CDN-IPV6-VELOCIX-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlcs-velocix"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+##velocix-end##

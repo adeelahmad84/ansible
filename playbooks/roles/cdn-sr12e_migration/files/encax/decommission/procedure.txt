@@ -1,0 +1,114 @@
+This procedure is to be copied over to the change you will be raising:
+
+Summary:
+
+C2: CDN PE Decommission [AR10.ENCAX]
+
+
+
+
+Business Justification:
+
+This is to decommission a PE which has had all services migrated away from it.
+As per the design requirement the PE now redundant in the network.
+If this change doesn;t take place then this will impact the delivery of other services which will require the hardware.
+
+
+Implementation Steps:
+
+Tech Summary
+=============
+
+This change is to decommission a PE, this involves the following:
+
+    - Removing BGP sessions from the route-reflectors.
+    - Defaulting the relevant configuration in the remote devices (i.e. NCS).
+    - Resetting the PE to factory default.
+
+After completing the pre-checks found in 'Test Plan' please carry out the following:
+
+1. Please log into devicedb and set ar10.encax to 'decommissioned'.
+
+2. Please follow the steps in the files attached (listed below):
+
+    - route-reflectors.txt
+    - NCS.txt (apply config on pr3.hobir and pr3.enlba)
+    - ar11-cdn.encax.txt
+    - ar10.encax.txt
+
+3. Please proceed to the post-checks found in 'Test Plan'
+
+
+Test Plan:
+
+**PRE-CHECK**
+1. Please run the following commands to ensure that IP loopback belongs to the correct hostname:
+
+    host ar10.encax
+    host 89.200.128.128
+    findip2 89.200.128.128
+
+2. Please retrieve backup config of ar10.encax from devicedb.
+
+3. Please ensure that no active incidents are in place relating to ar11-cdn.encax, ar10.encax, pr3.hobir and pr3.enlba.  If so please put this change on hold.
+
+4. Check the weathermaps to ensure that there are no significant traffic running across the uplinks: http://stats0.bllon.isp.sky.com/weathermaps/cdn-core.html
+
+	a. If so then please put the change on hold and email the change owner to investigate.
+
+5. Please log into https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells and verify that the links to take down in ar11-cdn.encax are listed in TG2567.
+
+6. Notify Service Ops and NRT that decommission is taking place:
+
+    - Service.Ops@bskyb.com
+    - NetworkRepairTeam-IP@bskyb.com
+
+
+**POST-CHECK**
+After completing the 'Implementation Plan' please carry out the following:
+
+1. Check to see no incidents/alerts have been raised in relation to this change.
+
+2. Email DCNrequests@bskyb.com (copying in the change owner) notifying that them that ar10.encax is now decommissioned and they can reclaim the following:
+
+    - 10.200.48.129
+    - 10.200.48.130
+    - Console: 10.200.48.100 port 20, 21
+
+3. Email the output of 'show chassis' and 'show card detail' command to NetworkServicesSupport@bskyb.com for parts tracking.
+
+4. Email the change owner with the following instructions to action:
+
+'''
+ar10.encax has been successfully decommissioned, please return the following addresses back to its pool:
+
+    - 89.200.128.128 (Ensure the DNS records are removed)
+    - 2.120.8.96/31
+'''
+
+Backout Plan:
+
+If there are incidents raised and live services have been found to be impacted due to this change then please find the files attached named as the following to rollback:
+
+    - rr_rollback.txt
+
+**FOR NCS DEVICES ONLY**
+If your commit(s) was/were the last ones use the "rollback configuration <last|to>" command.
+
+If there have been subsequent commits you do not wish to rollback:
+
+Identify your commit ID using the command
+    show config commit list
+
+Use the command
+     show configuration rollback changes <n>
+to identify the necessary configuration needed to rollback for the commit.
+
+The above are the preferable ways to rollback as they are less prone to error.
+
+
+Risk Assessment:
+
+All services have been decommissioned/migrated away from thie PE, therefore no live services are anticipated to be impacted.
+If change was to go wrong such as removing the wrong loopback address then the impact will be that a PE possibly using the wrong address will be suffering a full outage.
+The chances of this is remote as the pre-checks will have identified the loopback address belonging to the correct PE.

@@ -1,0 +1,28 @@
+interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ shutdown
+!
+{% for key, info in core_1|dictsort %}
+interface {{ info.core }}
+ shutdown
+ !
+!
+{% endfor %}
+router isis 65444
+ no interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+  !
+ !
+!
+mpls ldp
+ neighbor {{ system_address }} no password clear
+ no interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ !
+!
+rsvp
+ no interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ !
+!
+

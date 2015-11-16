@@ -1,0 +1,17 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+#   - { src: 'aanp_dns.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ hostname }}_aanp_dns.txt' }
+    - { src: 'pop_cdn/aanp/4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ hostname }}4500.txt' }
+    - { src: 'pop_cdn/aanp/prepost_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ hostname }}prepost_4500.txt' }
+    - { src: 'pop_cdn/aanp/prepost_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/prepost_bbpe.txt' }
+    - { src: 'pop_cdn/aanp/bbpe1_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ bbpe.1.hostname }}_prefix_add.txt' }
+    - { src: 'pop_cdn/aanp/bbpe2_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ bbpe.2.hostname }}_prefix_add.txt' }
+    - { src: 'pop_cdn/aanp/bbpe3_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ bbpe.3.hostname }}_prefix_add.txt' }
+    - { src: 'pop_cdn/aanp/aanp_proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/aanp_proc.txt' }
+    - { src: 'pop_cdn/aanp/rollback_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/{{ hostname }}rollback_4500.txt' }
+    - { src: 'pop_cdn/aanp/rollback_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/aanp/rollback_bbpe.txt' }
+
+    # { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/procedure.txt' }

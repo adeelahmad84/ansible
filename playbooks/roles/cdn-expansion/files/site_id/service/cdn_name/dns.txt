@@ -1,0 +1,13 @@
+192.168.0.1/24 A host1-range[$RANGE]-cdn_name.cdn.site_id.isp.sky.com
+
+# reverse will follow the same pattern e.g:
+1.0.168.192.in-addr.arpa. PTR host1-range[$RANGE]-cdn_name.cdn.site_id.isp.sky.com
+
+N.B. host1 in the A/PTR record belonging to the first useable address in that range and would increment till the last useable.
+
+...for ipv6 please apply the following convention:
+
+*.0.0.0.0.0.0.0.0.0.f.e.d.8.0.a.2.ip6.arpa. IN PTR range[$RANGE]-cdn_name.cdn.site_id.isp.sky.com
+
+...complete /64 to have the same PTR record
+

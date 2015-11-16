@@ -1,0 +1,49 @@
+## please note that if you rollback the config o ar21.englw then you need to rollback the config for ar20.englw as well ##
+
+
+conf t
+!
+vlan 31
+ name Netflix LAN
+!
+interface Vlan30
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] To Netflix Server A
+ no ip address
+ no ipv6 address
+ shutdown
+!
+interface Vlan31
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] To Netflix Server B
+ no ip address
+ no ipv6 address
+ shutdown
+!
+interface Port-channel30
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] NETFLIX Server A
+ no ip address
+ no ipv6 address
+ shutdown
+!
+interface Port-channel31
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] NETFLIX Server B
+ no ip address
+ no ipv6 address
+ shutdown
+!
+interface TenGigabitEthernet2/1
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX B NIC_0
+ shutdown
+!
+interface TenGigabitEthernet2/2
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX B NIC_1
+shutdown
+!
+interface TenGigabitEthernet2/3
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX A NIC_0
+shutdown
+!
+interface TenGigabitEthernet2/4
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH30 - NETFLIX A NIC_1
+shutdown
+!
+end

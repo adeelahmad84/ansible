@@ -1,0 +1,463 @@
+---
+system_address: "89.200.128.75"
+system_last_octet: -181
+
+location: "Unit 6B Trevanth Road Leicester LE4 9LS; cm2.enbgk: ports 8&9"
+
+dcn_primary_address: "10.200.8.77"
+dcn_secondary_address: "10.200.8.78"
+
+old_dcn_pri: '10.200.8.75'
+old_dcn_sec: '10.200.8.76'
+old_console: 'Console: 10.200.8.3 port 21 (SFM A), 10.200.8.102 port 24 (SFM B)'
+decom_tg: 2563
+
+node_name: "ar11-cdn.enbgk"
+tacacs_secret: "fbcMNo2z1GtbZ56W"
+
+cards:
+  - 6
+  - 7
+
+#old_device_details
+old_node_name: "ar10.enbgk"
+old_system_address: "84.38.34.61"
+old_last_octet: "61"
+
+old_core_1_lag:
+  1:
+    lag: "3"
+    description: "[core,ip=,rd=pr3.bllon:be317,iv-s=vcdn_sc]"
+
+old_core_2_lag:
+  1:
+    lag: "4"
+    description: "[core,ip=,rd=pr3.thlon:be317,iv-s=vcdn_sc]"
+
+core_1_hostname: "pr3.bllon"
+core_1_loopback: "89.200.128.108"
+core_2_hostname: "pr3.thlon"
+core_2_loopback: "89.200.128.112"
+
+core_1:
+  1:
+    port: "7/0/2"
+    old_port: "5/1/1"
+    remote_port: "1/1/1"
+    cid: "SNS:1003/BSGA-LNBL/100G/CDN1"
+  2:
+    port: "7/0/3"
+    old_port: "5/2/1"
+    remote_port: "1/2/1"
+    cid: "SNS:1003/BSGA-LNBL/100G/CDN2"
+  3:
+    port: "7/0/5"
+    old_port: "7/1/1"
+    remote_port: "2/1/1"
+    cid: "SNS:1003/BSGA-LNBL/100G/CDN3"
+  4:
+    port: "3/0/0"
+    old_port: "7/2/1"
+    remote_port: "2/2/1"
+    cid: "SNS:1003/BSGA-LNBL/100G/CDN4"
+
+
+core_2:
+  1:
+    port: "3/0/0"
+    old_port: "8/2/1"
+    remote_port: "8/2/1"
+    cid: "SNS:1003/BSGA-LNTW/100G/CDN4"
+  2:
+    port: "4/0/2"
+    old_port: "6/1/1"
+    remote_port: "9/1/1"
+    cid: "SNS:1003/BSGA-LNTW/100G/CDN1"
+  3:
+    port: "4/0/3"
+    old_port: "6/2/1"
+    remote_port: "9/2/1"
+    cid: "SNS:1003/BSGA-LNTW/100G/CDN2"
+  4:
+    port: "4/0/7"
+    old_port: "8/1/1"
+    remote_port: "8/1/1"
+    cid: "SNS:1003/BSGA-LNTW/100G/CDN3"
+
+
+first_interconnect:
+  1:
+    port_old: "3/1/10"
+    port_new: "4/1/40"
+
+pe_interconnect_ports:
+  1:
+    port_old: "5/1/1"
+    port_new: "6/1/1"
+
+  2:
+    port_old: "5/2/1"
+    port_new: "6/2/1"
+
+  3:
+    port_old: "7/1/1"
+    port_new: "7/1/1"
+
+  4:
+    port_old: "7/2/1"
+    port_new: "7/2/1"
+
+core_1_to_edge_address_range: "84.38.37.212/31"
+core_2_to_edge_address_range: "84.38.37.214/31"
+old_to_new_cdn_pe_address_range: "2.120.8.106/31"
+old_to_new_cdn_ldp_auth:
+
+core_1_isis_auth: "VZw3JGCHCYjBt0ha"
+core_2_isis_auth: "rwSMgyIoz6t5l1wB"
+old_to_new_pe_auth: "iAu6ATZZLRVFiKOA"
+
+isis_metric: "100000"
+
+core_1_ldp_auth: "ZGeafCP7TT4aZSQ7"
+core_2_ldp_auth: "fpzSiFOY2SdYvMMb"
+
+rr0_bllon_bgp_auth: "HP6vCD2KqbK2ALSK"
+rr0_enlba_bgp_auth: "0zA4h7LzzjKa18iI"
+rr1_bllon_bgp_auth: "t993CeI7zBVjO8ff"
+rr1_enlba_bgp_auth: "xN268pUkmZHhIMMm"
+rr3_bllon_bgp_auth: "2tEGpBB0GCqHMMtK"
+rr3_enlba_bgp_auth: "kWEAGsJF7Ed0w1JS"
+
+old_rr0_bllon_bgp_auth: "7 082C496C58290441170E08532B22282936"
+old_rr0_enlba_bgp_auth: "7 011A03295403340E28615B503000311D03"
+old_rr1_bllon_bgp_auth: "7 151C0E09511E2331223A30361C08420404"
+old_rr1_enlba_bgp_auth: "7 010B070D71522A0E241A6F0C1E041F451B"
+old_rr3_bllon_bgp_auth: "7 0121070C0D260F1A364D161A1C0C101A52"
+old_rr3_enlba_bgp_auth: "7 0528070A2949470D160B104A0406052320"
+
+cdn_services_id:
+#  ggc:
+#    cdn: "google"
+#    cust_id: "16"
+#    v4_1: "90.223.244.64/26"
+#    v4_2:
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:1B05::/64"
+#    v6_2:
+
+  aanp:
+    cdn: "aanp"
+    cust_id: "20"
+    v4_1: "2.127.241.8/31"
+    v4_2: "2.127.241.10/31"
+    v4_3:
+    v6_1: "2A02:C7A:8000:1B06::/64"
+    v6_2: "2A02:C7A:8000:1B07::/64"
+
+  mcdn:
+    cdn: "mcdn"
+    cust_id: "21"
+    v4_1: "90.223.227.0/26"
+    v4_2:
+    v4_3:
+    v6_1: "2A02:C7A:8000:1B06::/64"
+    v6_2:
+
+#  mcdn2:
+#    cdn: "mcdn"
+#    cust_id: "21"
+#    v4_1: "90.223.228.0/26"
+#    v4_2:
+#    v4_3:
+#    v6_1: "2A02:C7A:8000:1B06::/64"
+#    v6_2:
+
+  nflx:
+    cdn: "netflix"
+    cust_id: "27"
+    v4_1: "90.223.190.160/28"
+    v4_2:
+    v4_3:
+    v6_1: "2A02:C7A:8000:1B03::/64"
+    v6_2:
+
+services:
+  aanp_data1:
+    cust_id: "20"
+    ipv4: "2.127.241.8/31"
+    ipv4_2: "2.127.241.10/31"
+    ipv4_3: "2.127.246.129/26"
+    ipv6: "2A02:C7A:8000:1B01::/64"
+    ies_id: "220231"
+    ies_desc: "ies220231_-Akamai-AANP_1"
+    vpls_id:
+    lag: "51"
+    lag_desc: "[ext,iv-g=aanp,iv-s=cdn_aanp] LAG to L3 AANP Agg Link_1"
+    array:
+      1:
+        old_port: "3/1/3"
+        new_port: "4/1/9"
+        description:
+      2:
+        old_port: "3/1/4"
+        new_port: "4/1/10"
+        description:
+      3:
+        old_port: "3/1/11"
+        new_port: "4/1/11"
+        description:
+      4:
+        old_port: "3/1/12"
+        new_port: "4/1/12"
+        description:
+      5:
+        old_port: "4/1/3"
+        new_port: "4/1/13"
+        description:
+      6:
+        old_port: "4/1/4"
+        new_port: "4/1/14"
+        description:
+      7:
+        old_port: "4/1/11"
+        new_port: "4/1/15"
+        description:
+      8:
+        old_port: "4/1/12"
+        new_port: "4/1/16"
+        description:
+
+#  ggc_data1:
+#    ipv4:
+#    ipv6:
+#    vpls_id:
+#    ies_id:
+#    ies_desc:
+#  #enter
+#    1G: false
+#    lag:
+#    ggc_mgt:
+#      ipv4:
+#      ies:
+#    cust_id:
+#    array:
+#          1:
+#            old_port:
+#            new_port:
+#            description:
+#          2:
+#            old_port:
+#            new_port:
+#            description:
+#          3:
+#            old_port:
+#            new_port:
+#            description:
+#          4:
+#            old_port:
+#            new_port:
+#            description:
+#          5:
+#            old_port:
+#            new_port:
+#            description:
+#          6:
+#            old_port:
+#            new_port:
+#            description:
+#          7:
+#            old_port:
+#            new_port:
+#            description:
+#          8:
+#            old_port:
+#            new_port:
+#            description:
+
+  mcdn_data1:
+    ipv4: "90.223.227.0/26"
+    ipv4_2:
+    ipv4_3:
+    ipv6: "2A02:C7A:8000:1B06::/64"
+    ies_id: "220331"
+    ies_desc: "ies220331_-PDL-Edge-1"
+    vpls_id:
+    lag: "61"
+    cust_id: "21"
+    array:
+          1:
+            old_port: "3/1/5"
+            new_port: "4/1/17"
+            description:
+          2:
+            old_port: "3/1/6"
+            new_port: "4/1/18"
+            description:
+          3:
+            old_port: "1/1/1"
+            new_port: "4/1/19"
+            description:
+          4:
+            old_port: "1/1/2"
+            new_port: "4/1/20"
+            description:
+          5:
+            old_port: "1/1/3"
+            new_port: "4/1/21"
+            description:
+          6:
+            old_port: "1/1/4"
+            new_port: "4/1/22"
+            description:
+          7:
+            old_port: "1/1/5"
+            new_port: "4/1/23"
+            description:
+          8:
+            old_port: "1/1/6"
+            new_port: "4/1/24"
+            description:
+          9:
+            old_port: "1/1/7"
+            new_port: "4/1/25"
+            description:
+          10:
+            old_port: "1/1/8"
+            new_port: "4/1/26"
+            description:
+
+#  mcdn_data2:
+#    ipv4:
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6:
+#    ies_id:
+#    ies_desc:
+#    vpls_id:
+#    lag:
+#    cust_id:
+#    array:
+#          1:
+#            old_port:
+#            new_port:
+#            description:
+#          2:
+#            old_port:
+#            new_port:
+#            description:
+#          3:
+#            old_port:
+#            new_port:
+#            description:
+#          4:
+#            old_port:
+#            new_port:
+#            description:
+#          5:
+#            old_port:
+#            new_port:
+#            description:
+#          6:
+#            old_port:
+#            new_port:
+#            description:
+#          7:
+#            old_port:
+#            new_port:
+#            description:
+#          8:
+#            old_port:
+#            new_port:
+#            description:
+#          9:
+#            old_port:
+#            new_port:
+#            description:
+#          10:
+#            old_port:
+#            new_port:
+#            description:
+#
+#  l3dec1:
+#    ipv4:
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6:
+#    ies_id:
+#    ies_desc:
+#    vpls_id:
+#    lag:
+#    cust_id:
+#    array:
+#          1:
+#            old_port:
+#            new_port:
+#            description:
+#          2:
+#            old_port:
+#            new_port:
+#            description:
+#
+#  l3dec2:
+#    ipv4:
+#    ipv4_2:
+#    ipv4_3:
+#    ipv6:
+#    ies_id:
+#    ies_desc:
+#    vpls_id:
+#    lag:
+#    cust_id:
+#    array:
+#          1:
+#            old_port:
+#            new_port:
+#            description:
+#          2:
+#            old_port:
+#            new_port:
+#            description:
+
+  netflix1:
+    ipv4: "90.223.190.160/28"
+    ipv4_2:
+    ipv4_3:
+    ipv6: "2A02:C7A:8000:1B03::/64"
+    ies_id: "220400"
+    ies_desc: "ies220400_cdn-netflix"
+    vpls_id: "220401"
+    lag: "40"
+    cust_id: "27"
+    array:
+          1:
+           old_port: "3/1/7"
+           new_port: "5/1/33"
+           description:
+          2:
+           old_port: "3/1/8"
+           new_port: "5/1/34"
+           description:
+          3:
+           old_port: "4/1/1"
+           new_port: "5/1/35"
+           description:
+          4:
+           old_port: "4/1/2"
+           new_port: "5/1/36"
+           description:
+          5:
+           old_port: "4/1/7"
+           new_port: "5/1/37"
+           description:
+          6:
+           old_port: "4/1/8"
+           new_port: "5/1/38"
+           description:
+          7:
+           old_port: "4/1/9"
+           new_port: "5/1/39"
+           description:
+          8:
+           old_port: "4/1/10"
+           new_port: "5/1/40"
+           description:

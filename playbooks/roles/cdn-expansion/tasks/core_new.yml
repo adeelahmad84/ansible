@@ -1,0 +1,11 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'core_cdn/services/pe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/{{ hostname }}.txt' }
+    - { src: 'core_cdn/services/patch.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/patching_ticket.txt' }
+    - { src: 'core_cdn/services/dns.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/dns.txt' }
+    - { src: 'core_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/procedure.txt' }
+    - { src: 'core_cdn/services/pe_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/{{ hostname }}_rollback.txt' }
+    - { src: 'core_cdn/services/prepost.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/{{ hostname }}_prepost.txt' }

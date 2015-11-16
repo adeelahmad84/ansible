@@ -1,0 +1,10 @@
+exit all
+configure
+    service
+        sdp 262 mpls create
+            shutdown
+        exit
+        vpls 400010
+            spoke-sdp 262:964226201 split-horizon-group "pe-sdp" create
+                shutdown
+            exit all

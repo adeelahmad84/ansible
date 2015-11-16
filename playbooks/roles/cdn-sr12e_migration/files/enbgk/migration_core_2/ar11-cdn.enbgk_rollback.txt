@@ -1,0 +1,22 @@
+exit all
+configure
+    port 8/2/1
+        description "[no-mon,core,ip=,rd=pr3.thlon:3-0-0,cid=SNS:1003/BSGA-LNTW/100G/CDN4,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 9/1/1
+        description "[no-mon,core,ip=,rd=pr3.thlon:4-0-2,cid=SNS:1003/BSGA-LNTW/100G/CDN1,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 9/2/1
+        description "[no-mon,core,ip=,rd=pr3.thlon:4-0-3,cid=SNS:1003/BSGA-LNTW/100G/CDN2,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 8/1/1
+        description "[no-mon,core,ip=,rd=pr3.thlon:4-0-7,cid=SNS:1003/BSGA-LNTW/100G/CDN3,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 2
+        description "[no-mon,core,ip=,rd=pr3.thlon:be75,iv-s=vcdn_sc]"
+        shutdown
+exit all

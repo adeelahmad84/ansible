@@ -1,0 +1,80 @@
+---
+
+ar10.enbgk, aanp, ies220231_-Akamai-AANP_1, [2.127.246.129/26 90.223.233.129/25 90.223.216.1/26]
+ar10.enbgk, mcdn, ies220332_-PDL-Edge-2, [90.223.228.1/26]
+ar10.enbgk, mcdn, ies220331_-PDL-Edge-1, [90.223.227.1/26]
+
+ar10.encax, aanp, ies220271_Akamai-AANP_1, [2.127.241.0/31 2a02:c7a:8000:f01::1/64]
+ar10.encax, aanp, ies220272_Akamai-AANP_2, [2.127.241.2/31 2a02:c7a:8000:f02::1/64]
+ar10.encax, mcdn, ies220371_-PDL-Edge-1, [90.223.242.1/26 2a02:c7a:8000:f04::1/64]
+ar10.encax, mcdn, ies220372_-PDL-Edge-2, [90.223.231.1/26 2a02:c7a:8000:f08::1/64]
+
+ar10.enlcs, aanp, ies220263_-Akamai-AANP_3, [90.223.174.1/27 2.127.246.65/26 90.223.216.129/26 90.223.246.1/25]
+ar10.enlcs, mcdn, ies220361_-PDL-Edge-1, [90.223.225.1/26 2a02:c7a:8000:fc04::1/64]
+ar10.enlcs, mcdn, ies220362_-PDL-Edge-2, [90.223.224.1/26 2a02:c7a:8000:fc05::1/64]
+
+ar10.enyrk, aanp, ies220223_Akamai-AANP, [90.223.233.1/25 90.223.216.193/26 2.127.246.193/26]
+ar10.enyrk, mcdn, ies220322_-PDL-Edge-2, [90.223.230.1/26 2a02:c7a:8000:1008::1/64]
+ar10.enyrk, mcdn, ies220321_-PDL-Edge-1, [90.223.229.1/26 2a02:c7a:8000:1004::1/64]
+
+ar10.hobir, aanp, ies220201_Akamai-AANP_1, [176.255.246.1/25 2a02:c7a:8000:201::1/64]
+ar10.hobir, mcdn, ies220301_-PDL-Edge-1, [90.197.188.1/25 2a02:c7a:8000:204::1/64]
+ar10.hobir, mcdn, ies220302_-PDL-Edge-2, [90.197.188.129/25 2a02:c7a:8000:20c::1/64]
+
+ar10.thlon, mcdn, ies220312_MCDN-Edge-2, [90.223.198.129/25 2a02:c7a:8000:10c::1/64]
+ar10.thlon, mcdn, ies220311_MCDN-Edge-1, [90.207.233.129/25 2a02:c7a:8000:104::1/64]
+
+ar11-cdn.bllon, aanp, ies220251_Akamai-AANP_1, [176.255.202.1/25]
+ar11-cdn.bllon, mcdn, ies220353_MCDN-Edge-2, [90.207.233.1/25]
+ar11-cdn.bllon, mcdn, ies220351_MCDN-Edge-1, [90.223.194.65/26]
+
+ar11-cdn.enlba, aanp, ies220241_Akamai-AANP_1, [176.255.246.129/25 2a02:c7a:8000:301::1/64]
+ar11-cdn.enlba, mcdn, ies220341_MCDN-Edge-1, [176.255.200.129/26 2a02:c7a:8000:304::1/64]
+ar11-cdn.enlba, mcdn, ies220343_MCDN-Edge-2, [90.223.198.1/25 2a02:c7a:8000:30e::1/64]
+
+ar11-cdn.enyrk, aanp, ies220223_Akamai-AANP, [90.223.233.1/25 90.223.216.193/26 2.127.246.193/26]
+ar11-cdn.enyrk, mcdn, ies220321_-PDL-Edge-1, [90.223.229.1/26 2a02:c7a:8000:1004::1/64]
+ar11-cdn.enyrk, mcdn, ies220322_-PDL-Edge-2, [90.223.230.1/26 2a02:c7a:8000:1008::1/64]
+
+ar14-cdn.thlon, mcdn, ies220312_MCDN-Edge-2, [90.223.198.129/25 2a02:c7a:8000:10c::1/64]
+ar14-cdn.thlon, mcdn, ies220311_MCDN-Edge-1, [90.207.233.129/25 2a02:c7a:8000:104::1/64]
+
+ar20.bllon, mcdn, Port-channel60, [176.255.200.193/26 2a02:c7a:8000:fe04::1/64]
+
+ar20.enabd, mcdn, Port-channel60, [90.201.125.33/27]
+
+ar20.enbel, mcdn, Port-channel60, [90.201.125.1/27]
+
+ar20.enbrs, aanp, Port-channel40, [94.15.95.1/25 2a02:c7a:8000:1701::1/64]
+
+ar20.enedi, aanp, Port-channel40, [176.255.247.1/25 2a02:c7a:8000:901::1/64]
+ar20.enedi, mcdn, Port-channel60, [176.255.171.33/27]
+
+ar20.englw, aanp, Port-channel40, [176.255.202.129/25]
+ar20.englw, mcdn, Port-channel60, [90.201.125.193/27]
+
+ar20.enhmi, aanp, Port-channel40, [90.223.204.129/25 2a02:c7a:8000:801::1/64]
+
+ar20.enlba, mcdn, Port-channel60, [90.208.114.1/26]
+
+ar20.enlpl, mcdn, Port-channel60, [176.255.171.65/27]
+
+ar20.enncl, mcdn, Port-channel60, [90.201.125.97/27]
+
+ar20.enntg, mcdn, Port-channel60, [90.201.125.161/27]
+
+ar20.enshf, aanp, Port-channel40, [94.15.95.129/25]
+ar20.enshf, mcdn, Port-channel60, [176.255.171.97/27]
+
+ar20.mimnc, aanp, Port-channel40, [176.255.203.1/25]
+ar20.mimnc, mcdn, Port-channel60, [176.255.171.1/27]
+
+ar20.pomnc, aanp, Port-channel40, [176.255.203.129/25]
+ar20.pomnc, mcdn, Port-channel60, [176.255.171.225/27]
+
+ar20.sycwr, aanp, Port-channel40, [90.223.224.129/25 2a02:c7a:8000:a01::1/64]
+
+ar20.syost, aanp, Port-channel40, [90.223.225.129/25 2a02:c7a:8000:1901::1/64]
+ar20.syost, mcdn, Port-channel60, [90.201.125.129/27]
+
+ar20.thlon, aanp, Port-channel40, [90.223.204.1/25 2a02:c7a:8000:1201::1/64]

@@ -1,0 +1,19 @@
+exit all
+configure
+    port None
+        description "[no-mon,agg,rd=as102.enbrs:1-1-25,cid=LOCAL] LAG 21 to AS102.ENBRS"
+        shutdown
+    exit
+    port None
+        description "[no-mon,agg,rd=as102.enbrs:1-1-26,cid=LOCAL] LAG 21 to AS102.ENBRS"
+        shutdown
+    exit
+    lag 21
+        description "[no-mon,rd=as102.enbrs:lag1]"
+        shutdown
+    exit
+    router
+	interface "base_as102.enbrs_1"
+	    description "[no-mon,agg,rd=as102.enbrs:lag1]"
+            shutdown
+        exit all

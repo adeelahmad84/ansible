@@ -1,0 +1,11 @@
+---
+
+- name: generating for cdn dns
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+   # { src: 'aanp.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/dns/{{ hostname }}_aanp_dns.txt' }
+   - { src: 'dns/mcdn.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/dns/{{ hostname }}_mcdn_dns.txt' }
+   # { src: 'ggc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/dns/{{ hostname }}_ggc_dns.txt' }
+   # { src: 'ntf.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/dns/{{ hostname }}_ntf_dns.txt' }
+   # { src: 'l3d.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/dns/{{ hostname }}_l3d_dns.txt' }
+   # { src: 'l3g.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/dns/{{ hostname }}_l3g_dns.txt' }

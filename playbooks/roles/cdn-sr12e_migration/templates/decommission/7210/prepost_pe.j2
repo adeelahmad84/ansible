@@ -1,0 +1,8 @@
+/show service id {{ vpls }} base
+/show service id {{ ies }} base
+
+/show lag {{ lag }} 
+
+{% for port in ports %}
+/show port {{ port }} 
+{% endfor %}

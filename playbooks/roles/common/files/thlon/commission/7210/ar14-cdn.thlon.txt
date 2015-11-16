@@ -1,0 +1,40 @@
+exit all
+configure
+    port 4/1/39
+        description "[agg,rd=as102.thlon:1-1-25,cid=LOCAL] LAG 4 to AS102.THLON"
+        ethernet
+            mode hybrid
+            encap-type dot1q
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/40
+        description "[agg,rd=as102.thlon:1-1-26,cid=LOCAL] LAG 4 to AS102.THLON"
+        ethernet
+            mode hybrid
+            encap-type dot1q
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 4
+        description "[rd=as102.thlon:lag1]"
+        mode hybrid
+        encap-type dot1q
+        port 4/1/39
+        port 4/1/40
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    router
+	interface "base_as102.thlon_1"
+            address 90.223.190.217/29
+	    description "[agg,rd=as102.thlon:lag1]"
+            cpu-protection 3
+            port lag-4:255
+            qos 10
+            cflowd interface both
+            no shutdown
+        exit all

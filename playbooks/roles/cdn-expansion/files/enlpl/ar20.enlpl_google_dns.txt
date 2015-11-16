@@ -1,0 +1,13 @@
+90.201.126.65/26 A host1-rangeB-google-ggc.cdn.enlpl.isp.sky.com
+... all the way till..
+90.201.126.126/26 A host62-rangeB-google-ggc.cdn.enlpl.isp.sky.com
+
+# reverse will follow the same pattern e.g:
+
+65.126.201.90.in-addr.arpa. PTR hostx-rangeB-google-ggc.cdn.enlpl.isp.sky.com
+
+...for ipv6 please apply the following convention:
+
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.0.8.f.0.0.0.8.a.7.c.0.2.0.a.2.ip6.arpa. PTR rangeB-google-ggc.cdn.enlpl.isp.sky.com
+
+...complete /64 to have the same PTR record

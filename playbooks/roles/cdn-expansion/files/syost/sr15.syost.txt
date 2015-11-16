@@ -1,0 +1,67 @@
+exit all
+configure
+    port 9/1/6
+        description "[core,rd=ar21.syost:te1-1,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C06"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 9/2/3
+        description "[core,rd=ar21.syost:te1-2,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C06"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 9/2/4
+        description "[core,rd=ar21.syost:te1-3,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C06"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    lag 51
+	description "[core,rd=ar21.syost:pc1,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar21.syost"
+	port 9/1/6
+	port 9/2/3
+	port 9/2/4
+		
+	lacp active
+	port-threshold 1 action down   
+	no shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK-2"
+	    address 2.120.8.58/31
+	    description "[core,rd=ar21.syost:pc1,iv-s=cdn_pop]"
+	    port lag-51
+	    ipv6
+		address 2A02:C78:1:19::4/127
+	    exit
+	    cflowd interface both
+	    no shutdown
+	exit
+	static-route 89.200.128.115/32 next-hop 2.120.8.59  tag 20110
+	policy-options
+	    begin
+	    prefix-list "PL-POP-CDN-LOOPBACK"
+		prefix 89.200.128.115/32 exact
+	    exit
+	    commit
+	exit
+        bgp
+            group "remote-popcdn-ipv4"
+                family ipv4
+                damping
+                next-hop-self
+                type internal
+                export "EXPORT-TO-IBGP"
+                disable-communities extended
+                neighbor 2.120.8.59 
+                    description "ar21.syost"
+                    authentication-key "m0Pd5UmXLk8q4Aim"
+                exit all

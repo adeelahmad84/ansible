@@ -1,0 +1,6 @@
+router bgp 65444
+ no neighbor 84.38.34.3
+!
+ address-family ipv4
+  no neighbor 84.38.34.3
+end

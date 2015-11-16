@@ -1,0 +1,13 @@
+---
+
+- name: Generate CDN configuration files
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars_files:
+    - roles/common/vars/sites/enlcs.yml
+    - roles/cdn-sr12e_migration/vars/enlcs.yml
+
+  roles:
+    - cdn-sr12e_migration

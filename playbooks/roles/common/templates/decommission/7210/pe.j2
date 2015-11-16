@@ -1,0 +1,22 @@
+{% if vpls %}
+/configure service vpls {{ vpls }} sap lag-{{ lag }}:{{ vlan }} shutdown
+/configure service vpls {{ vpls }} no sap lag-{{ lag }}:{{ vlan }}
+/configure service ies {{ ies }} interface ies{{ ies }}_cdn-ggc-mgmt shutdown
+/configure service ies {{ ies }} interface ies{{ ies }}_cdn-ggc-mgmt no vpls "vpls{{ vpls }}_cdn-ggc-mgmt_1"
+/configure service ies {{ ies }} interface no ies{{ ies }}_cdn-ggc-mgmt
+{% endif %}
+
+{% for port in ports %}
+/configure lag {{ lag }} no port {{ port }}
+{% endfor %}
+/configure lag {{ lag }} shutdown
+/configure no lag {{ lag }}
+
+{% for port in ports %}
+/configure port {{ port }} shutdown
+/configure port {{ port }} no description
+/configure port {{ port }} ethernet no mode
+/configure port {{ port }} ethernet no encap-type
+/configure port {{ port }} ethernet no mtu
+/configure port {{ port }} ethernet no hold-time
+{% endfor %}

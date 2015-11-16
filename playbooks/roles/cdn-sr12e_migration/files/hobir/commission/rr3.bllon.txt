@@ -1,0 +1,9 @@
+router bgp 65444
+ neighbor 89.200.128.177 inherit peer-session CORE-RR-client
+ neighbor 89.200.128.177 description ar11-cdn.hobir
+ neighbor 89.200.128.177 password 0 VDZCX79FpfsatBVg
+!
+ address-family ipv6
+ neighbor 89.200.128.177 activate
+ neighbor 89.200.128.177 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+end

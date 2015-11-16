@@ -1,0 +1,6 @@
+mpls ldp no neighbor 84.38.34.2 password
+
+interface Port-channel3.3621
+ description [no-mon,core,rd=sr11.sabir:sdp267,cid=SNS:1000/LNBL-BHMA/PW/999364621] sedcanopy pw
+ shutdown
+end

@@ -1,0 +1,11 @@
+configure exclusive
+!
+{% block core_1 %}
+{% endblock %}
+{% block core_2 %}
+{% endblock %}
+mpls traffic-eng
+ interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ !
+!
+commit

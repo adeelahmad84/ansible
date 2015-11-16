@@ -1,0 +1,6 @@
+---
+
+- name: generate for "{{ hostname }}"
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'pop_cdn/services/bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/bbpe.txt' }

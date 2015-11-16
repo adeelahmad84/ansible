@@ -1,0 +1,66 @@
+configure terminal
+!
+interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ description NOT-HANDED-OVER [core-o,rd={{ node_name }}:lag2,iv-s=bb]
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links {{ (core_2|length / 3)|round|int * 2 }}
+ load-interval 30
+ logging events link-status
+ dampening 1 750 2000 1
+ ipv4 mtu 8192
+ ipv4 address {{ core_2_p2p | ipaddr('network') }} {{ core_2_p2p | ipaddr('netmask') }}
+!
+{% for key, info in core_2|dictsort %}
+interface {{ info.core }}
+ description NOT-HANDED-OVER [no-mon,core-o,rd={{ node_name }}:{{ info.bbpe|replace("/","-") }},cid={{ info.cid }},iv-s=bb]
+ no shutdown
+ bundle id {{ last_octet_system_address|int + 256 }} mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+{% endfor %}
+router isis 65444
+ interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 {{ p_router_2_isis_key_1 }}
+  address-family ipv4 unicast
+   metric 9910000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor {{ system_address }} password clear {{ p_router_2_ldp_key }}
+ address-family ipv4
+  label
+   remote
+    accept
+     from {{ system_address }}:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ !
+!
+rsvp
+ interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+  bandwidth {{ core_2|length * 10 }} Gbps
+  signalling dscp 48
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether{{ last_octet_system_address|int + 256 }}
+ !
+!
+commit

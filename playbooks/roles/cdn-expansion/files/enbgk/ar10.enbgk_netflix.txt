@@ -1,0 +1,19 @@
+exit all
+configure
+    service
+        ies 220400 customer 27 create
+            interface "ies_220400_cdn-netflix"
+                no address 90.223.190.129/28
+                address 90.223.190.161/28
+            exit
+	exit
+    exit
+    router
+	policy-options
+	    begin
+	    prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+		no prefix 90.223.190.128/28
+		prefix 90.223.190.160/28 exact
+            exit
+	    commit
+exit all

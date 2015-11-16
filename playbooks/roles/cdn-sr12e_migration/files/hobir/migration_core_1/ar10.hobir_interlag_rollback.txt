@@ -1,0 +1,33 @@
+exit all
+configure
+    port 5/1/1
+        description "[no-mon,core,ip=,rd=pr2.hobir:6-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 5/2/1
+        description "[no-mon,core,ip=,rd=pr2.hobir:6-2-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 6/2/1
+        description "[no-mon,core,ip=,rd=pr2.hobir:7-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port None
+        description "[core,ip=,rd=ar11-cdn.hobir:None,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 176
+        description "[no-mon,core,ip=,rd=ar11-cdn.hobir:lag176,iv-s=vcdn_sc]"
+        shutdown
+	no port 5/1/1
+	no port 5/2/1
+	no port 6/2/1
+    exit
+    router
+        interface "base_ar11-cdn.hobir_1"
+            description "[core-o,rd=ar11-cdn.hobir:None]"
+	    shutdown
+	    no port
+            port None
+            no shutdown
+exit all

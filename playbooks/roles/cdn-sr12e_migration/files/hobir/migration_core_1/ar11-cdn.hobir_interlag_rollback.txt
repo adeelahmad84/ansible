@@ -1,0 +1,14 @@
+exit all
+configure
+    port None
+        description "[core,ip=,rd=ar11-cdn.hobir:None,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    router
+	interface "base_ar10.hobir"
+            description "[core-o,rd=ar10.hobir:None]"
+	    shutdown
+	    no port
+	    port None
+	    no shutdown
+exit all

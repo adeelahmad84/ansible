@@ -1,0 +1,40 @@
+exit all
+configure
+    port None
+        description "[agg,rd=as101.enbrs:1-1-25,cid=LOCAL] LAG 20 to AS101.ENBRS"
+        ethernet
+            mode hybrid
+            encap-type dot1q
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port None
+        description "[agg,rd=as101.enbrs:1-1-26,cid=LOCAL] LAG 20 to AS101.ENBRS"
+        ethernet
+            mode hybrid
+            encap-type dot1q
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 20
+        description "[rd=as101.enbrs:lag1]"
+        mode hybrid
+        encap-type dot1q
+        port None
+        port None
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    router
+	interface "base_as101.enbrs_1"
+            address 90.223.190.225/29
+	    description "[agg,rd=as101.enbrs:lag1]"
+            cpu-protection 3
+            port lag-20:255
+            qos 10
+            cflowd interface both
+            no shutdown
+        exit all

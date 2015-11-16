@@ -1,0 +1,24 @@
+Objective: To decommission {{ hostname }}.{{ site_id }}
+
+
+
+1. Notify Service Ops and NRT that decommission is taking place:
+
+Service.Ops@bskyb.com
+NetworkRepairTeam-IP@bskyb.com
+
+2. log into devicedb and set {{ hostname }}.{{ site_id }} to 'decommissioned'
+
+3. Please follow the steps in the files attached (listed below):
+
+                a. implementation.txt
+                b. {{ hostname }}.{{ site_id }}.txt
+{% for cdn, device in remote %}
+                c. {{ device.hostname }}.txt
+{% endfor %}
+
+4. After completing the attached reload ar10.bllon: The start-up configuration will now be blank on reload.
+
+5. Email the output of the 'show chassis' and 'show card detail' command to NetworkServicesSupport@bskyb.com for parts tracking.
+
+6. Email the change owner informing them that the device has been decommissioned.

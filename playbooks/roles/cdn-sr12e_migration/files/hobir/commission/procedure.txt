@@ -1,0 +1,41 @@
+Business Justification:
+=========================
+As part of the CDN Growth project, all PEs in the core and satelitte POPs will a have a hardware upgrade to SR12e.  This is so that the CDN network can accomodate the growing capacity of server farms housed in SNS.
+This is the commissioning of ar11-cdn.hobir in readiness of its DRFU.
+If this was not go ahead then it will impact the capacity handling of the CDN traffic for this site.
+
+
+Implementation:
+=========================
+Please apply the configuration of the respected devices in the following order:
+
+    pr2.hobir.txt
+    pr3.hobir.txt
+    ar10.hobir.txt
+    rr0.bllon
+    rr1.bllon
+    rr3.bllon
+    rr0.enlba
+    rr1.enlba
+    rr3.enlba
+
+Test Plan:
+===========
+Expect the BGP/ISIS sessions to come up, note that ISIS session is between ar10.hobir and ar11-cdn.hobir.  ar11-cdn.hobir will be attached for you to double check addressing/authentication/etc.
+
+Backout Plan:
+=============
+In case the implementation was to impact any existing services.  Please apply the config in the following:
+
+
+    ncs-rollback.txt
+    rr0-rollback.txt
+    rr1-rollback.txt
+    rr3-rollback.txt
+
+
+Risk Assessment:
+==================
+No services are anticipated to be impacted as they no service traffic will be carried.  New device is being introduced with no traffic on it.
+
+If the change went wrong, for example applying the wrong peer address in the route-reflector knocks off an existing BGP session causing for the impacted PE to be less resilient.  However there will be no outage as the PE will have a neighbor established with the other route-reflector.

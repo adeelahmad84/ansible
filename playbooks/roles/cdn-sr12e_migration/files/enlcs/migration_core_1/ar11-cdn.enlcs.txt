@@ -1,0 +1,15 @@
+exit all
+configure
+    port 1/1/1
+        description "[core,ip=,rd=pr2.bllon:4-0-1,cid=SNS:1003/LEIA-LNBL/100G/CDN1,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 1/2/1
+        description "[core,ip=,rd=pr2.bllon:4-0-2,cid=SNS:1003/LEIA-LNBL/100G/CDN2,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 1
+        description "[core,ip=,rd=pr2.bllon:be110,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+exit all

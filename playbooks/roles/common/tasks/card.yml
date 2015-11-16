@@ -1,0 +1,16 @@
+
+- name: generate for 7750 card commissioning.
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+  #[PROCEDURE]
+    - { src: 'commission/7750/card_commission.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7750/procedure.txt' }
+
+  #[IMPLEMENTATION]
+    - { src: 'commission/7750/pe.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7750/{{ hostname }}.txt'  }
+
+  #[PREPOST]
+    - { src: 'commission/7750/prepost.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7750/{{ hostname }}_prepost.txt'  }
+
+  #[ROLLBACK]
+    - { src: 'commission/7750/pe_rollback.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7750/{{ hostname }}_rollback.txt'  }

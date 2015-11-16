@@ -1,0 +1,23 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+    #[PROCEDURE]
+    - { src: 'migration/service/proc.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/procedure.txt' }
+
+    #[PREPOST]
+    - { src: 'migration/service/service_prepost.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/{{ old_node_name }}_service_migration_pre.txt' }
+    - { src: 'migration/service/ar11_post.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/{{ node_name }}_service_migration_post.txt' }
+
+    #[IMPLEMENTATION]
+    # { src: 'migration/service/ar10_service_shut.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/{{ old_node_name }}_service_shut.txt' }
+    # { src: 'migration/service/ar11_service_new.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/{{ node_name }}_service_new.txt' }
+
+    #[ROLLBACK]
+    # { src: 'migration/service/ar11_services_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/{{ node_name }}_servicess_rollback.txt' }
+    # { src: 'migration/service/ar10_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/migration_service/{{ old_node_name }}_rollback.txt' }
+
+    #[CLEANUP]
+    # { src: 'migration/service/ar10_cleanup.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id  }}/migration_service/{{ old_node_name }}_cleanup.txt' }

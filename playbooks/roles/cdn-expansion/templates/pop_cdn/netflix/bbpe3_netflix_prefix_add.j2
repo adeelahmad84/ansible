@@ -1,0 +1,12 @@
+exit all
+configure
+     router
+         policy-options
+         begin
+             prefix-list "POPCDN-IPV6-NETFLIX-LAN"
+                 prefix {{ ntf.ipv6 | ipaddr('0')  }} exact
+         commit
+         exit
+         static-route {{ ntf.ipv6 | ipaddr('0')  }} next-hop {{ bbpe.3.ipv6_p2p | ipaddr('1')|replace('/127','')  }}
+         static-route {{ ntf.ipv4 | ipaddr('0')  }} next-hop {{ bbpe.3.ipv4_p2p | ipaddr('1')|replace('/31','')  }} tag {{ bbpe.3.ntf_tag  }}
+exit all

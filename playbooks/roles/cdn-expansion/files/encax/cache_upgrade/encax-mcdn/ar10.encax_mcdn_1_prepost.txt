@@ -1,0 +1,17 @@
+exit all
+show port 1/1/1 | match expression "Oper State|Oper Speed"
+show port 1/1/2 | match expression "Oper State|Oper Speed"
+show port 1/1/3 | match expression "Oper State|Oper Speed"
+show port 1/1/4 | match expression "Oper State|Oper Speed"
+show port 1/1/5 | match expression "Oper State|Oper Speed"
+show port 1/1/6 | match expression "Oper State|Oper Speed"
+show port 1/1/7 | match expression "Oper State|Oper Speed"
+show port 1/1/8 | match expression "Oper State|Oper Speed"
+show lag 40 port
+show lag 40 lacp-partner
+show service sap-using sap lag-40
+show service id 220371 interface
+show router policy prefix-list "CORE-CDN-IPV4-MCDN-LAN"
+show router policy prefix-list "CORE-CDN-IPV6-MCDN-LAN"
+show router bgp neighbor 89.200.128.[88..90] advertised-routes | match 90.223.242.0/26
+show router bgp neighbor 89.200.128.[12..14] advertised-routes | match 2A02:C7A:8000:F04::/64

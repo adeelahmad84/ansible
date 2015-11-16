@@ -1,0 +1,43 @@
+exit all
+configure
+{% for key, value in core_2|dictsort %}
+    port {{ value.old_port }}
+        description "[no-mon,core,ip=,rd={{ core_2_hostname }}:hu0-{{ value.port|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+{% endfor %}
+{% for cdn, info in old_core_2_lag|dictsort %}
+    lag {{ info.lag }}
+        description {{ info.description|replace("[","[no-mon,") }}
+        shutdown
+{% for key, value in core_2|dictsort %}
+	no port {{ value.old_port }}
+{% endfor %}
+    exit
+{% endfor %}
+    router
+	interface "base_{{ core_2_hostname }}_1"
+	    shutdown
+            no address
+            description "[no-mon,core-o,rd={{ core_2_hostname }}:be{{ old_last_octet|int + 256 }}]"
+	exit
+	isis
+	    interface "base_{{ core_2_hostname }}_1"
+		shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_{{ core_2_hostname }}_1"
+		shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_{{ core_2_hostname }}_1"
+		shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_{{ core_2_hostname }}_1"
+		    shutdown
+exit all

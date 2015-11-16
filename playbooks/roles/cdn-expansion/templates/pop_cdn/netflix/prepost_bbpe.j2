@@ -1,0 +1,5 @@
+show router static-route {{ ntf.ipv4 }}
+show router static-route {{ ntf.ipv6 }}
+show router policy prefix-list "POPCDN-IPV6-NETFLIX-LAN"
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match {{ ntf.ipv6 }}
+show router bgp neighbor 89.200.128.[88..90] ipv4 advertised-routes | match {{ ntf.ipv4 }}

@@ -1,0 +1,6 @@
+---
+
+# include: new_pe.yml
+# include: migration.yml
+# include: service_migration.yml
+- include: decom.yml

@@ -1,0 +1,7 @@
+ping 94.15.95.129/25
+ping False
+show interface port-channel 40
+show interface TenGigabitEthernet1/31
+show interface TenGigabitEthernet1/31 status
+show interface TenGigabitEthernet1/32
+show interface TenGigabitEthernet1/32 status

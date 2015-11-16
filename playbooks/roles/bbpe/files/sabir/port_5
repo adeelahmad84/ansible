@@ -1,0 +1,50 @@
+___Current Device Port Settings________________________________________________
+Number: 5  Name: sr11.sabir_B
+Banner: <none>
+View Port Log Seq: <none>           View Pt Log: disabled  Break Seq: \x1bB
+
+Modem Settings----------------------Data Settings----------IP Settings---------
+Modem State: disabled               Baud Rate: 115200      Telnet: disabled
+Modem Mode: Text                    Data Bits: 8           Telnet Port: 2005
+Timeout Logins: disabled            Stop Bits: 1           Telnet Auth: enabled 
+Local IP: negotiate                 Parity: none           Tel Timeout: disabled
+Remote IP: negotiate                Flow Control: none     SSH: enabled 
+Authentication: PAP                 Logins: disabled       SSH Port: 3005
+CHAP Host: <none>                   Check DSR: disabled    SSH Auth: enabled 
+CHAP Secret: <none>                 Close DSR: disabled    SSH Timeout: disabled
+DOD Authentication: PAP             Show Lines: disabled   TCP: disabled
+DOD CHAP Host: <none>               Max Dir Connects: 1    TCP Port: 4005
+DOD CHAP Secret: <none>                                    TCP Auth: disabled
+CBCP Server Allow No Callback: disabled                    TCP Timeout: disabled
+CBCP Client Type: Admin-defined number                     IP: 10.202.2.4
+NAT: disabled                                              Web Columns: 80
+Modem Timeout: disabled                                    Web Rows: 24
+Restart Delay:   30 seconds
+Dial-out Number: <none>                                  
+Dial-out Login: <none>
+Dial-out Password: <none>
+Dial-back Number: usernumber
+Dial-back Delay: 0 seconds
+Dial-in Host List: <none>
+Initialization Script: <none>
+Caller ID Logging: disabled
+Caller ID Cmd: <none>
+
+Logging Settings---------------------------------------------------------------
+Email/Trap: disabled                Local Logging: disabled
+Send via: Email                     PC Card Logging: disabled
+Byte Threshold: 100                 Log to: Upper Slot
+Email Delay: 60 seconds             Max Number of Files: 10
+Restart Delay: 60 seconds           Max Size of Files: 2048
+Text String: <none>
+Email To: <none>
+Email Subject: Port %d Logging
+                                    SLM Logging: disabled
+NFS File Logging: disabled          NMS: <none>
+Max Number of Files: 10             Byte Threshold: 100
+Max Size of Files: 2048             Time Frame: 60 seconds
+Directory to log to: <none>
+Syslog Logging: enabled
+
+Device Settings----------------------------------------------------------------
+Connected To: <none>

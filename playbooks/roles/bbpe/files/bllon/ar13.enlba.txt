@@ -1,0 +1,29 @@
+configure router mpls ingress-statistics lsp "SR15.BLLON-1-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-1-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-2-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-2-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-3-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-3-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-4-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-4-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-5-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-5-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-6-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-6-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-7-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-7-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-8-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-8-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-9-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-9-AR13ENLBA" sender 84.38.34.221 no shutdown
+
+configure router mpls ingress-statistics lsp "SR15.BLLON-10-AR13ENLBA" sender 84.38.34.221
+configure router mpls ingress-statistics lsp "SR15.BLLON-10-AR13ENLBA" sender 84.38.34.221 no shutdown

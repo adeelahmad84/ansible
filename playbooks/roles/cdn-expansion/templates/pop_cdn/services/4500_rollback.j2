@@ -1,0 +1,23 @@
+configure terminal
+{% for key, cdn in services|dictsort %}
+interface Vlan{{ cdn_lag + cdn.svc_id }}
+ no ip address {{ cdn.ipv4 | ipaddr('1') | regex_replace('/.*', ' ') }} {{ cdn.ipv4 | ipaddr('netmask') }}
+ no ipv6 address {{ cdn.ipv6 | ipaddr('1') }}
+ shutdown
+!
+interface Port-channel{{ cdn_lag + cdn.lag }}
+ no switchport access vlan {{ cdn_lag + cdn.svc_id }}
+ no switchport mode access
+ no switchport
+ shutdown
+!
+{% for key, info in cdn.array|dictsort %}
+interface TenGigabitEthernet{{ info.port }}
+ no switchport access vlan {{ cdn_lag + cdn.svc_id }}
+ no switchport mode access
+ no channel-group {{ cdn_lag + cdn.lag }}
+ no channel-protocol lacp
+ shutdown
+!
+{% endfor %}
+{% endfor %}

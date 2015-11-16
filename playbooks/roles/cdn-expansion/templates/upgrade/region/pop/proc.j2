@@ -1,0 +1,98 @@
+Summary:
+
+{% for key, cdn in services|dictsort %}
+C2: Upgrade existing  {{ cdn_name|upper }} Region Capacity - {{ cdn.array|length }} x 10G links [TG{{ cdn.tgref }}]
+
+Business Justification:
+
+This change is to increase for {{ cdn_name|upper }} Region in {{ site_id }}, this is the network configuration required to increase LAG capacity for the region
+This is to accommodate the accelerated growth of {{ cdn_name|upper }} service demands.
+The change being on hold will impact the capacity SNS can provide for {{ cdn_name|upper }} services.
+
+
+
+
+
+
+
+Implementation Steps:
+
+Tech Summary
+*******************
+The implementation steps should take approxiately 20 minutes to complete.
+
+This change is to:
+- Add {{ cdn.array|length }} x 10G links into existing LAG
+
+FYI: As part of this process it involves:
+
+- FE engineers patching the links as per TG{{ cdn.tgref }} the following working day.
+- Draining of {{ cdn_name|upper }} region in {{ site_id }} prior to this change.
+
+1. After running the pre-checks please apply the commands found in the file named {{ hostname }}.txt
+2. move onto post-checks found in Test Plan
+
+
+
+
+
+
+
+
+Test Plan:
+
+Pre-Checks
+***************
+
+1. Please go to the URL: https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells and ensure that the ports referenced TG{{ cdn.tgref }} matches the configuration attached to the change.
+
+The ports to configure into the existing LAG are as follows:
+{% for key, info in cdn.array|dictsort %}
+{{ hostname }}	{{ info.port }}	    {{ cdn.remote_svr }}	     {{ info.remote_port }}
+{% endfor %}
+
+2. Please run the commands found in the file named {{ hostname }}_prepost.txt
+
+- expect to see the ports down
+- expect to see the LAG up with ports bound to it.
+- expect minimal traffic running on the LAG.
+
+3. Please go to URL http://stats0.bllon.isp.sky.com/weathermaps/cdn-core.html and verify that no traffic (or negligible) is running on LAG {{ cdn_lag + cdn.lag }} of {{ hostname }}.
+
+**ONLY PROCEED WITH THE IMPLEMENTATION ONCE YO ARE HAPPY THAT NO LIVE TRAFFIC IS PASSING THROUGH**
+
+Post-Checks
+***************
+Please run the commands found in the file named {{ hostname }}_prepost.txt
+
+- expect to see the ports down (still)
+- expect to see LAG configured with the ports stated above.
+
+
+
+
+
+
+
+Backout Plan:
+
+If the post-check ouputs do not satisfy your expectation then please follow this action in the below situations:
+
+- IF ports are up = Shut them down
+- LAG not admin up = please ensure they are not shut down.
+- if the releveant ports are not visible in the LAG = please reconfigure and ensure that they are so.
+
+If the implementation was to impact any live services then proceed to back out with the file named {{ hostname }}_rollback.txt.
+Upon completing rollback please re run the commands found in the file named {{ hostname }}_prepost.txt  AND compare the results with the output of the precheck = ensure they are identical.
+
+
+
+
+
+
+Risk Assessment:
+
+This is a network configuration to be in place prior to adding extra links to the existing {{ cdn_name|upper }} region.  No live services are anticipated to be impacted as this region will be drained.
+If the change went wrong such as configuring the wrong ports in the wrong LAG, the risks are still non-impacting, although it may pose a secuirty risk.
+The chances are slim as a pre-check will be done to ensure the ports and LAG are the correct one.
+{% endfor %}

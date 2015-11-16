@@ -1,0 +1,252 @@
+exit all
+configure
+    port 4/1/1
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server content - Link 1 of Lag to L3 DEC_2 Force10 agg Switch Rack_4"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/2
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server content - Link 2 of Lag to L3 DEC_2 Force10 agg Switch_Rack_4"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/3
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server Content - Link 1 of LAG to L3 Force10 Agg Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/4
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server Content - Link 1 of LAG to L3 Force10 Agg Switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/1
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/39"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/2
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/40"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/3
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/41"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/4
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/42"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/5
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/43"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/6
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/44"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/7
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/45"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/8
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/46"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/9
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/47"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/10
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BHX7 FOC1608R13Y 1/48"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 11
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server A Content  - LAG_11 to L3 Force10 Agg Switch Rack_1"
+        mode access
+        port 4/1/3
+        port 4/1/4
+        port-threshold 1 action down
+        no shutdown
+    exit
+    lag 14
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec]L3 DEC Server content - Lag to L3 Force10 agg Switch Rack_D"
+        mode access
+        port 4/1/1
+        port 4/1/2
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    lag 62
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX7 FOC1608R13Y RACK_H/I004"
+        mode access
+        port 5/1/1
+        port 5/1/2
+        port 5/1/3
+        port 5/1/4
+        port 5/1/5
+        port 5/1/6
+        port 5/1/7
+        port 5/1/8
+        port 5/1/9
+        port 5/1/10
+        lacp active
+        port-threshold 6 action down
+        no shutdown
+    exit
+    service
+        customer 12 create
+            description "Level3"
+        exit
+        ies 220000 customer 12 create
+            interface "ies220000_cdn-l3dec-data_1" create
+                description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server Content"
+                address 2.127.242.1/27
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:208::1/64
+                exit
+                sap lag-11 create
+                exit
+            exit
+            service-name "ies220000_cdn-l3dec-data"
+            no shutdown
+        exit
+        ies 22062 customer 12 create
+            interface "ies22062_cdn-l3dec-data_2" create
+                description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Server content Rack_4"
+                address 2.127.242.97/27
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:20F::1/64
+                exit
+                sap lag-14 create
+                exit
+            exit
+            service-name "ies22062_cdn-l3dec-data_2"
+            no shutdown
+        exit
+        ies 220302 customer 21 create
+            interface "ies220302_-PDL-Edge-2" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-2 "
+                address 90.197.188.129/25
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:20C::1/64
+                exit
+                sap lag-62 create
+                exit
+            exit
+            service-name "ies220302_-PDL-Edge-2"
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CORE-CDN-IPV4-L3-DEC-LAN"
+                prefix 2.127.242.0/27 exact
+                prefix 2.127.242.96/27 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-L3-DEC-LAN"
+                prefix 2A02:C7A:8000:208::/64 exact
+                prefix 2A02:C7A:8000:20F::/64 exact
+            exit
+            community "cdn-hobir-l3-dec" members "4589:4" "5607:1004" "4589:14470" "5607:14470" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 29
+                    description "Level3 DEC LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-L3-DEC-LAN"
+                    exit
+                    action accept
+                        community add "cdn-hobir-l3-dec"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 298
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-L3-DEC-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-hobir-l3-dec"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            commit
+        exit all

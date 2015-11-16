@@ -1,0 +1,19 @@
+---
+#device information
+hostname: ar21.enntg
+rack: RACK_E006
+
+#Uplink information
+bbpe:
+  1:
+    ipv4: '2.120.7.46/31'
+    ipv6: '2a02:c78:1:c::4/127'
+    bundle: 2
+    tgref: 2557
+    hostname: sr10.enntg
+    lag: 51
+    array:
+      1:
+        a_end: '1/1/10'
+        b_end: '1/2'
+        cid: LOCAL

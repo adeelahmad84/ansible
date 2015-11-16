@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook
+---
+# sr12e.yml: This is a sitewide playbook
+- include: bllon.yml
+- include: ensts.yml
+- include: enedi.yml
+- include: enntg.yml
+- include: sabir.yml
+- include: syost.yml

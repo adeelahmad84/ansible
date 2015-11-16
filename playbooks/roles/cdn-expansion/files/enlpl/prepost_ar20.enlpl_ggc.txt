@@ -1,0 +1,12 @@
+show interface vlan21
+show vlan id 21
+ping 90.201.126.65
+ping 2a02:c7a:8000:f80e::1
+show interface TenGigabitEthernet1/19
+show interface TenGigabitEthernet1/19 status
+show interface TenGigabitEthernet1/20
+show interface TenGigabitEthernet1/20 status
+show interface TenGigabitEthernet1/21
+show interface TenGigabitEthernet1/21 status
+show interface TenGigabitEthernet1/22
+show interface TenGigabitEthernet1/22 status

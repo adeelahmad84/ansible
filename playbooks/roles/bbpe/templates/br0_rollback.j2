@@ -1,0 +1,10 @@
+exit all
+configure
+    service
+        sdp {{ last_octet_system_address|int + 256 }} mpls create
+            shutdown
+        exit
+        vpls 400010
+            spoke-sdp {{ last_octet_system_address|int + 256 }}:9642{{ last_octet_system_address|int + 256 }}01 split-horizon-group "pe-sdp" create
+                shutdown
+            exit all

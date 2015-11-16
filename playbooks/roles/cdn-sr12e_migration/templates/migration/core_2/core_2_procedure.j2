@@ -1,0 +1,340 @@
+Summary - Provision {{ core_2|length }}x100G circuits between {{ node_name }} and {{ core_2_hostname }}
+
+Outline of Steps
+0) - AR10 Weight off/port shut
+1) - Circuit Testing
+2) - Re-Configuration
+3) - Post-Checks
+4) - Weight Traffic On
+
+Patching Schedule
+=================
+
+OLD_DEVICE		OLD_PORT		NEW_DEVICE		NEW_PORT		B'END_DEVICE		B'END_PORT
+{% for key, value in core_2|dictsort %}
+{{ old_node_name }}	{{ value.old_port }}	{{ node_name }}		{{ value.remote_port }}	{{ core_2_hostname }}	    Hu0/{{ value.port }}
+{% endfor %}
+
+Pre-Checks
+===========
+
+On {{ old_node_name }} please run the following commands and record the output for comparision later:
+
+{% for key, value in core_2|dictsort %}
+\show port {{ value.old_port }} | match expression "Oper State | Oper Speed"
+\show port {{ value.old_port }} optical
+{% endfor %}
+\show lag {{ old_core_2_lag.1.lag }}
+\show lag {{ old_core_2_lag.1.lag }} associations
+\show router interface "base_{{ core_2_hostname }}_1"
+\show router interface "base_{{ core_2_hostname }}_1" detail | match Protocols
+\show router isis interface "base_{{ core_2_hostname }}_1"
+\show router mpls interface "base_{{ core_2_hostname }}_1"
+\show router rsvp interface "base_{{ core_2_hostname }}_1"
+\show router ldp interface "base_{{ core_2_hostname }}_1"
+\show router isis topology
+\show router isis adjacency
+\show router isis routes | match No.
+\show router isis database | match (2)
+
+
+AR10 Weight off/port shut
+###################
+
+To free up links from {{ old_node_name }}, the {{ core_2_hostname }} interconnects need to be weighted off + shutdown
+
+{{ core_2_hostname }}
+=========
+
+conf t
+!
+router isis 65444
+ interface Bundle-Ether{{ old_last_octet|int + 256 }}
+  address-family ipv4 unicast
+   metric 10000099 level 2
+  !
+ !
+!
+
+
+{{ old_node_name }}
+==========
+
+/configure router isis interface "base_{{ core_2_hostname }}_1" level 2 metric 1000099
+
+Monitor the traffic levels to ensure it drops off the circuit
+
+monitor lag {{ old_core_2_lag.1.lag }} repeat 5
+
+At this point, ask the FE to cutover the fibres as per the patching schedule above
+
+**** DO NOT CUT THE CIRCUITS OVER UNTIL ALL TRAFFIC HAS DRAINED OFF THE LINK ****
+
+
+Step 1.0 - Circuit Testing
+####################
+
+
+Check the light levels on both circuits. Ensure that NONE OF THE LANES are out of specification below (ignoring the total value)
+
+{% for key, value in core_2|dictsort %}
+show controller Hu0/{{ value.port }} phy | include "Rx power|Tx power"
+{% endfor %}
+
+##example output:
+
+THRESHOLDS
+                        High Alarm     Low Alarm     High Warning      Low Warning
+   Temperature     C        70.0          0.0           65.0            5.0
+   Voltage         mV       3663          2937          3531            3069
+   Transmit power dBm       7.5          -8.5           4.5             -4.3
+   Receive power  dBm       4.5          -10.6          3.0             -10.0
+
+Total Tx power: 5.27 mW (  7.22 dBm)    >>>> Ignore this value
+  Lane 0 Tx power: 0.49 mW ( -3.12 dBm)
+  Lane 1 Tx power: 0.56 mW ( -2.53 dBm)
+  Lane 2 Tx power: 0.53 mW ( -2.76 dBm)
+  Lane 3 Tx power: 0.62 mW ( -2.08 dBm)
+Total Rx power: 5.59 mW (  7.48 dBm)    >>>> Ignore this value
+  Lane 0 Rx power: 0.57 mW ( -2.43 dBm)
+  Lane 1 Rx power: 0.58 mW ( -2.37 dBm)
+  Lane 2 Rx power: 0.61 mW ( -2.15 dBm)
+  Lane 3 Rx power: 0.58 mW ( -2.36 dBm)
+
+If there are any lanes of the 100G circuit out of specification please perform basic troubleshooting. Get the field engineer to clean the fibres and attempt different optics to isolate the issue.
+
+If you cannot resolve poor light readings, please perform the roll back procedure located at the bottom of this document.
+
+Assuming the light levels are satisfactory, we will test the circuits. Apply the configuration below to test the new circuit
+
+{{ node_name }}
+==============
+
+{% for key, value in core_2|dictsort %}
+clear port {{ value.remote_port }} statistics
+{% endfor %}
+
+/configure lag 2
+{% for key, value in core_2|dictsort %}
+no port {{ value.remote_port }}
+{% endfor %}
+
+{% for key, value in core_2|dictsort %}
+/configure port {{ value.remote_port }} no shutdown
+{% endfor %}
+
+/configure router interface "base_{{ core_2_hostname }}_l3_test"
+port {{ core_2.1.remote_port }}
+address 84.38.37.249/31
+no shutdown
+
+{{ core_2_hostname }}
+=========
+
+{% for key, value in core_2|dictsort %}
+clear counters HundredGigE0/{{ value.port }}
+{% endfor %}
+
+configure terminal
+
+interface Hu0/{{ core_2.1.port }}
+no bundle id
+ip address 84.38.37.248/31
+no shut
+
+ping 84.38.37.249 count 1000 donotfrag
+
+
+Repeat for the remaining 3 pairs of ports :
+
+{% for key, value in core_2|dictsort %}
+{{ node_name }}		{{ value.remote_port }}					{{ core_2_hostname }}				Hu0/{{ value.port }}
+{% endfor %}
+
+Ensure there is no packet loss, if there is please perform standard troubleshooting before rolling back, this may include cleaning the fibres, trying different fibres or optics.
+
+Check the interfaces for errors
+
+{{ core_2_hostname }}
+=========
+{% for key, value in core_2|dictsort %}
+show interface Hu0/{{ value.port }} | inc error
+{% endfor %}
+
+{{ node_name }}
+==========
+{% for key, value in core_2|dictsort %}
+show port {{ value.remote_port }}
+{% endfor %}
+
+Ensure there are no errors on either interface, if there is and the issues can not be resolved we must roll back.
+
+Now lets default the interfaces in question and continue with the migration.
+
+{{ core_2_hostname }}
+=========
+{% for key, value in core_2|dictsort %}
+default interface Hu0/{{ value.port }}
+{% endfor %}
+
+{{ node_name }}
+==========
+/configure router interface "base_{{ core_2_hostname }}_l3Test"
+  no port
+  shutdown
+/configure router
+  no interface base_{{ core_2_hostname }}_l3Test
+
+
+Step 2.0 - Re-Configuration
+####################
+
+Apply the configuration contained in the below file:
+
+"{{ core_2_hostname }}.txt"
+
+Apply the below configuration to {{ node_name }}
+
+{{ node_name }}
+==========
+
+Add the ports back into LAG
+
+/configure lag 2
+{% for key, value in core_2|dictsort %}
+port {{ value.remote_port }}
+{% endfor %}
+exit all
+
+These ports have been preconfigured
+
+{% for key, value in core_2|dictsort %}
+/configure port {{ value.remote_port }} no shutdown
+/configure port {{ value.remote_port }} description [core,ip=,rd={{ core_2_hostname }}:hu0-{{ value.port|replace('/','-') }},cid={{ value.cid }},iv-s=vcdn_sc]
+{% endfor %}
+
+Step 3.0 - Post-Checks
+##################
+
+After all the configuration has been applied we must to check to make sure the port enter the bundle successfully and that all protocols are operating as expected
+
+Perform the following post-checks on {{ core_2_hostname }}
+
+Ensure the bundle is operating as expected and that the members are in an active state
+
+    show bundle Bundle-Ether {{ system_last_octet|int + 256 }} | include Local
+
+Check the ISIS adjacency is in an up status:
+
+    show isis adjacency Bundle-Ether {{ system_last_octet|int + 256 }}
+
+Check the LDP neighborshp is in an up status
+
+    show mpls ldp neighbor Bundle-Ether {{ system_last_octet|int + 256 }}
+
+Check MPLS traffic engineering has been configured correctly
+
+    show mpls traffic-eng link-management interfaces Bundle-Ether {{ system_last_octet|int + 256 }} | inc	Physical
+
+Check that RSVP has been configured correctly
+
+    show rsvp interface Bundle-Ether {{ system_last_octet|int + 256 }}
+
+
+Check that IGP to LDP sync has been achieved
+
+    show mpls ldp igp sync interface Bundle-Ether {{ system_last_octet|int + 256 }}
+
+{{ node_name }}
+---------------------
+{% for key, value in core_2|dictsort %}
+\show port {{ value.remote_port }} | match expression "Oper State | Oper Speed"
+\show port {{ value.remote_port }} optical
+{% endfor %}
+\show lag 2
+\show lag 2 associations
+\show router interface "base_{{ core_2_hostname }}_1"
+\show router interface "base_{{ core_2_hostname }}_1" detail | match Protocols
+\show router isis interface "base_{{ core_2_hostname }}_1"
+\show router mpls interface "base_{{ core_2_hostname }}_1"
+\show router rsvp interface "base_{{ core_2_hostname }}_1"
+\show router ldp interface "base_{{ core_2_hostname }}_1"
+\show router isis topology
+\show router isis adjacency
+\show router isis routes | match No.
+\show router isis database | match (2)
+monitor lag 2 repeat 5
+
+N.B. the Port IDs won't match to the precheck output.
+
+
+After post-checks has been performed successfully we can weight traffic back onto the circuits
+
+Step 4.0 - Weight Traffic On
+################
+
+Apply the following configuration
+
+{{ core_2_hostname }}
+=========
+conf t
+!
+router isis 65444
+ interface Bundle-Ether{{ system_last_octet|int + 256 }}
+  address-family ipv4 unicast
+   metric 100000 level 2
+  !
+ !
+!
+
+{{ node_name }}
+==========
+
+/configure router isis interface "base_{{ core_2_hostname }}_1" level 2 metric 100000
+
+Monitor the traffic levels to ensure traffic begins to flow over the circuits again
+
+    monitor interface Bundle-Ether{{ system_last_octet|int + 256 }}
+
+{{ old_node_name }}
+===========
+
+/configure router isis interface "base_{{ node_name}}_1" level 2 metric 100000
+
+
+Step 5.0 - Clear up
+===================
+
+Apply the configuration contained in the below file on {{ old_node_name }}
+
+"{{ old_node_name }}_shut.txt"
+
+Ensure all syntax applies correctly
+
+
+Roll Back Scenario
+==================
+
+Should there be any issues with the post-checks a complete roll back configuration is provided below.
+
+Firstly we must ensure there is no traffic running over the circuit. Apply the below configuration to weight traffic off either end of the circuit.
+
+**FOR NCS DEVICES ONLY**
+If your commit(s) was/were the last ones use the "rollback configuration <last|to>" command.
+
+If there have been subsequent commits you do not wish to rollback:
+
+Identify your commit ID using the command
+    show config commit list
+
+Use the command
+     show configuration rollback changes <n>
+to identify the necessary configuration needed to rollback for the commit.
+
+The above are the preferable ways to rollback as they are less prone to error.
+
+Manual backout documented in below files.
+
+{{ old_node_name }}-rollback.txt
+{{ node_name }}-rollback.txt
+{{ core_2_hostname }}-rollback.txt

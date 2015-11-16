@@ -1,0 +1,37 @@
+interface Bundle-Ether477
+ shutdown
+!
+interface Te0/1/0/6/8
+ shutdown
+ !
+!
+interface Te0/1/0/6/7
+ shutdown
+ !
+!
+interface Te0/1/0/6/6
+ shutdown
+ !
+!
+interface Te0/1/0/6/5
+ shutdown
+ !
+!
+router isis 65444
+ no interface Bundle-Ether477
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.221 no password clear
+ no interface Bundle-Ether477
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether477
+ !
+!
+rsvp
+ no interface Bundle-Ether477
+ !
+!

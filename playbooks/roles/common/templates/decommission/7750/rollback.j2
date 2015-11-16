@@ -1,0 +1,127 @@
+rr0.bllon
+-----------------------------
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor {{ system_address }} description {{ hostname }}.{{ site_id }}
+ neighbor {{ system_address }} password 7 01092200682A0F3E0018441A4054423733
+ !
+ address-family ipv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr0.enlba
+-----------------------------
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor {{ system_address }} description {{ hostname }}.{{ site_id }}
+ neighbor {{ system_address }} password 7 143B47591D2D3A2F2D7164677636552F2A
+ !
+ address-family ipv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr1.bllon
+-----------------------------
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor {{ system_address }} description {{ hostname }}.{{ site_id }}
+ neighbor {{ system_address }} password 7 001C3904266B2E5F5F124F76284C233F14
+ !
+ address-family ipv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} send-community extended
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr1.enlba
+-----------------------------
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor {{ system_address }} description {{ hostname }}.{{ site_id }}
+ neighbor {{ system_address }} password 7 020C157505020213141622181D3D3E3B5B
+ !
+ address-family ipv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} send-community extended
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+pr2.bllon
+-----------------------------
+configure terminal
+mpls ldp
+ neighbor
+  {{ system_address }}:0 password encrypted 00271B13095208070A0A4D5B512D0D1217
+ !
+ address-family ipv4
+  label
+   remote
+    accept
+     from {{ system_address }}:0 for loopback-only
+    !
+   !
+  !
+ !
+!
+commit
+
+pr3.bllon
+-----------------------------
+configure terminal
+mpls ldp
+ neighbor
+  {{ system_address }}:0 password encrypted 045A0E3F0029641A081C11473D03270123
+ !
+ address-family ipv4
+  label
+   remote
+    accept
+     from {{ system_address }}:0 for loopback-only
+    !
+   !
+  !
+ !
+!
+commit
+
+rr3.bllon
+-----------------------------
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session CORE-RR-client
+ neighbor {{ system_address }} description {{ hostname }}.{{ site_id }}
+ neighbor {{ system_address }} password 7 1212041E040A05032F2E1420262437065F
+ !
+ address-family ipv6
+  neighbor {{ system_address }} activate
+  neighbor {{ system_address }} inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!
+
+rr3.enlba
+-----------------------------
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session CORE-RR-client
+ neighbor {{ system_address }} description {{ hostname }}.{{ site_id }}
+ neighbor {{ system_address }} password 7 070E0A156F003D004107325F1C2F2E7327
+ !
+ address-family ipv6
+  neighbor {{ system_address }} activate
+  neighbor {{ system_address }} inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!

@@ -1,0 +1,12 @@
+show interface TenGigabitEthernet1/7
+show interface TenGigabitEthernet1/7 status
+
+sh int port-channel 1 etherchannel
+
+expect to see the below in addition to any existing ports:
+
+Ports in the Port-channel: 
+
+Index   Load   Port     EC state        No of bits
+------+------+------+------------------+-----------
+  1     00     Te1/7    Active             0

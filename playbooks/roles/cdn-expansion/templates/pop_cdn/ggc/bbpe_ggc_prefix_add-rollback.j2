@@ -1,0 +1,15 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-GGC-LAN"
+                no prefix {{ ggc.ipv6 | ipaddr('0') }} exact
+	commit
+	exit
+        no static-route {{ ggc.ipv6 | ipaddr('0') }}
+        no static-route {{ ggc.ipv4 | ipaddr('0') }}
+{% if ggc.one_gig %}
+        no static-route {{ ggc.one_gig_ipv4 | ipaddr('0') }}
+{% endif %}
+exit all

@@ -1,0 +1,11 @@
+---
+
+cdn_lag: 60
+cdn_name: mcdn
+cdn_svc: 220300
+cust_id: 21
+prefix_name: akamai-mcdn
+service_name: MCDN-Edge
+svc_comm: "1002"
+v4_entry: 27
+v6_entry: 296

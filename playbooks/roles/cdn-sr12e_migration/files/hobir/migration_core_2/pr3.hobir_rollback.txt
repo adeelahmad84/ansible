@@ -1,0 +1,41 @@
+configure terminal
+!
+interface Bundle-Ether286
+ description [core-o,rd=ar10.hobir:lag4,iv-s=vcdn_sc]
+ no shutdown
+!
+interface Bundle-Ether177
+ description [no-mon,core-o,rd=ar11-cdn.hobir:lag2,iv-s=vcdn_sc]
+ shutdown
+!
+interface Hu0/2/0/0
+ description [core-o,rd=ar10.hobir:6-1-1,cid=LOCAL,iv-s=bb]
+ bundle id 286 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/2/0/1
+ description [core-o,rd=ar10.hobir:3-1-1,cid=LOCAL,iv-s=bb]
+ bundle id 286 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/2/0/3
+ description [core-o,rd=ar10.hobir:3-2-1,cid=LOCAL,iv-s=bb]
+ bundle id 286 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+commit

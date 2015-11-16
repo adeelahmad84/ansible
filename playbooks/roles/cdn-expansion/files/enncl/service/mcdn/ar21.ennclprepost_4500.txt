@@ -1,0 +1,11 @@
+ping 90.201.125.97/27
+ping 2a02:c7a:8000:1804::1
+show interface port-channel 60
+show interface TenGigabitEthernet1/13
+show interface TenGigabitEthernet1/13 status
+show interface TenGigabitEthernet1/14
+show interface TenGigabitEthernet1/14 status
+show interface TenGigabitEthernet1/15
+show interface TenGigabitEthernet1/15 status
+show interface TenGigabitEthernet1/16
+show interface TenGigabitEthernet1/16 status

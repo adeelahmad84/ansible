@@ -1,0 +1,25 @@
+SUMMARY
+#########
+This change is to commission an aggregation switch connecting to {{ pe }}.  This is to accomodate the 1Gig-e servers that cannot be attached directly to {{ pe }}.  This change not going ahead will impact the services running across the 1G servers.
+
+PRE-CHECK
+#########
+
+Please issue the commands found in {{ pe }}_prepost.txt, please capture the output for comparison later.
+
+
+IMPLEMENTATION
+###############
+
+Please issue the commands found in {{ pe }}.txt, ensure the syntaxes are applied successfully.
+
+
+POST-CHECK
+#########
+
+Please issue the commands found in {{ pe }}_prepost.txt, please read the prepost file to see what to expect.
+
+ROLLBACK
+#########
+
+If post checks are not satisfactory or you cannot access {{ hostname }} from nms then please proceed with rollback issuing the commands found in {{ pe }}_rollback.txt

@@ -1,0 +1,13 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-GGC-LAN"
+                no prefix 2a02:c7a:8000:705::/64 exact
+	commit
+	exit
+        no static-route 2a02:c7a:8000:705::/64
+        no static-route 90.223.225.64/26
+        no static-route 90.223.227.120/29
+exit all

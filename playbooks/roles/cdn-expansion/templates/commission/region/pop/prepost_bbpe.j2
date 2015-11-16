@@ -1,0 +1,9 @@
+{% for key, cdn in services|dictsort %}
+show router route-table {{ cdn.ipv6 }} | ignore-case
+show router route-table {{ cdn.ipv4 }} | ignore-case
+show router policy prefix "POPCDN-IPV6-{{ prefix_name|upper }}-LAN"
+show router static-route {{ cdn.ipv6 }}
+show router static-route {{ cdn.ipv4 }}
+show router bgp neighbor 89.200.128.1[2..4] advertised-routes ipv6 | match {{ cdn.ipv6 }} context all ignore-case
+show router bgp neighbor 89.200.128.[88..90] advertised-routes ipv4 | match {{ cdn.ipv4 }} context all ignore-case
+{% endfor %}

@@ -1,0 +1,28 @@
+Objective: To decommission ar10.enyrk
+
+1. Please retrieve backup config of ar10.enyrk from devicedb
+
+2. Notify Service Ops and NRT that decommission is taking place:
+
+Service.Ops@bskyb.com
+NetworkRepairTeam-IP@bskyb.com
+
+3. log into devicedb and set ar10.enyrk to 'decommissioned'
+
+4. Please follow the steps in the files attached (listed below):
+
+                a. route-reflectors.txt
+                b. ar10.enyrk.txt
+		c. NCS.txt (apply on pr2.enlba and pr2.hobir)
+		d. ar11-cdn.enyrk.txt
+
+5. After completing the attached, reload ar10.enyrk The start-up configuration will now be blank on reload.
+
+6. Email the output of the 'show chassis' and 'show card detail' command to NetworkServicesSupport@bskyb.com for parts tracking.
+
+7. Email the change owner informing them that the device has been decommissioned.
+
+
+ROLLBACK
+#########
+If the decommission was to impact any live services then proceed to rollback 

@@ -1,0 +1,74 @@
+Objective: To decommission as101.hobir
+
+
+
+1. Notify Service Ops and NRT that decommission is taking place:
+
+Service.Ops@bskyb.com
+NetworkRepairTeam-IP@bskyb.com
+
+2. From the jumphost run the following commands:
+
+    scp -r as101.hobir:IMAGES/6.0R5 ./
+    touch factory_default.cfg
+    touch factory_default.ndx
+    touch bof.cfg
+
+# ensure to have the above files and directories inside its own directory in your jumphost.
+
+3. edit bof.cfg and add the following contents:
+
+	    primary-image    cf1:\images\6.0R5\
+	    primary-config   cf1:\factory_default.cfg
+
+	#eth-mgmt Port Settings:
+	    no  eth-mgmt-disabled
+	    eth-mgmt-autoneg
+	    eth-mgmt-duplex    full
+	    eth-mgmt-speed     100
+
+	#System Settings:
+	    wait               3
+	    persist            on
+	    console-speed      115200
+	    no  console-disabled
+
+4. Set as101.hobir to 'decommissioned' on devicedb.
+
+5. Monitor traffic on as101.hobir towards ar10.hobir.
+
+as101.hobir (Console)
+=====================
+
+monitor lag 30 rate interval 3
+
+There should be little if any traffic on uplink LAG.
+
+6. Apply configuration contained in the file below for ar10.hobir.
+
+"ar10.hobir.txt"
+
+
+Ensure all syntax applies successfully.
+
+7. Login to as101.hobir via console and erase files/bof in the flash directory of as101.hobir, then create an empty config file.
+
+file delete *.cfg force
+file delete *.txt force
+file delete CFG/* force
+
+8. issue the following commands and record its output in a text file to send to networkservicessupport@bksykb.com:
+
+show chassis
+show card detail
+
+9. from the jumphost transfer the contents created at 1. and 2.:
+
+        scp -r * as101.hobir:
+
+After this has been completed, there should be no configuration on any upstream devices, the device is "decommissioned" in devicedb and the switch will be blank on reload
+
+10. Advise the FE that the switch can be unpatched/removed from the rack and returned to Unipart
+
+
+11. Email networkservicessupport@bksykb.com to advise that the switch is decommissioned - the DNS removal will then be raised by the IP NetDev Engineer

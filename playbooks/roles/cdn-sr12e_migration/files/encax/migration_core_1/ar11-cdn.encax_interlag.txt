@@ -1,0 +1,17 @@
+exit all
+configure
+    port 4/1/40
+        description "[no-mon,core,ip=,rd=ar11-cdn.encax:5-1-2,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 176
+        description "[core,ip=,rd=ar10.encax:lag176,iv-s=vcdn_sc]"
+    exit
+    router
+	interface "base_ar10.encax"
+            description "[core-o,rd=ar10.encax:lag176]"
+	    shutdown
+	    no port
+	    port lag-176
+	    no shutdown
+exit all

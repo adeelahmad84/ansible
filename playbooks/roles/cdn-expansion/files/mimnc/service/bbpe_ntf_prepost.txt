@@ -1,0 +1,5 @@
+show router static-route 176.255.200.105/30
+show router static-route 2A02:C7A:8000:407::/64
+show router policy prefix-list "POPCDN-IPV6-NETFLIX-LAN"
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:407::/64
+show router bgp neighbor 89.200.128.[88..90] ipv4 advertised-routes | match 176.255.200.105/30

@@ -1,0 +1,63 @@
+
+{% for devices, bbpe in bbpe|dictsort %}
+########{{ bbpe.hostname|upper }}################
+exit all
+configure
+{% for key, cdn in services|dictsort %}
+    router
+        static-route {{ cdn.ipv6 | ipaddr('0') }} next-hop {{ bbpe.ipv6_p2p | ipaddr('1')|regex_replace('/.*', '') }}
+        static-route {{ cdn.ipv4 | ipaddr('0') }} next-hop {{ bbpe.ipv4_p2p | ipaddr('1')|regex_replace('/.*', '') }} tag {{ bbpe.tag }}
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-{{ prefix_name|upper }}-LAN"
+                prefix {{ cdn.ipv6 }} exact
+	    exit
+{% if cdn.svc_id == 0 %}
+            community "cdn-{{ site_id }}-{{ prefix_name|lower|replace("ggc", "google") }}" members "4589:4" "5607:{{ svc_comm }}" "4589:{{ site_community_id }}" "5607:{{ site_community_id }}" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+{% if bbpe.tag == 20200 %}
+                entry 51
+{% elif bbpe.tag == 20190 %}
+                entry 52
+{% elif bbpe.tag == 20180 %}
+                entry 53
+{% elif bbpe.tag == 20170 %}
+                entry 54
+{% else %}
+                entry 55
+{% endif %}
+                    from
+                        protocol static
+			tag {{ bbpe.tag }}
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-{{ prefix_name|lower|replace("ggc", "google") }}"
+			local-preference {{ bbpe.tag - 20000 }}
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry {{ v6_entry }}
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-{{ prefix_name|upper }}-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-{{ prefix_name|lower|replace("ggc", "google") }}"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+{% endif %}
+	    commit
+exit all
+{% endfor %}
+########{{ bbpe.hostname|upper }}################
+{% endfor %}

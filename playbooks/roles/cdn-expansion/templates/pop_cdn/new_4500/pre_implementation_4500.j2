@@ -1,0 +1,70 @@
+ssh networks@{{ console_device }}
+c d d {{ console_port }}
+cisco
+cisco
+configure terminal
+!
+hostname {{ hostname }}
+!
+username networks privilege 15 secret r3p3nt
+!
+ip ssh version 2
+ip scp server enable
+!
+!
+interface Loopback0
+ description GRT Management Purposes Only
+ ip address {{ loopback }} 255.255.255.255
+ no ip redirects
+!
+interface range TenGigabitEthernet 1/1 - 32
+ shutdown
+ flowcontrol receive off
+ flowcontrol send off
+!
+{% for key, value in bbpe|dictsort %}
+interface Port-channel{{ value.channel }}
+ description [core,rd={{ value.hostname }}:lag{{ value.lag }},iv-s=cdn_pop] IN-POP-CDN BUNDLE TO {{ value.hostname|upper }}
+ mtu 8226
+ ip address {{ value.ipv4_p2p | ipaddr('1')|replace("/31", " ") }} {{ value.ipv4_p2p | ipaddr('netmask') }}
+ no ip redirects
+ ipv6 address {{ value.ipv6_p2p | ipaddr('1') }}
+!
+{% endfor %}
+{% for key, value in bbpe|dictsort %}
+{% for cdn, info in value['ports']|dictsort %}
+interface TenGigabitEthernet{{ info.remote_port }}
+ description [core,rd={{ value.hostname }}:{{ info.port|replace("/","-") }},cid=LOCAL,iv-s=cdn_pop] UPLINK_{{ loop.index }} TO {{ value.hostname|upper }}
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group {{ value.channel }} mode active
+!
+{% endfor %}
+{% endfor %}
+{% for key, value in bbpe|dictsort %}
+ip route 0.0.0.0 0.0.0.0 {{ value.ipv4_p2p | ipaddr('network') }}
+ipv6 route ::/:: {{ value.ipv6_p2p | ipaddr('network') }}
+!
+{% endfor %}
+line vty 0 4
+ access-class 86 in
+ exec-timeout 720 0
+ transport input ssh
+line vty 5 14
+ access-class 86 in
+ exec-timeout 720 0
+ transport input ssh
+!
+end
+!
+wr
+
+
+######################
+from the nme box transfer the necesary files into {{ hostname }} or use {{ loopback }}
+
+scp {{ image }} {{ hostname }}:{{ image }}
+scp {{ IACL }} {{ hostname }}:{{ IACL }}

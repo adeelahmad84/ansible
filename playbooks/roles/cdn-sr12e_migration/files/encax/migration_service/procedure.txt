@@ -1,0 +1,25 @@
+Summary:
+
+This change is to migrate all services in encax to an sr12e device.  This is to accomodate the accelerated CDN Growth.
+
+Implementation:
+
+1. Please run the pre-checks on ar10.encax using ar10.encax_service_migration_pre.txt, record the output for comparison later.
+2. Please use ar10.encax_service_shut.txt to shut ports/services down on ar10.encax
+3. Please instruct the FE to carry out the physical migration.
+4. Please use ar11-cdn.encax_service_new.txt to configure and migrate services across to ar11-cdn.encax
+5. After the FE has completed please run ar11-cdn.encax_service_migration_post.txt to run post-checks.  Record the output and run a diff with the pre-checks.
+With the exception of the ports id, the rest of the results should be identical.  This should be easy to spot when running something 'vimdiff'.
+
+6. If for some reason one of the services wasn't successful and see a significant difference between pre and post-check, please proceed in rolling back ONLY FOR THAT SERVICES.  Do not rollback everything unless the full migration is unsuccessful.
+
+    N.B. when you run a diff between the two pre and post check outputs, expect to see ARP/MAC-ADDRESS table (if applicable) and the number of prefixes being advertised to be the same.
+
+- Attached are rollback files named as below:
+
+    ar10.encax_rollback.txt
+    ar11-cdn.encax_services_rollback.txt
+
+7. If migration is successful then please proceed to cleanup using the commands attached in the below file:
+
+    - ar10.encax_cleanup.txt

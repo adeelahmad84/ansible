@@ -1,0 +1,33 @@
+exit all
+configure
+    port 2/1/1
+        description "[no-mon,core,rd=ar20.enshf:te1-13,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        shutdown
+    exit    
+    port 2/1/2
+        description "[no-mon,core,rd=ar20.enshf:te1-14,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        shutdown
+    exit    
+    port 2/1/3
+        description "[no-mon,core,rd=ar20.enshf:te1-15,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        shutdown
+    exit    
+    port 1/1/6
+        description "[no-mon,core,rd=ar20.enshf:te1-16,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        shutdown
+    exit    
+    lag 50
+	description "[no-mon,core,rd=ar20.enshf:pc3,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar20.enshf"
+	shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK"
+	    description "[no-mon,core,rd=ar20.enshf:pc3,iv-s=cdn_pop]"
+	    shutdown
+	exit
+        bgp
+            group "remote-popcdn-ipv4"
+		shutdown
+                neighbor 2.120.8.133 
+		    shutdown
+                exit all

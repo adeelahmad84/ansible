@@ -1,0 +1,13 @@
+---
+
+- name: Generate CDN configuration files
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars_files:
+    - roles/common/vars/sites/thlon.yml
+    - roles/cdn-sr12e_migration/vars/thlon.yml
+
+  roles:
+    - cdn-sr12e_migration

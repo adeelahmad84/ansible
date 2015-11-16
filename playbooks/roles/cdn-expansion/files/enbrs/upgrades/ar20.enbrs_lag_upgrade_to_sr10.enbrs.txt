@@ -1,0 +1,21 @@
+configure terminal
+!
+interface TenGigabitEthernet2/1
+ description [core,rd=sr10.enbrs:9-1-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR10.ENBRS
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet2/2
+ description [core,rd=sr10.enbrs:9-1-6,cid=LOCAL,iv-s=cdn_pop] UPLINK_2 TO SR10.ENBRS
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+end

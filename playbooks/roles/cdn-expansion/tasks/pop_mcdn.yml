@@ -1,0 +1,22 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    # { src: 'mcdn_dns.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ hostname }}_mcdn_dns.txt' }
+    - { src: 'pop_cdn/mcdn/4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ hostname }}4500.txt' }
+      
+    - { src: 'pop_cdn/mcdn/prepost_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ hostname }}prepost_4500.txt' }
+    - { src: 'pop_cdn/mcdn/prepost_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/prepost_bbpe.txt' }
+
+    - { src: 'pop_cdn/mcdn/bbpe1_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ bbpe.1.hostname }}_prefix_add.txt' }
+    - { src: 'pop_cdn/mcdn/bbpe2_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ bbpe.2.hostname }}_prefix_add.txt' }
+    - { src: 'pop_cdn/mcdn/bbpe3_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ bbpe.3.hostname }}_prefix_add.txt' }
+
+    - { src: 'pop_cdn/mcdn/mcdn_proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/mcdn_proc.txt' }
+
+    - { src: 'pop_cdn/mcdn/rollback_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/{{ hostname }}_rollback_4500.txt' }
+
+    - { src: 'pop_cdn/mcdn/rollback_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/mcdn/rollback_bbpe.txt' }
+
+    - { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/procedure.txt' }

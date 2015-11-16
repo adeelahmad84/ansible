@@ -1,0 +1,21 @@
+configure terminal
+!
+interface Port-channel{{ bbpe.1.channel }}
+ description [core,rd={{ bbpe.1.hostname }}:lag50,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO {{ bbpe.1.hostname|upper }}
+ mtu 8226
+ ip address {{ bbpe.1.ipv4_p2p | ipaddr('address') }} {{ bbpe.1.ipv4_p2p | ipaddr('netmask') }}
+ no ip redirects
+ ipv6 address {{ bbpe.1.ipv6_p2p | ipaddr('1') }}
+!
+{% for item, value in bbpe.1.ports|dictsort %}
+interface TenGigabitEthernet{{ value.remote_port }}
+ description [core,rd={{ bbpe.1.hostname }}:{{ value.port|replace("/","-") }},cid=LOCAL,iv-s=cdn_pop] UPLINK_{{ loop.index }} TO {{ bbpe.1.hostname|upper }}
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group {{ bbpe.1.channel }} mode active
+!
+{% endfor %}
+end

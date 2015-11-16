@@ -1,0 +1,25 @@
+This change is to accomodate the commission/expansion for englw.
+
+n.b. this change is going ahead of the server plug ups therefore ports will be operationally down.
+
+Please apply the following steps:
+
+1. Run the prechecks specified in ar21.englw_ntf_prepost.txt and  bbpe_ntf_prepost.txt
+
+Note: Please save the output for comparison later.
+
+3. Please apply the implementation commands in the following attached files:
+ar21.englw_ntf.txt
+sr10.englw_ntf_prefix_add.txt
+sr11.englw_ntf_prefix_add.txt
+sr12.englw_ntf_prefix_add.txt
+
+
+4. Run the postchecks specified in ar21.englw_ntf_prepost.txt and bbpe_ntf_prepost
+
+    Run a diff between the two, you should see new services, ports, prefixes although they will be down.
+
+5. If for any reason the implementation has impacted any live services please proceed to rollback using ar21.englw_ntf_rollback.txt and bbpe_ntf_rollback.
+
+
+N.B. AS THIS IS A NEW SERVICE TO BE DEPLOYED, IF POST-CHECKS ARE NOT WHAT YOU EXPECT; AS LONG AS NO LIVE SERVICES ARE IMPACTED PLEASE DO NOT ROLLBACK THE DEPLOYMENT.  ALL PORTS/INTERFACES HAVE BEEN SET UP WITH 'NO-MON', PLEASE DOUBLE CHECK BEFORE CLOSING OFF THE CHANGE.

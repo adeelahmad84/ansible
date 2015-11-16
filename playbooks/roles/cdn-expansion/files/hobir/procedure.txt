@@ -1,0 +1,25 @@
+Summary
+*******
+
+This change is to cover a service LAG upgrade. AANP will be replacing their existing servers and adding more servers to connect to ar11-cdn.hobir.
+
+Pre-Checks
+**********
+
+Please use ar11-cdn.hobir_prepost to record a baseline output.
+
+Implementation
+***************
+
+Please use ar11-cdn.hobir_new.txt to implement the configuration.
+
+Post-Checks
+************
+
+When running ar11-cdn.hobir_prepost and comparing to the baseline output you should additional ports on the lag.  The new servers are yet to be plugged up therefore ports will remain operationally down.
+
+
+Rollback
+*********
+
+Since the ports will remain down, and service drained impact is not anticipated, however if for some reason the configuration impacts any liver service thenplease proceed to use the ar11-cdn.hobir_rollback.txt.

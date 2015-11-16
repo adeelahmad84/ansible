@@ -1,0 +1,25 @@
+---
+
+- name: generating for new pop_cdn pe
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+#[BBPE1]
+   - { src: 'pop_cdn/new_4500/4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ hostname }}.txt' }
+   # { src: 'pop_cdn/new_4500/bbpe1_new_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.1.hostname }}.txt' }
+   # { src: 'pop_cdn/new_4500/bbpe1_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.1.hostname }}_rollback.txt' }
+   # { src: 'pop_cdn/new_4500/prepost_bbpe_1_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.1.hostname }}_prepost.txt' }
+
+#[BBPE2]
+   # { src: 'pop_cdn/new_4500/bbpe2_new_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.2.hostname }}.txt' }
+   # { src: 'pop_cdn/new_4500/bbpe1_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.2.hostname }}_rollback.txt' }
+   # { src: 'pop_cdn/new_4500/prepost_bbpe_2_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.2.hostname }}_prepost.txt' }
+
+#[BBPE3]
+   - { src: 'pop_cdn/new_4500/bbpe3_new_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.3.hostname }}.txt' }
+   - { src: 'pop_cdn/new_4500/bbpe3_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.3.hostname }}_rollback.txt' }
+   - { src: 'pop_cdn/new_4500/prepost_bbpe_3_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/{{ bbpe.3.hostname }}_prepost.txt' }
+
+   - { src: 'pop_cdn/new_4500/new_4500_commissioning_procedure.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/new_pe/procedure.txt' }
+
+    # { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/procedure.txt' }

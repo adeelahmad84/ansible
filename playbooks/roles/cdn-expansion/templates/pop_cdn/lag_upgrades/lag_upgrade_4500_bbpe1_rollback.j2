@@ -1,0 +1,8 @@
+configure terminal
+!
+{% for item, value in bbpe.1.ports|dictsort %}
+interface TenGigabitEthernet{{ value.remote_port }}
+ shutdown
+!
+{% endfor %}
+end

@@ -1,0 +1,27 @@
+SUMMARY
+#########
+This change is to commission an aggregation switch connecting to ar20.enbrs.  This is to accomodate the 1Gig-e servers that cannot be attached directly to ar20.enbrs.  This change not going ahead will impact the services running across the 1G servers.
+
+PRE-CHECK
+#########
+
+Please issue the commands found in ar20.enbrs_prepost.txt, please capture the output for comparison later.
+
+
+IMPLEMENTATION
+###############
+
+Please issue the commands found in ar20.enbrs.txt, ensure the syntaxes are applied successfully.
+
+
+POST-CHECK
+#########
+
+Please issue the commands found in ar20.enbrs_prepost.txt, please read the prepost file to see what to expect.
+
+ROLLBACK
+#########
+
+As this change is to provide connectivity to the new as101.enbrs & as102.enbrs which has no servers attached to them,
+ we do not anticipate any impact to existing services.  But if you feel you need to rool back then please shut the ports 
+ on interface range te2/5 - 8.

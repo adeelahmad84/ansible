@@ -1,0 +1,122 @@
+---
+system_address: '89.200.128.178'
+system_last_octet: -78
+
+dcn_primary_address: '10.200.194.117'
+dcn_secondary_address: '10.200.194.118'
+
+old_dcn_pri: '10.200.194.67'
+old_dcn_sec: '10.200.194.68'
+old_console: 'Console: 10.200.194.31 ports 18 and 19'
+decom_tg: 2458
+
+node_name: 'ar14-cdn.thlon'
+tacacs_secret: 'dzWyY1kXy2vo3EZO'
+
+cards:
+  - 5
+
+#old_device_details
+old_node_name: 'ar10.thlon'
+old_system_address: '84.38.34.78'
+old_last_octet: 78
+
+old_core_1_lag:
+  1:
+    lag:
+    description:
+
+old_core_2_lag:
+  1:
+    lag:
+    description:
+
+core_1_hostname: 'pr2.thlon'
+core_1_loopback: '89.200.128.105'
+core_2_hostname: 'pr3.thlon'
+core_2_loopback: '89.200.128.112'
+
+core_1:
+  1:
+    port: '7/0/2'
+    old_port: '2/1/1'
+    remote_port: '1/1/1'
+    cid: LOCAL
+  2:
+    port: '7/0/3'
+    old_port: '2/2/1'
+    remote_port: '1/2/1'
+    cid: LOCAL
+  3:
+    port: '7/0/4'
+    old_port: '3/1/1'
+    remote_port: '2/1/1'
+    cid: LOCAL
+  4:
+    port: '7/0/5'
+    old_port: '3/2/1'
+    remote_port: '2/2/1'
+    cid: LOCAL
+
+core_2:
+  1:
+    port: '7/0/2'
+    old_port: '8/1/1'
+    remote_port: '8/1/1'
+    cid: LOCAL
+  2:
+    port: '7/0/3'
+    old_port: '8/2/1'
+    remote_port: '8/2/1'
+    cid: LOCAL
+  3:
+    port: '7/0/4'
+    old_port:
+    remote_port: '9/1/1'
+    cid: LOCAL
+  4:
+    port: '7/0/5'
+    old_port:
+    remote_port: '9/2/1'
+    cid: LOCAL
+
+first_interconnect:
+  1:
+    port_old: '5/1/7'
+    port_new: '5/1/40'
+
+pe_interconnect_ports:
+  1:
+    port_old: '8/1/1'
+    port_new: '6/1/1'
+  2:
+    port_old: '8/2/1'
+    port_new: '6/2/1'
+
+core_1_to_edge_address_range:
+core_2_to_edge_address_range:
+old_to_new_cdn_pe_address_range: '89.200.131.144/31'
+old_to_new_cdn_ldp_auth:
+
+core_1_isis_auth:
+core_2_isis_auth:
+old_to_new_pe_auth:
+
+isis_metric: "100000"
+
+core_1_ldp_auth:
+core_2_ldp_auth:
+
+rr0_bllon_bgp_auth:
+rr0_enlba_bgp_auth:
+rr1_bllon_bgp_auth:
+rr1_enlba_bgp_auth:
+rr3_bllon_bgp_auth:
+rr3_enlba_bgp_auth:
+
+old_rr0_bllon_bgp_auth: '7 0709166D581F413C3F351A1A171A1F3D22'
+old_rr0_enlba_bgp_auth: '7 0204176B182E3F75196A1F110C334B1127'
+old_rr1_bllon_bgp_auth: '7 080747793F105415413F082D243F76313C'
+old_rr1_enlba_bgp_auth: '7 030771020427754E435C172B1B2225085C'
+old_rr3_bllon_bgp_auth: '7 15020305017D1A313D6724371A02420B04'
+old_rr3_enlba_bgp_auth: '7 10790C102102350A09102F2E297B0A3C27'

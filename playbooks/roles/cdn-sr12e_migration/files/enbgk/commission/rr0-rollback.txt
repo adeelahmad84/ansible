@@ -1,0 +1,6 @@
+router bgp 65444
+ no neighbor 89.200.128.75
+!
+ address-family ipv4
+ no neighbor 89.200.128.75
+end

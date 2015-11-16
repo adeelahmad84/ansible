@@ -1,0 +1,16 @@
+---
+# Enter the name of the decommissioned 7210 #
+hostname: as100
+site_id: hobir
+# Enter Service ID for VPLS and IES below #
+ies: 220101
+vpls: 220100
+lag: 20
+vlan: 201
+# Enter the name of the pe #
+pe: ar10
+ports: 
+
+  - 2/1/1
+  - 2/1/2
+

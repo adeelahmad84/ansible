@@ -1,0 +1,27 @@
+show interface TenGigabitEthernet1/13
+show interface TenGigabitEthernet1/13 status
+show interface TenGigabitEthernet1/14
+show interface TenGigabitEthernet1/14 status
+show interface TenGigabitEthernet1/15
+show interface TenGigabitEthernet1/15 status
+show interface TenGigabitEthernet1/16
+show interface TenGigabitEthernet1/16 status
+show interface TenGigabitEthernet1/17
+show interface TenGigabitEthernet1/17 status
+show interface TenGigabitEthernet1/18
+show interface TenGigabitEthernet1/18 status
+
+sh int port-channel 3 etherchannel
+
+expect to see the below in addition to any existing ports:
+
+Ports in the Port-channel: 
+
+Index   Load   Port     EC state        No of bits
+------+------+------+------------------+-----------
+  1     00     Te1/13    Active             0
+  2     00     Te1/14    Active             0
+  3     00     Te1/15    Active             0
+  4     00     Te1/16    Active             0
+  5     00     Te1/17    Active             0
+  6     00     Te1/18    Active             0

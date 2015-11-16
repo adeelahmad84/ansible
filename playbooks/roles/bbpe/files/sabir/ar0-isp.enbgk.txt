@@ -1,0 +1,10 @@
+!!$Id: ar0-isp.enbgk.txt,v 1.2 2012/06/25 17:20:13 mivens Exp $
+
+router bgp 65444
+ neighbor 84.38.34.2 inherit peer-session IRONMAN_PE_SESSION
+ neighbor 84.38.34.2 description sr11.sabir - IRONMAN_PE_SUBS_REST_POLICY
+ neighbor 84.38.34.2 password 0 n8t0E2vZOLNTWZWc
+ address-family ipv4
+  neighbor 84.38.34.2 activate
+  neighbor 84.38.34.2 inherit peer-policy IRONMAN_PE_SUBS_REST_POLICY
+end

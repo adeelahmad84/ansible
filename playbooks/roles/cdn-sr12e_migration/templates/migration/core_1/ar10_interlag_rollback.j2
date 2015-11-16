@@ -1,0 +1,29 @@
+exit all
+configure
+{% for key, info in pe_interconnect_ports|dictsort %}
+    port {{ info.port_old }}
+        description "[no-mon,core,ip=,rd={{ core_1_hostname }}:{{ info.port_new|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+{% endfor %}
+{% for key, value in first_interconnect|dictsort %}
+    port {{ value.port_old }}
+        description "[core,ip=,rd={{ node_name }}:{{ value.port_new|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+{% endfor %}
+    lag 176
+        description "[no-mon,core,ip=,rd={{ node_name }}:lag176,iv-s=vcdn_sc]"
+        shutdown
+{% for key, info in pe_interconnect_ports|dictsort %}
+	no port {{ info.port_old }}
+{% endfor %}
+    exit
+    router
+        interface "base_{{ node_name }}_1"
+            description "[core-o,rd={{ node_name }}:{{ first_interconnect.1.port_new|replace("/","-") }}]"
+	    shutdown
+	    no port
+            port {{ first_interconnect.1.port_old }}
+            no shutdown
+exit all

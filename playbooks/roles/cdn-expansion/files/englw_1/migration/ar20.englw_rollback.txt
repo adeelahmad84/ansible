@@ -1,0 +1,97 @@
+
+## Pre-Check ##
+
+show interface vlan31
+show ip interface te1/29
+show ip interface te1/30
+show ip interface te1/31
+show ip interface te1/32
+show etherchannel 30 port-channel
+show etherchannel 31 port-channel
+
+conf t
+!
+vlan 31
+ name Netflix LAN
+!
+!
+interface Vlan31
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] To Netflix Server B
+ mtu 8226
+ ip address 90.208.115.145 255.255.255.240
+ no ip redirects
+ ipv6 address 2A02:C7A:8000:60C::1/64
+ no shutdown
+!
+interface Port-channel30
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] NETFLIX Server A
+ switchport
+ switchport access vlan 30
+ switchport mode access
+ no shutdown
+!
+interface Port-channel31
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] NETFLIX Server B
+ switchport
+ switchport access vlan 31
+ switchport mode access
+ no shutdown
+!
+interface TenGigabitEthernet1/29
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX B NIC_0
+ switchport access vlan 31
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 31 mode active
+ no shutdown
+!
+interface TenGigabitEthernet1/30
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX B NIC_1
+ switchport access vlan 31
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 31 mode active
+ no shutdown
+!
+interface TenGigabitEthernet1/31
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX A NIC_0
+ switchport access vlan 30
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+ no shutdown
+!
+interface TenGigabitEthernet1/32
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] PCH30 - NETFLIX A NIC_1
+ switchport access vlan 30
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+ no shutdown
+!
+end
+
+
+## Post-Check ##
+
+show interface vlan31
+show ip interface te1/29
+show ip interface te1/30
+show ip interface te1/31
+show ip interface te1/32
+show etherchannel 30 port-channel
+show etherchannel 31 port-channel

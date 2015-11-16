@@ -1,0 +1,14 @@
+conf t
+!
+interface TenGigabitEthernet1/6
+ description [core,rd=sr11.enwkg:1-2-4,cid=LOCAL,iv-s=cdn_pop] UPLINK_1 TO SR11.ENWKG
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ channel-protocol lacp
+ channel-group 2 mode active
+ no shutdown
+!
+!
+end

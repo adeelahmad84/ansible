@@ -1,0 +1,6 @@
+mpls ldp no neighbor 84.38.34.170 password
+
+interface Port-channel3.3617
+ description [no-mon,core,rd=sr12.enntg:sdp266,cid=SNS:1000/LNBL-STKA/PW/999360617] sedcanopy pw
+ shutdown
+end

@@ -1,0 +1,29 @@
+
+- name: generate for commissioning 7210
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+  #[PREPOST]
+    - { src: 'commission/7210/pe_prepost.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7210/{{ pe }}_prepost.txt' }
+
+  #[IMPLEMENTATION]
+    - { src: 'commission/7210/pe.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7210/{{ pe }}.txt' }
+    - { src: 'commission/7210/bof.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7210/{{ hostname }}_bof.cfg' }
+    - { src: 'commission/7210/7210.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7210/{{ hostname }}.cfg' }
+
+  #[ROLLBACK]
+    - { src: 'commission/7210/pe_rollback.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7210/{{ pe }}_rollback.txt' }
+    - { src: 'commission/7210/proc.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/commission/7210/procedure.txt' }
+
+  #[4500]
+    # { src: 'commission/7210/4500.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ pe }}.txt' }
+    # { src: 'commission/7210/bbpe_prepost.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/bbpe_prepost.txt' }
+    # { src: 'commission/7210/bbpe1.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ bbpe.1.hostname }}.txt' }
+    # { src: 'commission/7210/bbpe1_rollback.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ bbpe.1.hostname }}_rollback.txt' }
+
+    #[BBPE_EXTRA] IF MORE THAN ONE BBPE THEN PLEASE HIGHLIGHT THE ONES BELOW
+    # { src: 'commission/7210/bbpe2.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ bbpe.2.hostname }}.txt' }
+    # { src: 'commission/7210/bbpe2_rollback.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ bbpe.2.hostname }}_rollback.txt' }
+
+    # { src: 'commission/7210/bbpe3.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ bbpe.3.hostname }}.txt' }
+    # { src: 'commission/7210/bbpe3_rollback.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id  }}/commission/7210/{{ bbpe.3.hostname }}_rollback.txt' }

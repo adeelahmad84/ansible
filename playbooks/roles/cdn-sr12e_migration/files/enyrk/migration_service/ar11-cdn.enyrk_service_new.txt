@@ -1,0 +1,495 @@
+\configure
+    service
+        customer 21 create
+            description "MCDN PDL Edge"
+        exit
+    exit
+    port 4/1/23
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p39 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/24
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p40 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/25
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p41 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/26
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p42 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/27
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p43 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/28
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p44 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/29
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p45 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/30
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p46 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/31
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p47 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/32
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p48 Rack C019"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 61
+        mode access
+        port 4/1/23
+        port 4/1/24
+        port 4/1/25
+        port 4/1/26
+        port 4/1/27
+        port 4/1/28
+        port 4/1/29
+        port 4/1/30
+        port 4/1/31
+        port 4/1/32
+        lacp active
+        no shutdown
+    exit
+    port 4/1/33
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p39 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/34
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p40 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/35
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p41 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/36
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p42 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/37
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p43 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/38
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p44 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/39
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p45 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/40
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p46 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/1
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p47 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 5/1/2
+        description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p48 Rack D018"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 62
+        mode access
+        port 4/1/33
+        port 4/1/34
+        port 4/1/35
+        port 4/1/36
+        port 4/1/37
+        port 4/1/38
+        port 4/1/39
+        port 4/1/40
+        port 5/1/1
+        port 5/1/2
+        lacp active
+        no shutdown
+    exit
+    service
+        ies 220321 customer 21 create
+            interface "ies220321_mcdn_data1" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-1"
+                address 90.223.229.1/26
+		cflowd interface
+                ipv6
+                    address 2a02:c7a:8000:1004::1/64
+                exit
+		sap lag-61 create
+		exit
+            exit
+            service-name "ies220321_mcdn_data1"
+            no shutdown
+        exit
+        ies 220322 customer 21 create
+            interface "ies220322_mcdn_data2" create
+                description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-2"
+                address 90.223.230.1/26
+		cflowd interface
+                ipv6
+                    address 2a02:c7a:8000:1008::1/64
+                exit
+		sap lag-62 create
+		exit
+            exit
+            service-name "ies220322_mcdn_data2"
+            no shutdown
+        exit
+    exit
+    router
+        static-route 0.0.0.0/0 black-hole
+        static-route 2.120.0.0/13 black-hole
+        static-route 2.124.0.0/14 black-hole
+        static-route 2.216.0.0/13 black-hole
+        static-route 2.216.0.0/14 black-hole
+        static-route 5.64.0.0/13 black-hole
+        static-route 87.80.0.0/15 black-hole
+        static-route 90.192.0.0/11 black-hole
+        static-route 90.222.191.253/32 next-hop 90.222.190.52
+        static-route 90.222.191.255/32 next-hop 90.222.190.36
+        static-route 94.0.0.0/12 black-hole
+        static-route 151.224.0.0/13 black-hole
+        static-route 176.24.0.0/14 black-hole
+        static-route 176.248.0.0/13 black-hole
+        static-route 192.0.2.0/24 black-hole
+        static-route 193.16.108.0/24 black-hole
+        static-route 193.104.140.0/24 black-hole
+	policy-options
+	    begin
+            prefix-list "PL-SKY-IP-RANGE"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 46.64.0.0/15 exact
+                prefix 78.86.0.0/16 exact
+                prefix 78.105.0.0/16 exact
+                prefix 80.238.0.0/19 exact
+                prefix 80.238.32.0/19 exact
+                prefix 84.38.32.0/20 exact
+                prefix 85.188.192.0/18 exact
+                prefix 87.80.0.0/15 exact
+                prefix 90.192.0.0/11 exact
+                prefix 91.103.32.0/21 exact
+                prefix 93.96.0.0/16 exact
+                prefix 94.0.0.0/12 exact
+                prefix 94.116.0.0/14 exact
+                prefix 94.192.0.0/14 exact
+                prefix 149.241.0.0/16 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 188.220.0.0/14 exact
+                prefix 194.42.124.0/23 exact
+            exit
+            prefix-list "AKAMAI-AANP-BLLON"
+                prefix 90.207.224.0/27 exact
+                prefix 90.207.224.128/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENBGK"
+                prefix 90.207.224.64/27 exact
+                prefix 90.207.224.192/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENEDI"
+                prefix 90.207.224.32/27 exact
+                prefix 90.207.224.160/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-ENSHF"
+                prefix 90.207.224.96/27 exact
+                prefix 90.207.224.224/27 exact
+            exit
+            prefix-list "AKAMAI-AANP-HOBIR"
+                prefix 90.207.242.0/26 exact
+                prefix 90.223.197.64/26 exact
+            exit
+            prefix-list "SKY_SUPERNETS"
+                prefix 2.120.0.0/13 exact
+                prefix 2.216.0.0/13 exact
+                prefix 5.64.0.0/13 exact
+                prefix 90.192.0.0/11 exact
+                prefix 94.0.0.0/12 exact
+                prefix 151.224.0.0/13 exact
+                prefix 176.24.0.0/14 exact
+                prefix 176.248.0.0/13 exact
+                prefix 193.16.108.0/24 exact
+                prefix 193.104.140.0/24 exact
+            exit
+            prefix-list "SKY_SUPERNETS_GOOGLE"
+                prefix 2.124.0.0/14 exact
+                prefix 2.216.0.0/13 exact
+                prefix 2.216.0.0/14 exact
+            exit
+            prefix-list "CORE-CDN-IPV4-MCDN-LAN"
+                prefix 90.223.229.0/26 exact
+                prefix 90.223.230.0/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-MCDN-LAN"
+                prefix 2a02:c7a:8000:1004::/64 exact
+                prefix 2a02:c7a:8000:1008::/64 exact
+            exit
+            community "cdn-enyrk-akamai-mcdn" members "4589:4" "5607:1002" "4589:14436" "5607:14436" "no-export-subconfed"
+            community "cdn-primary-Akamai-export-comm" members "4589:14424"
+            community "cdn-secondary-Akamai-export-comm" members "4589:14425"
+            as-path "ASPATH-EXPORT-CLOUD-SUPERNETS" expression "41012+"
+            policy-statement "DENY-ALL"
+                description "Deny all traffic"
+                entry 10
+                    from
+                        protocol bgp
+                    exit
+                    action reject
+                exit
+            exit
+            policy-statement "SKY-SUPERNETS"
+                description "Announce Cloud & Sky  Supernets to Peer"
+                entry 10
+                    from
+                        protocol static
+                        prefix-list "SKY_SUPERNETS"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 15
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-SUPERNETS"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 100
+                    description "Deny everything else"
+                    action reject
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP"
+                entry 27
+                    description "MCDN PDL Edge LAN  subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-MCDN-LAN"
+                    exit
+                    action accept
+                        community add "cdn-enyrk-akamai-mcdn"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 297
+                    description "MCDN PDL Edge v6 LAN  subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-MCDN-LAN"
+                    exit
+		    to
+			protocol bgp
+		    exit
+                    action accept
+                        community add "cdn-enyrk-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+            exit
+            policy-statement "DENY_SKY_SUPERNETS_TO_RR"
+                entry 10
+                    description "Deny SKY_SUPERNETS to upstream RR"
+                    from
+                        protocol static
+                        prefix-list "SKY_SUPERNETS_GOOGLE" "SKY_SUPERNETS"
+                    exit
+                    action reject
+                exit
+                entry 20
+                    description "Allow everything else to pass to EXPORT-TO-IBGP policy"
+                    action next-policy
+                    exit
+                exit
+            exit
+            policy-statement "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                description "Export All Sky supernets to Akamai and set Community"
+                entry 10
+                    description "Prmary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-ENSHF"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 20
+                    description "Secondary Prefix List"
+                    from
+                        prefix-list "AKAMAI-AANP-BLLON" "AKAMAI-AANP-ENEDI" "AKAMAI-AANP-ENBGK" "AKAMAI-AANP-HOBIR"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                entry 50
+                    description "Announce Cloud to Akamai"
+                    from
+                        as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI"
+                    exit
+                    action accept
+                        community replace "cdn-primary-Akamai-export-comm"
+                    exit
+                exit
+                entry 60
+                    description "Sky Range Prefix List to AANP"
+                    from
+                        prefix-list "PL-SKY-IP-RANGE"
+                    exit
+                    action accept
+                        community replace "cdn-secondary-Akamai-export-comm"
+                    exit
+                exit
+                default-action reject
+            exit
+            commit
+        exit
+            group "cdn-aanp_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL"
+                export "EXPORT-AKAMAI-ALL-SITES-SUBNETS"
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.50
+                    description "Off-Net Peer "
+                    authentication-key ".m3bXs/di5Djh5Gb/A0rFGpdWl/iNtDq1JY1uMvdaSHG2eJYOVjAMlgKlToNelkWK8hw8sfjguM" hash2
+                    local-address 90.207.251.222
+                exit
+            exit
+            group "cdn-aanp_mcdn_offnet-ipv4"
+                description "eBGP to Remote OFF NET AANP MCDN AS21357"
+                family ipv4
+                type external
+                multihop 255
+                import "DENY-ALL" 
+                export "SKY-SUPERNETS" 
+                local-as 5607
+                peer-as 21357
+                disable-communities extended
+                neighbor 195.245.126.49
+                    description "Off-Net MCDN Peer "
+                    authentication-key okuHuek0IePohgh2
+                    local-address 176.255.247.129
+                exit
+            exit

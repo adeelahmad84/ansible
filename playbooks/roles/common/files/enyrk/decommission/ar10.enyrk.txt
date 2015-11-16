@@ -1,0 +1,18 @@
+
+/configure lag 20 no port 5/1/5
+/configure lag 20 no port 6/1/5
+/configure lag 20 shutdown
+/configure no lag 20
+
+/configure port 5/1/5 shutdown
+/configure port 5/1/5 no description
+/configure port 5/1/5 ethernet no mode
+/configure port 5/1/5 ethernet no encap-type
+/configure port 5/1/5 ethernet no mtu
+/configure port 5/1/5 ethernet no hold-time
+/configure port 6/1/5 shutdown
+/configure port 6/1/5 no description
+/configure port 6/1/5 ethernet no mode
+/configure port 6/1/5 ethernet no encap-type
+/configure port 6/1/5 ethernet no mtu
+/configure port 6/1/5 ethernet no hold-time

@@ -1,0 +1,67 @@
+{{ node_name|upper }}
+***********************
+1. Run the prechecks and take a snapshot of the output. This will be used to compare with the output used after the implementation.
+
+A:{{ node_name|lower }}#show router ldp session {{ old_system_address }}:0
+
+==============================================================================
+LDP Sessions
+==============================================================================
+Peer LDP Id        Adj Type   State         Msg Sent  Msg Recv  Up Time
+------------------------------------------------------------------------------
+{{ old_system_address }}:0      Link       Established   1029074   979617    42d 10:57:11
+------------------------------------------------------------------------------
+No. of Sessions: 1
+==============================================================================
+
+A:{{ node_name|lower }}#show router ldp peer-parameters 84.38.34.30
+A:{{ node_name|lower }}#show router interface "base_{{ old_node_name }}_1"
+#Ensure that lag 176 bound to this interface.
+{% for cdn, info in pe_interconnect_ports|dictsort %}
+A:{{ node_name|lower }}#show port {{ info.port_new }}
+{% endfor %}
+A:{{ node_name|lower }}#show lag 176 port
+monitor lag 176
+A:{{ node_name|lower }}#show lag 176 associations
+{% for card in cards %}
+A:{{ node_name|lower }}#show card {{ card }}
+{% endfor %}
+
+deploy
+----------
+\configure router "base_{{ old_node_name }}_1" shutdown
+\configure router no interface "base_{{ old_node_name }}_1"
+\configure lag 176 shutdown
+\configure lag 176 description "[no-mon]"
+{% for cdn, info in pe_interconnect_ports|dictsort %}
+\configure lag 176 no port {{ info.port_new }}
+\configure port {{ info.port_new }} shutdown
+\configure port {{ info.port_new }} network egress no pool
+\configure port {{ info.port_new }} ethernet network no queue-policy
+\configure port {{ info.port_new }} ethernet lldp dest-mac nearest-bridge no tx-tlvs
+\configure port {{ info.port_new }} ethernet lldp dest-mac nearest-bridge no tx-mgmt-address
+{% endfor %}
+\configure no lag 176
+{% for card in cards %}
+\configure card {{ card }} shutdown
+\configure card {{ card }} mda [1..2] shutdown
+\configure card {{ card }} mda [1..2] network ingress no queue-policy
+\configure card {{ card }} mda [1..2] no mda-type
+\configure card {{ card }} no mda [1..2]
+\configure card {{ card }} no card-type
+\configure card {{ card }} shutdown
+\configure no card {{ card }}
+{% endfor %}
+
+
+post-check
+-------------
+{% for cdn, info in pe_interconnect_ports|dictsort %}
+A:{{ node_name|lower }}#show port {{ info.port_new }}
+{% endfor %}
+{% for card in cards %}
+A:{{ node_name|lower }}#show card {{ card }}
+{% endfor %}
+A:{{ node_name|lower }}#show lag 176
+
+# cards should be unprovisioned.

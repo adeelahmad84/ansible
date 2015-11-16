@@ -1,0 +1,66 @@
+configure terminal
+!
+interface Vlan20
+ description [no-mon,ext,rd=ggc,iv-s=cdn_pop] IN-POP-CDN Bundle to GGC B
+ ip address 90.201.126.129  255.255.255.192
+ no ip redirects
+ ipv6 address 2a02:c7a:8000:1907::1/64
+!
+interface TenGigabitEthernet1/25
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_1
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/26
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_2
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/27
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_3
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/28
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_4
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/29
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_5
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/30
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_6
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/31
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_7
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/32
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_8
+ switchport access vlan 20
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+!
+end

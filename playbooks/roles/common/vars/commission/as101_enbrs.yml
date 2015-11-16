@@ -1,0 +1,27 @@
+---
+
+#[7210_RELATED BEGINS AS101, AS102...etc]
+hostname: as101.enbrs
+# ADDRESS AND RACK LOCATIONS #
+site_id: enbrs
+# ADDRESS AND RAK LOCATION #
+location: Unit 4,Newbridge Trading Estate,Whitby Road,Bristol,BS4 3QF
+# GENERATE NEW KEY #
+tacacs: ohHuk1mee8aeH7bo
+# PLEASE ADD RANGE IP IN "" #
+management: "90.222.231.248/29"
+#PLEASE USE 1/1/24
+mgt_port: 1/1/24
+ports:
+  1:
+    remote_port:
+    port: "1/1/25"
+  2:
+    remote_port:
+    port: "1/1/26"
+
+#[CDN_PE_RELATED]
+# USE NEXT AVAILABLE LAG#
+lag: 20
+# NAME OF UPLINK PE #
+pe: ar20.enbrs

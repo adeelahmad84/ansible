@@ -1,0 +1,30 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+   - { src: 'pop_cdn/lag_upgrades/upgrade_lag_bbpe1.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.1.hostname }}_lag_upgrade.txt' }
+   - { src: 'pop_cdn/lag_upgrades/upgrade_lag_bbpe2.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.2.hostname }}_lag_upgrade.txt' }
+   - { src: 'pop_cdn/lag_upgrades/upgrade_lag_bbpe1_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.1.hostname }}_lag_upgrade_rollback.txt' }
+   - { src: 'pop_cdn/lag_upgrades/upgrade_lag_bbpe2_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.2.hostname }}_lag_upgrade_rollback.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_4500_bbpe1.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_lag_upgrade_to_{{ bbpe.1.hostname }}.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_4500_bbpe2.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_lag_upgrade_to_{{ bbpe.2.hostname }}.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_4500_bbpe1_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_lag_upgrade_to_{{ bbpe.1.hostname }}_rollback.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_4500_bbpe2_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_lag_upgrade_to_{{ bbpe.2.hostname }}_rollback.txt' }
+   - { src: 'pop_cdn/lag_upgrades/prepost_4500_bbpe1.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_to_{{ bbpe.1.hostname }}_lag_upgrade_prepost.txt' }
+   - { src: 'pop_cdn/lag_upgrades/prepost_4500_bbpe2.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_to_{{ bbpe.2.hostname }}_lag_upgrade_prepost.txt' }
+   - { src: 'pop_cdn/lag_upgrades/prepost_bbpe1_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.1.hostname }}_lag_upgrade_prepost.txt' }
+   - { src: 'pop_cdn/lag_upgrades/prepost_bbpe2_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.2.hostname }}_lag_upgrade_prepost.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/lag_upgrade_proc.txt' }
+
+   - { src: 'pop_cdn/lag_upgrades/upgrade_lag_bbpe3.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.3.hostname }}_lag_upgrade.txt' }
+   - { src: 'pop_cdn/lag_upgrades/upgrade_lag_bbpe3_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.3.hostname }}_lag_upgrade_rollback.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_4500_bbpe3.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_lag_upgrade_to_{{ bbpe.3.hostname }}.txt' }
+   - { src: 'pop_cdn/lag_upgrades/lag_upgrade_4500_bbpe3_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_lag_upgrade_to_{{ bbpe.3.hostname }}_rollback.txt' }
+   - { src: 'pop_cdn/lag_upgrades/prepost_4500_bbpe3.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ hostname }}_to_{{ bbpe.3.hostname }}_lag_upgrade_prepost.txt' }
+   - { src: 'pop_cdn/lag_upgrades/prepost_bbpe3_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/upgrades/{{ bbpe.3.hostname }}_lag_upgrade_prepost.txt' }
+
+   - { src: 'pop_cdn/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files//{{ site_id }}/procedure.txt' }
+
+    # { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/procedure.txt' }

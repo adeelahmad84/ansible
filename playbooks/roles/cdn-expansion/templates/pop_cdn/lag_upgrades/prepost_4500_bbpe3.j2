@@ -1,0 +1,16 @@
+{% for item, value in bbpe.3.ports|dictsort %}
+show interface TenGigabitEthernet{{ value.remote_port }}
+show interface TenGigabitEthernet{{ value.remote_port }} status
+{% endfor %}
+
+sh int port-channel {{ bbpe.3.channel }} etherchannel
+
+expect to see the below in addition to any existing ports:
+
+Ports in the Port-channel: 
+
+Index   Load   Port     EC state        No of bits
+------+------+------+------------------+-----------
+{% for item, value in bbpe.3.ports|dictsort %}
+  {{ loop.index }}     00     Te{{ value.remote_port }}    Active             0
+{% endfor %}

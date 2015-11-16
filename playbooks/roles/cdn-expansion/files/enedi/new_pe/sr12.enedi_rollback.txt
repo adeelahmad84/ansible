@@ -1,0 +1,24 @@
+exit all
+configure
+    port 10/1/7
+        description "[no-mon,core,rd=ar21.enedi:te1-7,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C008"
+        shutdown
+    exit    
+    port 1/1/8
+        description "[no-mon,core,rd=ar21.enedi:te1-8,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C008"
+        shutdown
+    exit    
+    lag 51
+	description "[no-mon,core,rd=ar21.enedi:pc3,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar21.enedi"
+	shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK-2"
+	    description "[no-mon,core,rd=ar21.enedi:pc3,iv-s=cdn_pop]"
+	    shutdown
+	exit
+        bgp
+            group "IN-POP-CDN"
+                neighbor 2.120.7.57 
+		    shutdown
+                exit all

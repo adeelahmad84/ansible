@@ -1,0 +1,361 @@
+---
+system_address: "89.200.128.53"
+system_last_octet: "53"
+
+location: "Rack D020, Console: 10.200.74.99 port 3 (SFM A) / port 4 (SFM B)"
+dcn_primary_address: "10.200.74.77"
+dcn_secondary_address: "10.200.74.78"
+
+old_dcn_pri: '10.200.74.66'
+old_dcn_sec: '10.200.74.67'
+old_console: 'Console: 10.200.74.99 port 15 (SFM A) / port 16 (SFM B)'
+decom_tg: 2458
+
+node_name: ar11-cdn.enyrk
+tacacs_secret: 68ACFTZBJqZF3uef
+
+cards:
+  - 6
+
+#old_device_details
+old_node_name: ar10.enyrk
+old_system_address: "84.38.34.63"
+old_last_octet: 63
+old_core_1_lag: 3
+old_core_2_lag: 4
+
+core_1_hostname: pr2.enlba
+core_1_loopback: "89.200.128.103"
+core_2_hostname: pr2.hobir
+core_2_loopback: "89.200.128.102"
+
+core_1:
+  1:
+    port: "0/0/2"
+    old_port: "3/2/1"
+    remote_port: "1/1/2"
+    cid: 1003/LDSA-YRKA/100G/CDN1
+  2:
+    port: "4/0/0"
+    old_port: "3/1/1"
+    remote_port: "1/1/1"
+    cid: 1003/LDSA-YRKA/100G/CDN2
+  3:
+    port: "4/0/2"
+    old_port: "8/1/1"
+    remote_port: "1/1/3"
+    cid: 1003/LDSA-YRKA/100G/CDN3
+
+core_2:
+  1:
+    port: "7/0/2"
+    old_port: "9/1/1"
+    remote_port: "9/1/1"
+    cid: 1003/BHMB-YRKA/100G/CDN1
+  2:
+    port: "7/0/3"
+    old_port: "2/1/1"
+    remote_port: "9/1/2"
+    cid: 1003/BHMB-YRKA/100G/CDN2
+  3:
+    port: "7/0/5"
+    old_port: "7/1/1"
+    remote_port: "9/1/3"
+    cid: 1003/BHMB-YRKA/100G/CDN3
+
+#[INTERCONNECTS]
+pe_interconnect_ports:
+  1:
+    port_old: "3/1/1"
+    port_new: "6/1/1"
+
+  2:
+    port_old: "3/2/1"
+    port_new: "6/2/1"
+
+core_1_to_edge_address_range: '2.120.10.252/31'
+core_2_to_edge_address_range: '2.120.10.210/31'
+old_to_new_cdn_pe_address_range: '89.200.135.28/31'
+
+core_1_isis_auth: Xn0VRD9pwm4rsmYR
+core_2_isis_auth: ZUghzH49RUfOZ9PO
+old_to_new_pe_auth: zGzY9bIeQpqxGVZS
+
+isis_metric: "100000"
+
+core_1_ldp_auth: G5XWWoDYaHR8U0lF
+core_2_ldp_auth: XSBhie6KGbktsgsi
+
+rr0_bllon_bgp_auth: yV4D87R15TpVDhp1
+rr0_enlba_bgp_auth: MybYPrPDHnKMSs0X
+rr1_bllon_bgp_auth: ux0Pbsezl516pklh
+rr1_enlba_bgp_auth: 2G4G46jSCAqz9Ai1
+rr3_bllon_bgp_auth: c50rSpxsGeHPbvwg
+rr3_enlba_bgp_auth: d7eWaYo2MpDyS1dK
+
+old_rr0_bllon_bgp_auth: "7 002B1C171152582F0A11444F0C09001E47"
+old_rr0_enlba_bgp_auth: "7 122900123A0A58122F223C7C3020254326"
+old_rr1_bllon_bgp_auth: "7 080859590C1C161F1B0609011E22761C36"
+old_rr1_enlba_bgp_auth: "7 0831454B1E4D001E3C0C191C2F22353D36"
+old_rr3_bllon_bgp_auth: "7 032152111357285C412E4B0402430E0F0C"
+old_rr3_enlba_bgp_auth: "7 1238041A1D03590B223F250F3B34711C08"
+
+cdn_services_id:
+#  ggc:
+#    name: "google"
+#    cdn: "Google GGC"
+#    entry: "25"
+#    v6entry: "295"
+#    svc_comm_id: "1003"
+#    cust_id: "16"
+#    v4_1: "90.201.124.192/26"
+#    v4_2: "90.201.124.0/26"
+#    v6_1: "2a02:c7a:8000:1006::/64"
+#    v6_2: "2a02:c7a:8000:1009::/64"
+#
+#  aanp:
+#    name: "akamai-aanp"
+#    cdn: "AANP Akamai"
+#    entry: "26"
+#    v6entry: "296"
+#    svc_comm_id: "1001"
+#    cust_id: "20"
+#    v4_1: "90.223.233.0/25"
+#    v4_2: "90.223.216.192/26"
+#    v4_3: "2.127.246.192/26"
+
+  mcdn:
+    name: "akamai-mcdn"
+    cdn: "MCDN PDL Edge"
+    entry: "27"
+    v6entry: "297"
+    svc_comm_id: "1002"
+    cust_id: "21"
+    v4_1: "90.223.229.0/26"
+    v4_2: "90.223.230.0/26"
+    v4_3:
+    v6_1: "2a02:c7a:8000:1004::/64"
+    v6_2: "2a02:c7a:8000:1008::/64"
+
+services:
+#  aanp_data1:
+#    cust_id: "20"
+#    ipv4: "90.223.233.0/25"
+#    ipv4_2: "90.223.216.192/26"
+#    ipv4_3: "2.127.246.192/26"
+#    ipv6:
+#    ies_id: "220223"
+#    ies_desc: "ext,iv-g=aanp,iv-s=cdn_aanp] Akamai LAG_40"
+#    vpls_id:
+#    lag: "40"
+#    array:
+#      1:
+#        old_port: "5/1/1"
+#        new_port: "4/1/15"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_0"
+#      2:
+#        old_port: "5/1/2"
+#        new_port: "4/1/16"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_1"
+#      3:
+#        old_port: "6/1/1"
+#        new_port: "4/1/19"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_2"
+#      4:
+#        old_port: "6/1/2"
+#        new_port: "4/1/20"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_3"
+#      5:
+#        old_port: "10/1/1"
+#        new_port: "4/1/17"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_6"
+#      6:
+#        old_port: "10/1/2"
+#        new_port: "4/1/18"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_7"
+#      7:
+#        old_port: "10/1/3"
+#        new_port: "4/1/21"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_4"
+#      8:
+#        old_port: "10/1/4"
+#        new_port: "4/1/22"
+#        description: "ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_5"
+#  ggc_data1:
+#    ipv4: "90.201.124.192/26"
+#    ipv6: "2a02:c7a:8000:1006::/64"
+#    vpls_id: "220124"
+#    ies_id: "220123"
+#    ies_desc: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Gateway"
+#  #enter 'true' or 'false' below
+#    1G: false
+#    lag:
+#    ggc_mgt:
+#      ipv4: 
+#      ies: 
+#    cust_id: "16"
+#    array:
+#          1:
+#            old_port: "5/1/11"
+#            new_port: "4/1/9"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server A]"
+#          2:
+#            old_port: "5/1/12"
+#            new_port: "4/1/10"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server B]"
+#          3:
+#            old_port: "6/1/11"
+#            new_port: "4/1/11"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server C]"
+#          4:
+#            old_port: "6/1/12"
+#            new_port: "4/1/12"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server D]"
+#  ggc_data2:
+#    ipv4: "90.201.124.0/26"
+#    ipv6: "2a02:c7a:8000:1009::/64"
+#    vpls_id: "220125"
+#    ies_id: "220130"
+#    ies_desc: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 Gateway"
+#  #enter 'true' or 'false' below
+#    1G: 
+#    lag: 
+#    ggc_mgt:
+#      ipv4: 
+#      ies: 
+#    cust_id: "16"
+#    array:
+#          1:
+#            old_port: "5/1/8"
+#            new_port: "4/1/1"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server A"
+#          2:
+#            old_port: "6/1/8"
+#            new_port: "4/1/2"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server B"
+#          3:
+#            old_port: "6/1/9"
+#            new_port: "4/1/3"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server C"
+#          4:
+#            old_port: "6/1/10"
+#            new_port: "4/1/4"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server D"
+#          5:
+#            old_port: "10/1/8"
+#            new_port: "4/1/5"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server E"
+#          6:
+#            old_port: "10/1/9"
+#            new_port: "4/1/6"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server F"
+#          7:
+#            old_port: "10/1/10"
+#            new_port: "4/1/7"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server G"
+#          8:
+#            old_port: "10/1/11"
+#            new_port: "4/1/8"
+#            description: "ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server H"
+  mcdn_data1:
+    ipv4: "90.223.229.0/26"
+    ipv4_2:
+    ipv4_3:
+    ipv6: "2a02:c7a:8000:1004::/64"
+    ies_id: "220321"
+    ies_desc: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-1"
+    vpls_id: 
+    lag: "61"
+    cust_id: "21"
+    array:
+          1:
+            old_port: "5/1/3"
+            new_port: "4/1/23"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p39 Rack C019"
+          2:
+            old_port: "5/1/4"
+            new_port: "4/1/24"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p40 Rack C019"
+          3:
+            old_port: "1/1/1"
+            new_port: "4/1/25"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p41 Rack C019"
+          4:
+            old_port: "1/1/2"
+            new_port: "4/1/26"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p42 Rack C019"
+          5:
+            old_port: "1/1/3"
+            new_port: "4/1/27"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p43 Rack C019"
+          6:
+            old_port: "1/1/4"
+            new_port: "4/1/28"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p44 Rack C019"
+          7:
+            old_port: "1/1/5"
+            new_port: "4/1/29"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p45 Rack C019"
+          8:
+            old_port: "1/1/6"
+            new_port: "4/1/30"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p46 Rack C019"
+          9:
+            old_port: "1/1/8"
+            new_port: "4/1/31"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p47 Rack C019"
+          10:
+            old_port: "1/1/9"
+            new_port: "4/1/32"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p48 Rack C019"
+  mcdn_data2:
+    ipv4: "90.223.230.0/26"
+    ipv4_2:
+    ipv4_3:
+    ipv6: "2a02:c7a:8000:1008::/64"
+    ies_id: "220322"
+    ies_desc: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-2"
+    vpls_id: 
+    lag: "62"
+    cust_id: "21"
+    array:
+          1:
+            old_port: "6/1/3"
+            new_port: "4/1/33"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p39 Rack D018"
+          2:
+            old_port: "6/1/4"
+            new_port: "4/1/34"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p40 Rack D018"
+          3:
+            old_port: "1/1/10"
+            new_port: "4/1/35"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p41 Rack D018"
+          4:
+            old_port: "1/1/11"
+            new_port: "4/1/36"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p42 Rack D018"
+          5:
+            old_port: "1/1/12"
+            new_port: "4/1/37"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p43 Rack D018"
+          6:
+            old_port: "5/1/6"
+            new_port: "4/1/38"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p44 Rack D018"
+          7:
+            old_port: "5/1/9"
+            new_port: "4/1/39"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p45 Rack D018"
+          8:
+            old_port: "5/1/10"
+            new_port: "4/1/40"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p46 Rack D018"
+          9:
+            old_port: "6/1/6"
+            new_port: "5/1/1"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p47 Rack D018"
+          10:
+            old_port: "10/1/12"
+            new_port: "5/1/2"
+            description: "ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p48 Rack D018"

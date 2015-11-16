@@ -1,0 +1,7 @@
+ping {{ mcdn.ipv4 | ipaddr('1')|replace("/28", " ") }}
+ping {{ mcdn.ipv6 | ipaddr('1')|replace('/64','') }}
+show interface port-channel {{ mcdn.channel }}
+{% for key, value in mcdn.array|dictsort %}
+show interface TenGigabitEthernet{{ value.port }}
+show interface TenGigabitEthernet{{ value.port }} status
+{% endfor %}

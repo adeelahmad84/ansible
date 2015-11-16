@@ -1,0 +1,9 @@
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor {{ system_address }} description {{ node_name }}
+ neighbor {{ system_address }} password 0 {{ rr0_bllon_bgp_auth }}
+!
+ address-family ipv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-IPV4
+end

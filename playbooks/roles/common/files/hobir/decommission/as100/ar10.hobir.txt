@@ -1,0 +1,23 @@
+/configure service vpls 220100 sap lag-20:201 shutdown
+/configure service vpls 220100 no sap lag-20:201
+/configure service ies 220101 interface ies220101_cdn-ggc-mgmt shutdown
+/configure service ies 220101 interface ies220101_cdn-ggc-mgmt no vpls "vpls220100_cdn-ggc-mgmt_1"
+/configure service ies 220101 interface no ies220101_cdn-ggc-mgmt
+
+/configure lag 20 no port 2/1/1
+/configure lag 20 no port 2/1/2
+/configure lag 20 shutdown
+/configure no lag 20
+
+/configure port 2/1/1 shutdown
+/configure port 2/1/1 no description
+/configure port 2/1/1 ethernet no mode
+/configure port 2/1/1 ethernet no encap-type
+/configure port 2/1/1 ethernet no mtu
+/configure port 2/1/1 ethernet no hold-time
+/configure port 2/1/2 shutdown
+/configure port 2/1/2 no description
+/configure port 2/1/2 ethernet no mode
+/configure port 2/1/2 ethernet no encap-type
+/configure port 2/1/2 ethernet no mtu
+/configure port 2/1/2 ethernet no hold-time

@@ -1,0 +1,4 @@
+Hostname: sr11.sabir
+System IP: 84.38.34.2
+dist-bng IP address: 90.208.114.204/32 (2a02:c79:1::258/128)
+dist-gea IP address: 90.208.114.205/32 (2a02:c79:2::258/128)

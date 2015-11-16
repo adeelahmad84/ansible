@@ -1,0 +1,18 @@
+---
+
+- name: generate for
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    # { src: 'ntf_dns.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ hostname }}_netflix_dns.txt' }
+    - { src: 'pop_cdn/netflix/ntf_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ hostname }}_ntf.txt' }
+    - { src: 'pop_cdn/netflix/prepost_4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ hostname }}_ntf_prepost.txt' }
+    - { src: 'pop_cdn/netflix/prepost_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/bbpe_ntf_prepost.txt' }
+    - { src: 'pop_cdn/netflix/bbpe1_netflix_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ bbpe.1.hostname }}_netflix_prefix_add.txt' }
+    - { src: 'pop_cdn/netflix/bbpe2_netflix_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ bbpe.2.hostname }}_netflix_prefix_add.txt' }
+    - { src: 'pop_cdn/netflix/bbpe3_netflix_prefix_add.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ bbpe.3.hostname }}_netflix_prefix_add.txt' }
+    - { src: 'pop_cdn/netflix/ntf_proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/procedure.txt' }
+    - { src: 'pop_cdn/netflix/ntf_4500_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/{{ hostname }}_ntf_rollback.txt' }
+    - { src: 'pop_cdn/netflix/bbpe_ntf_prefix_add-rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ntf/bbpe_ntf_rollback.txt' }
+
+
+    # { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/ggc/procedure.txt' }

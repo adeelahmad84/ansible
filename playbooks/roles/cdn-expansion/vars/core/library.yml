@@ -1,0 +1,26 @@
+hostname: '[HOSTNAME]'
+services:
+  1:
+    tgref: '[TG-REF]'
+    remote_svr: '[REMOTE_SERVER_HOSTNAME]'
+    svc_id: 0
+    lag: 0
+    range: '[$RANGE]'
+    ipv4: '192.168.0.1/24'
+    ipv6: '2a08:def0::/64'
+    array:
+      1:
+        port: '[LOCAL_PORT]'
+        remote_port: '[REMOTE/PORT]'
+      2:
+        port: '[LOCAL_PORT]'
+        remote_port: '[REMOTE/PORT]'
+      3:
+        port: '[LOCAL_PORT]'
+        remote_port: '[REMOTE/PORT]'
+      4:
+        port: '[LOCAL_PORT]'
+        remote_port: '[REMOTE/PORT]'
+      5:
+        port: '[LOCAL_PORT]'
+        remote_port: '[REMOTE/PORT]'

@@ -1,0 +1,120 @@
+configure terminal
+!
+interface Loopback101
+ description Source interface for EBGP session with Akamai
+ ip address {{ aanp.offnet_src | ipaddr('address') }} {{ aanp.offnet_src | ipaddr('netmask') }}
+ no ip redirects
+!
+{% if aanp.routed %}
+interface Port-channel{{ aanp.channel }}
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Port-Channel to Cisco 4900M Akamai Managed Switch
+ no shutdown
+ mtu 8226
+ ip address {{ aanp.ipv4 | ipaddr('1')|replace("/26", " ") }} {{ aanp.ipv4 | ipaddr('netmask') }}
+ ipv6 address {{ aanp.ipv6 | ipaddr('1')  }}
+ no ip redirects
+!
+{% for key, value in aanp.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ description [no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link {{ value.server_id }} - PCH{{ aanp.channel }} to aanp NIC_{{ value.server_id }} Server
+ no shutdown
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ no cdp enable
+ channel-protocol lacp
+ channel-group {{ aanp.channel }} mode active
+!
+{% endfor %}
+{% else %}
+vlan {{ aanp.channel }}
+ name AANP
+!
+interface Port-channel{{ aanp.channel }}
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Port-Channel to Cisco 4900M Akamai Managed Switch
+ no shutdown
+ switchport
+ switchport access vlan {{ aanp.channel }}
+ switchport mode access
+!
+{% for key, value in aanp.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ description [no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link {{ value.server_id }} - PCH{{ aanp.channel }} to aanp NIC_{{ value.server_id }} Server
+ no shutdown
+ switchport access vlan {{ aanp.channel }}
+ switchport mode access
+ no cdp enable
+ channel-protocol lacp
+ channel-group {{ aanp.channel }} mode active
+!
+{% endfor %}
+{% endif %}
+!
+router bgp 65444
+ template peer-policy CDN-AANP-EBGP
+  route-map RM-DENY-ALL in
+  route-map RM-EXPORT-DNS out
+  next-hop-self
+  send-community
+ exit-peer-policy
+ !
+ template peer-session OFFNET-CDN-AANP-PEER
+  remote-as 21357
+  local-as 5607
+  ebgp-multihop 255
+  update-source Loopback101
+ exit-peer-session
+ !
+ neighbor 195.245.126.50 inherit peer-session OFFNET-CDN-AANP-PEER
+ neighbor 195.245.126.50 description CDN-AKAMAI-OFFNET-PEER
+ neighbor 195.245.126.50 password {{ aanp.offnet_bgp }}
+ !
+ address-family ipv4
+  neighbor 195.245.126.50 activate
+  neighbor 195.245.126.50 inherit peer-policy CDN-AANP-EBGP
+ exit-address-family
+!
+{% for seq, prefix in aanp.dns_prefix|dictsort %}
+ip prefix-list PL-{{ site_id|upper }}-DNS seq {{ seq }} permit {{ prefix }}
+{% endfor %}
+!
+!
+ip prefix-list PL-SKY-IP-RANGE seq 5 permit 46.64.0.0/15
+ip prefix-list PL-SKY-IP-RANGE seq 10 permit 78.86.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 15 permit 78.105.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 20 permit 93.96.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 25 permit 94.192.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 30 permit 149.241.0.0/16
+ip prefix-list PL-SKY-IP-RANGE seq 35 permit 188.220.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 40 permit 2.120.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 45 permit 2.216.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 50 permit 5.64.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 55 permit 80.238.0.0/19
+ip prefix-list PL-SKY-IP-RANGE seq 60 permit 80.238.32.0/19
+ip prefix-list PL-SKY-IP-RANGE seq 65 permit 84.38.32.0/20
+ip prefix-list PL-SKY-IP-RANGE seq 70 permit 85.188.192.0/18
+ip prefix-list PL-SKY-IP-RANGE seq 75 permit 87.80.0.0/15
+ip prefix-list PL-SKY-IP-RANGE seq 85 permit 90.192.0.0/11
+ip prefix-list PL-SKY-IP-RANGE seq 90 permit 91.103.32.0/21
+ip prefix-list PL-SKY-IP-RANGE seq 95 permit 94.0.0.0/12
+ip prefix-list PL-SKY-IP-RANGE seq 100 permit 94.116.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 105 permit 151.224.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 110 permit 176.24.0.0/14
+ip prefix-list PL-SKY-IP-RANGE seq 115 permit 176.248.0.0/13
+ip prefix-list PL-SKY-IP-RANGE seq 125 permit 194.42.124.0/23
+!
+route-map RM-EXPORT-DNS permit 10
+ description Match DNS Prefixes Allocated to POP & Set Primary Akamai Community
+ match ip address prefix-list PL-{{ site_id|upper }}-DNS
+ set community 4589:14424
+!
+route-map RM-EXPORT-DNS permit 20
+ description Match Sky IP Range & Set Secondary Akamai Community
+ match ip address prefix-list PL-SKY-IP-RANGE
+ set community 4589:14425
+!
+route-map RM-DENY-ALL deny 10
+ description Deny All routes via EBGP
+!
+end

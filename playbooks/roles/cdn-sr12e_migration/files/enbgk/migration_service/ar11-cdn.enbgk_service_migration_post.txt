@@ -1,0 +1,94 @@
+show port 4/1/9
+show port 4/1/9 description
+show port 4/1/10
+show port 4/1/10 description
+show port 4/1/11
+show port 4/1/11 description
+show port 4/1/12
+show port 4/1/12 description
+show port 4/1/13
+show port 4/1/13 description
+show port 4/1/14
+show port 4/1/14 description
+show port 4/1/15
+show port 4/1/15 description
+show port 4/1/16
+show port 4/1/16 description
+show lag 51
+show lag 51 port
+show service sap-using sap lag-51
+show service id 220231 base
+show service id 220231 interface
+show service id 220231 arp
+# ping all addresses in the arp entry
+show router neighbor | match  220231 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 4/1/17
+show port 4/1/17 description
+show port 4/1/18
+show port 4/1/18 description
+show port 4/1/19
+show port 4/1/19 description
+show port 4/1/20
+show port 4/1/20 description
+show port 4/1/21
+show port 4/1/21 description
+show port 4/1/22
+show port 4/1/22 description
+show port 4/1/23
+show port 4/1/23 description
+show port 4/1/24
+show port 4/1/24 description
+show port 4/1/25
+show port 4/1/25 description
+show port 4/1/26
+show port 4/1/26 description
+show lag 61
+show lag 61 port
+show service sap-using sap lag-61
+show service id 220331 base
+show service id 220331 interface
+show service id 220331 arp
+# ping all addresses in the arp entry
+show router neighbor | match  220331 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 5/1/33
+show port 5/1/33 description
+show port 5/1/34
+show port 5/1/34 description
+show port 5/1/35
+show port 5/1/35 description
+show port 5/1/36
+show port 5/1/36 description
+show port 5/1/37
+show port 5/1/37 description
+show port 5/1/38
+show port 5/1/38 description
+show port 5/1/39
+show port 5/1/39 description
+show port 5/1/40
+show port 5/1/40 description
+show lag 40
+show lag 40 port
+show service sap-using sap lag-40
+show service id 220401 base
+show service id 220401 sap
+show service id 220400 base
+show service id 220400 interface
+show service id 220400 arp
+# ping all addresses in the arp entry
+show router neighbor | match  220400 context all
+# ping all ipv6 addresses in the neighbor entry
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:1B06::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:1B07::/64 ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 2.127.241.8/31
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 2.127.241.10/31
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:1B06::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match None ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.223.227.0/26
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match None
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:1B03::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match None ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.223.190.160/28
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match None
+show router policy-edits

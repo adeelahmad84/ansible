@@ -1,0 +1,29 @@
+configure terminal
+!
+!
+interface Port-channel60
+ description [ext,iv-g=mcdn,iv-s=cdn_mcdn] Port-Channel to Cisco 4900M Akamai Managed Switch
+ ip address 176.255.171.97  255.255.255.224
+ ipv6 address 2a02:c7a:8000:704::1/64
+ no shutdown
+!
+interface TenGigabitEthernet1/29
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 1 - PCH60 to mcdn NIC_1 Server
+ mtu8226 
+ no switchport
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+ no shutdown
+!
+interface TenGigabitEthernet1/30
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 2 - PCH60 to mcdn NIC_2 Server
+ mtu8226 
+ no switchport
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+ no shutdown
+!
+!
+end

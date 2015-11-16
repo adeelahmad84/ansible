@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.5 password DsM44qgyxP9usMDK
+
+interface Port-channel3.3619
+ description [core,rd=sr12.enedi:sdp266,cid=SNS:1000/LNBL-EDBA/PW/999360619] sedcanopy pw
+ encapsulation dot1Q 3619
+ xconnect 84.38.34.5 999360619 pw-class SEDCANOPY
+end

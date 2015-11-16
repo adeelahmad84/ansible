@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-AKAMAI-AANP-LAN"
+                prefix {{ aanp.ipv6 | ipaddr('0') }} exact
+	commit
+	exit
+        static-route {{ aanp.ipv6 | ipaddr('0') }} next-hop {{ bbpe.1.ipv6_p2p | ipaddr('1')|replace('/127','') }}
+        static-route {{ aanp.ipv4 | ipaddr('0') }} next-hop {{ bbpe.1.ipv4_p2p | ipaddr('1')|replace('/31','') }} tag {{ bbpe.1.aanp_tag }}
+exit all

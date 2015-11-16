@@ -1,0 +1,7 @@
+/show service id 220100 base
+/show service id 220101 base
+
+/show lag 30 
+
+/show port 2/1/3 
+/show port 2/1/4 

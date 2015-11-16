@@ -1,0 +1,80 @@
+system_address                       : 84.38.34.2
+#LAST OCTET IS USED TO CALCULATE BUNDLE-ID.
+#IF LOOPBACK IS IN RANGE:"84.38.34.0/24", THEN PLEASE INPUT THE LAST OCTET AND IT WILL ADD 256 TO THAT NUMBER FOR THE BUNDLE-ID.
+#IF LOOPBACK IS IN RANGE:"89.200.128.0/24", THEN PLEASE INPUT THE LAST OCTET -256 BELOW SO THAT IT WILL USE THE LAST OCTET ITSELF AS THE BUNDLE-ID.
+last_octet_system_address            : 2
+node_name                            : sr11.sabir
+dcn_primary_address                  : "10.200.16.69/24"
+dcn_secondary_address                : "10.200.16.70/24"
+location                             : 'Rack TBC, Console: 10.200.16.99, port 4 (SFM A) / port 5 (SFM B)'
+rr0_bllon_bgp_password               : wQwmn8DtS2twrjw7
+rr0_enlba_bgp_password               : pWnNFXTqM2tbjhFd
+rr1_bllon_bgp_password               : WUlF6L6wz0Crc1gR
+rr1_enlba_bgp_password               : akUeNIWsd5ZZQRul
+rr3_bllon_bgp_password               : OAUPEgFwNGzJtl7p
+rr3_enlba_bgp_password               : UDiWCDHuZ6xYArxp
+
+ar0_isp_bllon_bgp_password           : XmSGiTjCa5Mhixbl
+ar0_isp_enlba_bgp_password           : wSjjKYwXlpW1sfVq
+ar0_isp_enshf_bgp_password           : 22cM7bcOXszDhD0m
+ar0_isp_enbgk_bgp_password           : n8t0E2vZOLNTWZWc
+ar0_isp_hobir_bgp_password           : T4gSBQob8Ch6UltA
+
+ironman_bllon_policy                 : 3RD
+ironman_enbgk_policy                 : REST
+ironman_enlba_policy                 : 1ST
+ironman_enshf_policy                 : REST
+ironman_hobir_policy                 : 2ND
+
+tacacs_secret                        : w2kZjCufqGAPugNZ
+
+p_router_1_hostname                  : pr2.thlon
+p_router_2_hostname                  : pr3.hobir
+
+core_1:
+  1:
+    core: "Te0/4/0/8/3"
+    bbpe: "1/1/1"
+    cid: "1000/BHMA-LNTN/10GLAN/OVN7"
+
+core_2:
+  1:
+    core: "Te0/4/0/8/9"
+    bbpe: "9/1/1"
+    cid: "1000/BHMA-BHMB/10GLAN/OVN7"
+
+core_1_p2p: "84.38.37.140/31"
+core_2_p2p: "84.38.37.154/31"
+
+p_router_1_isis_key_1                : 4SQxY1KNwPw6wfuA
+p_router_2_isis_key_1                : NbvBolr1HLirWtK0
+
+p_router_1_loopback0                 : "89.200.128.105"
+p_router_2_loopback0                 : "89.200.128.116"
+
+p_router_1_ldp_key                   : ZSH64AZRLPio3Qks
+p_router_2_ldp_key                   : sdwKCz33xNxSuZI3
+
+ar4_bllon_ldpkey                     : qsKoCBnnxR87kk7f
+ar0_enlba_ldpkey                     : 9AGPCrDJYPEEFDsI
+
+sed_vlanid                           : 3621
+sed_remote_site_code                 : BHMA
+distbng_unnumbered_address           : 90.208.114.204
+distbng_ipv6_subscribers_range       : "2a02:c7d:d000::/39"
+
+br0_hobir_ldp_key                    : QVUhQDAU95YoYl9k
+br0_bllon_ldp_key                    : spQYhrywfGwyv7z9
+br0_thlon_ldp_key                    : rTzo818hnzF74CVn
+br0_enlba_ldp_key                    : pcpe84wUWHgc6n2i
+
+distgea_interface                    : 90.208.114.205
+distgea_sub_gi_address               : 151.231.254.248
+distgea_ipv6_subscribers_range       : "2a02:c7f:cc00::/39"
+#THE BELOW IS ALWAYS LAST_OCTET OF SYSTEM ADDRESS + 256
+vc_id                                : 258
+precedence_1                         : 1
+precedence_2                         : primary
+
+u_bend_port_1: "9/2/5"
+u_bend_port_2: "9/2/6"

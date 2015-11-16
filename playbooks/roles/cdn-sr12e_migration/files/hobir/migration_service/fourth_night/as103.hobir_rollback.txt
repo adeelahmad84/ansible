@@ -1,0 +1,43 @@
+exit all
+configure
+    port 1/1/2
+        description "[no-mon,ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt - Link to Level3 Firewall  Rack _4"
+        shutdown
+    exit
+    port 1/1/3
+        description "[no-mon,ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt - Link to Level3 C2960 switch"
+        shutdown
+    exit
+    port 1/1/4
+        description "[no-mon,ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_B - Link to Level3 Firewall   Rack_3"
+        shutdown
+    exit
+    port 1/1/5
+        description "[no-mon,ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_A - Link to Level3 Firewall   Rack_2"
+        shutdown
+    exit
+    service
+        vpls 20
+            sap 1/1/2
+		description "[no-mon,ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt - Link to Level3 Firewall  Rack _4"
+            exit
+            shutdown
+        exit
+        vpls 21
+            sap 1/1/3
+		description "[no-mon,ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt - Link to Level3 C2960 switch"
+            exit
+            shutdown
+        exit
+        vpls 22
+            sap 1/1/4
+		description "[no-mon,ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_B - Link to Level3 Firewall   Rack_3"
+            exit
+            shutdown
+        exit
+        vpls 23
+            sap 1/1/5
+		description "[no-mon,ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_A - Link to Level3 Firewall   Rack_2"
+            exit
+            shutdown
+exit all

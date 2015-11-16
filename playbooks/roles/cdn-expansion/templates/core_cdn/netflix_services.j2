@@ -1,0 +1,99 @@
+exit all
+configure
+{% for item, ports in ntf['array']|dictsort %}
+{% for key, info in ports|dictsort %}
+    port {{ info.port }}
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link {{ info.link_no }} of 2 Netflix server {{ info.server_id }}"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% endfor %}
+{% for item, ports in ntf.array|dictsort %}
+    lag {{ item }}
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server {{ ports.1.server_id }}"
+        mode access
+{% for key, info in ports|dictsort %}
+        port {{ info.port }}
+{% endfor %}
+        lacp active
+        no shutdown
+    exit
+{% endfor %}
+    service
+        customer 27 create
+            description "Netflix"
+        exit
+        vpls {{ ntf.vpls }} customer 27 create
+            description "VPLS Interconnect Netflix Servers A-C"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls{{ ntf.vpls }}_cdn-netflix"
+{% for item, ports in ntf['array']|dictsort %}
+            sap lag-{{ item }} create
+            exit
+{% endfor %}
+            no shutdown
+	exit
+        ies {{ ntf.ies }} customer 27 create
+            interface "ies_{{ ntf.ies }}_cdn-netflix" create
+                description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-C Gateway IP"
+                address {{ ntf.ipv4 | ipaddr('1') }}
+                cflowd interface
+                ipv6
+                    address {{ ntf.ipv6 | ipaddr('1') }}
+                exit
+                vpls "vpls{{ ntf.vpls }}_cdn-netflix"
+                exit
+            exit
+            service-name "ies{{ ntf.ies }}_cdn-netflix"
+            no shutdown
+	exit
+    exit
+    router
+	policy-options
+	    begin
+	    prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+		prefix {{ ntf.ipv4 }} exact
+            exit
+	    prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+		prefix {{ ntf.ipv6 }} exact
+            exit
+            community "cdn-{{ site_id }}-netflix" members "4589:4" "5607:1006" "4589:{{ site_community }}" "5607:{{ site_community }}" "no-export-subconfed"
+	    policy-statement "EXPORT-TO-IBGP"
+		entry {{ ntf.v4_entry }}
+		    description "NETFLIX LAN subnets"
+		    from
+			protocol direct
+			prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+		    exit
+		    action accept
+			community add "cdn-{{ site_id }}-netflix"
+			metric set 1000
+			next-hop-self
+		    exit
+		exit
+	    exit
+	    policy-statement "EXPORT-TO-IBGP6"
+		entry {{ ntf.v6_entry }}
+		    from
+			protocol direct
+			prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+		    exit
+		    to
+			protocol bgp
+		    exit
+		    action accept
+			community add "cdn-{{ site_id }}-netflix"
+			next-hop-self
+		    exit
+		exit
+	    exit
+	    commit
+exit all

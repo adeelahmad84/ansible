@@ -1,0 +1,23 @@
+#during post ensure that the ports are up, optical levels are within range and has the correct description
+show port None | match expression "Oper State|Oper Speed"
+show port description None
+show port None optical
+show port None | match expression "Oper State|Oper Speed"
+show port description None
+show port None optical
+
+show lag 20
+show lag 20 statistics
+show lag 20 description
+show lag 20 lacp-partner
+show lag 20 port
+show lag 20 associations
+
+show router interface "base_as101.enbrs_1"
+
+#during post ensure that the pings are successful.
+
+ping 90.223.190.225  rapid
+ping 90.223.190.226  rapid
+
+#from nms please you can ping and ssh to as101.enbrs

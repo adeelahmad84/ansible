@@ -1,0 +1,58 @@
+exit all
+configure
+{% for key, info in pe_interconnect_ports|dictsort %}
+    port {{ info.port_old }}
+        description "[core,ip=,rd={{ node_name }}:{{ info.port_new|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-100G"
+            network
+                queue-policy "network-queue-imm4-100gb-cxp"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+	    exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% for key, value in first_interconnect|dictsort %}
+    port {{ value.port_old }}
+        description "[no-mon,core,ip=,rd={{ node_name }}:{{ value.port_new|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+{% endfor %}
+    lag 176
+        description "[core,ip=,rd={{ node_name }}:lag176,iv-s=vcdn_sc]"
+{% for key, info in pe_interconnect_ports|dictsort %}
+	port {{ info.port_old }}
+{% endfor %}
+	lacp active
+	port-threshold {{ ((pe_interconnect_ports|length / 3|round)|int * 2) - 1 }} action down
+        no shutdown
+    exit
+    router
+        interface "base_{{ node_name }}_1"
+            description "[core-o,rd={{ node_name }}:lag-176]"
+	    shutdown
+            no port
+	    port lag-176
+            no shutdown
+exit all

@@ -1,0 +1,472 @@
+exit all
+configure
+    port 1/1/1
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/2
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server D"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/3
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server E"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/4
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server E"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/5
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server F"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/6
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server F"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/7
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server C"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/8
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server D"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/9
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server E"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/1
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server F"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/2
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server G"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 4/1/3
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server H"
+        network
+            egress
+                pool 
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/1
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server A"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/2
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server B"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/7
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server A"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/8
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server A"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/9
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server B"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/10
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server B"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/11
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server C"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 7/1/12
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server C"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/1
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server I"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/2
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server J"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/3
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server K"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/4
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server L"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/5
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server M"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/6
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server N"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/7
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server O"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 10/1/8
+        description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google server P"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 40
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server A"
+        mode access
+        port 7/1/7 
+        port 7/1/8 
+        lacp active administrative-key 3371 
+        no shutdown
+    exit
+    lag 41
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server B"
+        mode access
+        port 7/1/9 
+        port 7/1/10 
+        lacp active administrative-key 3372 
+        no shutdown
+    exit
+    lag 42
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server C"
+        mode access
+        port 7/1/11 
+        port 7/1/12 
+        lacp active administrative-key 3373 
+        no shutdown
+    exit
+    lag 43
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server D"
+        mode access
+        port 1/1/1 
+        port 1/1/2 
+        lacp active administrative-key 32768 
+        no shutdown
+    exit
+    lag 44
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server E"
+        mode access
+        port 1/1/3 
+        port 1/1/4 
+        lacp active administrative-key 32785 
+        no shutdown
+    exit
+    lag 45
+        description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server F"
+        mode access
+        port 1/1/5 
+        port 1/1/6 
+        lacp active administrative-key 32786 
+        no shutdown
+    exit
+    service
+        customer 16 create
+            description "Google GGC"
+        exit
+        customer 27 create
+            description "Netflix"
+        exit
+        ies 220401 customer 27 create
+            interface "ies 220401_cdn-netflix" create
+                description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-C Gateway IP"
+                address 90.223.194.209/29
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:207::1/64 
+                exit
+                vpls "vpls220402_cdn-netflix"
+                exit
+            exit
+            service-name "ies220401_cdn-netflix"
+            no shutdown
+        exit
+        vpls 220402 customer 27 create
+            description "VPLS Interconnect Netflix Servers A-C"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220402_cdn-netflix"
+            sap lag-40 create
+            exit
+            sap lag-41 create
+            exit
+            sap lag-42 create
+            exit
+            no shutdown
+        exit
+        ies 220411 customer 27 create
+            interface "ies220411_cdn-netflix" create
+                description "[ext,iv-g=netflix,iv-s=cdn_netflix] Netflix D-F Gateway IP"
+                address 90.208.115.1/28
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:211::1/64 
+                exit
+                vpls "vpls220412_cdn-netflix"
+                exit
+            exit
+            service-name "ies220411_cdn-netflix"
+            no shutdown
+        exit
+        vpls 220412 customer 27 create
+            description "VPLS Interconnect Netflix Servers D-F"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220412_cdn-netflix"
+            sap lag-43 create
+            exit
+            sap lag-44 create
+            exit
+            sap lag-45 create
+            exit
+            no shutdown
+        exit
+        ies 220102 customer 16 create
+            interface "ies220102_ggc-datafarm-a_1" create
+                description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google GGC Data Farm A"
+                address 2.127.251.65/26
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:205::1/64 
+                exit
+                vpls "vpls220105_cdn-ggc-data_a"
+                exit
+            exit
+            service-name "ies220102_ggc-datafarm-a"
+            no shutdown
+        exit
+        ies 220103 customer 16 create
+            interface "ies220103_ggc-datafarm-b_1" create
+                description "[ext,iv-g=ggc,iv-s=cdn_ggc] Google GGC Data Farm B"
+                address 2.127.251.129/26
+                cflowd interface
+                ipv6
+                    address 2A02:C7A:8000:206::1/64 
+                exit
+                vpls "vpls220111_cdn-ggc-data_b"
+                exit
+            exit
+            service-name "ies220103_ggc-datafarm-b"
+            no shutdown
+        exit
+        vpls 220105 customer 16 create
+            description "Google Servers A-H"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220105_cdn-ggc-data_a"
+            sap 1/1/7 create
+            exit
+            sap 1/1/8 create
+            exit
+            sap 1/1/9 create
+            exit
+            sap 4/1/1 create
+            exit
+            sap 4/1/2 create
+            exit
+            sap 4/1/3 create
+            exit
+            sap 7/1/1 create
+            exit
+            sap 7/1/2 create
+            exit
+            no shutdown
+        exit
+        vpls 220111 customer 16 create
+            description "Google Servers I-P"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220111_cdn-ggc-data_b"
+            sap 10/1/1 create
+            exit
+            sap 10/1/2 create
+            exit
+            sap 10/1/3 create
+            exit
+            sap 10/1/4 create
+            exit
+            sap 10/1/5 create
+            exit
+            sap 10/1/6 create
+            exit
+            sap 10/1/7 create
+            exit
+            sap 10/1/8 create
+            exit
+            no shutdown
+        exit
+    exit
+    router
+        policy-options
+            begin
+            prefix-list "CORE-CDN-IPV4-GGC-LAN"
+                prefix 2.127.251.64/26 exact
+                prefix 2.127.251.128/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-GGC-LAN"
+                prefix 2A02:C7A:8000:205::/64 exact
+                prefix 2A02:C7A:8000:206::/64 exact
+            exit
+            prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+                prefix 90.223.194.208/29 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+                prefix 2A02:C7A:8000:207::/64 exact
+            exit
+            community "cdn-hobir-google" members "4589:4" "5607:1003" "4589:14470" "5607:14470" "no-export-subconfed"
+            community "cdn-hobir-netflix" members "4589:4" "5607:1006" "4589:14470" "5607:14470" "no-export-subconfed"

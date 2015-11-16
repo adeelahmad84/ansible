@@ -1,0 +1,13 @@
+configure terminal
+!
+interface Port-channel{{ mcdn.channel }}
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Port-Channel To mcdn Server
+ shutdown
+!
+{% for key, value in mcdn.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ shutdown
+!
+{% endfor %}
+!
+end

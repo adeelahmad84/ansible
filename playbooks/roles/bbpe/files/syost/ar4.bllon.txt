@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.6 password Aapa2BBwAj8m9Rqm
+
+interface Port-channel3.3616
+ description [core,rd=sr17.syost:sdp266,cid=SNS:1000/LNBL-OSTF/PW/999360616] sedcanopy pw
+ encapsulation dot1Q 3616
+ xconnect 84.38.34.6 999360616 pw-class SEDCANOPY
+end

@@ -1,0 +1,4 @@
+show router policy prefix-list "PL-POP-CDN-LOOPBACK"
+show router static-route tag 20100 | match /29 post-lines 1
+show router bgp neighbor 89.200.128.[88..90] advertised-routes | match {{ management | ipaddr('0') }}
+ping {{ management | ipaddr('1')|replace("/29"," ") }} rapid

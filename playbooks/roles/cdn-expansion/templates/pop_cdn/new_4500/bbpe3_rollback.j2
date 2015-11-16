@@ -1,0 +1,26 @@
+exit all
+configure
+{% for item, info in bbpe.3.ports|dictsort %}
+    port {{ info.port }}
+        description "[no-mon,core,rd={{ hostname }}:te{{ info.remote_port|replace('/','-') }},cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN {{ rack }}"
+        shutdown
+    exit    
+{% endfor %}
+    lag {{ bbpe.3.lag }}
+	description "[no-mon,core,rd={{ hostname }}:pc{{ bbpe.3.channel }},iv-s=cdn_pop] IN-POP-CDN BUNDLE TO {{ hostname }}"
+	shutdown
+    exit
+    router
+{% if second %}
+	interface "IN-POP-CDN-LINK-2"
+{% else %}
+	interface "IN-POP-CDN-LINK"
+{% endif %}
+	    description "[no-mon,core,rd={{ hostname }}:pc{{ bbpe.3.channel }},iv-s=cdn_pop]"
+	    shutdown
+	exit
+        bgp
+            group "IN-POP-CDN"
+                neighbor {{ bbpe.3.ipv4_p2p | ipaddr('1')|replace('/31',' ') }}
+		    shutdown
+                exit all

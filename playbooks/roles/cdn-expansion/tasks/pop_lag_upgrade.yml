@@ -1,0 +1,7 @@
+---
+
+- name: generate for "{{ hostname }}"
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'upgrade/pe/pop/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/upgrade/procedure.txt' }
+    - { src: 'upgrade/pe/pop/ticket_info.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/upgrade/ticket_info.txt' }

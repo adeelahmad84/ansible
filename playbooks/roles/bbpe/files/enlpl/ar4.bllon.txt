@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.245 password 0E1Mrv24WLPTaObT
+
+interface Port-channel3.3620
+ description [core,rd=sr12.enlpl:sdp266,cid=SNS:1000/LNBL-LVPA/PW/999360620] sedcanopy pw
+ encapsulation dot1Q 3620
+ xconnect 84.38.34.245 999360620 pw-class SEDCANOPY
+end

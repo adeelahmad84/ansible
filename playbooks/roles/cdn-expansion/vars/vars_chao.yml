@@ -1,0 +1,167 @@
+---
+#device information
+site_id: {{ site_id }}
+site_community: {{ community }}
+hostname: {{ hostname }}
+loopback: "{{ loopback }}/32"
+location: "{{ location }}"
+tacacs_key: {{ tacacs_key }}
+console: "{{ console }}"
+second: {{ boolean }}
+rack: "{{ rack_id }}"
+
+#Uplink information
+bbpe:
+  1:
+    ipv4_p2p: "{{ bbpe_1_ipv4_p2p }}"
+    ipv6_p2p: "{{ bbpe_1_ipv6_p2p }}"
+    ggc_tag: {{ bbpe_1_ggc_tag }}
+    ntf_tag: {{ bbpe_1_ntf_tag }}
+    aanp_tag: {{ bbpe_1_aanp_tag }}
+    mcdn_tag: {{ bbpe_1_mcdn_tag }}
+    l3d_tag: {{ bbpe_1_l3d_tag }}
+    l3g_tag: {{ bbpe_1_l3g_tag }}
+    channel: {{ bbpe_1_channel }}
+    lag: {{ bbpe_1_lag }}
+    hostname: {{ bbpe_1_hostname }}
+    bgp_auth: {{ bbpe_1_bgp_auth }}
+    ports:
+      1:
+        remote_port: {{ bbpe_1_ports_1_remote_port }}
+        port: {{ bbpe_1_ports_1_port }}
+      2:
+        remote_port: {{ bbpe_1_ports_2_remote_port }}
+        port: {{ bbpe_1_ports_2_port }}
+      3:
+        remote_port: {{ bbpe_1_ports_3_remote_port }}
+        port: {{ bbpe_1_ports_3_port }}
+      4:
+        remote_port: {{ bbpe_1_ports_4_remote_port }}
+        port: {{ bbpe_1_ports_4_port }}
+      5:
+        remote_port: {{ bbpe_1_ports_5_remote_port }}
+        port: {{ bbpe_1_ports_5_port }}
+      6:
+        remote_port: {{ bbpe_1_ports_6_remote_port }}
+        port: {{ bbpe_1_ports_6_port }}
+  2:
+    ipv4_p2p: "{{ bbpe_2_ipv4_p2p }}"
+    ipv6_p2p: "{{ bbpe_2_ipv6_p2p }}"
+    ggc_tag: {{ bbpe_2_ggc_tag }}
+    ntf_tag: {{ bbpe_2_ntf_tag }}
+    aanp_tag: {{ bbpe_2_aanp_tag }}
+    mcdn_tag: {{ bbpe_2_mcdn_tag }}
+    l3d_tag: {{ bbpe_2_l3d_tag }}
+    l3g_tag: {{ bbpe_2_l3g_tag }}
+    lag: {{ bbpe_2_lag }}
+    channel: {{ bbpe_2_channel }}
+    hostname: {{ bbpe_2_hostname }}
+    bgp_auth: {{ bbpe_2_bgp_auth }}
+    ports:
+      1:
+        remote_port: {{ bbpe_2_ports_1_remote_port }}
+        port: {{ bbpe_2_ports_1_port }}
+      2:
+        remote_port: {{ bbpe_2_ports_2_remote_port }}
+        port: {{ bbpe_2_ports_2_port }}
+      3:
+        remote_port: {{ bbpe_2_ports_3_remote_port }}
+        port: {{ bbpe_2_ports_3_port }}
+      4:
+        remote_port: {{ bbpe_2_ports_4_remote_port }}
+        port: {{ bbpe_2_ports_4_port }}
+      5:
+        remote_port: {{ bbpe_2_ports_5_remote_port }}
+        port: {{ bbpe_2_ports_5_port }}
+      6:
+        remote_port: {{ bbpe_2_ports_6_remote_port }}
+        port: {{ bbpe_2_ports_6_port }}
+  3:
+    ipv4_p2p: "{{ bbpe_3_ipv4_p2p }}"
+    ipv6_p2p: "{{ bbpe_3_ipv6_p2p }}"
+    ggc_tag: {{ bbpe_3_ggc_tag }}
+    ntf_tag: {{ bbpe_3_ntf_tag }}
+    aanp_tag: {{ bbpe_3_aanp_tag }}
+    mcdn_tag: {{ bbpe_3_mcdn_tag }}
+    l3d_tag: {{ bbpe_3_l3d_tag }}
+    l3g_tag: {{ bbpe_3_l3g_tag }}
+    channel: {{ bbpe_3_channel }}
+    lag: {{ bbpe_3_lag }}
+    hostname: {{ bbpe_3_hostname }}
+    bgp_auth: {{ bbpe_3_bgp_auth }}
+    ports:
+      1:
+        remote_port: {{ bbpe_3_ports_1_remote_port }}
+        port: {{ bbpe_3_ports_1_port }}
+      2:
+        remote_port: {{ bbpe_3_ports_2_remote_port }}
+        port: {{ bbpe_3_ports_2_port }}
+      3:
+        remote_port: {{ bbpe_3_ports_3_remote_port }}
+        port: {{ bbpe_3_ports_3_port }}
+      4:
+        remote_port: {{ bbpe_3_ports_4_remote_port }}
+        port: {{ bbpe_3_ports_4_port }}
+      5:
+        remote_port: {{ bbpe_3_ports_5_remote_port }}
+        port: {{ bbpe_3_ports_5_port }}
+      6:
+        remote_port: {{ bbpe_3_ports_6_remote_port }}
+        port: {{ bbpe_3_ports_6_port }}
+# Google services
+ggc:
+  vlan_id: {{ ggc_vlan_id }}
+  farm: {{ ggc_farm }}
+  ipv4:{{ ggc_ipv4 }}
+  ipv6: {{ ggc_ipv6 }}
+  array:
+    1:
+      port: {{ ggc_array_1_port }}
+      server_id: {{ ggc_array_1_server_id }}
+    2:
+      port: {{ ggc_array_2_port }}
+      server_id: {{ ggc_array_2_server_id }}
+    3:
+      port: {{ ggc_array_3_port }}
+      server_id: {{ ggc_array_3_server_id }}
+    4:
+      port: {{ ggc_array_4_port }}
+      server_id: {{ ggc_array_4_server_id }}
+
+# Netflix services
+ntf:
+  farm: {{ ntf_farm }}
+  ipv4: {{ ntf_ipv4 }}
+  ipv6: {{ ntf_ipv6 }}
+  ies: {{ ntf_ies }}
+  vpls: {{ ntf_vpls }}
+  array:
+    {{ ntf_array_lag_1 }}:
+      1:
+        port: {{ ntf_array_lag1_1_port }}
+        server_id: {{ ntf_array_lag1_1_server_id }}
+        link_no: {{ ntf_array_lag1_1_link_no }}
+      2:
+        port: {{ ntf_array_lag1_2_port }}
+        server_id: {{ ntf_array_lag1_2_server_id }}
+        link_no: {{ ntf_array_lag1_2_link_no }}
+
+    {{ ntf_array_lag_2 }}:
+      1:
+        port: {{ ntf_array_lag2_1_port }}
+        server_id: {{ ntf_array_lag2_1_server_id }}
+        link_no: {{ ntf_array_lag2_1_link_no }}
+      2:
+        port: {{ ntf_array_lag2_2_port }}
+        server_id: {{ ntf_array_lag2_2_server_id }}
+        link_no: {{ ntf_array_lag2_2_link_no }}
+
+    {{ ntf_array_lag_3 }}:
+      1:
+        port: {{ ntf_array_lag3_1_port }}
+        server_id: {{ ntf_array_lag3_1_server_id }}
+        link_no: {{ ntf_array_lag3_1_link_no }}
+      2:
+        port: {{ ntf_array_lag3_2_port }}
+        server_id: {{ ntf_array_lag3_2_server_id }}
+        link_no: {{ ntf_array_lag3_2_link_no }}

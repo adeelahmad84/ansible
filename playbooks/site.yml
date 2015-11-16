@@ -1,0 +1,81 @@
+#!/usr/bin/env ansible-playbook
+---
+
+
+- name: Generate CDN configuration files
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars_files:
+  #[COMMON_SITE_SPECIFIC]
+    # roles/common/vars/sites/bllon.yml
+    # roles/common/vars/sites/library.yml
+    # roles/common/vars/sites/enbgk.yml
+    # roles/common/vars/sites/encax.yml
+    # roles/common/vars/sites/enedi.yml
+    # roles/common/vars/sites/enlba.yml
+    # roles/common/vars/sites/enlcs.yml
+    # roles/common/vars/sites/enlpl.yml
+    - roles/common/vars/sites/enntg.yml
+    # roles/common/vars/sites/ensts.yml
+    # roles/common/vars/sites/enwkg.yml
+    # roles/common/vars/sites/hobir.yml
+    # roles/common/vars/sites/sabir.yml
+    # roles/common/vars/sites/syost.yml
+    # roles/common/vars/sites/thlon.yml
+    # roles/common/vars/sites/mimnc.yml
+
+  #[COMMON_SERVICE_SPECIFIC]
+    # roles/common/vars/services/mcdn.yml
+    # roles/common/vars/services/aanp.yml
+    # roles/common/vars/services/library.yml
+
+  #[CDN-EXPANSION]
+    # roles/cdn-expansion/vars/encax.yml
+    # roles/cdn-expansion/vars/core/bllon.yml
+    # roles/cdn-expansion/vars/core/library.yml
+    # roles/cdn-expansion/vars/core/tg2353.yml
+    # roles/cdn-expansion/vars/core/enlba.yml
+    # roles/cdn-expansion/vars/core/hobir.yml
+    # roles/cdn-expansion/vars/core/thlon.yml
+    # roles/cdn-expansion/vars/pop/enlpl.yml
+    # roles/cdn-expansion/vars/enyrk.yml
+    # roles/cdn-expansion/vars/enbgk.yml
+    # roles/cdn-expansion/vars/enbrs.yml
+    # roles/cdn-expansion/vars/enwkg.yml
+    # roles/cdn-expansion/vars/enlpl.yml
+    # roles/cdn-expansion/vars/enshf.yml
+    # roles/cdn-expansion/vars/englw.yml
+    # roles/cdn-expansion/vars/enntg.yml
+    - roles/cdn-expansion/vars/pop/enntg.yml
+    # roles/cdn-expansion/vars/mimnc.yml
+    # roles/cdn-expansion/vars/enedi.yml
+    # roles/cdn-expansion/vars/hobir.yml
+    # roles/cdn-expansion/vars/syost.yml
+    # roles/cdn-expansion/vars/enshf.yml
+    # roles/cdn-expansion/vars/enncl.yml
+    # roles/cdn-expansion/vars/encax.mcdn2.yml
+    # roles/cdn-expansion/vars/DNS/bllon_mcdn.yml
+    # roles/cdn-expansion/vars/DNS/enlba_mcdn.yml
+    # roles/cdn-expansion/vars/DNS/thlon_mcdn.yml
+    # roles/cdn-expansion/vars/DNS/hobir_mcdn.yml
+
+  #[COMMON]
+    # roles/common/vars/hobir_100.yml
+    # roles/common/vars/hobir_101.yml
+    # roles/common/vars/enbgk.yml
+    # roles/common/vars/enyrk.yml
+    # roles/common/vars/enwkg.yml
+    # roles/common/vars/enlba_103.yml
+
+  #[COMMON-COMMISSIONING]
+    # roles/common/vars/commission/enlba.yml
+    # roles/common/vars/commission/enyrk.yml
+    # roles/common/vars/commission/hobir.yml
+    # roles/common/vars/commission/thlon.yml
+    # roles/common/vars/commission/as102_enbrs.yml
+
+  roles:
+    - cdn-expansion
+    # common

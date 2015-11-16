@@ -1,0 +1,9 @@
+exit all
+configure
+    router
+	interface "base_as103.hobir_1"
+	    shutdown
+            no address
+            address 90.222.231.233/29
+            no shutdown
+        exit all

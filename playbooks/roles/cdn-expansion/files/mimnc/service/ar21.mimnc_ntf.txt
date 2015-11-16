@@ -1,0 +1,55 @@
+configure terminal
+!
+interface Port-channel30
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Port-Channel To Netflix_farm_A
+ mtu 8226
+ ip address 176.255.200.105 255.255.255.252
+ no ip redirects
+ ipv6 address 2A02:C7A:8000:407::/64
+!
+interface TenGigabitEthernet2/1
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_1 of PH_P30 to A SERVER_1
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet2/2
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_2 of PH_P30 to A SERVER_2
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet2/3
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_3 of PH_P30 to A SERVER_3
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet2/4
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_4 of PH_P30 to A SERVER_4
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+!
+end

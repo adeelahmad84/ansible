@@ -1,0 +1,59 @@
+configure terminal
+!
+!
+interface Port-channel60
+ description [ext,iv-g=mcdn,iv-s=cdn_mcdn] Port-Channel to Cisco 4900M Akamai Managed Switch
+ ip address 90.201.125.97  255.255.255.224
+ ipv6 address 2a02:c7a:8000:1804::1/64
+ no shutdown
+!
+interface TenGigabitEthernet1/13
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 1 - PCH60 to mcdn NIC_1 Server
+ mtu 8226
+ no switchport
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/14
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 2 - PCH60 to mcdn NIC_2 Server
+ mtu 8226
+ no switchport
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/15
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 3 - PCH60 to mcdn NIC_3 Server
+ mtu 8226
+ no switchport
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/16
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 4 - PCH60 to mcdn NIC_4 Server
+ mtu 8226
+ no switchport
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+!
+end

@@ -1,0 +1,38 @@
+configure terminal
+!
+interface Vlan21
+ description [no-mon,ext,rd=ggc,iv-s=cdn_pop] IN-POP-CDN Bundle to GGC B
+ ip address 90.201.126.65 255.255.255.192
+ no ip redirects
+ ipv6 address 2a02:c7a:8000:f80e::1/64
+!
+interface TenGigabitEthernet1/19
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_1
+ switchport access vlan 21
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/20
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_2
+ switchport access vlan 21
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/21
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_3
+ switchport access vlan 21
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+interface TenGigabitEthernet1/22
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_B SERVER_4
+ switchport access vlan 21
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+!
+!
+end

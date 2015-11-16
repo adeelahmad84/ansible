@@ -1,0 +1,64 @@
+configure terminal
+!
+interface Bundle-Ether259
+ description NOT-HANDED-OVER [core-o,rd=sr11.ensts:lag2,iv-s=bb]
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links 0
+ load-interval 30
+ logging events link-status
+ dampening 1 750 2000 1
+ ipv4 mtu 8192
+ ipv4 address 89.200.131.222 255.255.255.254
+!
+interface Te0/0/0/9/0
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr11.ensts:9-1-1,cid=1000/LDSA-STKA/10GLAN/OVN6,iv-s=bb]
+ no shutdown
+ bundle id 259 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+router isis 65444
+ interface Bundle-Ether259
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 fsdnzL1CrV9VlKjQ
+  address-family ipv4 unicast
+   metric 9910000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.3 password clear DDI2tRKvZABzVUr9
+ address-family ipv4
+  label
+   remote
+    accept
+     from 84.38.34.3:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether259
+ !
+!
+rsvp
+ interface Bundle-Ether259
+  bandwidth 10 Gbps
+  signalling dscp 48
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether259
+ !
+!
+commit

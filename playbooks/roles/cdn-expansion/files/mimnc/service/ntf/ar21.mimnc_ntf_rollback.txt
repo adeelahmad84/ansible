@@ -1,0 +1,19 @@
+configure terminal
+!
+interface Port-channel31
+ shutdown
+!
+interface TenGigabitEthernet2/5
+ shutdown
+!
+interface TenGigabitEthernet2/6
+ shutdown
+!
+interface TenGigabitEthernet2/7
+ shutdown
+!
+interface TenGigabitEthernet2/8
+ shutdown
+!
+!
+end

@@ -1,0 +1,63 @@
+## The ports will be shutdown as the servers will be migrated over to ar21.englw ##
+
+
+## Pre-Check ##
+
+show interface vlan31
+show ip interface te1/29
+show ip interface te1/30
+show ip interface te1/31
+show ip interface te1/32
+show etherchannel 30 port-channel
+show etherchannel 31 port-channel
+
+
+## Apply configuration ##
+
+conf t
+!
+interface Vlan31
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] VLAN for Netflix
+ shutdown
+ no ip address
+ no ipv6 address
+ shutdown
+!
+interface Port-channel30
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Port-Channel To Netflix_NIC Server_1
+ shutdown
+ no ip address
+ no ipv6 address
+ shutdown
+!
+interface Port-channel31
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] NETFLIX Server A
+ shutdown
+!
+interface TenGigabitEthernet1/29
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX A NIC_0
+ shutdown
+!
+interface TenGigabitEthernet1/30
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH31 - NETFLIX A NIC_1
+ shutdown
+!
+interface TenGigabitEthernet1/31
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH30 - NETFLIX 1 NIC_0
+ shutdown
+!
+interface TenGigabitEthernet1/32
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] PCH30 - NETFLIX 1 NIC_1
+ shutdown
+!
+end
+
+## Post-Checks ##
+
+show interface vlan31
+show ip interface te1/29
+show ip interface te1/30
+show ip interface te1/31
+show ip interface te1/32
+show etherchannel 30 port-channel
+show etherchannel 31 port-channel

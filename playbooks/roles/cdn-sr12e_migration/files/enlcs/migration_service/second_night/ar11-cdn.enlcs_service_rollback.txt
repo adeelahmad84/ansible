@@ -1,0 +1,195 @@
+##mcdn-2-begin##
+exit all
+configure
+    port 4/1/19
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/39"
+        shutdown
+    exit
+    port 4/1/20
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/40"
+        shutdown
+    exit
+    port 4/1/21
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/41"
+        shutdown
+    exit
+    port 4/1/22
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/42"
+        shutdown
+    exit
+    port 4/1/23
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/43"
+        shutdown
+    exit
+    port 4/1/24
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/44"
+        shutdown
+    exit
+    port 4/1/25
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/45"
+        shutdown
+    exit
+    port 4/1/26
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/46"
+        shutdown
+    exit
+    port 4/1/27
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/47"
+        shutdown
+    exit
+    port 4/1/28
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2 1/48"
+        shutdown
+    exit
+    lag 40
+        description "[no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Akamai MCDN BSKYB-BHX2"
+        no port 4/1/19
+        no port 4/1/20
+        no port 4/1/21
+        no port 4/1/22
+        no port 4/1/23
+        no port 4/1/24
+        no port 4/1/25
+        no port 4/1/26
+        no port 4/1/27
+        no port 4/1/28
+        shutdown
+    exit
+    service
+        ies 220361
+            interface "ies220361_-PDL-Edge-1"
+                description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Edge-1 "
+                no address 90.223.225.1/26
+                ipv6
+                    no address 2a02:c7a:8000:fc04::1/64
+                exit
+            exit
+            shutdown
+exit all
+##mcdn-2-end##
+##netflix-begin##
+exit all
+configure
+    port 4/1/29
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server A"
+        shutdown
+    exit
+    port 4/1/30
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server A"
+        shutdown
+    exit
+    port 4/1/31
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server B"
+        shutdown
+    exit
+    port 4/1/32
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server B"
+        shutdown
+    exit
+    port 4/1/33
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server C"
+        shutdown
+    exit
+    port 4/1/34
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server C"
+        shutdown
+    exit
+    port 4/1/35
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 1 of 2 Netflix server D"
+        shutdown
+    exit
+    port 4/1/36
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Link 2 of 2 Netflix server D"
+        shutdown
+    exit
+    lag 60
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server A "
+        no port 4/1/29
+        no port 4/1/30
+        shutdown
+    exit
+    lag 61
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server B "
+        no port 4/1/31
+        no port 4/1/32
+        shutdown
+    exit
+    lag 62
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server C"
+        no port 4/1/33
+        no port 4/1/34
+        shutdown
+    exit
+    lag 63
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server D"
+        no port 4/1/35
+        no port 4/1/36
+        shutdown
+    exit
+    service
+        vpls 220401
+            shutdown
+        exit
+        ies 220400
+            interface "ies 220400_cdn-netflix"
+                description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-D Gateway IP"
+                no address 90.223.190.145/28
+                ipv6
+                    no address 2a02:c7a:8000:fc08::1/64
+                exit
+            exit
+            shutdown
+exit all
+##netflix-end##
+##velocix-begin##
+exit all
+configure
+    port 5/1/1
+        description "[no-mon,ext,rd=ac1.sky1lcs1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+        shutdown
+    exit
+    port 5/1/2
+        description "[no-mon,ext,rd=ac1.sky1lcs1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+        shutdown
+    exit
+    port 5/1/3
+        description "[no-mon,ext,rd=ac2.sky1lcs1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+        shutdown
+    exit
+    port 5/1/4
+        description "[no-mon,ext,rd=ac2.sky1lcs1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+        shutdown
+    exit
+    lag 55
+        description "[no-mon,ext,rd=ac1.sky1lcs1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        no port 5/1/1
+        no port 5/1/2
+        shutdown
+    exit
+    lag 56
+        description "[no-mon,ext,rd=ac2.sky1lcs1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        no port 5/1/3
+        no port 5/1/4
+        shutdown
+    exit
+    service
+        vpls 220801
+            shutdown
+        exit
+        ies 220800
+            interface "ies_220800_moonraker_Data_node"
+                description "[no-mon,Moonraker CDN Hardware Data Node]"
+                no address 90.222.190.97/27
+                ipv6
+                    no address 2a02:c7a:8000:fb0b::1/120
+                exit
+            exit
+            shutdown
+        exit
+    exit
+    router
+        no static-route 90.222.191.254/32 next-hop 90.222.190.20
+        no static-route 90.222.191.255/32 next-hop 90.222.190.4
+        no static-route 2a02:c7a:1::1/128 next-hop 2a02:c7a:8000:fb0a::4
+exit all
+##velocix-end##

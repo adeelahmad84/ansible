@@ -1,0 +1,51 @@
+exit all
+configure
+    service
+        ies 22063
+            interface "ies22063_cdn-l3dec-mgmt_2"
+                description "[no-mon,ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt Rack_4"
+                no address 2.127.244.13/30
+                ipv6
+                    no address 2A02:C7A:8000:210::1/64
+                exit
+                sap lag-3:50
+                exit
+            exit
+            shutdown
+        exit
+        ies 220001
+            interface "ies220001_cdn-l3dec-mgmt_1"
+                description "[no-mon,ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt"
+                no address 2.127.244.1/30
+                ipv6
+                    no address 2A02:C7A:8000:209::1/64
+                exit
+                sap lag-3:51
+                exit
+            exit
+            shutdown
+        exit
+        ies 220504
+            interface "ies220504_cdn-l3global-mgmt_b"
+                description "[no-mon,ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_B L3_Rack_3"
+                no address 2.127.244.9/30
+                ipv6
+                    no address 2A02:C7A:8000:20E::1/64
+                exit
+                sap lag-3:52
+                exit
+            exit
+            shutdown
+        exit
+        ies 220502
+            interface "ies220502_cdn-l3global-mgmt_a"
+                description "[no-mon,ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_A L3_Rack_2"
+                no address 2.127.244.5/30
+                ipv6
+                    no address 2A02:C7A:8000:20B::1/64
+                exit
+                sap lag-3:53
+                exit
+            exit
+            shutdown
+exit all

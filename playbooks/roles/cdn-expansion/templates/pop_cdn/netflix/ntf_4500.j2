@@ -1,0 +1,33 @@
+configure terminal
+!
+vlan {{ ntf.vlan_id }}
+ name Netflix LAN
+!
+interface Port-channel{{ ntf.vlan_id }}
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Port-Channel To Netflix_NIC Server_{{ ntf.farm }}
+ no shutdown
+ switchport
+ switchport access vlan {{ ntf.vlan_id }}
+ switchport mode access
+!
+{% for key, value in ntf.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_{{ value.server_id }} of PH_P{{ ntf.vlan_id }} to {{ ntf.farm }} SERVER_{{ value.server_id }}
+ no shutdown
+ switchport
+ switchport access vlan {{ ntf.vlan_id }}
+ switchport mode access
+ channel-protocol lacp
+ channel-group {{ ntf.vlan_id }} mode active
+!
+{% endfor %}
+interface Vlan{{ ntf.vlan_id }}
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] VLAN for Netflix
+ no shutdown
+ mtu 8226
+ ip address {{ ntf.ipv4 | ipaddr('1')|replace("/28", " ") }} {{ ntf.ipv4 | ipaddr('netmask') }}
+ no ip redirects
+ ipv6 address {{ ntf.ipv6 | ipaddr('1') }}
+!
+!
+end

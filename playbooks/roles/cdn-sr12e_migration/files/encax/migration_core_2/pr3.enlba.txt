@@ -1,0 +1,41 @@
+configure terminal
+!
+interface Bundle-Ether384
+ description [no-mon,core-o,rd=ar10.encax:lag3,iv-s=vcdn_sc]
+ shutdown
+!
+interface Bundle-Ether202
+ description [core-o,rd=ar11-cdn.encax:lag2,iv-s=vcdn_sc]
+ no shutdown
+!
+interface Hu0/4/0/0
+ description [core-o,rd=ar11-cdn.encax:1-1-1,cid=SNS:1003/CRLA-LDSA/100G/CDN1,iv-s=bb]
+ bundle id 202 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/4/0/1
+ description [core-o,rd=ar11-cdn.encax:1-2-1,cid=SNS:1003/CRLA-LDSA/100G/CDN3,iv-s=bb]
+ bundle id 202 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/4/0/2
+ description [core-o,rd=ar11-cdn.encax:2-1-1,cid=SNS:1003/CRLA-LDSA/100G/CDN2,iv-s=bb]
+ bundle id 202 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+commit

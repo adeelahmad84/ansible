@@ -1,0 +1,105 @@
+/configure
+{% for key, value in bbpe.2.ports %}
+    port {{ value.port }}
+        description "[core,rd={{ hostname }}:te{{ value.remote_port|replace('/','-') }},cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+{% endfor %}
+    lag 50
+        description "[core,rd={{ hostname }}:pc1,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO {{ hostname|upper }}"
+{% for key, value in bbpe.2.ports %}
+        port {{ value.port }}
+{% endfor %}
+        lacp active
+        port-threshold {{ ((bbpe.2.ports|length / 3|int) * 2) - 1 }} action down
+        no shutdown
+    exit
+    router
+        interface "IN-POP-CDN-LINK"
+            address {{ bbpe.2.ipv4_p2p | ipaddr('0') }}
+            description "[core,rd={{ hostname }}:pc1,iv-s=cdn_pop]"
+            port lag-50
+            ipv6
+                address {{ bbpe.2.ipv6_p2p | ipaddr('0') }}
+            exit
+            no shutdown
+	exit
+        static-route {{ loopback | ipaddr('0') }} next-hop {{ bbpe.2.ipv4_p2p | ipaddr('1') }} tag 20100
+        static-route {{ site_v6_range | ipaddr('0') }} next-hop {{ bbpe.2.ipv6_p2p | ipaddr('1') }}
+	policy-options
+	    begin
+            prefix-list "PL-POP-CDN-LOOPBACK"
+                prefix {{ loopback | ipaddr('0') }} exact
+            exit
+            community "cdn-site-bgp-export" members "5607:{{ site_community }}"
+            policy-statement "SKY-LOCAL-USER-PREFIXES"
+                description "Announce local user static  & OSPF Supernets to CDN Peer"
+                entry 10
+                    from
+                        protocol static
+                        tag 0x3d090
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-site-bgp-export"
+                        next-hop-self
+                    exit
+                exit
+                entry 20
+                    from
+                        protocol ospf instance 1
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-site-bgp-export"
+                        next-hop-self
+                    exit
+                exit
+                entry 50
+                    action reject
+                exit
+            exit
+            policy-statement "EXPORT-TO-IBGP"
+                entry 48
+                    description "CDN-AR20-Lo0 static needs to be allowed prior to blocking infrastructure range"
+                    from
+                        protocol static
+                        prefix-list "PL-POP-CDN-LOOPBACK"
+                        tag 0x4e84
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "Subconfed-local"
+                        next-hop-self
+                    exit
+                exit
+            exit
+            policy-statement "IN-POP-CDN-PREFIXES"
+                description "Reject any prefixes from CDN Peer"
+                entry 50
+                    action reject
+                exit
+            exit
+	    commit
+	exit
+        bgp
+            group "IN-POP-CDN"
+                family ipv4
+                next-hop-self
+                type internal
+                neighbor {{ bbpe.2.ipv4_p2p | ipaddr('1') }}
+                    description " iBGP Peer to {{ hostname }}"
+                    authentication-key "{{ bbpe.2.bgp_auth }}"
+                    import "IN-POP-CDN-PREFIXES"
+                    export "SKY-LOCAL-USER-PREFIXES"
+                exit all

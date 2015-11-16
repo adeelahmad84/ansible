@@ -1,0 +1,350 @@
+
+
+==============================================================================================================
+                            Alcatel 7750 {{ node_name }} - {{ core_1_hostname }} & {{ core_2_hostname }} device/circuit activation
+==============================================================================================================
+
+This work is to bring into service the Alcatel 7750 {{ node_name }}. This procedure will establish a DRFU status
+for this device on successful completeion. Steps have been taken to ensure that this process progresses
+without out any anomalies. In the event of any issues. Please do refer to the roll back plan for next action.
+
+Essentially it involves : Establisishing ISIS with {{ old_node_name }} and BGP peering with the Route Reflectors.
+
+DCN Ethernet access for Alcatel:
+ssh networks@{{ dcn_primary_address }}
+
+   	Alcatel 7750                                          	Cisco NCS
+{% for key, value in pe_interconnect_ports|dictsort %}
+	{{ node_name }}   {{ value.port_new }}     <--------------->		{{ old_node_name }}  {{ value.port_old }}
+{% endfor %}
+
+Configuration files needed for this deployment:
+
+{{ node_name }}.txt {{ old_node_name }}.txt     {{ core_2_hostname }}.txt   {{ core_1_hostname }}.txt   rr0.bllon.txt	rr1.bllon.txt	rr0.enlba.txt	rr1.enlba.txt rr3.bllon.txt rr3.enlba.txt
+
+------------------------------------------end of summary info----------------------------------------------
+
+1.0
+Pre-checks (Take appropriate records of these outputs as they will be handy in a rollback situation):-
+
+
+2.0
+
+Unshut the following interfaces if need be.
+
+{% for key, value in pe_interconnect_ports|dictsort %}
+	{{ node_name }}   {{ value.port_new }}     <--------------->		{{ old_node_name }}  {{ value.port_old }}
+{% endfor %}
+
+
+{{ node_name }}:
+{% for key, value in pe_interconnect_ports|dictsort %}
+configure port {{ value.port_new }}  no shutdown
+configure port 1/1/2  no shutdown
+configure port 1/1/3  no shutdown
+configure port 1/1/4  no shutdown
+configure port 10/1/1 no shutdown
+configure port 10/1/2 no shutdown
+configure port 10/1/3 no shutdown
+configure port 10/1/4 no shutdown
+
+At this point, the show port command on the 7750 should show
+    Physical Link      : Yes
+but the ports may be
+     Oper State         : down
+if ethernet OAM has not yet been configured on the remote ends.
+
+3.0
+Check RX light levels at both ends of the circuit. Level should be comparable to existing
+uplinks.
+
+{{ core_1_hostname }} {{ core_1_int_name_1_long }}:
+sh controllers {{ core_1_int_name_1_long }} phy | i pow
+
+{{ core_1_hostname }} {{ core_1_int_name_2_long }}:
+sh controllers {{ core_1_int_name_2_long }} phy | i pow
+
+{{ core_1_hostname }} {{ core_1_int_name_3_long }}:
+sh controllers {{ core_1_int_name_3_long }} phy | i pow
+
+{{ core_1_hostname }} {{ core_1_int_name_4_long }}:
+sh controllers {{ core_1_int_name_4_long }} phy | i pow
+
+{{ core_2_hostname }} {{ core_2_int_name_1_long }}:
+sh controllers {{ core_2_int_name_1_long }} phy | i pow
+
+{{ core_2_hostname }} {{ core_2_int_name_2_long }}:
+sh controllers {{ core_2_int_name_2_long }} phy | i pow
+
+{{ core_2_hostname }} {{ core_2_int_name_3_long }}:
+sh controllers {{ core_2_int_name_3_long }} phy | i pow
+
+{{ core_2_hostname }} {{ core_2_int_name_4_long }}:
+sh controllers {{ core_2_int_name_4_long }} phy | i pow
+
+{{ node_name }}:
+-------------
+show port 1/1/1  optical
+show port 1/1/2  optical
+show port 1/1/3  optical
+show port 1/1/4  optical
+show port 10/1/1  optical
+show port 10/1/2  optical
+show port 10/1/3  optical
+show port 10/1/4  optical
+
+Ensure that the Tx Output Power (dBm) ,Rx Optical Power (avg dBm) values. These
+should be comparable to the sample in the first column shown below.
+
+Note, this check should not stop this work, however any abnormal values should be
+reported back to field implementation for investigation.
+
+===============================================================================
+Transceiver Digital Diagnostic Monitoring (DDM)
+===============================================================================
+                              Value High Alarm  High Warn   Low Warn  Low Alarm
+-------------------------------------------------------------------------------
+Temperature (C)               +30.5     +80.0      +75.0      -10.0      -15.0
+Tx Bias Current (mA)           41.8     100.0       80.0        0.0        0.0
+Tx Output Power (dBm)         -2.20      2.00       0.00      -7.00      -9.00
+Rx Optical Power (avg dBm)    -3.00      2.50       1.50     -15.51     -40.00
+Aux1: 3.3 Voltage (V)          3.27      3.63       3.46       3.13       2.97
+===============================================================================
+
+Values to check:
+
+===============================================================================
+Transceiver Digital Diagnostic Monitoring (DDM)
+===============================================================================
+                              Value High Alarm  High Warn   Low Warn  Low Alarm
+-------------------------------------------------------------------------------
+Tx Output Power (dBm)         -2.20
+Rx Optical Power (avg dBm)    -3.00
+===============================================================================
+
+4.0
+On each router in turn {{ core_1_hostname }}  and {{ core_2_hostname }}, check
+that the following policy-map exists with the command
+   sh run | b P-CORE-EGRESS-BUNDLE
+
+policy-map P-CORE-EGRESS-BUNDLE
+ class EXP_67
+  bandwidth percent 1
+ !
+ class EXP_5
+  police rate percent 40
+  !
+  priority level 1
+ !
+ class EXP_4
+  random-detect exp 4 8000 us 8000 us
+  bandwidth remaining percent 90
+ !
+ class class-default
+  random-detect exp 0 560 us 960 us
+  random-detect exp 1 960 us 1920 us
+  random-detect exp 2 1920 us 3040 us
+  random-detect exp 3 3040 us 4160 us
+  random-detect default
+  bandwidth remaining percent 10
+ !
+ end-policy-map
+
+If the policy-map does not exist, add it now.
+
+5.0
+Apply the configuration in the  following files to the respective devices:
+(This step assumes that the Alcatel 7750 device has been configured correctly)
+
+
+{{ core_1_hostname }}.txt
+{{ core_2_hostname }}.txt
+
+rr0.bllon.txt
+rr1.bllon.txt
+rr0.enlba.txt
+rr1.enlba.txt
+
+Check the ports on the 7750 are now operationally up now that ethernet OAM has been configured on the NCSs and that both
+Input and Output counters show Information OAMPDUs being sent and received with the commands below:
+
+show port 1/1/1 ethernet efm-oam
+show port 1/1/2 ethernet efm-oam
+show port 1/1/3 ethernet efm-oam
+show port 1/1/4 ethernet efm-oam
+show port 10/1/1 ethernet efm-oam
+show port 10/1/2 ethernet efm-oam
+show port 10/1/3 ethernet efm-oam
+show port 10/1/4 ethernet efm-oam
+
+6.0
+From {{ core_1_hostname }} and {{ core_2_hostname }}, ping across the new circuits at max MTU, DF set, 1000000 packets.
+Check for no packet loss and no errors at either end:
+
+{{ core_1_hostname }}:
+  ping ipv4 {{ pe_interconnect_address_1_core_1 }} size 8192 count 100000 donnotfrag
+
+{{ core_2_hostname }}:
+  ping ipv4 {{ pe_interconnect_address_1_core_2 }} size 8192 count 100000 donnotfrag
+
+7.0
+From {{ core_1_hostname }} & {{ core_2_hostname }}, check you have an IS-IS adjacency across the new circuits:
+----------------------------------------------------------------------------
+
+{{ core_1_hostname }}:
+   sh isis neigh {{ core_1_bundle_int_short }}
+
+{{ core_2_hostname }}:
+   sh isis neigh {{ core_2_bundle_int_short }}
+
+The output should show the peering device with an "up" state status
+
+8.0
+From rr0.bllon rr1.bllon, rr0.enlba & rr1.enlba confirm BGP adjacency to {{ node_name }}:
+-------------------------------------------------------------------------------------
+
+Confirm BGP adjacency with the Alcatel PE device is established.
+
+sh ip bgp neighbor {{ system_address }}
+
+If the only configuration on the router is the base config, then no prefixes will be advertsied.
+However it is possible that CDN-specfic config is present, in which a small number of prefixes may be.
+
+9.0
+Confirm that an mpls neighbor is established on the interface of {{ core_1_hostname }} & {{ core_2_hostname }}:
+-----------------------------------------------------------------------------------
+
+{{ core_1_hostname }}:
+   sh mpls ldp neigh {{ core_1_bundle_int_long }}
+
+{{ core_2_hostname }}:
+   sh mpls ldp neigh {{ core_2_bundle_int_long }}
+
+
+10.0
+isis topology
+------------------------------------------------------------------------------------
+After a brief period. Check that you have these interfaces in the isis topology
+Displaying the list of all connected Level-2 (inter-area) routers in all areas
+filtering for each interface.
+
+{{ core_1_hostname }}
+show isis topology  |  i {{ core_1_bundle_int_long }}
+
+{{ core_2_hostname }}
+show isis topology  |  i {{ core_2_bundle_int_long }}
+
+The destination device with associated metric (cost) across the interface should
+be displayed.Expect an output as the one shown below :
+
+System Id       Metric  Next-Hop        Interface       SNPA
+{{ node_name }}      {{ core_1_isis_metric_1 }}   {{ node_name }}    {{ core_1_bundle_int_long }}       *PtoP*
+
+{{ node_name }}:
+show router isis adjacency
+show router isis topology
+
+11.0
+(OPTIONAL)
+Confirm that mpls ldp is enabled on the interface.
+
+{{ core_1_hostname }}:
+show mpls interface  {{ core_1_bundle_int_long }}
+
+{{ core_2_hostname }}:
+show mpls interface  {{ core_2_bundle_int_long }}
+
+Output as shown below should be expected:
+
+Interface                  LDP      Tunnel   Enabled
+-------------------------- -------- -------- --------
+{{ core_2_bundle_int_long }}                 Yes      Yes      Yes
+
+
+{{ node_name }}:
+show router mpls interface
+
+
+12.0
+Verify the rsvp information enabled on each interface
+
+{{ core_1_hostname }}:
+show rsvp interface {{ core_1_bundle_int_long }}
+
+{{ core_2_hostname }}:
+show rsvp interface {{ core_2_bundle_int_long }}
+
+Expect an output as the one below:
+
+Interface   MaxBW (bps) MaxFlow (bps) Allocated (bps)      MaxSub (bps)
+----------- ----------- ------------- -------------------- ------------
+{{ core_1_bundle_int_long }}       10G           10G             0 (  0%)            0
+
+{{ node_name }}:
+show router rsvp interface
+
+
+13.0
+Check MPLS-TE and RSVP are configured:
+------------------------------------------
+Check the mpls traffic engineering interface resource and configuration information
+
+{{ core_1_hostname }}:
+sh mpls traffic-eng link-management interfaces {{ core_1_bundle_int_long }} | i "RSVP|Physical"
+
+{{ core_2_hostname }}:
+sh mpls traffic-eng link-management interfaces {{ core_2_bundle_int_long }}  | i "RSVP|Physical"
+
+and output as below should be expected:
+      Physical BW         : <bandwidth> kbits/sec
+      MPLS TE Link State  : MPLS TE on, RSVP on, admin-up
+
+14.0
+Check that LDP-IGP Sync has been achieved:
+------------------------------------------
+
+Check the isis status information configured on the interfaces.
+
+{{ core_1_hostname }}:
+sh isis interface {{ core_1_bundle_int_long }} | i Sync
+
+{{ core_2_hostname }}:
+sh isis interface {{ core_2_bundle_int_long }} | i Sync
+
+For each interface, confirm for the output "Sync Status" is "Achieved".
+
+ #######If all the above tests return a PASS. Then proceed by lowering the metrics on the above circuits.#########
+
+
+{{ core_1_hostname }}:
+   router isis 65444 int {{ core_1_bundle_int_long }} address-family ipv4 unicast metric {{ core_1_isis_metric_1 }} level 2
+
+{{ core_2_hostname }}:
+   router isis 65444 int {{ core_2_bundle_int_long }} address-family ipv4 unicast metric {{ core_2_isis_metric_1 }} level 2
+
+
+And on the Alcatel Device:
+
+{{ node_name }}:
+===========
+configure router isis interface "base_{{ core_1_hostname }}_1" level 2 metric {{ core_1_isis_metric_1 }}
+configure router isis interface "base_{{ core_2_hostname }}_1" level 2 metric {{ core_2_isis_metric_1 }}
+
+Confirm the traffic levels on the Alcatel device interfaces
+
+monitor router mpls interface "base_{{ core_1_hostname }}_1"
+monitor router mpls interface "base_{{ core_2_hostname }}_1"
+
+As this device is not yet in active service, traffic levels should only comprise of routing updates and management traffic.
+Confirm that traffic levels are low.
+
+Rollback
+---------
+
+Please ring the ticket submitter before attempting rollback as I may
+be able to help resolve your issue.
+
+Use the rollback configuration command on the NCSs.
+Shutdown the {{ node_name }} interfaces.
+
+Shut the BGP sessions down on both end.

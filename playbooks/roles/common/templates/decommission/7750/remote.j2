@@ -1,0 +1,46 @@
+pre-check
+-------------
+{% for cdn, info in interconnects %}
+show port {{ info.remote_port }}
+{% endfor %}
+show lag {{ lag }} port
+{% for cdn, info in cards %}
+show card {{ info.card }}
+{% endfor %}
+
+deploy
+----------
+\configure lag {{ lag }} shutdown
+\configure lag {{ lag }} description "[no-mon]"
+{% for cdn, info in interconnects %}
+\configure lag {{ lag }} no port {{ info.remote_port }}
+\configure port {{ info.remote_port }} shutdown
+\configure port {{ info.remote_port }} network egress no pool
+\configure port {{ info.remote_port }} ethernet network no queue-policy
+\configure port {{ info.remote_port }} ethernet lldp dest-mac nearest-bridge no tx-tlvs
+\configure port {{ info.remote_port }} ethernet lldp dest-mac nearest-bridge no tx-mgmt-address
+{% endfor %}
+\configure no lag {{ lag }}
+{% for cdn, info in cards %}
+\configure card {{ info.card }} shutdown
+\configure card {{ info.card }} mda [1..2] shutdown
+\configure card {{ info.card }} mda [1..2] network ingress no queue-policy
+\configure card {{ info.card }} mda [1..2] no mda-type
+\configure card {{ info.card }} no mda [1..2]
+\configure card {{ info.card }} no card-type
+\configure card {{ info.card }} shutdown
+\configure no card {{ info.card }}
+{% endfor %}
+
+
+post-check
+-------------
+{% for cdn, info in interconnects %}
+show port {{ info.remote_port }}
+{% endfor %}
+{% for cdn, info in cards %}
+show card {{ info.card }}
+{% endfor %}
+show lag {{ lag }}
+
+# cards should be unprovisioned.

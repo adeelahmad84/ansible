@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2a02:c7a:8000:404::/64 exact
+	commit
+	exit
+        static-route 2a02:c7a:8000:404::/64 next-hop 2a02:c78:1:18::9
+        static-route 176.255.171.0/27 next-hop 2.120.8.85 tag 20180
+exit all

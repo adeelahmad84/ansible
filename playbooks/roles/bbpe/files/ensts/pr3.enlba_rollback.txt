@@ -1,0 +1,26 @@
+interface Bundle-Ether259
+ shutdown
+!
+interface Te0/7/0/6/8
+ shutdown
+ !
+!
+router isis 65444
+ no interface Bundle-Ether259
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.3 no password clear
+ no interface Bundle-Ether259
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether259
+ !
+!
+rsvp
+ no interface Bundle-Ether259
+ !
+!
+

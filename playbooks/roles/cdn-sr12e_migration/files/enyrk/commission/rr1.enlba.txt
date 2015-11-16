@@ -1,0 +1,14 @@
+router bgp 65444
+ neighbor 89.200.128.53 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 89.200.128.53 description ar11-cdn.enyrk
+ neighbor 89.200.128.53 password 0 2G4G46jSCAqz9Ai1
+!
+ address-family ipv4
+ neighbor 89.200.128.53 activate
+ neighbor 89.200.128.53 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ !
+ address-family vpnv4
+ neighbor 89.200.128.53 activate
+ neighbor 89.200.128.53 send-community extended
+ neighbor 89.200.128.53 inherit peer-policy OVN-RR-client-VPNV4
+end

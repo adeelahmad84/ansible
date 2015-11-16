@@ -1,0 +1,33 @@
+exit all
+configure
+    port 8/1/1
+        description "[no-mon,core,ip=,rd=pr3.hobir:6-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 8/2/1
+        description "[no-mon,core,ip=,rd=pr3.hobir:6-2-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 9/1/1
+        description "[no-mon,core,ip=,rd=pr3.hobir:7-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 5/1/2
+        description "[core,ip=,rd=ar11-cdn.encax:4-1-40,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 176
+        description "[no-mon,core,ip=,rd=ar11-cdn.encax:lag176,iv-s=vcdn_sc]"
+        shutdown
+	no port 8/1/1
+	no port 8/2/1
+	no port 9/1/1
+    exit
+    router
+        interface "base_ar11-cdn.encax_1"
+            description "[core-o,rd=ar11-cdn.encax:4-1-40]"
+	    shutdown
+	    no port
+            port 5/1/2
+            no shutdown
+exit all

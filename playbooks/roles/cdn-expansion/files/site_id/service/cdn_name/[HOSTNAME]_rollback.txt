@@ -1,0 +1,64 @@
+exit all
+configure
+    router
+	policy-options
+	    begin
+            prefix-list "CORE-CDN-IPV4-CDN_NAME-LAN"
+                no prefix 192.168.0.0/24
+            exit
+            prefix-list "CORE-CDN-IPV6-CDN_NAME-LAN"
+                no prefix 2a08:def0::/64
+            exit
+	    commit
+	exit
+    exit
+    service
+        ies 220900
+            interface "ies220900_cdn_name-0"
+                description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] cdn_name-0 Gateway"
+		shutdown
+                no address 192.168.0.1/24
+                ipv6
+                    no address 2a08:def0::1/64
+                exit
+                sap lag-80
+		    shutdown
+                exit	
+                no sap lag-80
+            exit
+            no interface "ies220900_cdn_name-0"
+            shutdown
+        exit
+        no ies 220900
+    exit
+    lag 80
+        description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME]_0"
+	no port [LOCAL_PORT]
+	no port [LOCAL_PORT]
+	no port [LOCAL_PORT]
+	no port [LOCAL_PORT]
+	no port [LOCAL_PORT]
+        shutdown
+    exit
+    no lag 80
+    port [LOCAL_PORT]
+        description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        shutdown
+    exit
+    port [LOCAL_PORT]
+        description "[no-mon,ext,iv-g=cdn_name,iv-s=cdn_cdn_name] TO [REMOTE_SERVER_HOSTNAME] PORT [REMOTE-PORT]"
+        shutdown
+    exit
+exit all

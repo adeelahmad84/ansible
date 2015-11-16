@@ -1,0 +1,134 @@
+\configure
+    port 1/1/9
+        no shutdown
+    exit
+    port 1/1/10
+        no shutdown
+    exit
+    port 1/1/11
+        no shutdown
+    exit
+    port 1/1/12
+        no shutdown
+    exit
+    port 10/1/9
+        no shutdown
+    exit
+    port 10/1/10
+        no shutdown
+    exit
+    port 10/1/11
+        no shutdown
+    exit
+    port 10/1/12
+        no shutdown
+    exit
+    lag 60
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server A "
+        mode access
+        port 1/1/9
+        port 1/1/10
+        lacp active
+        no shutdown
+    exit
+    lag 61
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server B "
+        mode access
+        port 1/1/11
+        port 1/1/12
+        lacp active
+        no shutdown
+    exit
+    lag 62
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server C"
+        mode access
+        port 10/1/9
+        port 10/1/10
+        lacp active
+        no shutdown
+    exit
+    lag 63
+        description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix server D"
+        mode access
+        port 10/1/11
+        port 10/1/12
+        lacp active
+        no shutdown
+    exit
+    service
+	customer 27 create
+		description "Netflix"
+	exit
+        vpls 220401 customer 27 create
+            description "VPLS Interconnect Netflix Servers A-D"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls220401_cdn-netflix"
+            sap lag-60 create
+            exit
+            sap lag-61 create
+            exit
+            sap lag-62 create
+            exit
+            sap lag-63 create
+            exit
+            no shutdown
+		exit
+        ies 220400 customer 27 create
+            interface "ies 220400_cdn-netflix" create
+                description "[no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-D Gateway IP"
+                address 90.223.190.145/28
+                cflowd interface
+                ipv6
+                    address 2a02:c7a:8000:fc08::1/64
+                exit
+                vpls "vpls220401_cdn-netflix"
+                exit
+            exit
+            service-name "ies220400_cdn-netflix"
+            no shutdown
+	exit
+    exit
+    router
+	policy-options
+	    begin
+	    prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+			prefix 90.223.190.144/28 exact
+        exit
+	    prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+			prefix 2a02:c7a:8000:fc08::/64 exact
+        exit
+        community "cdn-enlcs-netflix" members "4589:4" "5607:1006" "4589:14447" "5607:14447" "no-export-subconfed"
+	    policy-statement "EXPORT-TO-IBGP"
+		entry 24
+		    description "NETFLIX LAN subnets"
+		    from
+			protocol direct
+			prefix-list "CORE-CDN-IPV4-NETFLIX-LAN"
+		    exit
+		    action accept
+			community add "cdn-enlcs-netflix"
+			metric set 1000
+			next-hop-self
+		    exit
+		exit
+	    exit
+	    policy-statement "EXPORT-TO-IBGP6"
+		entry 293
+		    from
+			protocol direct
+			prefix-list "CORE-CDN-IPV6-NETFLIX-LAN"
+		    exit
+		    to
+			protocol bgp
+		    exit
+		    action accept
+			community add "cdn-enlcs-netflix"
+			next-hop-self
+		    exit
+		exit
+	    exit
+	    commit
+exit all

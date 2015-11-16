@@ -1,0 +1,89 @@
+rr0.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.61 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.61 description ar10.enbgk
+ neighbor 84.38.34.61 password 7 082C496C58290441170E08532B22282936
+ !
+ address-family ipv4
+ neighbor 84.38.34.61 activate
+ neighbor 84.38.34.61 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr0.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.61 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.61 description ar10.enbgk
+ neighbor 84.38.34.61 password 7 011A03295403340E28615B503000311D03
+ !
+ address-family ipv4
+ neighbor 84.38.34.61 activate
+ neighbor 84.38.34.61 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr1.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.61 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.61 description ar10.enbgk
+ neighbor 84.38.34.61 password 7 151C0E09511E2331223A30361C08420404
+ !
+ address-family ipv4
+ neighbor 84.38.34.61 activate
+ neighbor 84.38.34.61 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 84.38.34.61 activate
+ neighbor 84.38.34.61 send-community extended
+ neighbor 84.38.34.61 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr1.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.61 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.61 description ar10.enbgk
+ neighbor 84.38.34.61 password 7 010B070D71522A0E241A6F0C1E041F451B
+ !
+ address-family ipv4
+ neighbor 84.38.34.61 activate
+ neighbor 84.38.34.61 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 84.38.34.61 activate
+ neighbor 84.38.34.61 send-community extended
+ neighbor 84.38.34.61 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr3.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.61 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.61 description ar10.enbgk
+ neighbor 84.38.34.61 password 7 0121070C0D260F1A364D161A1C0C101A52
+ !
+ address-family ipv6
+  neighbor 84.38.34.61 activate
+  neighbor 84.38.34.61 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!
+
+rr3.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.61 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.61 description ar10.enbgk
+ neighbor 84.38.34.61 password 7 0528070A2949470D160B104A0406052320
+ !
+ address-family ipv6
+  neighbor 84.38.34.61 activate
+  neighbor 84.38.34.61 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!

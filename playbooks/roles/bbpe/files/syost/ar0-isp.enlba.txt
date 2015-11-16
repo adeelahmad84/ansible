@@ -1,0 +1,10 @@
+!! $Id: ar0-isp.enlba.txt,v 1.1 2012/07/30 11:04:28 mivens Exp $
+
+router bgp 65444
+ neighbor 84.38.34.6 inherit peer-session IRONMAN_PE_SESSION
+ neighbor 84.38.34.6 description sr17.syost - IRONMAN_PE_SUBS_REST_POLICY
+ neighbor 84.38.34.6 password 0 TwZrsMUPZgK9644D
+ address-family ipv4
+  neighbor 84.38.34.6 activate
+  neighbor 84.38.34.6 inherit peer-policy IRONMAN_PE_SUBS_REST_POLICY
+end

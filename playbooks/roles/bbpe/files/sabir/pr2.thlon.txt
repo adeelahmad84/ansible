@@ -1,0 +1,65 @@
+configure terminal
+!
+interface Bundle-Ether258
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr11.sabir:lag1,iv-s=bb]
+ no shutdown
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links 0
+ load-interval 30
+ dampening 1 750 2000 1
+ logging events link-status
+ ipv4 mtu 8192
+ ipv4 address 84.38.37.140 255.255.255.254
+!
+interface Te0/4/0/8/3
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr11.sabir:1-1-1,cid=1000/BHMA-LNTN/10GLAN/OVN7,iv-s=bb]
+ no shutdown
+ bundle id 258 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+router isis 65444
+ interface Bundle-Ether258
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 4SQxY1KNwPw6wfuA
+  address-family ipv4 unicast
+   metric 9910000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.2 password clear ZSH64AZRLPio3Qks
+ address-family ipv4
+  label
+   remote
+    accept
+     from 84.38.34.2:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether258
+ !
+!
+rsvp
+ interface Bundle-Ether258
+  bandwidth 10 Gbps
+  signalling dscp 48
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether258
+ !
+!
+commit

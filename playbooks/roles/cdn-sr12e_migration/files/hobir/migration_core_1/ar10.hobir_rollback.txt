@@ -1,0 +1,47 @@
+exit all
+configure
+    port 5/1/1
+        description "[core,ip=,rd=pr2.hobir:hu0-2-0-0,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 5/2/1
+        description "[core,ip=,rd=pr2.hobir:hu0-2-0-2,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 5/2/1
+        description "[core,ip=,rd=pr2.hobir:hu0-1-0-0,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 3
+        description [core,ip=,rd=pr2.hobir:be286,iv-s=vcdn_sc]
+        no shutdown
+	port 5/1/1
+	port 5/2/1
+	port 5/2/1
+    exit
+    router
+	interface "base_pr2.hobir_1"
+	    no shutdown
+            address 89.200.131.225/31
+            description "[core-o,rd=pr2.hobir:be286]"
+	exit
+	isis
+	    interface "base_pr2.hobir_1"
+		no shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_pr2.hobir_1"
+		no shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_pr2.hobir_1"
+		no shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_pr2.hobir_1"
+		    no shutdown
+exit all

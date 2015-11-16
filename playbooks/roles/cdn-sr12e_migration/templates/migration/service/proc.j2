@@ -1,0 +1,29 @@
+Summary:
+
+This change is to migrate all services in {{ site_id }} to an sr12e device.  This is to accomodate the accelerated CDN Growth.
+
+Implementation:
+
+1. Please run the pre-checks on {{ old_node_name }} using {{ old_node_name }}_service_migration_pre.txt, record the output for comparison later.
+
+    a. Please ensure that there are no traffic remaining on the ports.
+    b. Please run through the patching schedule with the FE quoting TG{{ tgref }} from https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells.
+
+2. Please use {{ old_node_name }}_service_shut.txt to shut ports/services down on {{ old_node_name }}
+3. Please instruct the FE to carry out the physical migration.
+4. Please use {{ node_name }}_service_new.txt to configure and migrate services across to {{ node_name }}
+5. After the FE has completed please run {{ node_name }}_service_migration_post.txt to run post-checks.  Record the output and run a diff with the pre-checks.
+With the exception of the ports id, the rest of the results should be identical.  This should be easy to spot when running something 'vimdiff'.
+
+6. If for some reason one of the services wasn't successful and see a significant difference between pre and post-check, please proceed in rolling back ONLY FOR THAT SERVICES.  Do not rollback everything unless the full migration is unsuccessful.
+
+    N.B. when you run a diff between the two pre and post check outputs, expect to see ARP/MAC-ADDRESS table (if applicable) and the number of prefixes being advertised to be the same.
+
+- Attached are rollback files named as below:
+
+    {{ old_node_name }}_rollback.txt
+    {{ node_name }}_services_rollback.txt
+
+7. If migration is successful then please proceed to cleanup using the commands attached in the below file:
+
+    - {{ old_node_name }}_cleanup.txt

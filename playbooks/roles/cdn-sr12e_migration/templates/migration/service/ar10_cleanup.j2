@@ -1,0 +1,22 @@
+exit all
+configure
+    service
+{% for item, cdn in services|dictsort %}
+        ies {{ cdn.ies_id }}
+            interface "ies{{ cdn.ies_id }}_{{ item|lower }}"
+                no address {{ cdn.ipv4 | ipaddr('1') }}
+{% if cdn.ipv4_2 %}
+                no secondary {{ cdn.ipv4_2 | ipaddr('1') }}
+{% endif %}
+{% if cdn.ipv4_3 %}
+                no secondary {{ cdn.ipv4_3 | ipaddr('1') }}
+{% endif %}
+{% if cdn.ipv6 %}
+                ipv6
+                    no address {{ cdn.ipv6 | ipaddr('1') }}
+                exit
+{% endif %}
+            exit
+        exit
+{% endfor %}
+exit all

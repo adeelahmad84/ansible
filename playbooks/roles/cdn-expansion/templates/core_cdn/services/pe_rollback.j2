@@ -1,0 +1,90 @@
+exit all
+configure
+{% for key, cdn in services|dictsort %}
+    router
+	policy-options
+	    begin
+            prefix-list "CORE-CDN-IPV4-{{ prefix_name|upper }}-LAN"
+                no prefix {{ cdn.ipv4 | ipaddr('0') }}
+            exit
+            prefix-list "CORE-CDN-IPV6-{{ prefix_name|upper }}-LAN"
+                no prefix {{ cdn.ipv6 | ipaddr('0') }}
+            exit
+{% if cdn.svc_id == 1 %}
+            no community "cdn-{{ site_id }}-{{ prefix_name }}" members "4589:4" "5607:{{ svc_comm }}" "4589:{{ site_community_id }}" "5607:{{ site_community_id }}" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                no entry {{ v4_entry }}
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                no entry {{ v6_entry }}
+	    exit
+{% endif %}
+	    commit
+	exit
+    exit
+    service
+        ies {{ cdn_svc + cdn.svc_id }}
+            interface "ies{{ cdn_svc + cdn.svc_id }}_{{ service_name }}-{{ cdn.svc_id }}"
+                description "[no-mon,ext,iv-g={{ cdn_name }},iv-s=cdn_{{ cdn_name }}] {{ cdn_name }}-{{ cdn.svc_id }} Gateway"
+		shutdown
+                no address {{ cdn.ipv4 | ipaddr('1') }}
+                ipv6
+                    no address {{ cdn.ipv6 | ipaddr('1') }}
+                exit
+{% if cdn_name == 'google' %}
+                vpls "vpls{{ cdn_svc + cdn.svc_id + 1 }}_cdn-{{ cdn_name|lower }}_{{ cdn.svc_id }}"
+		    shutdown
+                exit
+                no vpls "vpls{{ cdn_svc + cdn.svc_id + 1 }}_cdn-{{ cdn_name|lower }}_{{ cdn.svc_id }}"
+{% else %}
+{% if cdn_lag %}
+                sap lag-{{ cdn_lag + cdn.lag }}
+		    shutdown
+                exit	
+                no sap lag-{{ cdn_lag + cdn.lag }}
+{% else %}
+{% for key, info in cdn.array|dictsort %}
+		sap {{ info.port }}
+		    shutdown
+                exit
+		no sap {{ info.port }}
+{% endfor %}
+{% endif %}
+{% endif %}
+            exit
+            no interface "ies{{ cdn_svc + cdn.svc_id }}_{{ service_name }}-{{ cdn.svc_id }}"
+            shutdown
+        exit
+        no ies {{ cdn_svc + cdn.svc_id }}
+{% if cdn_name == 'google' %}
+	vpls {{ cdn_svc + cdn.svc_id + 1 }}
+            description "[no-mon,ext,iv-g={{ cdn_name|lower }},iv-s=cdn_{{ cdn_name|lower }}] {{ cdn_name|capitalize }} Server VPLS"
+	    shutdown
+{% for key, info in cdn.array|dictsort %}
+	    sap {{ info.port }}
+		shutdown
+	    exit
+	    no sap {{ info.port }}
+{% endfor %}
+	exit
+	no vpls {{ cdn_svc + cdn.svc_id + 1 }}
+{% endif %}
+    exit
+{% if cdn_lag %}
+    lag {{ cdn_lag + cdn.lag }}
+        description "[no-mon,ext,iv-g={{ cdn_name }},iv-s=cdn_{{ cdn_name }}] TO {{ cdn.remote_svr|upper }}_{{ cdn.svc_id }}"
+{% for key, info in cdn.array|dictsort %}
+	no port {{ info.port }}
+{% endfor %}
+        shutdown
+    exit
+    no lag {{ cdn_lag + cdn.lag }}
+{% endif %}
+{% for key, info in cdn.array|dictsort %}
+    port {{ info.port }}
+        description "[no-mon,ext,iv-g={{ cdn_name }},iv-s=cdn_{{ cdn_name }}] TO {{ cdn.remote_svr|upper }} PORT {{ info.remote_port|replace("/","-") }}"
+        shutdown
+    exit
+{% endfor %}
+{% endfor %}
+exit all

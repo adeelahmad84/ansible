@@ -1,0 +1,8 @@
+/configure
+    port 10/1/5
+        shutdown
+    exit
+    lag 50
+        no port 10/1/5
+        no port-threshold
+    exit all

@@ -1,0 +1,26 @@
+configure terminal
+!
+interface Vlan{{ ggc.vlan_id }}
+ shutdown
+!
+{% if ggc.one_gig %}
+interface Vlan201
+ shutdown
+!
+interface Port-channel20
+ shutdown
+!
+{% for key, value in ggc.one_gig_array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ shutdown
+!
+{% endfor %}
+{% else %}
+{% for key, value in ggc.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ shutdown
+!
+{% endfor %}
+{% endif %}
+!
+end

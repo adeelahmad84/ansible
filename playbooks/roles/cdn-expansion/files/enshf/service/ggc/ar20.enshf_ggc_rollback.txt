@@ -1,0 +1,19 @@
+configure terminal
+!
+interface Vlan20
+ shutdown
+!
+interface Vlan201
+ shutdown
+!
+interface Port-channel20
+ shutdown
+!
+interface TenGigabitEthernet1/19
+ shutdown
+!
+interface TenGigabitEthernet1/20
+ shutdown
+!
+!
+end

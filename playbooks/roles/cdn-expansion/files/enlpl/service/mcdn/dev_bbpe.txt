@@ -1,0 +1,139 @@
+
+########SR10.ENLPL################
+exit all
+configure
+    router
+        static-route 2a02:c7a:8000:f804::/64 next-hop 2a02:c78:1:12::1
+        static-route 176.255.171.64/27 next-hop 2.120.9.243 tag 20170
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:f804::/64 exact
+	    exit
+            community "cdn-enlpl-akamai-mcdn" members "4589:4" "5607:1002" "4589:14459" "5607:14459" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 54
+                    from
+                        protocol static
+			tag 20170
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlpl-akamai-mcdn"
+			local-preference 170
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlpl-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+########SR10.ENLPL################
+########SR11.ENLPL################
+exit all
+configure
+    router
+        static-route 2a02:c7a:8000:f804::/64 next-hop 2a02:c78:1:12::3
+        static-route 176.255.171.64/27 next-hop 2.120.9.245 tag 20180
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:f804::/64 exact
+	    exit
+            community "cdn-enlpl-akamai-mcdn" members "4589:4" "5607:1002" "4589:14459" "5607:14459" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 53
+                    from
+                        protocol static
+			tag 20180
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlpl-akamai-mcdn"
+			local-preference 180
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlpl-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+########SR11.ENLPL################
+########SR12.ENLPL################
+exit all
+configure
+    router
+        static-route 2a02:c7a:8000:f804::/64 next-hop 2a02:c78:1:12::5
+        static-route 176.255.171.64/27 next-hop 2.120.8.41 tag 20190
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:f804::/64 exact
+	    exit
+            community "cdn-enlpl-akamai-mcdn" members "4589:4" "5607:1002" "4589:14459" "5607:14459" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 52
+                    from
+                        protocol static
+			tag 20190
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlpl-akamai-mcdn"
+			local-preference 190
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enlpl-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+########SR12.ENLPL################

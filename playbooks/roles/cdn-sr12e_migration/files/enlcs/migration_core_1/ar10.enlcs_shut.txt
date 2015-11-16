@@ -1,0 +1,43 @@
+exit all
+configure
+    port 3/2/1
+        description "[no-mon,core,ip=,rd=pr2.bllon:hu0-4-0-1,cid=SNS:1003/LEIA-LNBL/100G/CDN1,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 3/1/1
+        description "[no-mon,core,ip=,rd=pr2.bllon:hu0-4-0-2,cid=SNS:1003/LEIA-LNBL/100G/CDN2,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 3
+        description [no-mon,core,ip=,rd=pr2.bllon:be281,iv-s=vcdn_sc]
+        shutdown
+	no port 3/2/1
+	no port 3/1/1
+    exit
+    router
+	interface "base_pr2.bllon_1"
+	    shutdown
+	    no port
+            no address
+            description "[no-mon,core-o,rd=pr2.bllon:be281]"
+	exit
+	isis
+	    interface "base_pr2.bllon_1"
+		shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_pr2.bllon_1"
+		shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_pr2.bllon_1"
+		shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_pr2.bllon_1"
+		    shutdown
+exit all

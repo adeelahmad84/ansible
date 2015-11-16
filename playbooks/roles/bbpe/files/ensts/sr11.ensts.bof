@@ -1,0 +1,16 @@
+bof address          10.200.200.74/24 active
+bof address          10.200.200.75/24 standby
+bof static-route     10.200.0.0/15 next-hop 10.200.200.1 
+bof static-route     84.38.45.0/24 next-hop 10.200.200.1 
+bof static-route     84.38.47.0/24 next-hop 10.200.200.1 
+bof static-route     90.207.236.0/23 next-hop 10.200.200.1 
+bof static-route     90.207.238.0/24 next-hop 10.200.200.1 
+bof static-route     90.223.196.0/24 next-hop 10.200.200.1 
+bof static-route     90.223.208.0/23 next-hop 10.200.200.1 
+
+bof persist on
+bof li-separate
+
+bof primary-image    cf3:\IMAGES\TiMOS-12.0R5
+bof primary-config   cf3:\CFG\sr11.ensts.cfg
+bof secondary-image  cf3:\IMAGES\TiMOS-10.0R5

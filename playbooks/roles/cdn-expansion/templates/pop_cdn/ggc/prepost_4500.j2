@@ -1,0 +1,18 @@
+show interface vlan{{ ggc.vlan_id }}
+show vlan id {{ ggc.vlan_id }}
+ping {{ ggc.ipv4 | ipaddr('1')|replace("/26", " ") }}
+ping {{ ggc.ipv6 | ipaddr('1')|replace('/64','') }}
+{% if ggc.one_gig %}
+show interface vlan201
+show vlan id 201
+ping {{ ggc.one_gig_ipv4 | ipaddr('1')|replace("/29", " ") }}
+{% for key, value in ggc.one_gig_array|dictsort %}
+show interface TenGigabitEthernet{{ value.port }}
+show interface TenGigabitEthernet{{ value.port }} status
+{% endfor %}
+{% else %}
+{% for key, value in ggc.array|dictsort %}
+show interface TenGigabitEthernet{{ value.port }}
+show interface TenGigabitEthernet{{ value.port }} status
+{% endfor %}
+{% endif %}

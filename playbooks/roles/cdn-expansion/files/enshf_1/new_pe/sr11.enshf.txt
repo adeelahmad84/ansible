@@ -1,0 +1,93 @@
+exit all
+/configure
+    port 9/1/1
+        description "[core,rd=ar20.enshf:te1-7,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 9/1/2
+        description "[core,rd=ar20.enshf:te1-8,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 9/1/3
+        description "[core,rd=ar20.enshf:te1-9,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 9/1/4
+        description "[core,rd=ar20.enshf:te1-10,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_E015"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    lag 50
+	description "[core,rd=ar20.enshf:pc2,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar20.enshf"
+	port 9/1/1
+	port 9/1/2
+	port 9/1/3
+	port 9/1/4
+		
+	lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    router
+        interface "IN-POP-CDN-LINK"
+	    address 2.120.9.226/31
+            description "[core,rd=ar20.enshf:pc2,iv-s=cdn_pop]"
+            port lag-50
+            ipv6
+                address 2a02:c78:1:1::2/127
+            exit
+            cflowd interface both
+            no shutdown
+        exit
+	static-route 84.38.34.232/32 next-hop 2.120.9.227  tag 20110
+	policy-options
+	    begin
+	    prefix-list "PL-POP-CDN-LOOPBACK"
+		prefix 84.38.34.232/32 exact
+	    exit
+	    policy-statement "EXPORT-TO-IBGP"
+		entry 48
+		    description "CDN-AR20-Lo0 static needs to be allowed prior to blocking infrastructure range"
+		    from
+			protocol static
+			prefix-list "PL-POP-CDN-LOOPBACK"
+			tag 0x4e8e
+		    exit
+		    to
+			protocol bgp
+		    exit
+		    action accept
+			community add "Subconfed-local"
+			next-hop-self
+		    exit
+		exit
+	    exit
+	    commit
+	exit
+        bgp
+            group "remote-popcdn-ipv4"
+                family ipv4
+                damping
+                next-hop-self
+                type internal
+                export "EXPORT-TO-IBGP" 
+                disable-communities extended
+                neighbor 2.120.9.225 
+                    description "ar20.enshf"
+                    authentication-key "7 080849760611111F1D045F25231F25213D"
+                exit all

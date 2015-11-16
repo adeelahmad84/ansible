@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.3 password 9grzDKzIIKbpNHW8
+
+interface Port-channel3.3618
+ description [core,rd=sr11.ensts:sdp267,cid=SNS:1000/LNBL-NGMA/PW/999364618] sedcanopy pw
+ encapsulation dot1Q 3618
+ xconnect 84.38.34.3 999364618 pw-class SEDCANOPY
+end

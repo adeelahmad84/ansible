@@ -1,0 +1,9 @@
+debug
+    mirror-source 1000
+        ip-filter 116 entry 60
+        ip-filter 117 entry 60
+        ip-filter 118 entry 60
+        ip-filter 119 entry 60
+        no shutdown
+    exit
+exit all

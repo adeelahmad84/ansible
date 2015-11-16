@@ -1,0 +1,13 @@
+Summary:
+Removal of a decommssioned line card
+
+Implementation Steps:
+
+Device - ar11-cdn.enbgk
+Site - ENBGK, Unit 6B Trevanth Road Leicester LE4 9LS; cm2.enbgk: ports 8&9
+Summary -
+
+Please remove the following cards from ar11-cdn.enbgk:
+
+Card/slot 6
+Card/slot 7

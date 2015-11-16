@@ -1,0 +1,11 @@
+Device - {{ hostname }}
+Site - {{ site_id }}, {{ location }}
+Circuit - LOCAL
+Config - N/A
+{% for key, cdn in services|dictsort %}
+Summary - Please patch the following as per TG{{ cdn.tgref }} in https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells
+
+{% for key, info in cdn.array|dictsort %}
+{{ hostname }}	{{ info.port }}	    {{ cdn.remote_svr|upper }}	     {{ info.remote_port }}
+{% endfor %}
+{% endfor %}

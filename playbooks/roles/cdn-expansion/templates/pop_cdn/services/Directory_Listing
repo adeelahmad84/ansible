@@ -1,0 +1,2657 @@
+/home/ubuntu/
+├── ansible
+│   └── playbooks
+│       ├── ansible.cfg
+│       ├── bbpe.yml
+│       ├── bllon.yml
+│       ├── enbgk.yml
+│       ├── encax.yml
+│       ├── enedi.yml
+│       ├── enlcs.yml
+│       ├── enlpl.yml
+│       ├── enntg.yml
+│       ├── ensts.yml
+│       ├── group_vars
+│       │   ├── hobir
+│       │   └── services.yml
+│       ├── hobir.yml
+│       ├── hosts
+│       ├── password.txt
+│       ├── roles
+│       │   ├── bbpe
+│       │   │   ├── breakout_procedure.txt
+│       │   │   ├── files
+│       │   │   │   ├── bbpe_qos
+│       │   │   │   ├── bllon
+│       │   │   │   │   ├── ar0.enlba_rollback.txt
+│       │   │   │   │   ├── ar0.enlba.txt
+│       │   │   │   │   ├── ar0-isp.bllon.txt
+│       │   │   │   │   ├── ar0-isp.enbgk.txt
+│       │   │   │   │   ├── ar0-isp.enlba.txt
+│       │   │   │   │   ├── ar0-isp.enshf.txt
+│       │   │   │   │   ├── ar0-isp.hobir.txt
+│       │   │   │   │   ├── ar0-isp_rollback.txt
+│       │   │   │   │   ├── ar13.enlba.txt
+│       │   │   │   │   ├── ar13_rollback.txt
+│       │   │   │   │   ├── ar13.thlon.txt
+│       │   │   │   │   ├── ar4.bllon_rollback.txt
+│       │   │   │   │   ├── ar4.bllon.txt
+│       │   │   │   │   ├── br0.bllon.txt
+│       │   │   │   │   ├── br0.enlba.txt
+│       │   │   │   │   ├── br0.hobir.txt
+│       │   │   │   │   ├── br0_rollback.txt
+│       │   │   │   │   ├── br0.thlon.txt
+│       │   │   │   │   ├── pr2.bllon_rollback.txt
+│       │   │   │   │   ├── pr2.bllon.txt
+│       │   │   │   │   ├── pr3.bllon_rollback.txt
+│       │   │   │   │   ├── pr3.bllon.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   ├── rr0_rollback.txt
+│       │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   ├── rr1_rollback.txt
+│       │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   ├── rr3_rollback.txt
+│       │   │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   │   ├── sr15.bllon.bof
+│       │   │   │   │   ├── sr15.bllon.cfg
+│       │   │   │   │   ├── sr15.bllon_nim.txt
+│       │   │   │   │   └── sr15.bllon_postacl.cfg
+│       │   │   │   ├── enedi
+│       │   │   │   │   ├── ar0.enlba_rollback.txt
+│       │   │   │   │   ├── ar0.enlba.txt
+│       │   │   │   │   ├── ar0-isp.bllon.txt
+│       │   │   │   │   ├── ar0-isp.enbgk.txt
+│       │   │   │   │   ├── ar0-isp.enlba.txt
+│       │   │   │   │   ├── ar0-isp.enshf.txt
+│       │   │   │   │   ├── ar0-isp.hobir.txt
+│       │   │   │   │   ├── ar0-isp_rollback.txt
+│       │   │   │   │   ├── ar13.enlba.txt
+│       │   │   │   │   ├── ar13_rollback.txt
+│       │   │   │   │   ├── ar13.thlon.txt
+│       │   │   │   │   ├── ar4.bllon_rollback.txt
+│       │   │   │   │   ├── ar4.bllon.txt
+│       │   │   │   │   ├── br0.bllon.txt
+│       │   │   │   │   ├── br0.enlba.txt
+│       │   │   │   │   ├── br0.hobir.txt
+│       │   │   │   │   ├── br0_rollback.txt
+│       │   │   │   │   ├── br0.thlon.txt
+│       │   │   │   │   ├── pr2.enlba_rollback.txt
+│       │   │   │   │   ├── pr2.enlba.txt
+│       │   │   │   │   ├── pr3.hobir_rollback.txt
+│       │   │   │   │   ├── pr3.hobir.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   ├── rr0_rollback.txt
+│       │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   ├── rr1_rollback.txt
+│       │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   ├── rr3_rollback.txt
+│       │   │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   │   ├── sr12.enedi.bof
+│       │   │   │   │   ├── sr12.enedi.cfg
+│       │   │   │   │   ├── sr12.enedi_nim.txt
+│       │   │   │   │   └── sr12.enedi_postacl.cfg
+│       │   │   │   ├── enlpl
+│       │   │   │   │   ├── ar0.enlba_rollback.txt
+│       │   │   │   │   ├── ar0.enlba.txt
+│       │   │   │   │   ├── ar0-isp.bllon.txt
+│       │   │   │   │   ├── ar0-isp.enbgk.txt
+│       │   │   │   │   ├── ar0-isp.enlba.txt
+│       │   │   │   │   ├── ar0-isp.enshf.txt
+│       │   │   │   │   ├── ar0-isp.hobir.txt
+│       │   │   │   │   ├── ar0-isp_rollback.txt
+│       │   │   │   │   ├── ar13.enlba.txt
+│       │   │   │   │   ├── ar13_rollback.txt
+│       │   │   │   │   ├── ar13.thlon.txt
+│       │   │   │   │   ├── ar4.bllon_rollback.txt
+│       │   │   │   │   ├── ar4.bllon.txt
+│       │   │   │   │   ├── br0.bllon.txt
+│       │   │   │   │   ├── br0.enlba.txt
+│       │   │   │   │   ├── br0.hobir.txt
+│       │   │   │   │   ├── br0_rollback.txt
+│       │   │   │   │   ├── br0.thlon.txt
+│       │   │   │   │   ├── pr2.hobir_rollback.txt
+│       │   │   │   │   ├── pr2.hobir.txt
+│       │   │   │   │   ├── pr3.enlba_rollback.txt
+│       │   │   │   │   ├── pr3.enlba.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   ├── rr0_rollback.txt
+│       │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   ├── rr1_rollback.txt
+│       │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   ├── rr3_rollback.txt
+│       │   │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   │   ├── sr12.enlpl.bof
+│       │   │   │   │   ├── sr12.enlpl.cfg
+│       │   │   │   │   ├── sr12.enlpl_nim.txt
+│       │   │   │   │   ├── sr12.enlpl_postacl.cfg
+│       │   │   │   │   └── sr12_ports
+│       │   │   │   ├── enntg
+│       │   │   │   │   ├── ar0.enlba_rollback.txt
+│       │   │   │   │   ├── ar0.enlba.txt
+│       │   │   │   │   ├── ar0-isp.bllon.txt
+│       │   │   │   │   ├── ar0-isp.enbgk.txt
+│       │   │   │   │   ├── ar0-isp.enlba.txt
+│       │   │   │   │   ├── ar0-isp.enshf.txt
+│       │   │   │   │   ├── ar0-isp.hobir.txt
+│       │   │   │   │   ├── ar0-isp_rollback.txt
+│       │   │   │   │   ├── ar13.enlba.txt
+│       │   │   │   │   ├── ar13_rollback.txt
+│       │   │   │   │   ├── ar13.thlon.txt
+│       │   │   │   │   ├── ar4.bllon_rollback.txt
+│       │   │   │   │   ├── ar4.bllon.txt
+│       │   │   │   │   ├── br0.bllon.txt
+│       │   │   │   │   ├── br0.enlba.txt
+│       │   │   │   │   ├── br0.hobir.txt
+│       │   │   │   │   ├── br0_rollback.txt
+│       │   │   │   │   ├── br0.thlon.txt
+│       │   │   │   │   ├── pr2.enlba_rollback.txt
+│       │   │   │   │   ├── pr2.enlba.txt
+│       │   │   │   │   ├── pr3.thlon_rollback.txt
+│       │   │   │   │   ├── pr3.thlon.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   ├── rr0_rollback.txt
+│       │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   ├── rr1_rollback.txt
+│       │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   ├── rr3_rollback.txt
+│       │   │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   │   ├── sr12.enntg.bof
+│       │   │   │   │   ├── sr12.enntg.cfg
+│       │   │   │   │   ├── sr12.enntg_nim.txt
+│       │   │   │   │   ├── sr12.enntg_postacl.cfg
+│       │   │   │   │   └── sr12_ports
+│       │   │   │   ├── ensts
+│       │   │   │   │   ├── ar0.enlba_rollback.txt
+│       │   │   │   │   ├── ar0.enlba.txt
+│       │   │   │   │   ├── ar0-isp.bllon.txt
+│       │   │   │   │   ├── ar0-isp.enbgk.txt
+│       │   │   │   │   ├── ar0-isp.enlba.txt
+│       │   │   │   │   ├── ar0-isp.enshf.txt
+│       │   │   │   │   ├── ar0-isp.hobir.txt
+│       │   │   │   │   ├── ar0-isp_rollback.txt
+│       │   │   │   │   ├── ar13.enlba.txt
+│       │   │   │   │   ├── ar13_rollback.txt
+│       │   │   │   │   ├── ar13.thlon.txt
+│       │   │   │   │   ├── ar4.bllon_rollback.txt
+│       │   │   │   │   ├── ar4.bllon.txt
+│       │   │   │   │   ├── br0.bllon.txt
+│       │   │   │   │   ├── br0.enlba.txt
+│       │   │   │   │   ├── br0.hobir.txt
+│       │   │   │   │   ├── br0_rollback.txt
+│       │   │   │   │   ├── br0.thlon.txt
+│       │   │   │   │   ├── pr2.hobir_rollback.txt
+│       │   │   │   │   ├── pr2.hobir.txt
+│       │   │   │   │   ├── pr3.enlba_rollback.txt
+│       │   │   │   │   ├── pr3.enlba.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   ├── rr0_rollback.txt
+│       │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   ├── rr1_rollback.txt
+│       │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   ├── rr3_rollback.txt
+│       │   │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   │   ├── sr11.ensts.bof
+│       │   │   │   │   ├── sr11.ensts.cfg
+│       │   │   │   │   ├── sr11.ensts_nim.txt
+│       │   │   │   │   └── sr11.ensts_postacl.cfg
+│       │   │   │   ├── NCS_LDP.txt
+│       │   │   │   ├── sabir
+│       │   │   │   │   ├── ar0.enlba_rollback.txt
+│       │   │   │   │   ├── ar0.enlba.txt
+│       │   │   │   │   ├── ar0-isp.bllon.txt
+│       │   │   │   │   ├── ar0-isp.enbgk.txt
+│       │   │   │   │   ├── ar0-isp.enlba.txt
+│       │   │   │   │   ├── ar0-isp.enshf.txt
+│       │   │   │   │   ├── ar0-isp.hobir.txt
+│       │   │   │   │   ├── ar0-isp_rollback.txt
+│       │   │   │   │   ├── ar13.enlba.txt
+│       │   │   │   │   ├── ar13_rollback.txt
+│       │   │   │   │   ├── ar13.thlon.txt
+│       │   │   │   │   ├── ar4.bllon_rollback.txt
+│       │   │   │   │   ├── ar4.bllon.txt
+│       │   │   │   │   ├── br0.bllon.txt
+│       │   │   │   │   ├── br0.enlba.txt
+│       │   │   │   │   ├── br0.hobir.txt
+│       │   │   │   │   ├── br0_rollback.txt
+│       │   │   │   │   ├── br0.thlon.txt
+│       │   │   │   │   ├── port_4
+│       │   │   │   │   ├── port_5
+│       │   │   │   │   ├── pr2.thlon_rollback.txt
+│       │   │   │   │   ├── pr2.thlon.txt
+│       │   │   │   │   ├── pr3.hobir_rollback.txt
+│       │   │   │   │   ├── pr3.hobir.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   ├── rr0_rollback.txt
+│       │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   ├── rr1_rollback.txt
+│       │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   ├── rr3_rollback.txt
+│       │   │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   │   ├── sr11.sabir.bof
+│       │   │   │   │   ├── sr11.sabir.cfg
+│       │   │   │   │   ├── sr11.sabir_nim.txt
+│       │   │   │   │   └── sr11.sabir_postacl.cfg
+│       │   │   │   └── syost
+│       │   │   │       ├── ar0.enlba_rollback.txt
+│       │   │   │       ├── ar0.enlba.txt
+│       │   │   │       ├── ar0-isp.bllon.txt
+│       │   │   │       ├── ar0-isp.enbgk.txt
+│       │   │   │       ├── ar0-isp.enlba.txt
+│       │   │   │       ├── ar0-isp.enshf.txt
+│       │   │   │       ├── ar0-isp.hobir.txt
+│       │   │   │       ├── ar0-isp_rollback.txt
+│       │   │   │       ├── ar13.enlba.txt
+│       │   │   │       ├── ar13_rollback.txt
+│       │   │   │       ├── ar13.thlon.txt
+│       │   │   │       ├── ar4.bllon_rollback.txt
+│       │   │   │       ├── ar4.bllon.txt
+│       │   │   │       ├── br0.bllon.txt
+│       │   │   │       ├── br0.enlba.txt
+│       │   │   │       ├── br0.hobir.txt
+│       │   │   │       ├── br0_rollback.txt
+│       │   │   │       ├── br0.thlon.txt
+│       │   │   │       ├── pr2.thlon_rollback.txt
+│       │   │   │       ├── pr2.thlon.txt
+│       │   │   │       ├── pr3.bllon_rollback.txt
+│       │   │   │       ├── pr3.bllon.txt
+│       │   │   │       ├── procedure.txt
+│       │   │   │       ├── rr0.bllon.txt
+│       │   │   │       ├── rr0.enlba.txt
+│       │   │   │       ├── rr0_rollback.txt
+│       │   │   │       ├── rr1.bllon.txt
+│       │   │   │       ├── rr1.enlba.txt
+│       │   │   │       ├── rr1_rollback.txt
+│       │   │   │       ├── rr3.bllon.txt
+│       │   │   │       ├── rr3.enlba.txt
+│       │   │   │       ├── rr3_rollback.txt
+│       │   │   │       ├── sedcanopy-debug.dbg
+│       │   │   │       ├── sr17_ports
+│       │   │   │       ├── sr17.syost.bof
+│       │   │   │       ├── sr17.syost.cfg
+│       │   │   │       ├── sr17.syost_nim.txt
+│       │   │   │       └── sr17.syost_postacl.cfg
+│       │   │   ├── pr2.bllon.txt
+│       │   │   ├── pr3.bllon.txt
+│       │   │   ├── tasks
+│       │   │   │   └── main.yml
+│       │   │   ├── templates
+│       │   │   │   ├── ar0.enlba.j2
+│       │   │   │   ├── ar0.enlba_rollback.j2
+│       │   │   │   ├── ar0-isp.bllon.j2
+│       │   │   │   ├── ar0-isp.enbgk.j2
+│       │   │   │   ├── ar0-isp.enlba.j2
+│       │   │   │   ├── ar0-isp.enshf.j2
+│       │   │   │   ├── ar0-isp.hobir.j2
+│       │   │   │   ├── ar0-isp_rollback.j2
+│       │   │   │   ├── ar13.enlba.j2
+│       │   │   │   ├── ar13_rollback.j2
+│       │   │   │   ├── ar13.thlon.j2
+│       │   │   │   ├── ar4.bllon.j2
+│       │   │   │   ├── ar4.bllon_rollback.j2
+│       │   │   │   ├── bbpe.j2
+│       │   │   │   ├── bof.j2
+│       │   │   │   ├── br0.bllon.j2
+│       │   │   │   ├── br0.enlba.j2
+│       │   │   │   ├── br0.hobir.j2
+│       │   │   │   ├── br0_rollback.j2
+│       │   │   │   ├── br0.thlon.j2
+│       │   │   │   ├── core_1.j2
+│       │   │   │   ├── core_1_rollback.j2
+│       │   │   │   ├── core_2.j2
+│       │   │   │   ├── core_2_rollback.j2
+│       │   │   │   ├── core_common.j2
+│       │   │   │   ├── postacl.j2
+│       │   │   │   ├── proc.j2
+│       │   │   │   ├── rr0.bllon.j2
+│       │   │   │   ├── rr0.enlba.j2
+│       │   │   │   ├── rr0_rollback.j2
+│       │   │   │   ├── rr1.bllon.j2
+│       │   │   │   ├── rr1.enlba.j2
+│       │   │   │   ├── rr1_rollback.j2
+│       │   │   │   ├── rr3.bllon.j2
+│       │   │   │   ├── rr3.enlba.j2
+│       │   │   │   ├── rr3_rollback.j2
+│       │   │   │   ├── sedcanopy-debug.dbg
+│       │   │   │   └── sns_is_nim_support.j2
+│       │   │   └── vars
+│       │   │       ├── bllon.yml
+│       │   │       ├── enedi.yml
+│       │   │       ├── enlpl.yml
+│       │   │       ├── enntg.yml
+│       │   │       ├── ensts.yml
+│       │   │       ├── sabir.yml
+│       │   │       ├── syost.yml
+│       │   │       └── template.yml
+│       │   ├── cdn-expansion
+│       │   │   ├── files
+│       │   │   │   ├── bllon
+│       │   │   │   │   └── service
+│       │   │   │   │       ├── aanp
+│       │   │   │   │       │   ├── ar11-cdn.bllon_prepost.txt
+│       │   │   │   │       │   ├── ar11-cdn.bllon_rollback.txt
+│       │   │   │   │       │   ├── ar11-cdn.bllon.txt
+│       │   │   │   │       │   ├── patching_ticket.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       └── mcdn
+│       │   │   │   │           ├── ar11-cdn.bllon_prepost.txt
+│       │   │   │   │           ├── ar11-cdn.bllon_rollback.txt
+│       │   │   │   │           ├── ar11-cdn.bllon.txt
+│       │   │   │   │           ├── bbpe.txt
+│       │   │   │   │           ├── dns.txt
+│       │   │   │   │           ├── patching_ticket.txt
+│       │   │   │   │           └── procedure.txt
+│       │   │   │   ├── dns
+│       │   │   │   ├── enbgk
+│       │   │   │   │   ├── ar10.enbgk_netflix_dns.txt
+│       │   │   │   │   ├── ar10.enbgk_netflix_prepost.txt
+│       │   │   │   │   ├── ar10.enbgk_netflix_rollback.txt
+│       │   │   │   │   ├── ar10.enbgk_netflix.txt
+│       │   │   │   │   ├── ggc
+│       │   │   │   │   ├── ntf
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── enbrs
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   │   ├── ar20.enbrs_ggc_prepost.txt
+│       │   │   │   │   │   │   ├── ar20.enbrs_ggc_rollback.txt
+│       │   │   │   │   │   │   ├── ar20.enbrs_ggc.txt
+│       │   │   │   │   │   │   ├── ar20.enbrs_google_dns.txt
+│       │   │   │   │   │   │   ├── bbpe_ggc_prepost.txt
+│       │   │   │   │   │   │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   │   ├── sr10.enbrs_ggc_prefix_add.txt
+│       │   │   │   │   │   │   └── sr11.enbrs_ggc_prefix_add.txt
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   └── upgrades
+│       │   │   │   │       ├── ar20.enbrs_lag_upgrade_to_sr10.enbrs_rollback.txt
+│       │   │   │   │       ├── ar20.enbrs_lag_upgrade_to_sr10.enbrs.txt
+│       │   │   │   │       ├── ar20.enbrs_lag_upgrade_to_sr11.enbrs_rollback.txt
+│       │   │   │   │       ├── ar20.enbrs_lag_upgrade_to_sr11.enbrs.txt
+│       │   │   │   │       ├── ar20.enbrs_to_sr10.enbrs_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── ar20.enbrs_to_sr11.enbrs_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr10.enbrs_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr10.enbrs_lag_upgrade_rollback.txt
+│       │   │   │   │       ├── sr10.enbrs_lag_upgrade.txt
+│       │   │   │   │       ├── sr11.enbrs_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr11.enbrs_lag_upgrade_proc.txt
+│       │   │   │   │       ├── sr11.enbrs_lag_upgrade_rollback.txt
+│       │   │   │   │       └── sr11.enbrs_lag_upgrade.txt
+│       │   │   │   ├── encax
+│       │   │   │   │   ├── cache_upgrade
+│       │   │   │   │   │   ├── encax-mcdn
+│       │   │   │   │   │   │   ├── ar10.encax_mcdn_1_prepost.txt
+│       │   │   │   │   │   │   ├── ar10.encax_mcdn_1_upgrade_rollback.txt
+│       │   │   │   │   │   │   ├── ar10.encax_mcdn_1_upgrade.txt
+│       │   │   │   │   │   │   └── procedure_mcdn_1.txt
+│       │   │   │   │   │   └── encax-mcdn2
+│       │   │   │   │   │       ├── ar10.encax_mcdn_2_prepost.txt
+│       │   │   │   │   │       ├── ar10.encax_mcdn_2_upgrade_rollback.txt
+│       │   │   │   │   │       ├── ar10.encax_mcdn_2_upgrade.txt
+│       │   │   │   │   │       └── procedure_mcdn_2.txt
+│       │   │   │   │   └── service
+│       │   │   │   │       ├── mcdn
+│       │   │   │   │       └── ntf
+│       │   │   │   │           └── ar11-cdn.encax_netflix_dns.txt
+│       │   │   │   ├── enedi
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar21.enedi.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr12.enedi_prepost.txt
+│       │   │   │   │   │   ├── sr12.enedi_rollback.txt
+│       │   │   │   │   │   └── sr12.enedi.txt
+│       │   │   │   │   └── service
+│       │   │   │   ├── englw
+│       │   │   │   │   └── upgrades
+│       │   │   │   │       ├── ar21.englw_lag_upgrade_to_sr10.englw_rollback.txt
+│       │   │   │   │       ├── ar21.englw_lag_upgrade_to_sr10.englw.txt
+│       │   │   │   │       ├── ar21.englw_lag_upgrade_to_sr11.englw_rollback.txt
+│       │   │   │   │       ├── ar21.englw_lag_upgrade_to_sr11.englw.txt
+│       │   │   │   │       ├── ar21.englw_lag_upgrade_to_sr12.englw_rollback.txt
+│       │   │   │   │       ├── ar21.englw_lag_upgrade_to_sr12.englw.txt
+│       │   │   │   │       ├── ar21.englw_to_sr10.englw_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── ar21.englw_to_sr11.englw_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── ar21.englw_to_sr12.englw_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── lag_upgrade_proc.txt
+│       │   │   │   │       ├── sr10.englw_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr10.englw_lag_upgrade_rollback.txt
+│       │   │   │   │       ├── sr10.englw_lag_upgrade.txt
+│       │   │   │   │       ├── sr11.englw_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr11.englw_lag_upgrade_rollback.txt
+│       │   │   │   │       ├── sr11.englw_lag_upgrade.txt
+│       │   │   │   │       ├── sr12.englw_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr12.englw_lag_upgrade_rollback.txt
+│       │   │   │   │       └── sr12.englw_lag_upgrade.txt
+│       │   │   │   ├── englw_1
+│       │   │   │   │   ├── migration
+│       │   │   │   │   │   ├── ar20.englw_rollback.txt
+│       │   │   │   │   │   ├── ar20.englw_shut.txt
+│       │   │   │   │   │   ├── ar21.englw_rollback.txt
+│       │   │   │   │   │   ├── ar21.englw.txt
+│       │   │   │   │   │   └── Procedure.txt
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar21.englw.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.englw_prepost.txt
+│       │   │   │   │   │   ├── sr10.englw_rollback.txt
+│       │   │   │   │   │   ├── sr10.englw.txt
+│       │   │   │   │   │   ├── sr11.englw_prepost.txt
+│       │   │   │   │   │   ├── sr11.englw_rollback.txt
+│       │   │   │   │   │   ├── sr11.englw.txt
+│       │   │   │   │   │   ├── sr12.englw_prepost.txt
+│       │   │   │   │   │   ├── sr12.englw_rollback.txt
+│       │   │   │   │   │   └── sr12.englw.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   │       ├── ar21.englw_netflix_dns.txt
+│       │   │   │   │   │       ├── ar21.englw_ntf_prepost.txt
+│       │   │   │   │   │       ├── ar21.englw_ntf_rollback.txt
+│       │   │   │   │   │       ├── ar21.englw_ntf.txt
+│       │   │   │   │   │       ├── bbpe_ntf_prepost.txt
+│       │   │   │   │   │       ├── bbpe_ntf_rollback.txt
+│       │   │   │   │   │       ├── procedure.txt
+│       │   │   │   │   │       ├── sr10.englw_netflix_prefix_add.txt
+│       │   │   │   │   │       ├── sr11.englw_netflix_prefix_add.txt
+│       │   │   │   │   │       └── sr12.englw_netflix_prefix_add.txt
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── enlba
+│       │   │   │   │   └── service
+│       │   │   │   │       └── mcdn
+│       │   │   │   │           ├── ar11-cdn.enlba_prepost.txt
+│       │   │   │   │           ├── ar11-cdn.enlba_rollback.txt
+│       │   │   │   │           ├── ar11-cdn.enlba.txt
+│       │   │   │   │           ├── dns.txt
+│       │   │   │   │           ├── patching_ticket.txt
+│       │   │   │   │           └── procedure.txt
+│       │   │   │   ├── enlcs
+│       │   │   │   │   ├── ar10.enlcs_netflix_dns.txt
+│       │   │   │   │   ├── ar10.enlcs_netflix_prepost.txt
+│       │   │   │   │   ├── ar10.enlcs_netflix_rollback.txt
+│       │   │   │   │   ├── ar10.enlcs_netflix.txt
+│       │   │   │   │   ├── ggc
+│       │   │   │   │   ├── ntf
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── enlpl
+│       │   │   │   │   ├── ar20.enlpl_bbpe1.txt
+│       │   │   │   │   ├── ar20.enlpl_bbpe2.txt
+│       │   │   │   │   ├── ar20.enlpl_bbpe3.txt
+│       │   │   │   │   ├── ar20.enlpl_ggc_4500.txt
+│       │   │   │   │   ├── ar20.enlpl_ggc_rollback.txt
+│       │   │   │   │   ├── ar20.enlpl_google_dns.txt
+│       │   │   │   │   ├── ar20.enlpl_to_sr10.enlpl_lag_upgrade_rollback.txt
+│       │   │   │   │   ├── ar20.enlpl_to_sr10.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── ar20.enlpl_to_sr11.enlpl_lag_upgrade_rollback.txt
+│       │   │   │   │   ├── ar20.enlpl_to_sr11.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── ar20.enlpl_to_sr12.enlpl_lag_upgrade_rollback.txt
+│       │   │   │   │   ├── ar20.enlpl_to_sr12.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── ar20.enlpl.txt
+│       │   │   │   │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │   ├── ggc
+│       │   │   │   │   ├── ntf
+│       │   │   │   │   ├── ntf_enbgk.txt
+│       │   │   │   │   ├── prepost_ar20.enlpl_ggc.txt
+│       │   │   │   │   ├── prepost_ar20.enlpl_to_sr10.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── prepost_ar20.enlpl_to_sr11.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── prepost_ar20.enlpl_to_sr12.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── prepost_bbpe_ggc.txt
+│       │   │   │   │   ├── prepost_sr10.enlpl_to_ar20.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── prepost_sr11.enlpl_to_ar20.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── prepost_sr12.enlpl_to_ar20.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   ├── mcdn
+│       │   │   │   │   │   │   ├── 4500.txt
+│       │   │   │   │   │   │   ├── bbpe.txt
+│       │   │   │   │   │   │   ├── dev_bbpe.txt
+│       │   │   │   │   │   │   ├── prepost_4500.txt
+│       │   │   │   │   │   │   ├── prepost_bbpe.txt
+│       │   │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   │   ├── rollback_4500.txt
+│       │   │   │   │   │   │   └── rollback_bbpe.txt
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   ├── sr10.enlpl_ggc_prefix.txt
+│       │   │   │   │   ├── sr10.enlpl_prepost.txt
+│       │   │   │   │   ├── sr10.enlpl_rollback.txt
+│       │   │   │   │   ├── sr10.enlpl_to_ar20.enlpl_lag_upgrade_rollback.txt
+│       │   │   │   │   ├── sr10.enlpl_to_ar20.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── sr10.enlpl.txt
+│       │   │   │   │   ├── sr11.enlpl_ggc_prefix.txt
+│       │   │   │   │   ├── sr11.enlpl_prepost.txt
+│       │   │   │   │   ├── sr11.enlpl_rollback.txt
+│       │   │   │   │   ├── sr11.enlpl_to_ar20.enlpl_lag_upgrade_rollback.txt
+│       │   │   │   │   ├── sr11.enlpl_to_ar20.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── sr11.enlpl.txt
+│       │   │   │   │   ├── sr12.enlpl_ggc_prefix.txt
+│       │   │   │   │   ├── sr12.enlpl_prepost.txt
+│       │   │   │   │   ├── sr12.enlpl_rollback.txt
+│       │   │   │   │   ├── sr12.enlpl_to_ar20.enlpl_lag_upgrade_rollback.txt
+│       │   │   │   │   ├── sr12.enlpl_to_ar20.enlpl_lag_upgrade.txt
+│       │   │   │   │   ├── sr12.enlpl.txt
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── enncl
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar21.enncl.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.enncl_prepost.txt
+│       │   │   │   │   │   ├── sr10.enncl_rollback.txt
+│       │   │   │   │   │   ├── sr10.enncl.txt
+│       │   │   │   │   │   ├── sr11.enncl_prepost.txt
+│       │   │   │   │   │   ├── sr11.enncl_rollback.txt
+│       │   │   │   │   │   ├── sr11.enncl.txt
+│       │   │   │   │   │   ├── sr12.enncl_prepost.txt
+│       │   │   │   │   │   ├── sr12.enncl_rollback.txt
+│       │   │   │   │   │   └── sr12.enncl.txt
+│       │   │   │   │   └── service
+│       │   │   │   │       └── mcdn
+│       │   │   │   │           ├── ar21.enncl4500.txt
+│       │   │   │   │           ├── ar21.ennclprepost_4500.txt
+│       │   │   │   │           ├── ar21.enncl_rollback_4500.txt
+│       │   │   │   │           ├── prepost_bbpe.txt
+│       │   │   │   │           ├── procedure.txt
+│       │   │   │   │           ├── rollback_bbpe.txt
+│       │   │   │   │           ├── sr10.enncl_prefix_add.txt
+│       │   │   │   │           ├── sr11.enncl_prefix_add.txt
+│       │   │   │   │           └── sr12.enncl_prefix_add.txt
+│       │   │   │   ├── enntg
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar21.enntg.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.enntg_prepost.txt
+│       │   │   │   │   │   ├── sr10.enntg_rollback.txt
+│       │   │   │   │   │   └── sr10.enntg.txt
+│       │   │   │   │   ├── services
+│       │   │   │   │   │   ├── google
+│       │   │   │   │   │   ├── mcdn
+│       │   │   │   │   │   └── netflix
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── enshf
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar20.enshf.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.enshf_prepost.txt
+│       │   │   │   │   │   ├── sr10.enshf_rollback.txt
+│       │   │   │   │   │   ├── sr10.enshf.txt
+│       │   │   │   │   │   ├── sr11.enshf_prepost.txt
+│       │   │   │   │   │   ├── sr11.enshf_rollback.txt
+│       │   │   │   │   │   ├── sr11.enshf.txt
+│       │   │   │   │   │   ├── sr12.enshf_prepost.txt
+│       │   │   │   │   │   ├── sr12.enshf_rollback.txt
+│       │   │   │   │   │   └── sr12.enshf.txt
+│       │   │   │   │   └── service
+│       │   │   │   │       ├── aanp
+│       │   │   │   │       │   ├── aanp_proc.txt
+│       │   │   │   │       │   ├── ar20.enshf4500.txt
+│       │   │   │   │       │   ├── ar20.enshfprepost_4500.txt
+│       │   │   │   │       │   ├── ar20.enshfrollback_4500.txt
+│       │   │   │   │       │   ├── prepost_bbpe.txt
+│       │   │   │   │       │   ├── rollback_bbpe.txt
+│       │   │   │   │       │   ├── sr10.enshf_prefix_add.txt
+│       │   │   │   │       │   ├── sr11.enshf_prefix_add.txt
+│       │   │   │   │       │   └── sr12.enshf_prefix_add.txt
+│       │   │   │   │       ├── ggc
+│       │   │   │   │       │   ├── ar20.enshf_ggc_prepost.txt
+│       │   │   │   │       │   ├── ar20.enshf_ggc_rollback.txt
+│       │   │   │   │       │   ├── ar20.enshf_ggc.txt
+│       │   │   │   │       │   ├── ar20.enshf_google_dns.txt
+│       │   │   │   │       │   ├── bbpe_ggc_prepost.txt
+│       │   │   │   │       │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │       │   ├── procedure.txt
+│       │   │   │   │       │   ├── sr10.enshf_ggc_prefix_add.txt
+│       │   │   │   │       │   ├── sr11.enshf_ggc_prefix_add.txt
+│       │   │   │   │       │   └── sr12.enshf_ggc_prefix_add.txt
+│       │   │   │   │       ├── mcdn
+│       │   │   │   │       ├── mcdn1
+│       │   │   │   │       │   ├── ar20.enshf4500.txt
+│       │   │   │   │       │   ├── ar20.enshfprepost_4500.txt
+│       │   │   │   │       │   ├── ar20.enshf_rollback_4500.txt
+│       │   │   │   │       │   ├── prepost_bbpe.txt
+│       │   │   │   │       │   ├── rollback_bbpe.txt
+│       │   │   │   │       │   ├── sr10.enshf_prefix_add.txt
+│       │   │   │   │       │   ├── sr11.enshf_prefix_add.txt
+│       │   │   │   │       │   └── sr12.enshf_prefix_add.txt
+│       │   │   │   │       └── ntf
+│       │   │   │   │           ├── ar20.enshf_ntf_prepost.txt
+│       │   │   │   │           ├── ar20.enshf_ntf_rollback.txt
+│       │   │   │   │           ├── ar20.enshf_ntf.txt
+│       │   │   │   │           ├── bbpe_ntf_prepost.txt
+│       │   │   │   │           ├── bbpe_ntf_rollback.txt
+│       │   │   │   │           ├── procedure.txt
+│       │   │   │   │           ├── sr10.enshf_netflix_prefix_add.txt
+│       │   │   │   │           ├── sr11.enshf_netflix_prefix_add.txt
+│       │   │   │   │           └── sr12.enshf_netflix_prefix_add.txt
+│       │   │   │   ├── enshf_1
+│       │   │   │   │   ├── ar20_enshf.txt
+│       │   │   │   │   ├── ar20_merged.txt
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar20.enshf.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.enshf_prepost.txt
+│       │   │   │   │   │   ├── sr10.enshf_rollback.txt
+│       │   │   │   │   │   ├── sr10.enshf.txt
+│       │   │   │   │   │   ├── sr11.enshf_prepost.txt
+│       │   │   │   │   │   ├── sr11.enshf_rollback.txt
+│       │   │   │   │   │   ├── sr11.enshf.txt
+│       │   │   │   │   │   ├── sr12.enshf_prepost.txt
+│       │   │   │   │   │   ├── sr12.enshf_rollback.txt
+│       │   │   │   │   │   └── sr12.enshf.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── aanp
+│       │   │   │   │   │   │   ├── aanp_proc.txt
+│       │   │   │   │   │   │   ├── ar20.enshf4500.txt
+│       │   │   │   │   │   │   ├── ar20.enshf_aanp_dns.txt
+│       │   │   │   │   │   │   ├── ar20.enshfprepost_4500.txt
+│       │   │   │   │   │   │   ├── ar20.enshfrollback_4500.txt
+│       │   │   │   │   │   │   ├── prepost_bbpe.txt
+│       │   │   │   │   │   │   ├── rollback_bbpe.txt
+│       │   │   │   │   │   │   ├── sr10.enshfbbpe1_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr10.enshf_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr11.enshfbbpe2_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr11.enshf_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr12.enshfbbpe3_prefix_add.txt
+│       │   │   │   │   │   │   └── sr12.enshf_prefix_add.txt
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   │   ├── ar20.enshf_ggc_prepost.txt
+│       │   │   │   │   │   │   ├── ar20.enshf_ggc_rollback.txt
+│       │   │   │   │   │   │   ├── ar20.enshf_ggc.txt
+│       │   │   │   │   │   │   ├── ar20.enshf_google_dns.txt
+│       │   │   │   │   │   │   ├── bbpe_ggc_prepost.txt
+│       │   │   │   │   │   │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   │   ├── sr10.enshf_ggc_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr11.enshf_ggc_prefix_add.txt
+│       │   │   │   │   │   │   └── sr12.enshf_ggc_prefix_add.txt
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   │       ├── ar20.enshf_netflix_dns.txt
+│       │   │   │   │   │       ├── ar20.enshf_ntf_prepost.txt
+│       │   │   │   │   │       ├── ar20.enshf_ntf_rollback.txt
+│       │   │   │   │   │       ├── ar20.enshf_ntf.txt
+│       │   │   │   │   │       ├── bbpe_ntf_prepost.txt
+│       │   │   │   │   │       ├── bbpe_ntf_rollback.txt
+│       │   │   │   │   │       ├── procedure.txt
+│       │   │   │   │   │       ├── sr10.enshf_netflix_prefix_add.txt
+│       │   │   │   │   │       ├── sr11.enshf_netflix_prefix_add.txt
+│       │   │   │   │   │       └── sr12.enshf_netflix_prefix_add.txt
+│       │   │   │   │   ├── service.txt
+│       │   │   │   │   └── upgrades
+│       │   │   │   │       ├── ar20.enshf_lag_upgrade_to_sr10.enshf_rollback.txt
+│       │   │   │   │       ├── ar20.enshf_lag_upgrade_to_sr10.enshf.txt
+│       │   │   │   │       ├── ar20.enshf_lag_upgrade_to_sr11.enshf_rollback.txt
+│       │   │   │   │       ├── ar20.enshf_lag_upgrade_to_sr11.enshf.txt
+│       │   │   │   │       ├── ar20.enshf_lag_upgrade_to_sr12.enshf_rollback.txt
+│       │   │   │   │       ├── ar20.enshf_lag_upgrade_to_sr12.enshf.txt
+│       │   │   │   │       ├── ar20.enshf_to_sr10.enshf_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── ar20.enshf_to_sr11.enshf_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── ar20.enshf_to_sr12.enshf_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── lag_upgrade_proc.txt
+│       │   │   │   │       ├── sr10.enshf_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr10.enshf_lag_upgrade_rollback.txt
+│       │   │   │   │       ├── sr10.enshf_lag_upgrade.txt
+│       │   │   │   │       ├── sr11.enshf_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr11.enshf_lag_upgrade_rollback.txt
+│       │   │   │   │       ├── sr11.enshf_lag_upgrade.txt
+│       │   │   │   │       ├── sr12.enshf_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr12.enshf_lag_upgrade_rollback.txt
+│       │   │   │   │       └── sr12.enshf_lag_upgrade.txt
+│       │   │   │   ├── enwkg
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   │   ├── ar20.enwkg_ggc_prepost.txt
+│       │   │   │   │   │   │   ├── ar20.enwkg_ggc_rollback.txt
+│       │   │   │   │   │   │   ├── ar20.enwkg_ggc.txt
+│       │   │   │   │   │   │   ├── ar20.enwkg_google_dns.txt
+│       │   │   │   │   │   │   ├── bbpe_ggc_prepost.txt
+│       │   │   │   │   │   │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   │   ├── sr10.enwkg_ggc_prefix_add.txt
+│       │   │   │   │   │   │   └── sr11.enwkg_ggc_prefix_add.txt
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   └── upgrades
+│       │   │   │   │       ├── ar20.enwkg_lag_upgrade_to_sr10.enwkg_rollback.txt
+│       │   │   │   │       ├── ar20.enwkg_lag_upgrade_to_sr10.enwkg.txt
+│       │   │   │   │       ├── ar20.enwkg_lag_upgrade_to_sr11.enwkg_rollback.txt
+│       │   │   │   │       ├── ar20.enwkg_lag_upgrade_to_sr11.enwkg.txt
+│       │   │   │   │       ├── ar20.enwkg_to_sr10.enwkg_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── ar20.enwkg_to_sr11.enwkg_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── lag_upgrade_proc.txt
+│       │   │   │   │       ├── sr10.enwkg_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr10.enwkg_lag_upgrade_rollback.txt
+│       │   │   │   │       ├── sr10.enwkg_lag_upgrade.txt
+│       │   │   │   │       ├── sr11.enwkg_lag_upgrade_prepost.txt
+│       │   │   │   │       ├── sr11.enwkg_lag_upgrade_rollback.txt
+│       │   │   │   │       └── sr11.enwkg_lag_upgrade.txt
+│       │   │   │   ├── enyrk
+│       │   │   │   │   ├── ar11-cdn.enyrk_netflix_dns.txt
+│       │   │   │   │   ├── ar11-cdn.enyrk_netflix_prepost.txt
+│       │   │   │   │   ├── ar11-cdn.enyrk_netflix_rollback.txt
+│       │   │   │   │   ├── ar11-cdn.enyrk_netflix.txt
+│       │   │   │   │   ├── ggc
+│       │   │   │   │   ├── ntf
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   └── ntf
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── hobir
+│       │   │   │   │   ├── ar11-cdn.hobir_new.txt
+│       │   │   │   │   ├── ar11-cdn.hobir_no-mon.txt
+│       │   │   │   │   ├── ar11-cdn.hobir_prepost.txt
+│       │   │   │   │   ├── ar11-cdn.hobir_rollback.txt
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   └── service
+│       │   │   │   │       └── mcdn
+│       │   │   │   │           ├── ar11-cdn.hobir_prepost.txt
+│       │   │   │   │           ├── ar11-cdn.hobir_rollback.txt
+│       │   │   │   │           ├── ar11-cdn.hobir.txt
+│       │   │   │   │           ├── dns.txt
+│       │   │   │   │           ├── patching_ticket.txt
+│       │   │   │   │           └── procedure.txt
+│       │   │   │   ├── mimnc
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar21.mimnc.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.mimnc_prepost.txt
+│       │   │   │   │   │   ├── sr10.mimnc_rollback.txt
+│       │   │   │   │   │   ├── sr10.mimnc.txt
+│       │   │   │   │   │   ├── sr11.mimnc_prepost.txt
+│       │   │   │   │   │   ├── sr11.mimnc_rollback.txt
+│       │   │   │   │   │   ├── sr11.mimnc.txt
+│       │   │   │   │   │   ├── sr12.mimnc_prepost.txt
+│       │   │   │   │   │   ├── sr12.mimnc_rollback.txt
+│       │   │   │   │   │   └── sr12.mimnc.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ar21.mimnc_netflix_dns.txt
+│       │   │   │   │   │   ├── ar21.mimnc_ntf_prepost.txt
+│       │   │   │   │   │   ├── ar21.mimnc_ntf_rollback.txt
+│       │   │   │   │   │   ├── ar21.mimnc_ntf.txt
+│       │   │   │   │   │   ├── bbpe_ntf_prepost.txt
+│       │   │   │   │   │   ├── bbpe_ntf_rollback.txt
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   ├── mcdn
+│       │   │   │   │   │   │   ├── ar21.mimnc4500.txt
+│       │   │   │   │   │   │   ├── ar21.mimncprepost_4500.txt
+│       │   │   │   │   │   │   ├── ar21.mimnc_rollback_4500.txt
+│       │   │   │   │   │   │   ├── prepost_bbpe.txt
+│       │   │   │   │   │   │   ├── rollback_bbpe.txt
+│       │   │   │   │   │   │   ├── sr10.mimnc_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr11.mimnc_prefix_add.txt
+│       │   │   │   │   │   │   └── sr12.mimnc_prefix_add.txt
+│       │   │   │   │   │   ├── ntf
+│       │   │   │   │   │   │   ├── ar21.mimnc_netflix_dns.txt
+│       │   │   │   │   │   │   ├── ar21.mimnc_ntf_prepost.txt
+│       │   │   │   │   │   │   ├── ar21.mimnc_ntf_rollback.txt
+│       │   │   │   │   │   │   ├── ar21.mimnc_ntf.txt
+│       │   │   │   │   │   │   ├── bbpe_ntf_prepost.txt
+│       │   │   │   │   │   │   ├── bbpe_ntf_rollback.txt
+│       │   │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   │   ├── sr10.mimnc_netflix_prefix_add.txt
+│       │   │   │   │   │   │   ├── sr11.mimnc_netflix_prefix_add.txt
+│       │   │   │   │   │   │   └── sr12.mimnc_netflix_prefix_add.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr10.mimnc_netflix_prefix_add.txt
+│       │   │   │   │   │   ├── sr11.mimnc_netflix_prefix_add.txt
+│       │   │   │   │   │   └── sr12.mimnc_netflix_prefix_add.txt
+│       │   │   │   │   └── upgrades
+│       │   │   │   ├── service
+│       │   │   │   │   └── ntf
+│       │   │   │   ├── syost
+│       │   │   │   │   ├── ar21.syost_ggc_prepost.txt
+│       │   │   │   │   ├── ar21.syost_ggc_rollback.txt
+│       │   │   │   │   ├── ar21.syost_ggc.txt
+│       │   │   │   │   ├── ar21.syost_google_dns.txt
+│       │   │   │   │   ├── ar21.syost.txt
+│       │   │   │   │   ├── bbpe_ggc_prepost.txt
+│       │   │   │   │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │   ├── ggc
+│       │   │   │   │   ├── new_pe
+│       │   │   │   │   │   ├── ar21.syost.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr15.syost_prepost.txt
+│       │   │   │   │   │   ├── sr15.syost_rollback.txt
+│       │   │   │   │   │   ├── sr15.syost.txt
+│       │   │   │   │   │   ├── sr16.syost_prepost.txt
+│       │   │   │   │   │   ├── sr16.syost_rollback.txt
+│       │   │   │   │   │   ├── sr16.syost.txt
+│       │   │   │   │   │   ├── sr17.syost_prepost.txt
+│       │   │   │   │   │   ├── sr17.syost_rollback.txt
+│       │   │   │   │   │   └── sr17.syost.txt
+│       │   │   │   │   ├── ntf
+│       │   │   │   │   ├── procedure.txt
+│       │   │   │   │   ├── service
+│       │   │   │   │   │   ├── ar21.syost_ggc_prepost.txt
+│       │   │   │   │   │   ├── ar21.syost_ggc_rollback.txt
+│       │   │   │   │   │   ├── ar21.syost_ggc.txt
+│       │   │   │   │   │   ├── ar21.syost_google_dns.txt
+│       │   │   │   │   │   ├── bbpe_ggc_prepost.txt
+│       │   │   │   │   │   ├── bbpe_ggc_rollback.txt
+│       │   │   │   │   │   ├── ggc
+│       │   │   │   │   │   ├── ntf
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── sr15.syost_ggc_prefix_add.txt
+│       │   │   │   │   │   ├── sr16.syost_ggc_prefix_add.txt
+│       │   │   │   │   │   └── sr17.syost_ggc_prefix_add.txt
+│       │   │   │   │   ├── sr15.syost_ggc_prefix_add.txt
+│       │   │   │   │   ├── sr15.syost_prepost.txt
+│       │   │   │   │   ├── sr15.syost_rollback.txt
+│       │   │   │   │   ├── sr15.syost.txt
+│       │   │   │   │   ├── sr16.syost_ggc_prefix_add.txt
+│       │   │   │   │   ├── sr16.syost_prepost.txt
+│       │   │   │   │   ├── sr16.syost_rollback.txt
+│       │   │   │   │   ├── sr16.syost.txt
+│       │   │   │   │   ├── sr17.syost_ggc_prefix_add.txt
+│       │   │   │   │   ├── sr17.syost_prepost.txt
+│       │   │   │   │   ├── sr17.syost_rollback.txt
+│       │   │   │   │   ├── sr17.syost.txt
+│       │   │   │   │   └── upgrades
+│       │   │   │   └── thlon
+│       │   │   │       └── service
+│       │   │   │           └── mcdn
+│       │   │   │               ├── ar14-cdn.thlon_prepost.txt
+│       │   │   │               ├── ar14-cdn.thlon_rollback.txt
+│       │   │   │               ├── ar14-cdn.thlon.txt
+│       │   │   │               ├── dns.txt
+│       │   │   │               ├── patching_ticket.txt
+│       │   │   │               └── procedure.txt
+│       │   │   ├── tasks
+│       │   │   │   ├── archive
+│       │   │   │   │   └── old_main.yml
+│       │   │   │   ├── cache_upgrade.yml
+│       │   │   │   ├── core_new.yml
+│       │   │   │   ├── core_service.yml
+│       │   │   │   ├── core_upgrade.yml
+│       │   │   │   ├── dns.yml
+│       │   │   │   ├── generic.yml
+│       │   │   │   ├── main.yml
+│       │   │   │   ├── pop_aanp.yml
+│       │   │   │   ├── pop_cache_new.yml
+│       │   │   │   ├── pop_ggc.yml
+│       │   │   │   ├── pop_mcdn.yml
+│       │   │   │   ├── pop_new.yml
+│       │   │   │   ├── pop_ntf.yml
+│       │   │   │   ├── pop_service.yml
+│       │   │   │   └── pop_upgrade.yml
+│       │   │   ├── templates
+│       │   │   │   ├── commission
+│       │   │   │   │   ├── dns
+│       │   │   │   │   │   └── dns.j2
+│       │   │   │   │   ├── pe
+│       │   │   │   │   │   ├── core
+│       │   │   │   │   │   └── pop
+│       │   │   │   │   └── region
+│       │   │   │   │       ├── core
+│       │   │   │   │       │   ├── pe.j2
+│       │   │   │   │       │   ├── prepost.j2
+│       │   │   │   │       │   ├── proc.j2
+│       │   │   │   │       │   └── rollback.j2
+│       │   │   │   │       ├── patch.j2
+│       │   │   │   │       └── pop
+│       │   │   │   │           ├── 4500.j2
+│       │   │   │   │           ├── bbpe.j2
+│       │   │   │   │           ├── prepost_4500.j2
+│       │   │   │   │           ├── prepost_bbpe.j2
+│       │   │   │   │           ├── proc.j2
+│       │   │   │   │           ├── rollback_4500.j2
+│       │   │   │   │           └── rollback_bbpe.j2
+│       │   │   │   ├── core_cdn
+│       │   │   │   │   ├── cache_upgrade
+│       │   │   │   │   │   ├── cache.j2
+│       │   │   │   │   │   ├── cache_rollback.j2
+│       │   │   │   │   │   ├── patch.j2
+│       │   │   │   │   │   ├── prepost.j2
+│       │   │   │   │   │   └── proc.j2
+│       │   │   │   │   ├── mcdn
+│       │   │   │   │   │   └── pe.j2
+│       │   │   │   │   ├── netflix_proc.j2
+│       │   │   │   │   ├── netflix_rollback.j2
+│       │   │   │   │   ├── netflix_services.j2
+│       │   │   │   │   ├── prepost_ntf.j2
+│       │   │   │   │   └── services
+│       │   │   │   │       ├── dns.j2
+│       │   │   │   │       ├── patch.j2
+│       │   │   │   │       ├── pe.j2
+│       │   │   │   │       ├── pe_rollback.j2
+│       │   │   │   │       ├── prepost.j2
+│       │   │   │   │       └── proc.j2
+│       │   │   │   ├── migration
+│       │   │   │   │   ├── pe
+│       │   │   │   │   │   ├── core
+│       │   │   │   │   │   └── pop
+│       │   │   │   │   └── region
+│       │   │   │   │       ├── core
+│       │   │   │   │       └── pop
+│       │   │   │   ├── pop_cdn
+│       │   │   │   │   ├── 4500_common.j2
+│       │   │   │   │   ├── aanp
+│       │   │   │   │   │   ├── 4500.j2
+│       │   │   │   │   │   ├── aanp_proc.j2
+│       │   │   │   │   │   ├── bbpe1_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe2_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe3_prefix_add.j2
+│       │   │   │   │   │   ├── prepost_4500.j2
+│       │   │   │   │   │   ├── prepost_bbpe.j2
+│       │   │   │   │   │   ├── rollback_4500.j2
+│       │   │   │   │   │   └── rollback_bbpe.j2
+│       │   │   │   │   ├── ggc
+│       │   │   │   │   │   ├── 4500.j2
+│       │   │   │   │   │   ├── bbpe1_ggc_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe2_ggc_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe3_ggc_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe_ggc_prefix_add-rollback.j2
+│       │   │   │   │   │   ├── ggc_4500.j2
+│       │   │   │   │   │   ├── ggc_4500_rollback.j2
+│       │   │   │   │   │   ├── ggc_proc.j2
+│       │   │   │   │   │   ├── prepost_4500.j2
+│       │   │   │   │   │   └── prepost_bbpe.j2
+│       │   │   │   │   ├── lag_upgrades
+│       │   │   │   │   │   ├── 4500_common.j2
+│       │   │   │   │   │   ├── lag_upgrade_4500_bbpe1.j2
+│       │   │   │   │   │   ├── lag_upgrade_4500_bbpe1_rollback.j2
+│       │   │   │   │   │   ├── lag_upgrade_4500_bbpe2.j2
+│       │   │   │   │   │   ├── lag_upgrade_4500_bbpe2_rollback.j2
+│       │   │   │   │   │   ├── lag_upgrade_4500_bbpe3.j2
+│       │   │   │   │   │   ├── lag_upgrade_4500_bbpe3_rollback.j2
+│       │   │   │   │   │   ├── lag_upgrade_proc.j2
+│       │   │   │   │   │   ├── new_lag_4500_to_bbpe1.j2
+│       │   │   │   │   │   ├── new_lag_4500_to_bbpe2.j2
+│       │   │   │   │   │   ├── new_lag_4500_to_bbpe3.j2
+│       │   │   │   │   │   ├── new_lag_bbpe1.j2
+│       │   │   │   │   │   ├── new_lag_bbpe2.j2
+│       │   │   │   │   │   ├── new_lag_bbpe3.j2
+│       │   │   │   │   │   ├── prepost_4500_bbpe1.j2
+│       │   │   │   │   │   ├── prepost_4500_bbpe2.j2
+│       │   │   │   │   │   ├── prepost_4500_bbpe3.j2
+│       │   │   │   │   │   ├── prepost_bbpe1_4500.j2
+│       │   │   │   │   │   ├── prepost_bbpe2_4500.j2
+│       │   │   │   │   │   ├── prepost_bbpe3_4500.j2
+│       │   │   │   │   │   ├── proc.j2
+│       │   │   │   │   │   ├── upgrade_lag_bbpe1.j2
+│       │   │   │   │   │   ├── upgrade_lag_bbpe1_rollback.j2
+│       │   │   │   │   │   ├── upgrade_lag_bbpe2.j2
+│       │   │   │   │   │   ├── upgrade_lag_bbpe2_rollback.j2
+│       │   │   │   │   │   ├── upgrade_lag_bbpe3.j2
+│       │   │   │   │   │   └── upgrade_lag_bbpe3_rollback.j2
+│       │   │   │   │   ├── mcdn
+│       │   │   │   │   │   ├── 4500.j2
+│       │   │   │   │   │   ├── bbpe1_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe2_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe3_prefix_add.j2
+│       │   │   │   │   │   ├── prepost_4500.j2
+│       │   │   │   │   │   ├── prepost_bbpe.j2
+│       │   │   │   │   │   ├── rollback_4500.j2
+│       │   │   │   │   │   └── rollback_bbpe.j2
+│       │   │   │   │   ├── netflix
+│       │   │   │   │   │   ├── bbpe1_netflix_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe2_netflix_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe3_netflix_prefix_add.j2
+│       │   │   │   │   │   ├── bbpe_ntf_prefix_add-rollback.j2
+│       │   │   │   │   │   ├── ntf_4500.j2
+│       │   │   │   │   │   ├── ntf_4500_rollback.j2
+│       │   │   │   │   │   ├── ntf_proc.j2
+│       │   │   │   │   │   ├── prepost_4500.j2
+│       │   │   │   │   │   └── prepost_bbpe.j2
+│       │   │   │   │   ├── new_4500
+│       │   │   │   │   │   ├── 4500.j2
+│       │   │   │   │   │   ├── bbpe1_new_4500.j2
+│       │   │   │   │   │   ├── bbpe1_rollback.j2
+│       │   │   │   │   │   ├── bbpe2_new_4500.j2
+│       │   │   │   │   │   ├── bbpe2_rollback.j2
+│       │   │   │   │   │   ├── bbpe3_new_4500.j2
+│       │   │   │   │   │   ├── bbpe3_rollback.j2
+│       │   │   │   │   │   ├── copp_policy.j2
+│       │   │   │   │   │   ├── new_4500_commissioning_procedure.j2
+│       │   │   │   │   │   ├── pre_implementation_4500.j2
+│       │   │   │   │   │   ├── prepost_bbpe_1_4500.j2
+│       │   │   │   │   │   ├── prepost_bbpe_2_4500.j2
+│       │   │   │   │   │   └── prepost_bbpe_3_4500.j2
+│       │   │   │   │   ├── proc.j2
+│       │   │   │   │   └── services
+│       │   │   │   │       ├── 4500.j2
+│       │   │   │   │       ├── 4500_prepost.j2
+│       │   │   │   │       ├── 4500_rollback.j2
+│       │   │   │   │       ├── bbpe.j2
+│       │   │   │   │       ├── bbpe_rollback.j2
+│       │   │   │   │       ├── dev_bbpe.j2
+│       │   │   │   │       ├── Directory_Listing
+│       │   │   │   │       ├── prepost_bbpe.j2
+│       │   │   │   │       └── proc.j2
+│       │   │   │   └── upgrade
+│       │   │   │       ├── pe
+│       │   │   │       │   ├── core
+│       │   │   │       │   └── pop
+│       │   │   │       └── region
+│       │   │   │           ├── core
+│       │   │   │           └── pop
+│       │   │   └── vars
+│       │   │       ├── bllon.yml
+│       │   │       ├── core
+│       │   │       │   ├── bllon.yml
+│       │   │       │   ├── core_template.yml
+│       │   │       │   ├── enlba.yml
+│       │   │       │   ├── hobir.yml
+│       │   │       │   ├── tg2353.yml
+│       │   │       │   └── thlon.yml
+│       │   │       ├── DNS
+│       │   │       │   ├── bllon_mcdn.yml
+│       │   │       │   ├── enlba_mcdn.yml
+│       │   │       │   ├── hobir_mcdn.yml
+│       │   │       │   └── thlon_mcdn.yml
+│       │   │       ├── enbgk.yml
+│       │   │       ├── enbrs.yml
+│       │   │       ├── encax.mcdn2.yml
+│       │   │       ├── encax.mcdn.yml
+│       │   │       ├── encax.yml
+│       │   │       ├── enedi.yml
+│       │   │       ├── englw.yml
+│       │   │       ├── enlcs.yml
+│       │   │       ├── enlpl.yml
+│       │   │       ├── enncl.yml
+│       │   │       ├── enntg.yml
+│       │   │       ├── enshf.yml
+│       │   │       ├── enwkg.yml
+│       │   │       ├── enyrk.yml
+│       │   │       ├── hobir.yml
+│       │   │       ├── mimnc.yml
+│       │   │       ├── pchao_enshf_template.yml
+│       │   │       ├── syost.yml
+│       │   │       ├── template.yml
+│       │   │       ├── upgrade.yml
+│       │   │       └── vars_chao.yml
+│       │   ├── cdn-nexus-rollout
+│       │   │   ├── tasks
+│       │   │   │   └── main.yml
+│       │   │   ├── templates
+│       │   │   │   ├── dns_ticket.j2
+│       │   │   │   ├── nexus_base.j2
+│       │   │   │   ├── nexus_cdn.j2
+│       │   │   │   ├── nexus_patch.j2
+│       │   │   │   ├── nexus_post_check.j2
+│       │   │   │   ├── nexus_ticket.j2
+│       │   │   │   ├── rrx.j2
+│       │   │   │   ├── srx_nexus.j2
+│       │   │   │   └── srx_nexus_ticket.j2
+│       │   │   └── vars
+│       │   │       └── main.yml
+│       │   ├── cdn-sr12e_migration
+│       │   │   ├── files
+│       │   │   │   ├── enbgk
+│       │   │   │   │   ├── commission
+│       │   │   │   │   │   ├── ar10.enbgk.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk.bof
+│       │   │   │   │   │   ├── ar11-cdn.enbgk.cfg
+│       │   │   │   │   │   ├── ncs-rollback.txt
+│       │   │   │   │   │   ├── pr3.bllon.txt
+│       │   │   │   │   │   ├── pr3.thlon.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   │   ├── rr0-rollback.txt
+│       │   │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   │   ├── rr1-rollback.txt
+│       │   │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   │   └── rr3-rollback.txt
+│       │   │   │   │   ├── decommission
+│       │   │   │   │   │   ├── ar10.enbgk.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk.txt
+│       │   │   │   │   │   ├── card_removal_ticket.txt
+│       │   │   │   │   │   ├── dns_ticket.txt
+│       │   │   │   │   │   ├── NCS.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── route-reflectors.txt
+│       │   │   │   │   │   └── rr_rollback.txt
+│       │   │   │   │   ├── migration_core_1
+│       │   │   │   │   │   ├── ar10.enbgk_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar10.enbgk_interlag.txt
+│       │   │   │   │   │   ├── ar10.enbgk_rollback.txt
+│       │   │   │   │   │   ├── ar10.enbgk_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk_interlag.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk.txt
+│       │   │   │   │   │   ├── pr3.bllon_rollback.txt
+│       │   │   │   │   │   ├── pr3.bllon.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   ├── migration_core_2
+│       │   │   │   │   │   ├── ar10.enbgk_rollback.txt
+│       │   │   │   │   │   ├── ar10.enbgk_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.enbgk.txt
+│       │   │   │   │   │   ├── pr3.thlon_rollback.txt
+│       │   │   │   │   │   ├── pr3.thlon.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   └── migration_service
+│       │   │   │   │       ├── ar10.enbgk_service_migration_pre.txt
+│       │   │   │   │       ├── ar11-cdn.enbgk_service_migration_post.txt
+│       │   │   │   │       └── procedure.txt
+│       │   │   │   ├── encax
+│       │   │   │   │   ├── commission
+│       │   │   │   │   │   ├── ar10.encax.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax.bof
+│       │   │   │   │   │   ├── ar11-cdn.encax.cfg
+│       │   │   │   │   │   ├── ncs-rollback.txt
+│       │   │   │   │   │   ├── pr3.enlba.txt
+│       │   │   │   │   │   ├── pr3.hobir.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   │   ├── rr0-rollback.txt
+│       │   │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   │   ├── rr1-rollback.txt
+│       │   │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   │   └── rr3-rollback.txt
+│       │   │   │   │   ├── decommission
+│       │   │   │   │   │   ├── ar10.encax.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax.txt
+│       │   │   │   │   │   ├── card_removal_ticket.txt
+│       │   │   │   │   │   ├── dns_ticket.txt
+│       │   │   │   │   │   ├── NCS.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── route-reflectors.txt
+│       │   │   │   │   │   └── rr_rollback.txt
+│       │   │   │   │   ├── migration_core_1
+│       │   │   │   │   │   ├── ar10.encax_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar10.encax_interlag.txt
+│       │   │   │   │   │   ├── ar10.encax_precheck.txt
+│       │   │   │   │   │   ├── ar10.encax_rollback.txt
+│       │   │   │   │   │   ├── ar10.encax_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax_interlag.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax.txt
+│       │   │   │   │   │   ├── pr3.hobir_rollback.txt
+│       │   │   │   │   │   ├── pr3.hobir.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   ├── migration_core_2
+│       │   │   │   │   │   ├── ar10.encax_rollback.txt
+│       │   │   │   │   │   ├── ar10.encax_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.encax.txt
+│       │   │   │   │   │   ├── pr3.enlba_rollback.txt
+│       │   │   │   │   │   ├── pr3.enlba.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   └── migration_service
+│       │   │   │   │       ├── ar10.encax_service_migration_pre.txt
+│       │   │   │   │       ├── ar11-cdn.encax_service_migration_post.txt
+│       │   │   │   │       ├── first_night
+│       │   │   │   │       │   ├── ar10.encax_rollback.txt
+│       │   │   │   │       │   ├── ar10.encax_service_migration_pre.txt
+│       │   │   │   │       │   ├── ar10.encax_service_shut.txt
+│       │   │   │   │       │   ├── ar11-cdn.encax_service_migration_post.txt
+│       │   │   │   │       │   ├── ar11-cdn.encax_service_new.txt
+│       │   │   │   │       │   ├── ar11-cdn.encax_service_rollback.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       ├── procedure.txt
+│       │   │   │   │       └── second_night
+│       │   │   │   │           ├── ar10.encax_rollback.txt
+│       │   │   │   │           ├── ar10.encax_service_migration_pre.txt
+│       │   │   │   │           ├── ar10.encax_service_shut.txt
+│       │   │   │   │           ├── ar11-cdn.encax_service_migration_post.txt
+│       │   │   │   │           ├── ar11-cdn.encax_service_new.txt
+│       │   │   │   │           ├── ar11-cdn.encax_service_rollback.txt
+│       │   │   │   │           └── procedure.txt
+│       │   │   │   ├── enlcs
+│       │   │   │   │   ├── commission
+│       │   │   │   │   │   ├── ar10.enlcs.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs.bof
+│       │   │   │   │   │   ├── ar11-cdn.enlcs.cfg
+│       │   │   │   │   │   ├── ncs-rollback.txt
+│       │   │   │   │   │   ├── pr2.bllon.txt
+│       │   │   │   │   │   ├── pr2.thlon.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   │   ├── rr0-rollback.txt
+│       │   │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   │   ├── rr1-rollback.txt
+│       │   │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   │   └── rr3-rollback.txt
+│       │   │   │   │   ├── decommission
+│       │   │   │   │   │   ├── ar10.enlcs.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs.txt
+│       │   │   │   │   │   ├── card_removal_ticket.txt
+│       │   │   │   │   │   ├── dns_ticket.txt
+│       │   │   │   │   │   ├── NCS.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── route-reflectors.txt
+│       │   │   │   │   │   └── rr_rollback.txt
+│       │   │   │   │   ├── migration_core_1
+│       │   │   │   │   │   ├── ar10.enlcs_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar10.enlcs_interlag.txt
+│       │   │   │   │   │   ├── ar10.enlcs_rollback.txt
+│       │   │   │   │   │   ├── ar10.enlcs_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs_interlag.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs.txt
+│       │   │   │   │   │   ├── pr2.bllon_rollback.txt
+│       │   │   │   │   │   ├── pr2.bllon.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   ├── migration_core_2
+│       │   │   │   │   │   ├── ar10.enlcs_rollback.txt
+│       │   │   │   │   │   ├── ar10.enlcs_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.enlcs.txt
+│       │   │   │   │   │   ├── pr2.thlon_rollback.txt
+│       │   │   │   │   │   ├── pr2.thlon.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   └── migration_service
+│       │   │   │   │       ├── ar10.enlcs_service_migration_pre.txt
+│       │   │   │   │       ├── ar11-cdn.enlcs_service_migration_post.txt
+│       │   │   │   │       ├── first_night
+│       │   │   │   │       │   ├── ar10.enlcs_rollback.txt
+│       │   │   │   │       │   ├── ar10.enlcs_service_migration_pre.txt
+│       │   │   │   │       │   ├── ar10.enlcs_service_shut.txt
+│       │   │   │   │       │   ├── ar11-cdn.enlcs_service_migration_post.txt
+│       │   │   │   │       │   ├── ar11-cdn.enlcs_service_new.txt
+│       │   │   │   │       │   ├── ar11-cdn.enlcs_service_rollback.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       ├── procedure.txt
+│       │   │   │   │       └── second_night
+│       │   │   │   │           ├── ar10.enlcs_rollback.txt
+│       │   │   │   │           ├── ar10.enlcs_service_migration_pre.txt
+│       │   │   │   │           ├── ar10.enlcs_service_shut.txt
+│       │   │   │   │           ├── ar11-cdn.enlcs_service_migration_post.txt
+│       │   │   │   │           ├── ar11-cdn.enlcs_service_new.txt
+│       │   │   │   │           ├── ar11-cdn.enlcs_service_rollback.txt
+│       │   │   │   │           └── procedure.txt
+│       │   │   │   ├── enyrk
+│       │   │   │   │   ├── commission
+│       │   │   │   │   │   ├── ar10.enyrk-100G.txt
+│       │   │   │   │   │   ├── ar10.enyrk-10G.txt
+│       │   │   │   │   │   ├── ar10.enyrk.txt
+│       │   │   │   │   │   ├── ar11-cdn.enyrk-bof.cfg
+│       │   │   │   │   │   ├── ar11-cdn.enyrk-bof.txt
+│       │   │   │   │   │   ├── ar11-cdn.enyrk.cfg
+│       │   │   │   │   │   ├── ar11-cdn.enyrk_dns_change.txt
+│       │   │   │   │   │   ├── ar11_desc.txt
+│       │   │   │   │   │   ├── pr2.enlba_desc.txt
+│       │   │   │   │   │   ├── pr2.enlba-rollback.txt
+│       │   │   │   │   │   ├── pr2.enlba.txt
+│       │   │   │   │   │   ├── pr2.hobir-rollback.txt
+│       │   │   │   │   │   ├── pr2.hobir.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── rr0.bllon-rollback.txt
+│       │   │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   │   ├── rr0.enlba-rollback.txt
+│       │   │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   │   ├── rr1.bllon-rollback.txt
+│       │   │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   │   ├── rr1.enlba-rollback.txt
+│       │   │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   │   ├── rr3.bllon-rollback.txt
+│       │   │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   │   ├── rr3.enlba-rollback.txt
+│       │   │   │   │   │   └── rr3.enlba.txt
+│       │   │   │   │   ├── decommission
+│       │   │   │   │   │   ├── ar10.enyrk.txt
+│       │   │   │   │   │   ├── ar11-cdn.enyrk.txt
+│       │   │   │   │   │   ├── NCS.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── route-reflectors.txt
+│       │   │   │   │   │   └── rr_rollback.txt
+│       │   │   │   │   ├── migration_core_1
+│       │   │   │   │   │   ├── ar10.enyrk_rollback.txt
+│       │   │   │   │   │   ├── ar10.enyrk_shut.txt
+│       │   │   │   │   │   ├── pr2.enlba_migration_procedure.txt
+│       │   │   │   │   │   ├── pr2.enlba-migration.txt
+│       │   │   │   │   │   ├── pr2.enlba_rollback.txt
+│       │   │   │   │   │   └── pr2.enlba.txt
+│       │   │   │   │   ├── migration_core_2
+│       │   │   │   │   │   ├── ar10.enyrk_rollback.txt
+│       │   │   │   │   │   ├── ar10.enyrk_shut.txt
+│       │   │   │   │   │   ├── pr2.hobir_migration_procedure.txt
+│       │   │   │   │   │   ├── pr2.hobir-migration.txt
+│       │   │   │   │   │   ├── pr2.hobir_rollback.txt
+│       │   │   │   │   │   └── pr2.hobir.txt
+│       │   │   │   │   └── migration_service
+│       │   │   │   │       ├── ar10.enyrk_service_migration_pre.txt
+│       │   │   │   │       ├── ar10.enyrk_service_shut.txt
+│       │   │   │   │       ├── ar10_rollback.txt
+│       │   │   │   │       ├── ar11-cdn.enyrk_service_migration_post.txt
+│       │   │   │   │       ├── ar11-cdn.enyrk_service_new.txt
+│       │   │   │   │       ├── ar11-cdn.enyrk_servicess_rollback.txt
+│       │   │   │   │       └── procedure.txt
+│       │   │   │   ├── hobir
+│       │   │   │   │   ├── commission
+│       │   │   │   │   │   ├── ar10.hobir_10G.txt
+│       │   │   │   │   │   ├── ar10.hobir_2nd.txt
+│       │   │   │   │   │   ├── ar10.hobir.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir.bof
+│       │   │   │   │   │   ├── ar11-cdn.hobir.cfg
+│       │   │   │   │   │   ├── ncs-rollback.txt
+│       │   │   │   │   │   ├── old_ar11-cdn.hobir.cfg
+│       │   │   │   │   │   ├── pr2.hobir.txt
+│       │   │   │   │   │   ├── pr3.hobir.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── rr0.bllon.txt
+│       │   │   │   │   │   ├── rr0.enlba.txt
+│       │   │   │   │   │   ├── rr0-rollback.txt
+│       │   │   │   │   │   ├── rr1.bllon.txt
+│       │   │   │   │   │   ├── rr1.enlba.txt
+│       │   │   │   │   │   ├── rr1-rollback.txt
+│       │   │   │   │   │   ├── rr3.bllon.txt
+│       │   │   │   │   │   ├── rr3.enlba.txt
+│       │   │   │   │   │   └── rr3-rollback.txt
+│       │   │   │   │   ├── decommission
+│       │   │   │   │   │   ├── ar10.hobir.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir.txt
+│       │   │   │   │   │   ├── card_removal_ticket.txt
+│       │   │   │   │   │   ├── dns_ticket.txt
+│       │   │   │   │   │   ├── NCS.txt
+│       │   │   │   │   │   ├── procedure.txt
+│       │   │   │   │   │   ├── route-reflectors.txt
+│       │   │   │   │   │   └── rr_rollback.txt
+│       │   │   │   │   ├── migration_core_1
+│       │   │   │   │   │   ├── ar10.hobir_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar10.hobir_interlag.txt
+│       │   │   │   │   │   ├── ar10.hobir_rollback.txt
+│       │   │   │   │   │   ├── ar10.hobir_shut.txt
+│       │   │   │   │   │   ├── ar10.hobir.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir_interlag_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir_interlag.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir.txt
+│       │   │   │   │   │   ├── pr2.hobir_migration_procedure.txt
+│       │   │   │   │   │   ├── pr2.hobir_rollback.txt
+│       │   │   │   │   │   ├── pr2.hobir.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   ├── migration_core_2
+│       │   │   │   │   │   ├── ar10.hobir_rollback.txt
+│       │   │   │   │   │   ├── ar10.hobir_shut.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir_rollback.txt
+│       │   │   │   │   │   ├── ar11-cdn.hobir.txt
+│       │   │   │   │   │   ├── pr3.hobir_migration_procedure.txt
+│       │   │   │   │   │   ├── pr3.hobir_rollback.txt
+│       │   │   │   │   │   ├── pr3.hobir.txt
+│       │   │   │   │   │   └── procedure.txt
+│       │   │   │   │   └── migration_service
+│       │   │   │   │       ├── fifth_night
+│       │   │   │   │       │   └── ar10.hobir_rollback.txt
+│       │   │   │   │       ├── first_night
+│       │   │   │   │       │   ├── ar10.hobir_rollback.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_migration_pre.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_shut.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_migration_post.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_new.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_rollback.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       ├── fourth_night
+│       │   │   │   │       │   ├── ar10.hobir_rollback.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_migration_pre.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_shut.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_migration_post.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_new.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_services_rollback.txt
+│       │   │   │   │       │   ├── as103.hobir_rollback.txt
+│       │   │   │   │       │   ├── as103.hobir.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       ├── ggc_ntf
+│       │   │   │   │       │   ├── ar10.hobir_service_migration_pre.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_shut.txt
+│       │   │   │   │       │   ├── ar10_rollback.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_rollback.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_migration_post.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_new.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       ├── procedure.txt
+│       │   │   │   │       ├── second_night
+│       │   │   │   │       │   ├── ar10.hobir_rollback.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_migration_pre.txt
+│       │   │   │   │       │   ├── ar10.hobir_service_shut.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_migration_post.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_new.txt
+│       │   │   │   │       │   ├── ar11-cdn.hobir_service_rollback.txt
+│       │   │   │   │       │   └── procedure.txt
+│       │   │   │   │       └── third_night
+│       │   │   │   │           ├── ar10.hobir_rollback.txt
+│       │   │   │   │           ├── ar10.hobir_service_migration_pre.txt
+│       │   │   │   │           ├── ar10.hobir_service_shut.txt
+│       │   │   │   │           ├── ar11-cdn.hobir_service_migration_post.txt
+│       │   │   │   │           ├── ar11-cdn.hobir_service_new.txt
+│       │   │   │   │           ├── ar11-cdn.hobir_servicess_rollback.txt
+│       │   │   │   │           ├── filter_136.txt
+│       │   │   │   │           ├── filter_137.txt
+│       │   │   │   │           └── procedure.txt
+│       │   │   │   ├── password.txt
+│       │   │   │   └── thlon
+│       │   │   │       ├── policy-edits
+│       │   │   │       │   ├── ar11-cdn.bllon.txt
+│       │   │   │       │   ├── ar11-cdn.enyrk.txt
+│       │   │   │       │   ├── ar11-cdn.hobir.txt
+│       │   │   │       │   └── ar14-cdn.thlon.txt
+│       │   │   │       └── rt_server
+│       │   │   │           └── rs0-cdn.thlon_card_install.txt
+│       │   │   ├── list.txt
+│       │   │   ├── tasks
+│       │   │   │   ├── decom.yml
+│       │   │   │   ├── main.yml
+│       │   │   │   ├── migration.yml
+│       │   │   │   ├── new_pe.yml
+│       │   │   │   ├── password.txt
+│       │   │   │   └── service_migration.yml
+│       │   │   ├── templates
+│       │   │   │   ├── commission
+│       │   │   │   │   ├── 7750_Implementation_procedure_cdn.txt
+│       │   │   │   │   ├── bof.j2
+│       │   │   │   │   ├── cdn_pe.j2
+│       │   │   │   │   ├── core_router_1.j2
+│       │   │   │   │   ├── core_router_2.j2
+│       │   │   │   │   ├── core_router-rollback.j2
+│       │   │   │   │   ├── dns_ticket.j2
+│       │   │   │   │   ├── old_cdn_pe.j2
+│       │   │   │   │   ├── proc.j2
+│       │   │   │   │   ├── rr0.bllon.j2
+│       │   │   │   │   ├── rr0.enlba.j2
+│       │   │   │   │   ├── rr0-rollback.j2
+│       │   │   │   │   ├── rr1.bllon.j2
+│       │   │   │   │   ├── rr1.enlba.j2
+│       │   │   │   │   ├── rr1-rollback.j2
+│       │   │   │   │   ├── rr3.bllon.j2
+│       │   │   │   │   ├── rr3.enlba.j2
+│       │   │   │   │   ├── rr3-rollback.j2
+│       │   │   │   │   └── updated_cdn_pe.j2
+│       │   │   │   ├── decommission
+│       │   │   │   │   ├── 7210
+│       │   │   │   │   │   ├── pe.j2
+│       │   │   │   │   │   ├── prepost_pe.j2
+│       │   │   │   │   │   └── proc.j2
+│       │   │   │   │   └── 7750
+│       │   │   │   │       ├── ar11.j2
+│       │   │   │   │       ├── card_removal.j2
+│       │   │   │   │       ├── core.j2
+│       │   │   │   │       ├── core_rollback.j2
+│       │   │   │   │       ├── decom_device.j2
+│       │   │   │   │       ├── dns.j2
+│       │   │   │   │       ├── proc.j2
+│       │   │   │   │       ├── rr_decom.j2
+│       │   │   │   │       └── rr_rollback.j2
+│       │   │   │   └── migration
+│       │   │   │       ├── core_1
+│       │   │   │       │   ├── ar10_core_1_rollback.j2
+│       │   │   │       │   ├── ar10_core_1_shut.j2
+│       │   │   │       │   ├── ar10_interlag.j2
+│       │   │   │       │   ├── ar10_interlag_rollback.j2
+│       │   │   │       │   ├── ar11_interlag.j2
+│       │   │   │       │   ├── ar11_interlag_rollback.j2
+│       │   │   │       │   ├── ar11.j2
+│       │   │   │       │   ├── ar11_rollback.j2
+│       │   │   │       │   ├── core_1_interfaces_only.j2
+│       │   │   │       │   ├── core_1_procedure.j2
+│       │   │   │       │   ├── core_1_rollback.j2
+│       │   │   │       │   └── dev_proc.j2
+│       │   │   │       ├── core_2
+│       │   │   │       │   ├── ar10_core_2_rollback.j2
+│       │   │   │       │   ├── ar10_core_2_shut.j2
+│       │   │   │       │   ├── ar11.j2
+│       │   │   │       │   ├── ar11_rollback.j2
+│       │   │   │       │   ├── core_2_interfaces_only.j2
+│       │   │   │       │   ├── core_2_procedure.j2
+│       │   │   │       │   └── core_2_rollback.j2
+│       │   │   │       └── service
+│       │   │   │           ├── ar10_cleanup.j2
+│       │   │   │           ├── ar10_rollback.j2
+│       │   │   │           ├── ar10_service_shut.j2
+│       │   │   │           ├── ar11_post.j2
+│       │   │   │           ├── ar11_service_new.j2
+│       │   │   │           ├── ar11_services_rollback.j2
+│       │   │   │           ├── proc.j2
+│       │   │   │           └── service_prepost.j2
+│       │   │   └── vars
+│       │   │       ├── enbgk.yml
+│       │   │       ├── encax.yml
+│       │   │       ├── enlcs.yml
+│       │   │       ├── enyrk.yml
+│       │   │       ├── hobir.yml
+│       │   │       ├── password.txt
+│       │   │       └── template.yml
+│       │   └── common
+│       │       ├── files
+│       │       │   ├── enbgk
+│       │       │   │   └── decommission
+│       │       │   │       ├── 7210
+│       │       │   │       ├── ar10.txt
+│       │       │   │       ├── prepost_pe.txt
+│       │       │   │       └── procedure.txt
+│       │       │   ├── enbrs
+│       │       │   │   └── commission
+│       │       │   │       └── 7210
+│       │       │   │           ├── as101
+│       │       │   │           │   ├── ar20.enbrs_prepost.txt
+│       │       │   │           │   ├── ar20.enbrs_rollback.txt
+│       │       │   │           │   ├── ar20.enbrs.txt
+│       │       │   │           │   ├── as101.enbrs_bof.cfg
+│       │       │   │           │   ├── as101.enbrs.cfg
+│       │       │   │           │   └── procedure.txt
+│       │       │   │           └── as102
+│       │       │   │               ├── ar20.enbrs_prepost.txt
+│       │       │   │               ├── ar20.enbrs_rollback.txt
+│       │       │   │               ├── ar20.enbrs.txt
+│       │       │   │               ├── as102.enbrs_bof.cfg
+│       │       │   │               ├── as102.enbrs.cfg
+│       │       │   │               └── procedure.txt
+│       │       │   ├── encax
+│       │       │   ├── enlba
+│       │       │   │   └── decommission
+│       │       │   │       ├── 7210
+│       │       │   │       ├── ar10.enlba.txt
+│       │       │   │       ├── prepost_pe.txt
+│       │       │   │       └── procedure.txt
+│       │       │   ├── enyrk
+│       │       │   │   └── decommission
+│       │       │   │       ├── ar10.enyrk.txt
+│       │       │   │       ├── prepost_pe.txt
+│       │       │   │       └── procedure.txt
+│       │       │   ├── hobir
+│       │       │   │   ├── commission
+│       │       │   │   │   ├── 7210
+│       │       │   │   │   │   └── ip_change
+│       │       │   │   │   │       ├── ar11-cdn.hobir_prepost.txt
+│       │       │   │   │   │       ├── ar11-cdn.hobir_rollback.txt
+│       │       │   │   │   │       ├── ar11-cdn.hobir.txt
+│       │       │   │   │   │       ├── as103.hobir_bof.cfg
+│       │       │   │   │   │       ├── as103.hobir.cfg
+│       │       │   │   │   │       ├── as103_ip.cfg
+│       │       │   │   │   │       └── procedure.txt
+│       │       │   │   │   └── 7750
+│       │       │   │   │       ├── ar11-cdn.hobir_prepost.txt
+│       │       │   │   │       ├── ar11-cdn.hobir_rollback.txt
+│       │       │   │   │       ├── ar11-cdn.hobir.txt
+│       │       │   │   │       └── procedure.txt
+│       │       │   │   └── decommission
+│       │       │   │       ├── 7210
+│       │       │   │       ├── as100
+│       │       │   │       │   ├── ar10.hobir.txt
+│       │       │   │       │   ├── prepost_pe.txt
+│       │       │   │       │   └── procedure.txt
+│       │       │   │       └── as101
+│       │       │   │           ├── ar10.hobir.txt
+│       │       │   │           ├── prepost_pe.txt
+│       │       │   │           └── procedure.txt
+│       │       │   └── thlon
+│       │       │       └── commission
+│       │       │           └── 7210
+│       │       │               ├── ar14-cdn.thlon_prepost.txt
+│       │       │               ├── ar14-cdn.thlon_rollback.txt
+│       │       │               ├── ar14-cdn.thlon.txt
+│       │       │               ├── as102.thlon_bof.cfg
+│       │       │               ├── as102.thlon.cfg
+│       │       │               └── procedure.txt
+│       │       ├── tasks
+│       │       │   ├── 7210_commission.yml
+│       │       │   ├── 7210_decom.yml
+│       │       │   ├── card.yml
+│       │       │   └── main.yml
+│       │       ├── templates
+│       │       │   ├── commission
+│       │       │   │   ├── 7210
+│       │       │   │   │   ├── 4500.j2
+│       │       │   │   │   ├── 7210.j2
+│       │       │   │   │   ├── bbpe1.j2
+│       │       │   │   │   ├── bbpe1_rollback.j2
+│       │       │   │   │   ├── bbpe2.j2
+│       │       │   │   │   ├── bbpe2_rollback.j2
+│       │       │   │   │   ├── bbpe3.j2
+│       │       │   │   │   ├── bbpe3_rollback.j2
+│       │       │   │   │   ├── bbpe_prepost.j2
+│       │       │   │   │   ├── bof.j2
+│       │       │   │   │   ├── pe.j2
+│       │       │   │   │   ├── pe_prepost.j2
+│       │       │   │   │   ├── pe_rollback.j2
+│       │       │   │   │   ├── proc.j2
+│       │       │   │   │   └── rr0_prepost.j2
+│       │       │   │   └── 7750
+│       │       │   │       ├── card_commission.j2
+│       │       │   │       ├── pe.j2
+│       │       │   │       ├── pe_rollback.j2
+│       │       │   │       └── prepost.j2
+│       │       │   └── decommission
+│       │       │       ├── 7210
+│       │       │       │   ├── pe.j2
+│       │       │       │   ├── prepost_pe.j2
+│       │       │       │   └── proc.j2
+│       │       │       └── 7750
+│       │       │           ├── decom_device.j2
+│       │       │           ├── implementation.j2
+│       │       │           ├── proc.j2
+│       │       │           ├── remote.j2
+│       │       │           └── rollback.j2
+│       │       └── vars
+│       │           ├── 7210_decom.yml
+│       │           ├── commission
+│       │           │   ├── 7210_commission.yml
+│       │           │   ├── as101_enbrs.yml
+│       │           │   ├── as102_enbrs.yml
+│       │           │   ├── hobir.yml
+│       │           │   └── thlon.yml
+│       │           ├── enbgk.yml
+│       │           ├── enlba_102.yml
+│       │           ├── enlba_103.yml
+│       │           ├── enwkg.yml
+│       │           ├── enyrk.yml
+│       │           ├── hardware
+│       │           ├── hobir_100.yml
+│       │           ├── hobir_101.yml
+│       │           ├── ncs.yml
+│       │           ├── services
+│       │           │   ├── aanp.yml
+│       │           │   ├── akamai_address.yml
+│       │           │   ├── mcdn.yml
+│       │           │   └── template.yml
+│       │           └── sites
+│       │               ├── bllon.yml
+│       │               ├── enbgk.yml
+│       │               ├── encax.yml
+│       │               ├── enedi.yml
+│       │               ├── enlba.yml
+│       │               ├── enlcs.yml
+│       │               ├── enlpl.yml
+│       │               ├── enntg.yml
+│       │               ├── ensts.yml
+│       │               ├── enwkg.yml
+│       │               ├── enyrk.yml
+│       │               ├── hobir.yml
+│       │               ├── mimnc.yml
+│       │               ├── sabir.yml
+│       │               ├── syost.yml
+│       │               └── thlon.yml
+│       ├── sabir.yml
+│       ├── site.yml
+│       ├── sr12e.yml
+│       └── syost.yml
+├── bin
+│   ├── confplate
+│   └── jumpscript.py
+├── confplate
+│   ├── confplate
+│   │   ├── confplate.py
+│   │   └── __init__.py
+│   ├── examples
+│   │   ├── cat3560.txt
+│   │   ├── new-subnets.csv
+│   │   ├── new-subnets.txt
+│   │   └── win-netsh-dhcp-server-scope.txt
+│   ├── LICENSE
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── setup.cfg
+│   ├── setup.py
+│   └── TODO.md
+├── csv-to-html-table
+│   ├── css
+│   │   ├── bootstrap.css.map
+│   │   ├── bootstrap.min.css
+│   │   ├── custom.css
+│   │   └── dataTables.bootstrap.css
+│   ├── data
+│   │   ├── cdn_capacity.csv
+│   │   ├── cdn_info.csv
+│   │   ├── colon_separator_example.csv
+│   │   ├── fatty_acid_profiles.csv
+│   │   └── Health Clinics in Chicago.csv
+│   ├── fonts
+│   │   ├── glyphicons-halflings-regular.eot
+│   │   ├── glyphicons-halflings-regular.svg
+│   │   ├── glyphicons-halflings-regular.ttf
+│   │   └── glyphicons-halflings-regular.woff
+│   ├── index.html
+│   ├── js
+│   │   ├── bootstrap.min.js
+│   │   ├── csv_to_html_table.js
+│   │   ├── dataTables.bootstrap.js
+│   │   ├── jquery.csv.min.js
+│   │   └── jquery.dataTables.min.js
+│   ├── LICENSE
+│   └── README.md
+├── mapper
+│   ├── mapper
+│   │   ├── bin
+│   │   │   ├── addlinks.pl
+│   │   │   ├── get-bng-loopbacks.py
+│   │   │   ├── im.py
+│   │   │   ├── __init__.py
+│   │   │   ├── links2neo4j.py
+│   │   │   ├── mapper.py
+│   │   │   ├── setup.py
+│   │   │   └── topology2links.pl
+│   │   ├── build
+│   │   │   └── networkx
+│   │   │       ├── doc
+│   │   │       │   ├── gh-pages.py
+│   │   │       │   ├── gitwash_dumper.py
+│   │   │       │   ├── make_examples_rst.py
+│   │   │       │   ├── Makefile
+│   │   │       │   ├── make_gallery.py
+│   │   │       │   ├── requirements.txt
+│   │   │       │   ├── rst_templates
+│   │   │       │   │   └── autosummary
+│   │   │       │   │       ├── base.rst
+│   │   │       │   │       ├── class.rst
+│   │   │       │   │       ├── function.rst
+│   │   │       │   │       └── module.rst
+│   │   │       │   ├── source
+│   │   │       │   │   ├── bibliography.rst
+│   │   │       │   │   ├── conf.py
+│   │   │       │   │   ├── developer
+│   │   │       │   │   │   ├── gitwash
+│   │   │       │   │   │   │   ├── branch_dropdown.png
+│   │   │       │   │   │   │   ├── configure_git.rst
+│   │   │       │   │   │   │   ├── development_workflow.rst
+│   │   │       │   │   │   │   ├── following_latest.rst
+│   │   │       │   │   │   │   ├── forking_button.png
+│   │   │       │   │   │   │   ├── forking_hell.rst
+│   │   │       │   │   │   │   ├── git_development.rst
+│   │   │       │   │   │   │   ├── git_install.rst
+│   │   │       │   │   │   │   ├── git_intro.rst
+│   │   │       │   │   │   │   ├── git_links.inc
+│   │   │       │   │   │   │   ├── git_resources.rst
+│   │   │       │   │   │   │   ├── index.rst
+│   │   │       │   │   │   │   ├── known_projects.inc
+│   │   │       │   │   │   │   ├── links.inc
+│   │   │       │   │   │   │   ├── maintainer_workflow.rst
+│   │   │       │   │   │   │   ├── patching.rst
+│   │   │       │   │   │   │   ├── pull_button.png
+│   │   │       │   │   │   │   ├── set_up_fork.rst
+│   │   │       │   │   │   │   └── this_project.inc
+│   │   │       │   │   │   └── index.rst
+│   │   │       │   │   ├── download.rst
+│   │   │       │   │   ├── index.rst
+│   │   │       │   │   ├── install.rst
+│   │   │       │   │   ├── overview.rst
+│   │   │       │   │   ├── reference
+│   │   │       │   │   │   ├── algorithms.approximation.rst
+│   │   │       │   │   │   ├── algorithms.assortativity.rst
+│   │   │       │   │   │   ├── algorithms.bipartite.rst
+│   │   │       │   │   │   ├── algorithms.block.rst
+│   │   │       │   │   │   ├── algorithms.boundary.rst
+│   │   │       │   │   │   ├── algorithms.centrality.rst
+│   │   │       │   │   │   ├── algorithms.chordal.rst
+│   │   │       │   │   │   ├── algorithms.clique.rst
+│   │   │       │   │   │   ├── algorithms.clustering.rst
+│   │   │       │   │   │   ├── algorithms.coloring.rst
+│   │   │       │   │   │   ├── algorithms.community.rst
+│   │   │       │   │   │   ├── algorithms.component.rst
+│   │   │       │   │   │   ├── algorithms.connectivity.rst
+│   │   │       │   │   │   ├── algorithms.core.rst
+│   │   │       │   │   │   ├── algorithms.cycles.rst
+│   │   │       │   │   │   ├── algorithms.dag.rst
+│   │   │       │   │   │   ├── algorithms.distance_measures.rst
+│   │   │       │   │   │   ├── algorithms.distance_regular.rst
+│   │   │       │   │   │   ├── algorithms.dominance.rst
+│   │   │       │   │   │   ├── algorithms.dominating.rst
+│   │   │       │   │   │   ├── algorithms.euler.rst
+│   │   │       │   │   │   ├── algorithms.flow.rst
+│   │   │       │   │   │   ├── algorithms.graphical.rst
+│   │   │       │   │   │   ├── algorithms.hierarchy.rst
+│   │   │       │   │   │   ├── algorithms.hybrid.rst
+│   │   │       │   │   │   ├── algorithms.isolates.rst
+│   │   │       │   │   │   ├── algorithms.isomorphism.rst
+│   │   │       │   │   │   ├── algorithms.isomorphism.vf2.rst
+│   │   │       │   │   │   ├── algorithms.link_analysis.rst
+│   │   │       │   │   │   ├── algorithms.link_prediction.rst
+│   │   │       │   │   │   ├── algorithms.matching.rst
+│   │   │       │   │   │   ├── algorithms.minors.rst
+│   │   │       │   │   │   ├── algorithms.mis.rst
+│   │   │       │   │   │   ├── algorithms.mst.rst
+│   │   │       │   │   │   ├── algorithms.operators.rst
+│   │   │       │   │   │   ├── algorithms.rich_club.rst
+│   │   │       │   │   │   ├── algorithms.rst
+│   │   │       │   │   │   ├── algorithms.shortest_paths.rst
+│   │   │       │   │   │   ├── algorithms.simple_paths.rst
+│   │   │       │   │   │   ├── algorithms.swap.rst
+│   │   │       │   │   │   ├── algorithms.traversal.rst
+│   │   │       │   │   │   ├── algorithms.tree.rst
+│   │   │       │   │   │   ├── algorithms.triads.rst
+│   │   │       │   │   │   ├── algorithms.vitality.rst
+│   │   │       │   │   │   ├── api_0.99.rst
+│   │   │       │   │   │   ├── api_1.0.rst
+│   │   │       │   │   │   ├── api_1.10.rst
+│   │   │       │   │   │   ├── api_1.4.rst
+│   │   │       │   │   │   ├── api_1.5.rst
+│   │   │       │   │   │   ├── api_1.6.rst
+│   │   │       │   │   │   ├── api_1.7.rst
+│   │   │       │   │   │   ├── api_1.8.rst
+│   │   │       │   │   │   ├── api_1.9.rst
+│   │   │       │   │   │   ├── api_changes.rst
+│   │   │       │   │   │   ├── citing.rst
+│   │   │       │   │   │   ├── classes.digraph.rst
+│   │   │       │   │   │   ├── classes.graph.rst
+│   │   │       │   │   │   ├── classes.multidigraph.rst
+│   │   │       │   │   │   ├── classes.multigraph.rst
+│   │   │       │   │   │   ├── classes.rst
+│   │   │       │   │   │   ├── convert.rst
+│   │   │       │   │   │   ├── credits.rst
+│   │   │       │   │   │   ├── drawing.rst
+│   │   │       │   │   │   ├── exceptions.rst
+│   │   │       │   │   │   ├── functions.rst
+│   │   │       │   │   │   ├── generators.rst
+│   │   │       │   │   │   ├── glossary.rst
+│   │   │       │   │   │   ├── history.rst
+│   │   │       │   │   │   ├── index.rst
+│   │   │       │   │   │   ├── introduction.rst
+│   │   │       │   │   │   ├── legal.rst
+│   │   │       │   │   │   ├── linalg.rst
+│   │   │       │   │   │   ├── news.rst
+│   │   │       │   │   │   ├── pdf_reference.rst
+│   │   │       │   │   │   ├── readwrite.adjlist.rst
+│   │   │       │   │   │   ├── readwrite.edgelist.rst
+│   │   │       │   │   │   ├── readwrite.gexf.rst
+│   │   │       │   │   │   ├── readwrite.gml.rst
+│   │   │       │   │   │   ├── readwrite.gpickle.rst
+│   │   │       │   │   │   ├── readwrite.graphml.rst
+│   │   │       │   │   │   ├── readwrite.json_graph.rst
+│   │   │       │   │   │   ├── readwrite.leda.rst
+│   │   │       │   │   │   ├── readwrite.multiline_adjlist.rst
+│   │   │       │   │   │   ├── readwrite.nx_shp.rst
+│   │   │       │   │   │   ├── readwrite.pajek.rst
+│   │   │       │   │   │   ├── readwrite.rst
+│   │   │       │   │   │   ├── readwrite.sparsegraph6.rst
+│   │   │       │   │   │   ├── readwrite.yaml.rst
+│   │   │       │   │   │   ├── relabel.rst
+│   │   │       │   │   │   └── utils.rst
+│   │   │       │   │   ├── static
+│   │   │       │   │   │   ├── art1.png
+│   │   │       │   │   │   ├── force
+│   │   │       │   │   │   │   └── force.css
+│   │   │       │   │   │   ├── networkx.css
+│   │   │       │   │   │   └── trac.css
+│   │   │       │   │   ├── templates
+│   │   │       │   │   │   ├── gallery.html
+│   │   │       │   │   │   ├── index.html
+│   │   │       │   │   │   ├── indexsidebar.html
+│   │   │       │   │   │   └── layout.html
+│   │   │       │   │   ├── test.rst
+│   │   │       │   │   └── tutorial
+│   │   │       │   │       ├── index.rst
+│   │   │       │   │       └── tutorial.rst
+│   │   │       │   └── sphinxext
+│   │   │       │       ├── customroles.py
+│   │   │       │       └── LICENSE.txt
+│   │   │       ├── examples
+│   │   │       │   ├── 3d_drawing
+│   │   │       │   │   └── mayavi2_spring.py
+│   │   │       │   ├── advanced
+│   │   │       │   │   ├── eigenvalues.py
+│   │   │       │   │   ├── heavy_metal_umlaut.py
+│   │   │       │   │   ├── iterated_dynamical_systems.py
+│   │   │       │   │   └── parallel_betweenness.py
+│   │   │       │   ├── algorithms
+│   │   │       │   │   ├── blockmodel.py
+│   │   │       │   │   ├── davis_club.py
+│   │   │       │   │   ├── hartford_drug.edgelist
+│   │   │       │   │   ├── krackhardt_centrality.py
+│   │   │       │   │   └── rcm.py
+│   │   │       │   ├── basic
+│   │   │       │   │   ├── properties.py
+│   │   │       │   │   └── read_write.py
+│   │   │       │   ├── drawing
+│   │   │       │   │   ├── circular_tree.py
+│   │   │       │   │   ├── degree_histogram.py
+│   │   │       │   │   ├── edge_colormap.py
+│   │   │       │   │   ├── ego_graph.py
+│   │   │       │   │   ├── four_grids.py
+│   │   │       │   │   ├── giant_component.py
+│   │   │       │   │   ├── house_with_colors.py
+│   │   │       │   │   ├── knuth_miles.py
+│   │   │       │   │   ├── labels_and_colors.py
+│   │   │       │   │   ├── lanl_routes.edgelist
+│   │   │       │   │   ├── lanl_routes.py
+│   │   │       │   │   ├── node_colormap.py
+│   │   │       │   │   ├── random_geometric_graph.py
+│   │   │       │   │   ├── sampson_data.zip
+│   │   │       │   │   ├── sampson.py
+│   │   │       │   │   ├── simple_path.py
+│   │   │       │   │   ├── unix_email.py
+│   │   │       │   │   └── weighted_graph.py
+│   │   │       │   ├── graph
+│   │   │       │   │   ├── atlas2.py
+│   │   │       │   │   ├── atlas.py
+│   │   │       │   │   ├── degree_sequence.py
+│   │   │       │   │   ├── erdos_renyi.py
+│   │   │       │   │   ├── expected_degree_sequence.py
+│   │   │       │   │   ├── football.py
+│   │   │       │   │   ├── karate_club.py
+│   │   │       │   │   ├── knuth_miles.py
+│   │   │       │   │   ├── knuth_miles.txt.gz
+│   │   │       │   │   ├── napoleon_russian_campaign.py
+│   │   │       │   │   ├── roget_dat.txt.gz
+│   │   │       │   │   ├── roget.py
+│   │   │       │   │   ├── unix_email.mbox
+│   │   │       │   │   ├── unix_email.py
+│   │   │       │   │   ├── words_dat.txt.gz
+│   │   │       │   │   └── words.py
+│   │   │       │   ├── javascript
+│   │   │       │   │   ├── force.py
+│   │   │       │   │   └── http_server.py
+│   │   │       │   ├── multigraph
+│   │   │       │   │   ├── chess_masters.py
+│   │   │       │   │   └── chess_masters_WCC.pgn.bz2
+│   │   │       │   ├── pygraphviz
+│   │   │       │   │   ├── pygraphviz_attributes.py
+│   │   │       │   │   ├── pygraphviz_draw.py
+│   │   │       │   │   ├── pygraphviz_simple.py
+│   │   │       │   │   └── write_dotfile.py
+│   │   │       │   └── subclass
+│   │   │       │       ├── antigraph.py
+│   │   │       │       └── printgraph.py
+│   │   │       ├── INSTALL.txt
+│   │   │       ├── LICENSE.txt
+│   │   │       ├── MANIFEST.in
+│   │   │       ├── networkx
+│   │   │       │   ├── algorithms
+│   │   │       │   │   ├── approximation
+│   │   │       │   │   │   ├── clique.py
+│   │   │       │   │   │   ├── clustering_coefficient.py
+│   │   │       │   │   │   ├── connectivity.py
+│   │   │       │   │   │   ├── dominating_set.py
+│   │   │       │   │   │   ├── independent_set.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── kcomponents.py
+│   │   │       │   │   │   ├── matching.py
+│   │   │       │   │   │   ├── ramsey.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── test_approx_clust_coeff.py
+│   │   │       │   │   │   │   ├── test_clique.py
+│   │   │       │   │   │   │   ├── test_connectivity.py
+│   │   │       │   │   │   │   ├── test_dominating_set.py
+│   │   │       │   │   │   │   ├── test_independent_set.py
+│   │   │       │   │   │   │   ├── test_kcomponents.py
+│   │   │       │   │   │   │   ├── test_matching.py
+│   │   │       │   │   │   │   ├── test_ramsey.py
+│   │   │       │   │   │   │   └── test_vertex_cover.py
+│   │   │       │   │   │   └── vertex_cover.py
+│   │   │       │   │   ├── assortativity
+│   │   │       │   │   │   ├── connectivity.py
+│   │   │       │   │   │   ├── correlation.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── mixing.py
+│   │   │       │   │   │   ├── neighbor_degree.py
+│   │   │       │   │   │   ├── pairs.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       ├── base_test.py
+│   │   │       │   │   │       ├── test_connectivity.py
+│   │   │       │   │   │       ├── test_correlation.py
+│   │   │       │   │   │       ├── test_mixing.py
+│   │   │       │   │   │       ├── test_neighbor_degree.py
+│   │   │       │   │   │       └── test_pairs.py
+│   │   │       │   │   ├── bipartite
+│   │   │       │   │   │   ├── basic.py
+│   │   │       │   │   │   ├── centrality.py
+│   │   │       │   │   │   ├── cluster.py
+│   │   │       │   │   │   ├── edgelist.py
+│   │   │       │   │   │   ├── generators.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── matching.py
+│   │   │       │   │   │   ├── matrix.py
+│   │   │       │   │   │   ├── projection.py
+│   │   │       │   │   │   ├── redundancy.py
+│   │   │       │   │   │   ├── spectral.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       ├── test_basic.py
+│   │   │       │   │   │       ├── test_centrality.py
+│   │   │       │   │   │       ├── test_cluster.py
+│   │   │       │   │   │       ├── test_edgelist.py
+│   │   │       │   │   │       ├── test_generators.py
+│   │   │       │   │   │       ├── test_matching.py
+│   │   │       │   │   │       ├── test_matrix.py
+│   │   │       │   │   │       ├── test_project.py
+│   │   │       │   │   │       ├── test_redundancy.py
+│   │   │       │   │   │       └── test_spectral_bipartivity.py
+│   │   │       │   │   ├── block.py
+│   │   │       │   │   ├── boundary.py
+│   │   │       │   │   ├── centrality
+│   │   │       │   │   │   ├── betweenness.py
+│   │   │       │   │   │   ├── betweenness_subset.py
+│   │   │       │   │   │   ├── closeness.py
+│   │   │       │   │   │   ├── communicability_alg.py
+│   │   │       │   │   │   ├── current_flow_betweenness.py
+│   │   │       │   │   │   ├── current_flow_betweenness_subset.py
+│   │   │       │   │   │   ├── current_flow_closeness.py
+│   │   │       │   │   │   ├── degree_alg.py
+│   │   │       │   │   │   ├── dispersion.py
+│   │   │       │   │   │   ├── eigenvector.py
+│   │   │       │   │   │   ├── flow_matrix.py
+│   │   │       │   │   │   ├── harmonic.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── katz.py
+│   │   │       │   │   │   ├── load.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       ├── test_betweenness_centrality.py
+│   │   │       │   │   │       ├── test_betweenness_centrality_subset.py
+│   │   │       │   │   │       ├── test_closeness_centrality.py
+│   │   │       │   │   │       ├── test_communicability.py
+│   │   │       │   │   │       ├── test_current_flow_betweenness_centrality.py
+│   │   │       │   │   │       ├── test_current_flow_betweenness_centrality_subset.py
+│   │   │       │   │   │       ├── test_current_flow_closeness.py
+│   │   │       │   │   │       ├── test_degree_centrality.py
+│   │   │       │   │   │       ├── test_dispersion.py
+│   │   │       │   │   │       ├── test_eigenvector_centrality.py
+│   │   │       │   │   │       ├── test_harmonic_centrality.py
+│   │   │       │   │   │       ├── test_katz_centrality.py
+│   │   │       │   │   │       └── test_load_centrality.py
+│   │   │       │   │   ├── chordal
+│   │   │       │   │   │   ├── chordal_alg.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       └── test_chordal.py
+│   │   │       │   │   ├── clique.py
+│   │   │       │   │   ├── cluster.py
+│   │   │       │   │   ├── coloring
+│   │   │       │   │   │   ├── greedy_coloring.py
+│   │   │       │   │   │   ├── greedy_coloring_with_interchange.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       └── test_coloring.py
+│   │   │       │   │   ├── community
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── kclique.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       └── test_kclique.py
+│   │   │       │   │   ├── components
+│   │   │       │   │   │   ├── attracting.py
+│   │   │       │   │   │   ├── biconnected.py
+│   │   │       │   │   │   ├── connected.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── semiconnected.py
+│   │   │       │   │   │   ├── strongly_connected.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── test_attracting.py
+│   │   │       │   │   │   │   ├── test_biconnected.py
+│   │   │       │   │   │   │   ├── test_connected.py
+│   │   │       │   │   │   │   ├── test_semiconnected.py
+│   │   │       │   │   │   │   ├── test_strongly_connected.py
+│   │   │       │   │   │   │   ├── test_subgraph_copies.py
+│   │   │       │   │   │   │   └── test_weakly_connected.py
+│   │   │       │   │   │   └── weakly_connected.py
+│   │   │       │   │   ├── connectivity
+│   │   │       │   │   │   ├── connectivity.py
+│   │   │       │   │   │   ├── cuts.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── kcomponents.py
+│   │   │       │   │   │   ├── kcutsets.py
+│   │   │       │   │   │   ├── stoerwagner.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── test_connectivity.py
+│   │   │       │   │   │   │   ├── test_cuts.py
+│   │   │       │   │   │   │   ├── test_kcomponents.py
+│   │   │       │   │   │   │   ├── test_kcutsets.py
+│   │   │       │   │   │   │   └── test_stoer_wagner.py
+│   │   │       │   │   │   └── utils.py
+│   │   │       │   │   ├── core.py
+│   │   │       │   │   ├── cycles.py
+│   │   │       │   │   ├── dag.py
+│   │   │       │   │   ├── distance_measures.py
+│   │   │       │   │   ├── distance_regular.py
+│   │   │       │   │   ├── dominance.py
+│   │   │       │   │   ├── dominating.py
+│   │   │       │   │   ├── euler.py
+│   │   │       │   │   ├── flow
+│   │   │       │   │   │   ├── capacityscaling.py
+│   │   │       │   │   │   ├── edmondskarp.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── maxflow.py
+│   │   │       │   │   │   ├── mincost.py
+│   │   │       │   │   │   ├── networksimplex.py
+│   │   │       │   │   │   ├── preflowpush.py
+│   │   │       │   │   │   ├── shortestaugmentingpath.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── gl1.gpickle.bz2
+│   │   │       │   │   │   │   ├── gw1.gpickle.bz2
+│   │   │       │   │   │   │   ├── netgen-2.gpickle.bz2
+│   │   │       │   │   │   │   ├── test_maxflow_large_graph.py
+│   │   │       │   │   │   │   ├── test_maxflow.py
+│   │   │       │   │   │   │   ├── test_mincost.py
+│   │   │       │   │   │   │   └── wlm3.gpickle.bz2
+│   │   │       │   │   │   └── utils.py
+│   │   │       │   │   ├── graphical.py
+│   │   │       │   │   ├── hierarchy.py
+│   │   │       │   │   ├── hybrid.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── isolate.py
+│   │   │       │   │   ├── isomorphism
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── isomorph.py
+│   │   │       │   │   │   ├── isomorphvf2.py
+│   │   │       │   │   │   ├── matchhelpers.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── iso_r01_s80.A99
+│   │   │       │   │   │   │   ├── iso_r01_s80.B99
+│   │   │       │   │   │   │   ├── si2_b06_m200.A99
+│   │   │       │   │   │   │   ├── si2_b06_m200.B99
+│   │   │       │   │   │   │   ├── test_isomorphism.py
+│   │   │       │   │   │   │   ├── test_isomorphvf2.py
+│   │   │       │   │   │   │   └── test_vf2userfunc.py
+│   │   │       │   │   │   └── vf2userfunc.py
+│   │   │       │   │   ├── link_analysis
+│   │   │       │   │   │   ├── hits_alg.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── pagerank_alg.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       ├── test_hits.py
+│   │   │       │   │   │       └── test_pagerank.py
+│   │   │       │   │   ├── link_prediction.py
+│   │   │       │   │   ├── matching.py
+│   │   │       │   │   ├── minors.py
+│   │   │       │   │   ├── mis.py
+│   │   │       │   │   ├── mst.py
+│   │   │       │   │   ├── operators
+│   │   │       │   │   │   ├── all.py
+│   │   │       │   │   │   ├── binary.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── product.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── test_all.py
+│   │   │       │   │   │   │   ├── test_binary.py
+│   │   │       │   │   │   │   ├── test_product.py
+│   │   │       │   │   │   │   └── test_unary.py
+│   │   │       │   │   │   └── unary.py
+│   │   │       │   │   ├── richclub.py
+│   │   │       │   │   ├── shortest_paths
+│   │   │       │   │   │   ├── astar.py
+│   │   │       │   │   │   ├── dense.py
+│   │   │       │   │   │   ├── generic.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── test_astar.py
+│   │   │       │   │   │   │   ├── test_dense_numpy.py
+│   │   │       │   │   │   │   ├── test_dense.py
+│   │   │       │   │   │   │   ├── test_generic.py
+│   │   │       │   │   │   │   ├── test_unweighted.py
+│   │   │       │   │   │   │   └── test_weighted.py
+│   │   │       │   │   │   ├── unweighted.py
+│   │   │       │   │   │   └── weighted.py
+│   │   │       │   │   ├── simple_paths.py
+│   │   │       │   │   ├── smetric.py
+│   │   │       │   │   ├── swap.py
+│   │   │       │   │   ├── tests
+│   │   │       │   │   │   ├── test_block.py
+│   │   │       │   │   │   ├── test_boundary.py
+│   │   │       │   │   │   ├── test_clique.py
+│   │   │       │   │   │   ├── test_cluster.py
+│   │   │       │   │   │   ├── test_core.py
+│   │   │       │   │   │   ├── test_cycles.py
+│   │   │       │   │   │   ├── test_dag.py
+│   │   │       │   │   │   ├── test_distance_measures.py
+│   │   │       │   │   │   ├── test_distance_regular.py
+│   │   │       │   │   │   ├── test_dominance.py
+│   │   │       │   │   │   ├── test_dominating.py
+│   │   │       │   │   │   ├── test_euler.py
+│   │   │       │   │   │   ├── test_graphical.py
+│   │   │       │   │   │   ├── test_hierarchy.py
+│   │   │       │   │   │   ├── test_hybrid.py
+│   │   │       │   │   │   ├── test_link_prediction.py
+│   │   │       │   │   │   ├── test_matching.py
+│   │   │       │   │   │   ├── test_minors.py
+│   │   │       │   │   │   ├── test_mis.py
+│   │   │       │   │   │   ├── test_mst.py
+│   │   │       │   │   │   ├── test_richclub.py
+│   │   │       │   │   │   ├── test_simple_paths.py
+│   │   │       │   │   │   ├── test_smetric.py
+│   │   │       │   │   │   ├── test_swap.py
+│   │   │       │   │   │   ├── test_triads.py
+│   │   │       │   │   │   └── test_vitality.py
+│   │   │       │   │   ├── traversal
+│   │   │       │   │   │   ├── breadth_first_search.py
+│   │   │       │   │   │   ├── depth_first_search.py
+│   │   │       │   │   │   ├── edgedfs.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       ├── test_bfs.py
+│   │   │       │   │   │       ├── test_dfs.py
+│   │   │       │   │   │       └── test_edgedfs.py
+│   │   │       │   │   ├── tree
+│   │   │       │   │   │   ├── branchings.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── recognition.py
+│   │   │       │   │   │   └── tests
+│   │   │       │   │   │       ├── test_branchings.py
+│   │   │       │   │   │       └── test_recognition.py
+│   │   │       │   │   ├── triads.py
+│   │   │       │   │   └── vitality.py
+│   │   │       │   ├── classes
+│   │   │       │   │   ├── digraph.py
+│   │   │       │   │   ├── function.py
+│   │   │       │   │   ├── graph.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── multidigraph.py
+│   │   │       │   │   ├── multigraph.py
+│   │   │       │   │   ├── ordered.py
+│   │   │       │   │   └── tests
+│   │   │       │   │       ├── historical_tests.py
+│   │   │       │   │       ├── test_digraph_historical.py
+│   │   │       │   │       ├── test_digraph.py
+│   │   │       │   │       ├── test_function.py
+│   │   │       │   │       ├── test_graph_historical.py
+│   │   │       │   │       ├── test_graph.py
+│   │   │       │   │       ├── test_multidigraph.py
+│   │   │       │   │       ├── test_multigraph.py
+│   │   │       │   │       ├── test_ordered.py
+│   │   │       │   │       ├── test_special.py
+│   │   │       │   │       ├── test_timing.py
+│   │   │       │   │       └── timingclasses.py
+│   │   │       │   ├── convert_matrix.py
+│   │   │       │   ├── convert.py
+│   │   │       │   ├── drawing
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── layout.py
+│   │   │       │   │   ├── nx_agraph.py
+│   │   │       │   │   ├── nx_pydot.py
+│   │   │       │   │   ├── nx_pylab.py
+│   │   │       │   │   └── tests
+│   │   │       │   │       ├── test_agraph.py
+│   │   │       │   │       ├── test_layout.py
+│   │   │       │   │       ├── test_pydot.py
+│   │   │       │   │       └── test_pylab.py
+│   │   │       │   ├── exception.py
+│   │   │       │   ├── external
+│   │   │       │   │   └── __init__.py
+│   │   │       │   ├── generators
+│   │   │       │   │   ├── atlas.py
+│   │   │       │   │   ├── classic.py
+│   │   │       │   │   ├── community.py
+│   │   │       │   │   ├── degree_seq.py
+│   │   │       │   │   ├── directed.py
+│   │   │       │   │   ├── ego.py
+│   │   │       │   │   ├── expanders.py
+│   │   │       │   │   ├── geometric.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── intersection.py
+│   │   │       │   │   ├── line.py
+│   │   │       │   │   ├── nonisomorphic_trees.py
+│   │   │       │   │   ├── random_clustered.py
+│   │   │       │   │   ├── random_graphs.py
+│   │   │       │   │   ├── small.py
+│   │   │       │   │   ├── social.py
+│   │   │       │   │   ├── stochastic.py
+│   │   │       │   │   ├── tests
+│   │   │       │   │   │   ├── test_atlas.py
+│   │   │       │   │   │   ├── test_classic.py
+│   │   │       │   │   │   ├── test_community.py
+│   │   │       │   │   │   ├── test_degree_seq.py
+│   │   │       │   │   │   ├── test_directed.py
+│   │   │       │   │   │   ├── test_ego.py
+│   │   │       │   │   │   ├── test_expanders.py
+│   │   │       │   │   │   ├── test_geometric.py
+│   │   │       │   │   │   ├── test_intersection.py
+│   │   │       │   │   │   ├── test_line.py
+│   │   │       │   │   │   ├── test_nonisomorphic_trees.py
+│   │   │       │   │   │   ├── test_random_clustered.py
+│   │   │       │   │   │   ├── test_random_graphs.py
+│   │   │       │   │   │   ├── test_small.py
+│   │   │       │   │   │   ├── test_stochastic.py
+│   │   │       │   │   │   └── test_threshold.py
+│   │   │       │   │   └── threshold.py
+│   │   │       │   ├── __init__.py
+│   │   │       │   ├── linalg
+│   │   │       │   │   ├── algebraicconnectivity.py
+│   │   │       │   │   ├── attrmatrix.py
+│   │   │       │   │   ├── graphmatrix.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── laplacianmatrix.py
+│   │   │       │   │   ├── modularitymatrix.py
+│   │   │       │   │   ├── spectrum.py
+│   │   │       │   │   └── tests
+│   │   │       │   │       ├── test_algebraic_connectivity.py
+│   │   │       │   │       ├── test_graphmatrix.py
+│   │   │       │   │       ├── test_laplacian.py
+│   │   │       │   │       ├── test_modularity.py
+│   │   │       │   │       └── test_spectrum.py
+│   │   │       │   ├── readwrite
+│   │   │       │   │   ├── adjlist.py
+│   │   │       │   │   ├── edgelist.py
+│   │   │       │   │   ├── gexf.py
+│   │   │       │   │   ├── gml.py
+│   │   │       │   │   ├── gpickle.py
+│   │   │       │   │   ├── graph6.py
+│   │   │       │   │   ├── graphml.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── json_graph
+│   │   │       │   │   │   ├── adjacency.py
+│   │   │       │   │   │   ├── __init__.py
+│   │   │       │   │   │   ├── node_link.py
+│   │   │       │   │   │   ├── tests
+│   │   │       │   │   │   │   ├── test_adjacency.py
+│   │   │       │   │   │   │   ├── test_node_link.py
+│   │   │       │   │   │   │   └── test_tree.py
+│   │   │       │   │   │   └── tree.py
+│   │   │       │   │   ├── leda.py
+│   │   │       │   │   ├── multiline_adjlist.py
+│   │   │       │   │   ├── nx_shp.py
+│   │   │       │   │   ├── nx_yaml.py
+│   │   │       │   │   ├── p2g.py
+│   │   │       │   │   ├── pajek.py
+│   │   │       │   │   ├── sparse6.py
+│   │   │       │   │   └── tests
+│   │   │       │   │       ├── test_adjlist.py
+│   │   │       │   │       ├── test_edgelist.py
+│   │   │       │   │       ├── test_gexf.py
+│   │   │       │   │       ├── test_gml.py
+│   │   │       │   │       ├── test_gpickle.py
+│   │   │       │   │       ├── test_graph6.py
+│   │   │       │   │       ├── test_graphml.py
+│   │   │       │   │       ├── test_leda.py
+│   │   │       │   │       ├── test_p2g.py
+│   │   │       │   │       ├── test_pajek.py
+│   │   │       │   │       ├── test_shp.py
+│   │   │       │   │       ├── test_sparse6.py
+│   │   │       │   │       └── test_yaml.py
+│   │   │       │   ├── relabel.py
+│   │   │       │   ├── release.py
+│   │   │       │   ├── testing
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── tests
+│   │   │       │   │   │   └── test_utils.py
+│   │   │       │   │   └── utils.py
+│   │   │       │   ├── tests
+│   │   │       │   │   ├── benchmark.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── test_convert_numpy.py
+│   │   │       │   │   ├── test_convert_pandas.py
+│   │   │       │   │   ├── test_convert.py
+│   │   │       │   │   ├── test_convert_scipy.py
+│   │   │       │   │   ├── test_exceptions.py
+│   │   │       │   │   ├── test.py
+│   │   │       │   │   └── test_relabel.py
+│   │   │       │   ├── utils
+│   │   │       │   │   ├── contextmanagers.py
+│   │   │       │   │   ├── decorators.py
+│   │   │       │   │   ├── heaps.py
+│   │   │       │   │   ├── __init__.py
+│   │   │       │   │   ├── misc.py
+│   │   │       │   │   ├── random_sequence.py
+│   │   │       │   │   ├── rcm.py
+│   │   │       │   │   ├── tests
+│   │   │       │   │   │   ├── test_contextmanager.py
+│   │   │       │   │   │   ├── test_decorators.py
+│   │   │       │   │   │   ├── test_heaps.py
+│   │   │       │   │   │   ├── test_misc.py
+│   │   │       │   │   │   ├── test_random_sequence.py
+│   │   │       │   │   │   ├── test_rcm.py
+│   │   │       │   │   │   ├── test.txt
+│   │   │       │   │   │   └── test_unionfind.py
+│   │   │       │   │   └── union_find.py
+│   │   │       │   └── version.py
+│   │   │       ├── networkx.egg-info
+│   │   │       │   ├── dependency_links.txt
+│   │   │       │   ├── not-zip-safe
+│   │   │       │   ├── PKG-INFO
+│   │   │       │   ├── requires.txt
+│   │   │       │   ├── SOURCES.txt
+│   │   │       │   └── top_level.txt
+│   │   │       ├── pip-egg-info
+│   │   │       ├── PKG-INFO
+│   │   │       ├── README.rst
+│   │   │       ├── setup.cfg
+│   │   │       └── setup.py
+│   │   ├── doc
+│   │   │   ├── bin.rst
+│   │   │   ├── _build
+│   │   │   │   ├── doctrees
+│   │   │   │   │   ├── bin.doctree
+│   │   │   │   │   ├── environment.pickle
+│   │   │   │   │   ├── index.doctree
+│   │   │   │   │   ├── modules.doctree
+│   │   │   │   │   └── windows-install.doctree
+│   │   │   │   └── html
+│   │   │   │       ├── bin.html
+│   │   │   │       ├── genindex.html
+│   │   │   │       ├── index.html
+│   │   │   │       ├── modules.html
+│   │   │   │       ├── objects.inv
+│   │   │   │       ├── py-modindex.html
+│   │   │   │       ├── search.html
+│   │   │   │       ├── searchindex.js
+│   │   │   │       ├── _sources
+│   │   │   │       │   ├── bin.txt
+│   │   │   │       │   ├── index.txt
+│   │   │   │       │   ├── modules.txt
+│   │   │   │       │   └── windows-install.txt
+│   │   │   │       ├── _static
+│   │   │   │       │   ├── ajax-loader.gif
+│   │   │   │       │   ├── basic.css
+│   │   │   │       │   ├── comment-bright.png
+│   │   │   │       │   ├── comment-close.png
+│   │   │   │       │   ├── comment.png
+│   │   │   │       │   ├── default.css
+│   │   │   │       │   ├── doctools.js
+│   │   │   │       │   ├── down.png
+│   │   │   │       │   ├── down-pressed.png
+│   │   │   │       │   ├── file.png
+│   │   │   │       │   ├── jquery.js
+│   │   │   │       │   ├── minus.png
+│   │   │   │       │   ├── plus.png
+│   │   │   │       │   ├── pygments.css
+│   │   │   │       │   ├── searchtools.js
+│   │   │   │       │   ├── sidebar.js
+│   │   │   │       │   ├── underscore.js
+│   │   │   │       │   ├── up.png
+│   │   │   │       │   ├── up-pressed.png
+│   │   │   │       │   └── websupport.js
+│   │   │   │       └── windows-install.html
+│   │   │   ├── conf.py
+│   │   │   ├── index.rst
+│   │   │   ├── Makefile
+│   │   │   ├── modules.rst
+│   │   │   ├── TEST
+│   │   │   ├── user.md
+│   │   │   └── windows-install.md
+│   │   ├── examples
+│   │   │   ├── cdn.csv
+│   │   │   ├── corepes.csv
+│   │   │   ├── demand.csv
+│   │   │   ├── dnsmap.csv
+│   │   │   ├── failures.yaml
+│   │   │   ├── ironman.csv
+│   │   │   ├── ironmandns.csv
+│   │   │   ├── ironmandns-realconfig.csv
+│   │   │   ├── links.csv
+│   │   │   ├── override.csv
+│   │   │   ├── pe.csv
+│   │   │   ├── popcommunities.csv
+│   │   │   ├── rr0-cdn.config
+│   │   │   ├── statics.csv
+│   │   │   └── transmission.csv
+│   │   ├── NOTES.TXT
+│   │   ├── run.bat
+│   │   ├── run.sh
+│   │   └── temp.txt
+│   ├── nodepal
+│   │   ├── bin
+│   │   │   └── scratch.py
+│   │   ├── data
+│   │   │   ├── DeviceTypes.json
+│   │   │   ├── OS.json
+│   │   │   └── vendors.json
+│   │   ├── docs
+│   │   │   └── dev
+│   │   │       └── CODING_GUIDELINES.TXT
+│   │   ├── etc
+│   │   │   └── config.ini
+│   │   ├── __init__.py
+│   │   ├── install
+│   │   │   └── install.sh
+│   │   ├── lib
+│   │   │   ├── __init__.py
+│   │   │   └── network.py
+│   │   ├── nodepal_venv
+│   │   ├── pylintrc
+│   │   ├── README.TXT
+│   │   ├── requirements.txt
+│   │   ├── tests
+│   │   │   └── node_tests.py
+│   │   └── tox.ini
+│   ├── velocixLoadAPIGrapher
+│   │   ├── capture.sh
+│   │   ├── graph.py
+│   │   ├── output.txt
+│   │   └── requirements.txt
+│   └── velocixmonitoring
+│       ├── config.yaml
+│       ├── monitor.pid
+│       └── monitor.py
+├── multiservice-edge-templates
+│   └── 7750
+│       ├── deployment
+│       │   ├── group_vars
+│       │   │   └── all
+│       │   │       └── vars.yml
+│       │   ├── hosts
+│       │   ├── pre-tasks
+│       │   │   └── main.yml
+│       │   ├── roles
+│       │   │   ├── bb-pe
+│       │   │   │   └── tasks
+│       │   │   │       └── main.yml
+│       │   │   ├── centgea-bng
+│       │   │   │   ├── tasks
+│       │   │   │   │   └── main.yml
+│       │   │   │   └── templates
+│       │   │   │       └── base.j2
+│       │   │   ├── compliance-pe
+│       │   │   │   ├── tasks
+│       │   │   │   │   └── main.yml
+│       │   │   │   └── templates
+│       │   │   │       └── base.j2
+│       │   │   ├── ironman-pe
+│       │   │   │   ├── tasks
+│       │   │   │   │   └── main.yml
+│       │   │   │   └── templates
+│       │   │   │       └── base.j2
+│       │   │   ├── procedure
+│       │   │   │   ├── tasks
+│       │   │   │   │   └── main.yml
+│       │   │   │   └── templates
+│       │   │   │       └── base.j2
+│       │   │   ├── p-router
+│       │   │   │   ├── tasks
+│       │   │   │   │   └── main.yml
+│       │   │   │   └── templates
+│       │   │   │       └── base.j2
+│       │   │   ├── route-reflector
+│       │   │   │   ├── tasks
+│       │   │   │   │   └── main.yml
+│       │   │   │   └── templates
+│       │   │   │       └── base.j2
+│       │   │   └── sedcanopy-pe
+│       │   │       ├── tasks
+│       │   │       │   └── main.yml
+│       │   │       └── templates
+│       │   │           └── base.j2
+│       │   └── site.yml
+│       └── templates
+│           ├── blocks
+│           │   ├── lag
+│           │   │   └── sr1[0-9]_lag-base_12_0R5.j2
+│           │   ├── log
+│           │   │   └── sr1[0-9]_log-base_12_0R5.j2
+│           │   ├── mirror
+│           │   │   └── sr1[0-9]_mirror-base_12_0R5.j2
+│           │   ├── port
+│           │   │   ├── sr1[0-9]_port-base_12_0R5.j2
+│           │   │   └── sr1[0-9]_port-shutdown-ports_12_0R5.j2
+│           │   ├── qos
+│           │   │   ├── sr1[0-9]_network-10_12_0R5.j2
+│           │   │   ├── sr1[0-9]_network-queue-10g-imm_12_0R5.j2
+│           │   │   ├── sr1[0-9]_portsched_P-CORE-EGRESS-10G_12_0R5.j2
+│           │   │   ├── sr1[0-9]_portsched_PE-TO-EXCHANGE-100M_12_0R5.j2
+│           │   │   ├── sr1[0-9]_portsched_PE-TO-EXCHANGE-10G_12_0R5.j2
+│           │   │   ├── sr1[0-9]_portsched_PE-TO-EXCHANGE-1G_12_0R5.j2
+│           │   │   ├── sr1[0-9]_qos-base_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-100_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-101_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-102_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-300_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-301_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-400_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-401_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-egress-610_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-ingress-100_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-ingress-101_12_0R5.j2
+│           │   │   ├── sr1[0-9]_sap-ingress-102_12_0R5.j2
+│           │   │   └── sr1[0-9]_slope-sky_12_0R5.j2
+│           │   ├── router
+│           │   │   ├── policy_statements
+│           │   │   │   ├── sr1[0-9]_EXPORT-TO-IBGP_12_0R5.j2
+│           │   │   │   └── sr1[0-9]_EXPORT-TO-IBGP6_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-base_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-bgp_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-interfaces_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-isis_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-ldp_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-mpls_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-mpls-lsp_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-ospf_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-policy-options_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-rsvp_12_0R5.j2
+│           │   │   ├── sr1[0-9]_router-sgt-qos_12_0R5.j2
+│           │   │   └── sr1[0-9]_router-static-routes_12_0R5.j2
+│           │   ├── service
+│           │   │   └── sr1[0-9]_service-base_12_0R5.j2
+│           │   ├── subscriber-mgmt
+│           │   │   └── sr1[0-9]_subscriber-mgmt-base_12_0R5.j2
+│           │   └── system
+│           │       ├── sr1[0-9]_system-base_12_0R5.j2
+│           │       ├── sr1[0-9]_system-cpm-filter_12_0R5.j2
+│           │       ├── sr1[0-9]_system-ntp_12_0R5.j2
+│           │       └── sr1[0-9]_system-security_12_0R5.j2
+│           ├── services
+│           │   ├── distbng
+│           │   │   └── sr1[0-9]_distbng_12_0R5.j2
+│           │   ├── distgea
+│           │   │   ├── python
+│           │   │   │   ├── dgea_dhcp_request.py
+│           │   │   │   ├── dgea_radius_acct.py
+│           │   │   │   └── dgea_radius_auth.py
+│           │   │   └── sr1[0-9]_distgea_12_0R5.j2
+│           │   └── sedcanopy
+│           │       └── sr1[0-9]_sedcanopy_12_0R5.j2
+│           ├── sr1[0-9]_base_12_0R5.j2
+│           ├── sr1[0-9]_bof_12_0R5.j2
+│           ├── sr1[0-9]_card_12_0R5.j2
+│           ├── sr1[0-9]_postacl_12_0R5.j2
+│           ├── sr1[0-9]_redundancy_12_0R5.j2
+│           └── sr1[0-9]_router-management_12_0R5.j2
+├── site.retry
+├── sr12e.retry
+├── tmp
+├── tmux-client-14661.log
+└── tmux-server-14663.log
+
+433 directories, 2221 files

@@ -1,0 +1,8 @@
+#!/usr/bin/env ansible-playbook
+---
+# sr12e.yml: This is a sitewide playbook
+- include: encax.yml
+- include: hobir.yml
+- include: enlcs.yml
+- include: enbgk.yml
+- include: thlon.yml

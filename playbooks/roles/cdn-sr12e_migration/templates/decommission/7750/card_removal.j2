@@ -1,0 +1,14 @@
+Summary:
+Removal of a decommssioned line card
+
+Implementation Steps:
+
+Device - {{ node_name }}
+Site - {{ site_id|upper }}, {{ location }}
+Summary -
+
+Please remove the following cards from {{ node_name }}:
+
+{% for card in cards %}
+Card/slot {{ card }}
+{% endfor %}

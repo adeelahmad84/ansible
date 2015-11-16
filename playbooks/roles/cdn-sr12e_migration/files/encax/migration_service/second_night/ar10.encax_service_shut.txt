@@ -1,0 +1,223 @@
+####GGC-BEGIN###
+exit all
+configure
+    port 5/1/7
+        description "[no-mon,ext,iv-g=ggc,iv-s=cdn_ggc] Google server A"
+        shutdown
+    exit
+    port 5/1/8
+        description "[no-mon,ext,iv-g=ggc,iv-s=cdn_ggc] Google server B"
+        shutdown
+    exit
+    port 6/1/7
+        description "[no-mon,ext,iv-g=ggc,iv-s=cdn_ggc] Google server C"
+        shutdown
+    exit
+    port 6/1/8
+        description "[no-mon,ext,iv-g=ggc,iv-s=cdn_ggc] Google server D"
+        shutdown
+    exit
+    service
+        vpls 220162
+            shutdown
+        exit
+        ies 220161
+            interface "ies 220161_cdn-ggc"
+		shutdown
+                description "[no-mon,ext,iv-g=ggc,iv-s=cdn_ggc] Google Servers Gateway IP"
+                no address 90.223.205.193/26
+                ipv6
+                    no address 2A02:C7A:8000:F05::1/64
+                exit
+            exit
+            shutdown
+        exit
+    exit
+    router
+        router-advertisement
+            interface "ies 220161_cdn-ggc"
+                shutdown
+exit all
+##GGC-END##
+##VELOCIX-BEGIN##
+configure
+    port 1/1/9
+        description "[no-mon,ext,rd=ac1.sky1cax1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+	shutdown
+    exit
+    port 1/1/10
+        description "[no-mon,ext,rd=ac1.sky1cax1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+	shutdown
+    exit
+    port 1/1/11
+        description "[no-mon,ext,rd=ac2.sky1cax1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+	shutdown
+    exit
+    port 1/1/12
+        description "[no-mon,ext,rd=ac2.sky1cax1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+	shutdown
+    exit
+    lag 55
+        description "[no-mon,ext,rd=ac1.sky1cax1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        no port 1/1/9
+        no port 1/1/10
+        shutdown
+    exit
+    lag 56
+        description "[no-mon,ext,rd=ac2.sky1cax1d1.cdn:LAG,iv-g=moonraker,iv-s=cdn_moonraker]"
+        no port 1/1/11
+        no port 1/1/12
+        shutdown
+    exit
+    service
+        vpls 220805
+            shutdown
+        exit
+        ies 220804
+            interface "ies_220804_moonraker_Data_node"
+		shutdown
+                description "[no-mon,Moonraker CDN Hardware Data Node]"
+                no address 90.222.190.129/27
+                ipv6
+                    no address 2A02:C7A:8000:F0B::1/120
+                exit
+            exit
+            shutdown
+exit all
+###VELOCIX-END##
+##AANP-BEGIN##
+configure
+    port 5/1/9
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of LAG 20 to WS-C4900M-te-2-1 Akamai Managed Switch for AANP"
+        shutdown
+    exit
+    port 5/1/10
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of LAG 20 to WS-C4900M-te-2-2 Akamai Managed Switch for AANP"
+        shutdown
+    exit
+    port 6/1/9
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] 1 of LAG 21 to Akamai Managed WS-C4900M-te-2-3 for AANP_2"
+        shutdown
+    exit
+    port 6/1/10
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] 2 of LAG 21 to Akamai Managed WS-C4900M-te-2-4 for AANP_2"
+        shutdown
+    exit
+    lag 20
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] To WS-C4900M Akamai Managed Switch for AANP"
+        no port 5/1/9
+        no port 5/1/10
+        shutdown
+    exit
+    lag 21
+        description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] To WS-C4900M Akamai Managed Switch for AANP_2"
+        no port 6/1/9
+        no port 6/1/10
+        shutdown
+    exit
+    service
+        ies 220271
+            interface "ies220271_Akamai-AANP_1"
+		shutdown
+                no address 2.127.241.0/31
+                ipv6
+                    no address 2A02:C7A:8000:F01::1/64
+                exit
+            exit
+            shutdown
+        exit
+        ies 220272
+            interface "ies220272_Akamai-AANP_2"
+		shutdown
+                description "[no-mon,ext,iv-g=aanp,iv-s=cdn_aanp]"
+                no address 2.127.241.2/31
+                ipv6
+                    no address 2A02:C7A:8000:F02::1/64
+                exit
+            exit
+            shutdown
+        exit
+    exit
+    router
+        interface "AANP_OFFNET-LOOPBACK"
+            no address 90.207.251.218/32
+            shutdown
+        exit
+        bgp
+            group "cdn-aanp-ipv4"
+		shutdown
+            exit
+            group "cdn-aanp_offnet-ipv4"
+		shutdown
+exit all
+##AANP-END##
+####MCDN-BEGIN####
+exit all
+configure
+    port 5/1/5
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 3 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 5/1/6
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 4 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/1
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 5 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/2
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 6 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/3
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 7 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/4
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 8 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/5
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 9 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/6
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 10 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/11
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 1 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/12
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 2 of LAG 41 to Akamai Cisco 3064 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    lag 41
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] To HP2910 Akamai Managed Switch for PDL-2"
+        no port 5/1/5
+        no port 5/1/6
+        no port 6/1/1
+        no port 6/1/2
+        no port 6/1/3
+        no port 6/1/4
+        no port 6/1/5
+        no port 6/1/6
+        no port 6/1/11
+        no port 6/1/12
+        shutdown
+    exit
+    service
+        ies 220372
+            interface "ies220372_-PDL-Edge-2"
+		shutdown
+                description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge]"
+                no address 90.223.231.1/26
+                ipv6
+                    no address 2A02:C7A:8000:F08::1/64
+                exit
+            exit
+            shutdown
+exit all
+####MCDN-END####

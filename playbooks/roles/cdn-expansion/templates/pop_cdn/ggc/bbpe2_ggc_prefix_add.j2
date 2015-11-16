@@ -1,0 +1,32 @@
+configure
+    router
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-GGC-LAN"
+                prefix {{ ggc.ipv6 | ipaddr('0') }} exact
+	    exit
+{% if not second %}
+            policy-statement "EXPORT-TO-IBGP6"
+                entry {{ ggc.v6_entry }}
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-GGC-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-google"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+{% endif %}
+	    commit
+	exit
+        static-route {{ ggc.ipv6 | ipaddr('0') }} next-hop {{ bbpe.2.ipv6_p2p | ipaddr('1')|replace('/127','') }}
+        static-route {{ ggc.ipv4 | ipaddr('0') }} next-hop {{ bbpe.2.ipv4_p2p | ipaddr('1')|replace('/31','') }} tag {{ bbpe.2.ggc_tag }}
+{% if ggc.one_gig %}
+        static-route {{ ggc.one_gig_ipv4 | ipaddr('0') }} next-hop {{ bbpe.2.ipv4_p2p | ipaddr('1')|replace('/31','') }} tag 20100
+{% endif %}
+exit all

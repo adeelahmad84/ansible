@@ -1,0 +1,65 @@
+configure
+    port 1/1/7
+        description "[core,ip=,rd=ar11-cdn.enyrk:6-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                hold-time 5
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    lag 176
+        description "[no-mon,core,ip=,rd=ar11-cdn.enyrk:lag176,iv-s=vcdn_sc]"
+        port 1/1/7
+        no shutdown
+    exit
+    router
+        interface "base_ar11-cdn.enyrk_1"
+            address 89.200.135.28/31
+            description "[no-mon,core-o,rd=ar11-cdn.enyrk:lag-176]"
+            ldp-sync-timer 60
+            cpu-protection 3
+            port lag-176
+            qos 10
+            cflowd interface both
+            no shutdown
+	exit
+        isis 
+            interface "base_ar11-cdn.enyrk_1"
+                level-capability level-2
+                hello-authentication-key "zGzY9bIeQpqxGVZS"
+                hello-authentication-type message-digest
+                interface-type point-to-point
+                level 2
+                    hello-interval 10
+                    metric 99100000
+                exit
+                no shutdown
+	    exit
+	exit
+        mpls
+            interface "base_ar11-cdn.enyrk_1"
+                no shutdown
+	exit
+        rsvp
+            interface "base_ar11-cdn.enyrk_1"
+                no shutdown
+	exit
+        ldp
+            interface-parameters
+                interface "base_ar11-cdn.enyrk_1"
+	exit all

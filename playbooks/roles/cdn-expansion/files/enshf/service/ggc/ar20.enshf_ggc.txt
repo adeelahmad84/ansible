@@ -1,0 +1,53 @@
+configure terminal
+!
+vlan 20
+ name GOOGLE_DATA_A
+!
+vlan 201
+ name Google_Management
+!
+!
+interface Vlan20
+ description [no-mon,ext,rd=ggc,iv-s=cdn_pop] IN-POP-CDN Bundle to GGC A
+ ip address 90.223.225.65  255.255.255.192
+ no ip redirects
+ ipv6 address 2a02:c7a:8000:705::1/64
+ no shutdown
+!
+interface Port-channel20
+ description [no-mon,core,rd=as101.enshf:lag12,cid=LOCAL,iv-s=cdn_pop] Port-Channel To GGC as101
+ switchport
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ no shutdown
+!
+interface Vlan201
+ description [no-mon,core,rd=as101.enshf:vlan201,cid=LOCAL,v-s=cdn] Logical link to as101 for Google Management
+ ip address 90.223.227.121/  255.255.255.248
+ no ip redirects
+ no shutdown
+!
+interface TenGigabitEthernet1/19
+ description [no-mon,core,rd=as101.enshf:ge1-1-25,cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link 2 of Lag_20 to as101
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ load-interval 30
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 20 mode active
+ no shutdown
+!
+interface TenGigabitEthernet1/20
+ description [no-mon,core,rd=as101.enshf:ge1-1-26,cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link 2 of Lag_20 to as101
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ load-interval 30
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 20 mode active
+ no shutdown
+!
+!
+end

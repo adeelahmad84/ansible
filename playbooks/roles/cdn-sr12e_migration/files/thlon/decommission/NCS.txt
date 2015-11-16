@@ -1,0 +1,17 @@
+configure terminal
+ default interface Bundle-Ether334
+ default router isis interface Bundle-Ether334
+ default rsvp interface Bundle-Ether334
+ default mpls ldp interface Bundle-Ether334
+ default mpls traffic-eng interface Bundle-Ether334
+mpls ldp
+ neighbor
+  no 84.38.34.78:0 password
+ !
+ address-family ipv4
+  label
+   remote
+    accept
+     no from 84.38.34.78:0 for loopback-only
+ !
+commit

@@ -1,0 +1,33 @@
+---
+hostname: ar10.encax
+site_id: encax
+cdn: mcdn
+ies: 220372
+ipv4: "90.223.231.0/26"
+ipv6: "2A02:C7A:8000:F08::/64" 
+lag: 41
+array:
+  1:
+    port: 5/1/5
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 3 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  2:
+    port: 5/1/6
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 4 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  3:
+    port: 6/1/1
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 5 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  4:
+    port: 6/1/2
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 6 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  5:
+    port: 6/1/3
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 7 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  6:
+    port: 6/1/4
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 8 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  7:
+    port: 6/1/5
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 9 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+  8:
+    port: 6/1/6
+    description: "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 10 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"

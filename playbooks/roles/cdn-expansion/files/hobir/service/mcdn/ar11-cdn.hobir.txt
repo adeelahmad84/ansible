@@ -1,0 +1,135 @@
+exit all
+configure
+    port 3/1/31
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-39"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/32
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-40"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/33
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-41"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/34
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-42"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/35
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-43"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/36
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-44"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/37
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-45"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/38
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-46"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/39
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-47"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 3/1/40
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01 PORT 0-48"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 63
+        description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] TO FEBE-01_3"
+        mode access
+	port 3/1/31
+	port 3/1/32
+	port 3/1/33
+	port 3/1/34
+	port 3/1/35
+	port 3/1/36
+	port 3/1/37
+	port 3/1/38
+	port 3/1/39
+	port 3/1/40
+        lacp active
+        no shutdown
+    exit
+    service
+        ies 220303 customer 21 create
+            interface "ies220303_MCDN-Edge-3" create
+                description "[ext,iv-g=mcdn,iv-s=cdn_mcdn] mcdn-3 Gateway"
+                address 90.211.179.193/26
+                cflowd interface
+                ipv6
+                    address 2a02:c7a:8000:214::1/64
+                exit
+                sap lag-63 create
+                exit
+            exit
+            service-name "ies220303_MCDN-Edge-3"
+            no shutdown
+        exit
+    exit
+    router
+	policy-options
+	    begin
+            prefix-list "CORE-CDN-IPV4-AKAMAI-MCDN-LAN"
+                prefix 90.211.179.192/26 exact
+            exit
+            prefix-list "CORE-CDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2a02:c7a:8000:214::/64 exact
+            exit
+	    commit
+exit all

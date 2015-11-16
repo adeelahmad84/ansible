@@ -1,0 +1,38 @@
+configure terminal
+!
+vlan 30
+ name Netflix LAN
+!
+interface Port-channel30
+ description [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Port-Channel To Netflix_NIC Server_A
+ no shutdown
+ switchport
+ switchport access vlan 30
+ switchport mode access
+!
+interface TenGigabitEthernet1/25
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_1 of PH_P30 to A SERVER_1
+ no shutdown
+ switchport access vlan 30
+ switchport mode access
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet1/26
+ description [no-mon,iv-g=netflix,iv-s=cdn_netflix] Link_2 of PH_P30 to A SERVER_2
+ no shutdown
+ switchport access vlan 30
+ switchport mode access
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface Vlan30
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] VLAN for Netflix
+ no shutdown
+ mtu 8226
+ ip address 176.255.200.89/30 255.255.255.252
+ no ip redirects
+ ipv6 address 2a02:c7a:8000:707::1/64
+!
+!
+end

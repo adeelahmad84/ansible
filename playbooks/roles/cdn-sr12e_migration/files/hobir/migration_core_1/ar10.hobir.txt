@@ -1,0 +1,103 @@
+exit all
+configure
+    router
+        interface "base_pr2.hobir_1"
+            shutdown
+            no address 89.200.131.225/31
+            description "[no-mon,core-o,rd=pr2.hobir:be286]"
+            no port lag-3
+        exit
+    exit
+    lag 3
+        description "[no-mon,core,ip=,rd=pr2.hobir:be286,iv-s=vcdn_sc]"
+        shutdown
+        no port 5/1/1
+        no port 5/2/1
+    exit
+    port 1/1/12
+        description "[no-mon,core,ip=,rd=ar11-cdn.hobir:5-1-40,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 5/1/1
+        description "[core,ip=,rd=ar11-cdn.hobir:6-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-imm-2pac-fp3"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    port 5/2/1
+        description "[core,ip=,rd=ar11-cdn.hobir:6-2-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-imm-2pac-fp3"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    port 6/2/1
+        description "[core,ip=,rd=ar11-cdn.hobir:7-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            network
+                queue-policy "network-queue-imm-2pac-fp3"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    lag 176
+        description "[core,ip=,rd=ar10.hobir:lag176,iv-s=vcdn_sc]"
+        port 5/1/1
+        port 5/2/1
+        port 6/2/1
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    router
+        interface "base_ar11-cdn.hobir_1"
+            description "[core-o,rd=ar11-cdn.hobir:lag176]"
+	    shutdown
+            no port 1/1/12
+	    port lag-176
+            no shutdown
+        exit all

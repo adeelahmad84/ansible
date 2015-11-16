@@ -1,0 +1,97 @@
+system_address                       : 84.38.34.6
+#LAST OCTET IS USED TO CALCULATE BUNDLE-ID.
+#IF LOOPBACK IS IN RANGE:"84.38.34.0/24", THEN PLEASE INPUT THE LAST OCTET AND IT WILL ADD 256 TO THAT NUMBER FOR THE BUNDLE-ID.
+#IF LOOPBACK IS IN RANGE:"89.200.128.0/24", THEN PLEASE INPUT THE LAST OCTET -256 BELOW SO THAT IT WILL USE THE LAST OCTET ITSELF AS THE BUNDLE-ID.
+last_octet_system_address            : 6
+node_name                            : sr17.syost
+dcn_primary_address                  : "10.200.68.103/24"
+dcn_secondary_address                : "10.200.68.104/24"
+location                             : 'Rack SKY8, Console: 10.200.68.100, port 18 (SFM A) / port 19 (SFM B)'
+
+rr0_bllon_bgp_password               : zLBmddgDAa9bcRiH
+rr0_enlba_bgp_password               : JhdYCgmvbsnc5nbw
+rr1_bllon_bgp_password               : q7eSNKi9iHBPCNbr
+rr1_enlba_bgp_password               : dzAzQZXmypjU8g53
+rr3_bllon_bgp_password               : c5U6ignlgi08O1cm
+rr3_enlba_bgp_password               : ItnzDKzJpJdemxU7
+
+ar0_isp_bllon_bgp_password           : vtz7c2a7DNrAH6I7
+ar0_isp_enlba_bgp_password           : TwZrsMUPZgK9644D
+ar0_isp_enshf_bgp_password           : WsqVi1imeukH9aXn
+ar0_isp_enbgk_bgp_password           : G93tWbr5mOLiojY3
+ar0_isp_hobir_bgp_password           : MpODXQ3bjR1IxDYg
+
+ironman_bllon_policy                 : 2ND
+ironman_enbgk_policy                 : 1ST
+ironman_enlba_policy                 : REST
+ironman_enshf_policy                 : 3RD
+ironman_hobir_policy                 : REST
+
+tacacs_secret                        : n0FxHfJoog3TaMv9
+
+p_router_1_hostname                  : pr2.thlon
+p_router_2_hostname                  : pr3.bllon
+
+core_1:
+  1:
+    core: "Te0/2/0/6/2"
+    bbpe: "1/1/1"
+    cid: "1000/LNTW-OSTF/10GLAN/OVN14"
+  2:
+    core: "Te0/2/0/6/1"
+    bbpe: "1/1/2"
+    cid: "1000/LNTW-OSTF/10GLAN/OVN15"
+  3:
+    core: "Te0/2/0/6/0"
+    bbpe: "1/1/3"
+    cid: "1000/LNTW-OSTF/10GLAN/OVN16"
+
+core_2:
+  1:
+    core: "Te0/2/0/6/3"
+    bbpe: "10/1/1"
+    cid: "1000/LNBL-OSTF/10GLAN/OVN14"
+  2:
+    core: "Te0/2/0/6/2"
+    bbpe: "10/1/2"
+    cid: "1000/LNBL-OSTF/10GLAN/OVN15"
+  3:
+    core: "Te0/2/0/6/1"
+    bbpe: "10/1/3"
+    cid: "1000/LNBL-OSTF/10GLAN/OVN16"
+
+core_1_p2p: "89.200.131.218/31"
+core_2_p2p: "89.200.131.220/31"
+
+p_router_1_isis_key_1                : tZI0ouJ7jINEB6JY
+p_router_2_isis_key_1                : gegqhwU1121ziRXi
+
+p_router_1_loopback0                 : 89.200.128.105
+p_router_2_loopback0                 : 89.200.128.112
+
+p_router_1_ldp_key                   : QoEJe3MmNy57dMtf
+p_router_2_ldp_key                   : vYReQFkJNRo4ojR1
+
+ar4_bllon_ldpkey                     : Aapa2BBwAj8m9Rqm
+ar0_enlba_ldpkey                     : dFBZY7N1MDAbX8Y0
+
+sed_vlanid                           : 3616
+sed_remote_site_code                 : OSTF
+distbng_unnumbered_address           : 90.208.114.208
+distbng_ipv6_subscribers_range       : "2a02:c7d:d800::/39"
+
+br0_hobir_ldp_key                    : JnO2rdwePNMOtJxo
+br0_bllon_ldp_key                    : wL49SVWDrhFNFOoZ
+br0_thlon_ldp_key                    : XiQFyWK65ZrZyN1Y
+br0_enlba_ldp_key                    : OvlnXNtQw3XfrSUt
+
+distgea_interface                    : 90.208.114.209
+distgea_sub_gi_address               : 151.231.254.86
+distgea_ipv6_subscribers_range       : "2a02:c7f:d400::/39"
+#THE BELOW IS ALWAYS LAST_OCTET OF SYSTEM ADDRESS + 256
+vc_id                                : 262
+precedence_1                         : primary
+precedence_2                         : 1
+
+u_bend_port_1: "4/2/1"
+u_bend_port_2: "4/2/2"

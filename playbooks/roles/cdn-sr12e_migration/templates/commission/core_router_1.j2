@@ -1,0 +1,54 @@
+configure terminal
+!
+interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ description [no-mon,core-o,rd={{ node_name }}:lag1,iv-s=bb]
+ shutdown
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links {{ (core_1|length / 3)|round|int * 2 }}
+ load-interval 30
+ dampening 1 750 2000 1
+ logging events link-status
+ ipv4 mtu 8192
+ ipv4 address {{ core_1_to_edge_address_range | ipaddr('network') }} {{ core_1_to_edge_address_range | ipaddr('netmask') }}
+!
+router isis 65444
+ interface Bundle-Ether{{ system_last_octet|int + 256 }}
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 {{ core_1_isis_auth }}
+  address-family ipv4 unicast
+   metric 9910000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor {{ system_address }} password clear {{ core_1_ldp_auth }}
+ address-family ipv4
+  label
+   remote
+    accept
+     from {{ system_address }}:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether{{ system_last_octet|int + 256 }}
+ !
+!
+rsvp
+ interface Bundle-Ether{{ system_last_octet|int + 256 }}
+  bandwidth {{ core_1|length * 100 }} Gbps
+  signalling dscp 48
+ !
+!
+commit

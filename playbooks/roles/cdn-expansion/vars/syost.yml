@@ -1,0 +1,117 @@
+---
+#device information
+site_id: syost
+site_community: 14427
+hostname: ar21.syost
+loopback: "89.200.128.115/32"
+location: Osterley
+tacacs_key: dehchothiD3Vahe
+console: "port 1"
+second: true
+rack: "RACK_C06"
+chassis: 32
+
+#Uplink information
+bbpe:
+  1:
+    ipv4_p2p: "2.120.8.58/31"
+    ipv6_p2p: "2A02:C78:1:19::4/127"
+    ggc_tag: 20180
+    ntf_tag: 
+    aanp_tag: 
+    mcdn_tag: 
+    l3d_tag:
+    l3g_tag:
+    channel: 1
+    lag: 51
+    hostname: sr15.syost
+    bgp_auth: m0Pd5UmXLk8q4Aim
+    ports:
+      1:
+        remote_port: 1/1
+        port: 9/1/6
+      2:
+        remote_port: 1/2
+        port: 9/2/3
+      3:
+        remote_port: 1/3
+        port: 9/2/4
+
+  2:
+    ipv4_p2p: "2.120.8.60/31"
+    ipv6_p2p: "2A02:C78:1:19::6/127"
+    ggc_tag: 20200
+    ntf_tag: 
+    aanp_tag: 
+    mcdn_tag: 
+    l3d_tag:
+    l3g_tag:
+    channel: 2
+    lag: 51
+    hostname: sr16.syost
+    bgp_auth: iecee8eiBeegeosi
+    ports:
+      1:
+        remote_port: 1/7
+        port: 9/2/4
+      2:
+        remote_port: 1/8
+        port: 9/2/2
+      3:
+        remote_port: 1/9
+        port: 9/2/5	
+  3:
+    ipv4_p2p: "2.120.8.62/31"
+    ipv6_p2p: "2a02:c78:1:19::8/127"
+    ggc_tag: 20220
+    ntf_tag: 
+    aanp_tag: 
+    mcdn_tag: 
+    l3d_tag:
+    l3g_tag:
+    channel: 3
+    lag: 51
+    hostname: sr17.syost
+    bgp_auth: Kia2koungeQu6iec
+    ports:
+      1:
+        remote_port: 1/13
+        port: 10/1/4
+      2:
+        remote_port: 1/14
+        port: 10/1/5
+      3:
+        remote_port: 1/15
+        port: 10/1/6
+
+# Google services
+ggc:
+  vlan_id: 20
+  farm: B
+  ipv4: "90.201.126.128/26"
+  ipv6: "2a02:c7a:8000:1907::/64"
+  array:
+    1:
+      port: 1/25
+      server_id: 1
+    2:
+      port: 1/26
+      server_id: 2
+    3:
+      port: 1/27
+      server_id: 3
+    4:
+      port: 1/28
+      server_id: 4
+    5:
+      port: 1/29
+      server_id: 5
+    6:
+      port: 1/30
+      server_id: 6
+    7:
+      port: 1/31
+      server_id: 7
+    8:
+      port: 1/32
+      server_id: 8

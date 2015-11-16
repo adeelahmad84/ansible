@@ -1,0 +1,13 @@
+! $Id: rr3.bllon.txt,v 1.1 2014/04/02 11:57:29 AJA09 Exp $
+router bgp 65444
+ neighbor 84.38.34.170 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.170 description sr12.enntg
+ neighbor 84.38.34.170 password 0 i0RI3W2K6F0MfhaV
+!
+ address-family ipv6
+ neighbor 84.38.34.170 activate
+ neighbor 84.38.34.170 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+end
+
+
+

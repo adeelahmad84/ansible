@@ -1,0 +1,122 @@
+---
+#device information
+site_id: enlpl
+site_community: 
+hostname: ar20.enlpl
+loopback: "84.38.34.238/32"
+location: 
+tacacs_key: 
+console: 
+
+#Uplink information
+bbpe:
+  1:
+    ipv4_p2p: "2.120.9.242/31"
+    ipv6_p2p: "2A02:C78:1:12::/127"
+    tag: 20170
+    ggc_tag: 20200
+    ntf_tag: 
+    aanp_tag: 
+    mcdn_tag: 
+    l3d_tag:
+    l3g_tag:
+    channel: 1
+    hostname: sr10.enlpl
+    bgp_auth: 
+    ports:
+      1:
+        remote_port: 2/1
+        port: 10/1/8
+  2:
+    ipv4_p2p: "2.120.9.244/31"
+    ipv6_p2p: "2A02:C78:1:12::3/127"
+    tag: 20180
+    ggc_tag: 20160
+    ntf_tag: 
+    aanp_tag: 
+    mcdn_tag: 
+    l3d_tag:
+    l3g_tag:
+    channel: 2
+    hostname: sr11.enlpl
+    bgp_auth: 
+    ports:
+      1:
+        remote_port: 2/2
+        port: 8/1/8
+  3:
+    ipv4_p2p: "2.120.8.40/31"
+    ipv6_p2p: "2a02:c78:1:12::4/127"
+    tag: 20190
+    ggc_tag: 20170
+    ntf_tag: 
+    aanp_tag: 
+    mcdn_tag: 
+    l3d_tag:
+    l3g_tag:
+    channel: 3
+    hostname: sr12.enlpl
+    bgp_auth: uMfnZPEnwYislzN5
+    ports:
+      1:
+        remote_port: 2/3
+        port: 10/1/5
+#      2:
+#        remote_port: 1/14
+#        port: 1/2/1
+#      3:
+#        remote_port: 1/15
+#        port: 1/2/2
+#      4:
+#        remote_port: 1/16
+#        port: 10/1/6
+#      5:
+#        remote_port: 1/17
+#        port: 10/2/1
+#      6:
+#        remote_port: 1/18
+#        port: 10/2/2
+
+# Google services
+#ggc:
+#  vlan_id: 21
+#  farm: B
+#  ipv4: "90.201.126.65/26"
+#  ipv6: "2a02:c7a:8000:f80e::/64"
+#  array:
+#    1:
+#      port: 1/19
+#      server_id: 1
+#    2:
+#      port: 1/20
+#      server_id: 2
+#    3:
+#      port: 1/21
+#      server_id: 3
+#    4:
+#      port: 1/22
+#      server_id: 4
+services:
+  mcdn:
+    tgref: 2540
+    lag: 0
+    svc_id: 0
+    remote_svr: "MCDN"
+    range: A
+    routed: true
+    ipv4: "176.255.171.64/27"
+    ipv6: "2A02:C7A:8000:f804::/64"
+    #v6_entry: 295
+    array:
+      1:
+        port: 2/7
+        server_id: 1
+      2:
+        port: 2/8
+        server_id: 2
+  #    3:
+  #      port: 1/15
+  #      server_id: 3
+  #    4:
+  #      port: 1/16
+  #      server_id: 4

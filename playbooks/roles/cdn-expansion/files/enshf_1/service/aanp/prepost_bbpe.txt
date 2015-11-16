@@ -1,0 +1,5 @@
+show router static-route 94.15.95.128/25
+show router static-route None
+show router policy prefix-list "POPCDN-IPV6-AKAMAI-AANP-LAN"
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match None
+show router bgp neighbor 89.200.128.[88..90] ipv4 advertised-routes | match 94.15.95.128/25

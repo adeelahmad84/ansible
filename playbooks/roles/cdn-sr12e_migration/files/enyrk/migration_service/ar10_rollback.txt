@@ -1,0 +1,169 @@
+/configure port 5/1/1 no shutdown
+/configure port 5/1/1 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_0"
+/configure port 5/1/2 no shutdown
+/configure port 5/1/2 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_1"
+/configure port 6/1/1 no shutdown
+/configure port 6/1/1 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_2"
+/configure port 6/1/2 no shutdown
+/configure port 6/1/2 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_3"
+/configure port 6/1/7 no shutdown
+/configure port 6/1/7 description "[ext,rd=ac1.sky1yrk1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+/configure port 10/1/1 no shutdown
+/configure port 10/1/1 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_6"
+/configure port 10/1/2 no shutdown
+/configure port 10/1/2 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_7"
+/configure port 10/1/3 no shutdown
+/configure port 10/1/3 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_4"
+/configure port 10/1/4 no shutdown
+/configure port 10/1/4 description "[ext,iv-g=aanp,iv-s=cdn_aanp] PCH40 to AANP Switch NIC_5"
+/configure port 10/1/5 no shutdown
+/configure port 10/1/5 description "[ext,rd=ac1.sky1yrk1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+/configure port 10/1/6 no shutdown
+/configure port 10/1/6 description "[ext,rd=ac2.sky1yrk1d1.cdn:Data3,iv-g=moonraker,iv-s=cdn_moonraker]"
+/configure port 10/1/7 no shutdown
+/configure port 10/1/7 description "[ext,rd=ac2.sky1yrk1d1.cdn:Data4,iv-g=moonraker,iv-s=cdn_moonraker]"
+/configure lag 40 no shutdown
+/configure lag 55 no shutdown
+/configure lag 56 no shutdown
+/configure lag 40 port 5/1/1
+/configure lag 40 port 5/1/2
+/configure lag 40 port 6/1/1
+/configure lag 40 port 6/1/2
+/configure lag 40 port 10/1/1
+/configure lag 40 port 10/1/2
+/configure lag 40 port 10/1/3
+/configure lag 40 port 10/1/4
+/configure service ies 220223 no shutdown
+/configure service ies 220223 interface ies220223_Akamai-AANP no shutdown
+/configure service ies 220223 interface ies220223_Akamai-AANP description "[ext,iv-g=aanp,iv-s=cdn_aanp] Akamai LAG_40"
+/configure service ies 220223 interface ies220223_Akamai-AANP sap lag-40 no shutdown
+
+
+/configure port 5/1/11 no shutdown
+/configure port 5/1/11 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server A]"
+/configure port 5/1/12 no shutdown
+/configure port 5/1/12 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server B]"
+/configure port 6/1/11 no shutdown
+/configure port 6/1/11 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server C]"
+/configure port 6/1/12 no shutdown
+/configure port 6/1/12 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Server D]"
+/configure service vpls 220124 no shutdown
+/configure service vpls 220124 sap 5/1/11 no shutdown
+/configure service vpls 220124 sap 5/1/12 no shutdown
+/configure service vpls 220124 sap 6/1/11 no shutdown
+/configure service vpls 220124 sap 6/1/12 no shutdown
+/configure service ies 220123 no shutdown
+/configure service ies 220123 interface ies220123_ggc-datafarm-2 no shutdown
+/configure service ies 220123 interface ies220123_ggc-datafarm-2 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA4 Gateway"
+/configure service 220123 interface ies220123_ggc-datafarm-2 vpls vpls220124_cdn-ggc-data2
+
+
+/configure service ies 220802 no shutdown
+/configure service ies 220802 interface ies_220802_moonraker_Data_node no shutdown
+/configure service 220802 interface ies_220802_moonraker_Data_node vpls vpls220803_Moonraker_Data_Node
+
+/configure port 5/1/8 no shutdown
+/configure port 5/1/8 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server A"
+/configure port 6/1/8 no shutdown
+/configure port 6/1/8 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server B"
+/configure port 6/1/9 no shutdown
+/configure port 6/1/9 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server C"
+/configure port 6/1/10 no shutdown
+/configure port 6/1/10 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server D"
+/configure port 10/1/8 no shutdown
+/configure port 10/1/8 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server E"
+/configure port 10/1/9 no shutdown
+/configure port 10/1/9 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server F"
+/configure port 10/1/10 no shutdown
+/configure port 10/1/10 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server G"
+/configure port 10/1/11 no shutdown
+/configure port 10/1/11 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 server H"
+/configure service vpls 220125 no shutdown
+/configure service vpls 220125 sap 5/1/8 no shutdown
+/configure service vpls 220125 sap 6/1/8 no shutdown
+/configure service vpls 220125 sap 6/1/9 no shutdown
+/configure service vpls 220125 sap 6/1/10 no shutdown
+/configure service vpls 220125 sap 10/1/8 no shutdown
+/configure service vpls 220125 sap 10/1/9 no shutdown
+/configure service vpls 220125 sap 10/1/10 no shutdown
+/configure service vpls 220125 sap 10/1/11 no shutdown
+/configure service ies 220130 no shutdown
+/configure service ies 220130 interface ies220130_cdn-ggc-data3 no shutdown
+/configure service ies 220130 interface ies220130_cdn-ggc-data3 description "[ext,iv-g=ggc,iv-s=cdn_ggc] GGC LBA5 Gateway"
+/configure service 220130 interface ies220130_cdn-ggc-data3 vpls vpls220125_cdn-ggc-data3
+
+
+/configure port 5/1/3 no shutdown
+/configure port 5/1/3 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p39 Rack C019"
+/configure port 5/1/4 no shutdown
+/configure port 5/1/4 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p40 Rack C019"
+/configure port 1/1/1 no shutdown
+/configure port 1/1/1 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p41 Rack C019"
+/configure port 1/1/2 no shutdown
+/configure port 1/1/2 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p42 Rack C019"
+/configure port 1/1/3 no shutdown
+/configure port 1/1/3 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p43 Rack C019"
+/configure port 1/1/4 no shutdown
+/configure port 1/1/4 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p44 Rack C019"
+/configure port 1/1/5 no shutdown
+/configure port 1/1/5 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p45 Rack C019"
+/configure port 1/1/6 no shutdown
+/configure port 1/1/6 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p46 Rack C019"
+/configure port 1/1/8 no shutdown
+/configure port 1/1/8 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p47 Rack C019"
+/configure port 1/1/9 no shutdown
+/configure port 1/1/9 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus 3064 p48 Rack C019"
+/configure lag 61 no shutdown
+/configure lag 61 port 5/1/3
+/configure lag 61 port 5/1/4
+/configure lag 61 port 1/1/1
+/configure lag 61 port 1/1/2
+/configure lag 61 port 1/1/3
+/configure lag 61 port 1/1/4
+/configure lag 61 port 1/1/5
+/configure lag 61 port 1/1/6
+/configure lag 61 port 1/1/8
+/configure lag 61 port 1/1/9
+/configure service ies 220321 no shutdown
+/configure service ies 220321 interface ies220321_-PDL-Edge-1 no shutdown
+/configure service ies 220321 interface ies220321_-PDL-Edge-1 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] PDL-Egde-1"
+/configure service ies 220321 interface ies220321_-PDL-Edge-1 sap lag-61 no shutdown
+
+
+/configure port 6/1/3 no shutdown
+/configure port 6/1/3 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p39 Rack D018"
+/configure port 6/1/4 no shutdown
+/configure port 6/1/4 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p40 Rack D018"
+/configure port 1/1/10 no shutdown
+/configure port 1/1/10 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p41 Rack D018"
+/configure port 1/1/11 no shutdown
+/configure port 1/1/11 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p42 Rack D018"
+/configure port 1/1/12 no shutdown
+/configure port 1/1/12 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p43 Rack D018"
+/configure port 5/1/6 no shutdown
+/configure port 5/1/6 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p44 Rack D018"
+/configure port 5/1/9 no shutdown
+/configure port 5/1/9 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p45 Rack D018"
+/configure port 5/1/10 no shutdown
+/configure port 5/1/10 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p46 Rack D018"
+/configure port 6/1/6 no shutdown
+/configure port 6/1/6 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p47 Rack D018"
+/configure port 10/1/12 no shutdown
+/configure port 10/1/12 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] Akamai PDL Edge Cisco Nexus p48 Rack D018"
+/configure lag 62 no shutdown
+/configure lag 62 port 6/1/3
+/configure lag 62 port 6/1/4
+/configure lag 62 port 1/1/10
+/configure lag 62 port 1/1/11
+/configure lag 62 port 1/1/12
+/configure lag 62 port 5/1/6
+/configure lag 62 port 5/1/9
+/configure lag 62 port 5/1/10
+/configure lag 62 port 6/1/6
+/configure lag 62 port 10/1/12
+/configure service ies 220322 no shutdown
+/configure service ies 220322 interface ies220322_-PDL-Edge-2 no shutdown
+/configure service ies 220322 interface ies220322_-PDL-Edge-2 description "[ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge PDL-Egde-2"
+/configure service ies 220322 interface ies220322_-PDL-Edge-2 sap lag-62 no shutdown
+
+

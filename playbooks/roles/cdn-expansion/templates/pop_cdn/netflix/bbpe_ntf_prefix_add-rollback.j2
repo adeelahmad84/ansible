@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-NETFLIX-LAN"
+                no prefix {{ ntf.ipv6 | ipaddr('0') }}
+	commit
+	exit
+        no static-route {{ ntf.ipv6 | ipaddr('0') }}
+        no static-route {{ ntf.ipv4 | ipaddr('0') }}
+exit all

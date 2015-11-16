@@ -1,0 +1,53 @@
+---
+
+- name: generate for {{ node_name }}
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+#[BBPE_DEVICE]
+    - { src: 'bof.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ node_name }}.bof' }
+    - { src: 'bbpe.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ node_name }}.cfg' }
+
+#[REMOTE_DEVICES]
+    - { src: 'ar0-isp.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0-isp.enlba.txt' }
+    - { src: 'ar0-isp.bllon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0-isp.bllon.txt' }
+    - { src: 'ar0-isp.enbgk.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0-isp.enbgk.txt' }
+    - { src: 'ar0-isp.enshf.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0-isp.enshf.txt' }
+    - { src: 'ar0-isp.hobir.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0-isp.hobir.txt' }
+    - { src: 'ar0-isp_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0-isp_rollback.txt' }
+    - { src: 'ar13.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar13.enlba.txt' }
+    - { src: 'ar13.thlon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar13.thlon.txt' }
+    - { src: 'ar13_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar13_rollback.txt' }
+    - { src: 'br0.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/br0.enlba.txt' }
+    - { src: 'br0.bllon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/br0.bllon.txt' }
+    - { src: 'br0.hobir.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/br0.hobir.txt' }
+    - { src: 'br0.thlon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/br0.thlon.txt' }
+    - { src: 'br0_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/br0_rollback.txt' }
+
+#[CORE-NCS]
+    - { src: 'core_1.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ p_router_1_hostname }}.txt' }
+    - { src: 'core_2.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ p_router_2_hostname }}.txt' }
+    - { src: 'core_1_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ p_router_1_hostname }}_rollback.txt' }
+    - { src: 'core_2_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ p_router_2_hostname }}_rollback.txt' }
+
+#[ROUTE_REFLECTORS]
+    - { src: 'rr0.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr0.enlba.txt' }
+    - { src: 'rr0.bllon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr0.bllon.txt' }
+    - { src: 'rr1.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr1.enlba.txt' }
+    - { src: 'rr1.bllon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr1.bllon.txt' }
+    - { src: 'rr3.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr3.enlba.txt' }
+    - { src: 'rr3.bllon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr3.bllon.txt' }
+    - { src: 'rr3_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr3_rollback.txt' }
+    - { src: 'rr0_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr0_rollback.txt' }
+    - { src: 'rr1_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/rr1_rollback.txt' }
+
+#[PROCEDURE AND MAIL]
+    - { src: 'proc.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/procedure.txt' }
+    - { src: 'sns_is_nim_support.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ node_name }}_nim.txt' }
+
+#[SED_CANOPY]
+    - { src: 'ar0.enlba.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0.enlba.txt' }
+    - { src: 'ar0.enlba_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar0.enlba_rollback.txt' }
+    - { src: 'ar4.bllon.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar4.bllon.txt' }
+    - { src: 'ar4.bllon_rollback.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/ar4.bllon_rollback.txt' }
+    - { src: 'sedcanopy-debug.dbg', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/sedcanopy-debug.dbg' }
+    - { src: 'postacl.j2', dest: '~/ansible/playbooks/roles/bbpe/files/{{ site_id }}/{{ node_name }}_postacl.cfg' }

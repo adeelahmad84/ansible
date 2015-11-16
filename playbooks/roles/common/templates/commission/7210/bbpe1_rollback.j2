@@ -1,0 +1,5 @@
+exit all
+configure
+    router
+        no static-route {{ management | ipaddr('0') }} next-hop {{ bbpe.1.ipv4 | ipaddr('1')|replace("/31"," ") }}
+exit all

@@ -1,0 +1,530 @@
+---
+
+-----------------------------------------------------------------------------
+$Easynet: group/doc/groupnetwork/policy,v 1.127 2010/08/31 06:52:29 soenke Exp $
+See CVS logs for version history.
+-----------------------------------------------------------------------------
+
+Easynet BGP Policy Description
+------------------------------
+
+This document describes two aspects of BGP network control that can be used
+to form policy decisions throughout the Easynet Network.
+
+It has a number of purposes:
+
+1) To allow Easynet networks and its' customers to use communities in
+order to control how prefixes are handled within the network when
+announcing to external parties.
+
+2) To provide a coherent and conformant policy on BGP prefix management
+within the network.
+
+3) To allow Easynet to increase the efficiency of its' use of external
+links.
+
+It is divided into the following sections:
+
+o  Description of communities
+
+o  The use of communities in the Easynet network (both for classification
+and for control)
+
+o  Description of local-preference
+
+-----------------------------------------------------------------------------
+
+Communities
+-----------
+
+The notation used to represent community values splits the 32-bit
+attribute into two 16-bit decimal numbers seperated by a single
+colon `:'. Conventionally, the left-hand value is an AS number and the
+other is site defined.
+
+There are some predefined community values that are common to all AS's.
+Refer to RFC1997 and RFC1998 for more details on Communities.
+
+Use of communities in the Easynet Network
+-----------------------------------------
+
+There are two uses for communities in the Easynet network: classification
+of prefixes and control of prefixes.
+
+Only Easynet itself classifies prefixes as they enter the network at
+its' borders. Customers and peers should not do so (and such communities
+will be filtered at the Easynet border). These attributes can be used by
+multihomed downstreams to weight traffic in order to distribute it
+according to local administrative policies. Prefixes are classified
+according to geographic entry point, class of prefix (Transit, Public
+Peering, Private Peering) and which entity of each class (Specific
+Transit provider, Public Peering point etc).
+
+Prefix control allows the path-extension or filtering entirely of
+customer prefixes where they are announced at the borders of Easynets'
+network. Only class of network (Transit, Public Peering, Private
+Peering) and/or class entity (Specific Transit provider, specific
+Public Peering point etc) can be targeted.
+
+As a matter of policy, the AS number used for all community strings
+is AS4589. This allows for consistency across the network.
+
+There are five classes of communities, identified by the number of
+digits in the right-hand side:
+
+o 1 digit
+prefix classification by distribution range
+
+o 2 digits
+local preference control
+
+o 3 digits
+prefix classification by peer or NAP from which it was received
+
+o 4 digits
+outgoing announcement control
+
+o 5 digits
+prefix classification by location at which it was received
+
+In addition to the communities listed below, the well-known
+communities (local-AS, no-advertise and no-export) are recognised and
+can be used (in fact, they're handled automatically by the routers).
+
+One-digit communities
+---------------------
+
+These communities are set by Easynet upon entry on the network. They
+indicate how far a prefix should be distributed. The following
+communities are used:
+
+o 4589:1
+Easynet or customer network.
+Unless specifically supressed by other means, this prefix will be 
+announced everywhere, including upstreams and peers. For a prefix
+to get transit, it MUST have this community set on it.
+
+o 4589:2
+Global network.
+This is a prefix that is visible in the DFZ (default free zone), e.g.
+routes received from peers or from upstreams. This is also set on
+customer routes.
+
+o 4589:3
+Confederation network.
+This prefix is visible only within the AS4589 confederations. Examples
+include the IPv6 suballocations or the SAP "extranet" prefix. Normally
+these prefixes will have no-export set too.
+
+o 4589:4
+Subconfederation-local network.
+This prefix will be restricted to one subconfederation, e.g. AS65044.
+Customer prefixes held in BGP will have this community. Normally these
+prefixes will have local-AS/no-export-subconfed set too.
+
+o 4589:5
+Domestic subconfederation network.
+This prefix will be restricted to domestic subconfederations only, for
+leaking of prefixes between subconfederations where multiple sub-ASs
+are used within a single country. Example use would be to leak customer
+routes between overlay (65444) and enterprise (65044) networks. Prefixes
+with this community set *must not* have local-AS/no-export-subconfed set.
+
+o 4589:6
+Label Switch Router local-address.
+Prefixes with this community are restricted to /32s loopbacks reachable 
+via Label Switched Paths, are injected into iBGP only by LSRs within the 
+confederation, and are advertised only over labeled-unicast BGP sessions 
+within the confederation. Therefore by implication this community is 
+denied over all non-labeled-unicast BGP sessions within the confederation 
+and over all peer and transit eBGP sessions. 
+
+o 4589:7
+Subconfederation default-only override.
+In a subconfed AS using partial iBGP routing table design prefixes with 
+this community will be leaked to devices which would normally receive 
+only a default route.
+These prefixes will normally have no-export-subconfed and other scoping
+communities (local-as, :3, :4,:5)
+
+o 4589:9
+Blackhole.
+Prefixes with this community are installed in the forwarding table with a 
+"discard" next hop, i.e. packets with the appropriate destination are
+discarded instead of forwarded.
+
+Two-digit communities
+---------------------
+
+Customers can set two-digit communities to control which local preference
+prefixes receive.
+
+Community Local Preference
+---------------------------------------------------------
+
+4589:10    50   (equiv. to last resort transit)
+4589:20   100 (equiv. to peering and transit)
+4589:25   130 (depreferred customer route)
+4589:30   150 (default for customers)
+4589:35   170 (preferred customer route)
+
+
+Three-digit communities
+-----------------------
+
+Prefixes coming from peers and transit will be tagged with three-digit
+community values, e.g. a prefix received at DECIX will be tagged with
+4589:641. Only the most specific community is added, e.g. a route from
+DECIX will not have 4589:640 set.
+Additionally prefixes from peers will be tagged with a 4xx community
+based on speed of the interconnection.
+
+Community        Entry point
+------------------------------------------------------------------------
+4589:4xx        Special Markings
+4589:410        From a high capacity IXP or Private Peer
+4589:420        From a low capacity IXP or Private Peer
+
+
+4589:5xx  External Transit
+
+4589:510  Unused (was Cogent AS179)
+4589:511  Unused (was Cogent London)
+
+4589:520  Unused (was Level 3 AS3356)
+4589:521  Unused (was Level 3 London)
+4589:522  Unused (was Level 3 Paris)
+4589:523  Unused (was Level 3 Amsterdam)
+4589:524  Unused (was Level 3 Frankfurt)
+4589:525  Unused (was Level 3 Madrid)
+4589:526  Unused (was Level 3 Milan)
+4589:527  Unused (was Level 3 New York)
+4589:528  Unused (was Level 3 Palo Alto, CA)
+
+4589:530  TeliaSonera (AS1299)
+4589:531  Unused (was Telia London)
+4589:532  Unused (was Telia Brussels)
+4589:533  Unused (was Telia Paris)
+4589:534  Unused (was Telia Hamburg)
+4589:535  Unused (was Telia Zurich)
+4589:536  Unused (was Telia Los Angeles)
+4589:537  Unused (was Telia Ashburn, VA)
+4589:538  Telia Hong Kong
+
+4589:540  NTT (AS2914)
+4589:541  NTT eqslo.uk
+4589:542  NTT mihkg.cn
+4589:543  NTT ixfra.de
+4589:544  NTT ixbru.be
+4589:545  NTT ixmad.es
+
+4589:550  Inteliquent (AS3257)
+4589:551  Inteliquent telon.uk
+4589:552  Inteliquent saams.nl
+4589:553  Inteliquent t2par.fr
+4589:554  Inteliquent ixzrh.ch
+4589:555  Inteliquent nsmil.it
+4589:556  Inteliquent sdnyc.us
+4589:557  Inteliquent owlax.us
+
+4589:570  Unused (was Global Crossing AS3549)
+4589:571  Unused (was GBLX Frankfurt)
+4589:573  Unused (was GBLX New York)
+4589:574  Unused (was GBLX Madrid)
+4589:575  Unused (was GBLX Paris)
+4589:576  Unused (was GBLX Milan)
+4589:577  Unused (was GBLX Amstrdam)
+4589:578  Unused (was GBLX London)
+
+
+4589:6xx  From an IXP/NAP peer
+
+4589:61x  From UK NAPs
+4589:611  Unused (was From LINX AS65000)
+4589:612  From LINX
+4589:613  Unused (was From LoNAP)
+4589:614  Unused (was From MaNAP)
+4589:615  Unused (was From Scotix)
+
+4589:620  From BE NAPs
+4589:621  From BNIX
+
+4589:625  From ES NAPs
+4589:626  From ESPANIX
+4589:627  From CATNIX
+
+4589:630  From NL NAPs
+4589:631  From AMS-IX
+4589:632  From AMS-IX in UK
+
+4589:635  From CH NAPs
+4589:636  From TIX
+4589:637  From CERN/CIXP
+4589:638  From SwissIX
+
+4589:64x  From DE NAPs
+4589:641  From DECIX Frankfurt
+4589:642  From DECIX in UK
+4589:644  From DE-CIX Hamburg (Aka WORK-IX)
+
+4589:65x  From FR NAPs
+4589:651        From SFINX
+4589:652        From France-IX
+4589:653  Unused (was From FreeIX)
+4589:654  From PARIX
+4589:655  Unused (was From PANAP)
+
+4589:66x  From IT NAPs
+4589:661  From MiX
+
+4589:67x  From East Coast US NAPs
+4589:673  From S&D PAIX NYC
+4589:674  From Equinix Ashburn
+
+4589:68x  From West Coast US NAPs
+4589:681  From Any2 Los Angeles
+4589:683  From S&D PAIX Palo Alto
+4589:684  From Equinix San Jose
+4589:685  From Equinix LA
+
+
+4589:7xx  From a Private Peer
+
+4589:710  From a UK private peering
+4589:711  Unused (was Google AS15169)
+4589:712  Unused (was BBC AS2818)
+4589:713  Unused (was DTAG AS3320)
+4589:714  Unused (was Limelight AS22822)
+
+4589:735  From a CH private peering
+4589:736  Swisscom (AS3303)
+
+4589:740  From a DE private peering
+4589:741  DTAG isham (AS3320)
+4589:742  DTAG ixfra (AS3320)
+
+4589:750  From a FR private peering
+4589:752  Bouygues Telecom (AS5410)
+
+4589:760  From a NL private peering
+4589:761  Unused (was DTAG AS3320)
+
+4589:770  From a US private peering
+4589:771  Comcast (AS7922)
+4589:772  Unused (was AlphaRed AS19166)
+
+
+Four-digit communities
+----------------------
+
+Customers can set four-digit communities to control where prefixes are
+announced. The three-digit communities are used as a base for this and
+prefixed by 1, 2, 3 or 9 to control prepending of the customer's
+prefix on announcement to peers or transits on the specified location.
+
+1   Prepend announcement with "4589" on its AS-path
+2   Prepend announcement with "4589 4589"
+3   Prepend announcement with "4589 4589 4589"
+8   Do not prepend (such as when prepend is default)
+9   Filter announcement, i.e. don't announce
+
+For example, setting the community 4589:9641 will have the effect that
+the network on which it is set will not be announced to DE-CIX, whereas
+setting 4589:9420 will have the effect that the network on which it is
+set will not be announced to any low-speed IXP or private peer.
+
+These communities may not be implemented in the whole network. When
+used, it should be verified that the specific community is
+honored. Otherwise you can request that it is implemented.
+
+For a wider range, the "x" in the list of entry points can be replaced
+by "0". So for example "4589:2640" will result in a prepend of length
+two on all IXPs in Germany, and "4589:2500" has the effect of
+prepending 4589 to all transits.
+
+Five-digit communities
+----------------------
+
+Every prefix has a five-digit community set which tells on which
+location it was received. This community has the following format:
+
+4589:1
+
+where  usually is the country code with possible additions or
+modification, and  is a number for each of the POPs/locations in
+the country.
+
+Community Entry point
+------------------------------------------------------------------------
+4589:101xx  US
+
+US East Coast
+4589:10103  111 8th (S&D, NYC) [sdnyc.us]
+4589:10110  Equinix Ashburn (Metro Washington DC) [eqqas.us]
+
+US West Coast
+4589:10140  One Wilshire (CRGWest, Los Angeles) [owlax.us]
+4589:10145  Equinix San Jose [eqsjc.us]
+4589:10150  PAIX (S&D, Palo Alto) [sdpao.us]
+
+4589:131xx  NL
+4589:13101 (41) Capronilaan
+4589:13102 (42) Telecity
+4589:13103 (43) Sara - kruislaan - 8@pxc-sar-102 (gr10.saams)
+4589:13104 (44) Sara - kruislaan
+4589:13105 (45) Nikhef - kruislaan
+4589:13109 (49) Sara - kruislaan - 13@pxc-sar-101 (gr11.saams)
+
+4589:132xx  BE
+4589:13200  Unspecified location (self-originated prefixes)
+4589:13201  gdbru (Gulledelle, Brussels)
+4589:13202  ixbru (InterXion, Brussels)
+4589:13203  bnbru (Belnet, Brussels)
+
+4589:133xx  FR
+4589:13300  Unspecified location Self-Originated Prefixes
+4589:13301  Beaubourg (no more used)
+4589:13302  Telehouse (Rue des jeuneurs, Paris) [thpar]
+4589:13303  Telehouse2 (Bd Voltaire, Paris) [t2par]
+4589:13304  Nanterre (no more used)
+4589:13305  Courbevoie (no more used)
+4589:13306  Capitole (55 Av Champs Pierreux, Nanterre) [cpnan]
+4589:13397  SFR DSL Backhaul for Reflex IP (Private)
+4589:13398  FT DSL Backhaul (Private)
+4589:13399  TD DSL Backhaul (Private)
+
+4589:134xx  ES
+4589:13400  Unspecified location (self-originated prefixes)
+4589:13401  Madrid (interXion, Albasanz 71) [ixmad]
+4589:13402  Madrid (ESPANIX, Colonia Banesto) [exmad]
+4589:13403  Barcelona (Global Crossing, Pedrosa) [gxbcn]
+4589:13404  Barcelona (CATNIX, Cesca) [cxbcn]
+
+4589:139xx  IT
+4589:13900  Unspecified location (self-originated prefixes)
+4589:13901  Milan (Fulvio Testi 7) [ftmil]
+4589:13903  Milan (Netscalibur, Via Caldera 22) [nsmil]
+
+4589:141xx  CH
+4589:14100  Unspecified location (self-originated prefixes)
+4589:14101  Zuerich (Hardturmstrasse 135) [htzrh]
+4589:14102  Zuerich (TIX, Telehouse) [thzrh]
+4589:14103  Geneva (CIXP, Telehouse) [thgva]
+
+4589:143xx  AT
+4589:14300  Unspecified location (self-originated prefixes)
+4589:14301  Vienna Interxion
+
+4589:144xx  UK
+4589:14400  UK (Prefix to be advertised to all sites)
+note: will be replaced by 4589:7 in the new UK network
+
+4589:14411  wslon London (44 Whitfield)
+4589:14412        London (39 Whitfield) (deprecated)
+4589:14413  thlon London (Telehouse North - Star Suite)
+4589:14414  tclon London (Telecity Bonnington House)
+4589:14415  bllon London (1 Brick Lane)
+4589:14416  enslo Slough (Easynet PoP)
+4589:14417  rblon London (Redbus - Harbour Exchange)
+4589:14418  r2lon London (Redbus - Meridian Gate
+4589:14419  r3lon London (Redbus - Sovereign House)
+4589:14420  ixlon London (InterXion)
+4589:14421  t2lon London (Telecity 2 - Harbour Exchange)
+4589:14422        Enterprise Option4 LNSs
+4589:14423  eqslo Slough (Equinix)
+4589:14424        Akamai Cache Farm Mapping 1
+4589:14425        Akamai Cache Farm Mapping 2
+4589:14426  dasun Databanx Sunderland
+4589:14427  syost Sky Osterley
+4589:14431  scedi Scolocate Edinburgh
+4589:14432  enedi Easynet Edinburgh
+4589:14433  englw Easynet Glasgow
+4589:14434  enbsh Brighton
+4589:14435  fnbsh Brighton (Fastnet)
+4589:14436  enyrk York
+4589:14440  bllab London (Brick Lane lab)
+4589:14441  tcman Manchester Telecity
+4589:14442  mimnc Manchester Missouri Avenue
+4589:14443  ensts Stoke
+4589:14444  enntg Nottingham
+4589:14445        London Telehouse (externals)
+4589:14446  dancl Databanx Newcastle
+4589:14447  enlcs Leicester
+4589:14448  enbkh Berkhamstead
+4589:14449  enwkg Woking
+4589:14450  enbtr Burton-on-trent Regen
+4589:14451  encnk Cannock Regen
+4589:14452  enlea Long Eaton Regen
+4589:14454        Clean Feed Project
+4589:14455        Clean Feed Project
+4589:14456  enwrk Warwick
+4589:14457  enmid Middlesbrough
+4589:14458  encvt Coventry
+4589:14459  enlpl Liverpool
+4589:14460  enshf Sheffield
+4589:14461  enrdn Reading
+4589:14462  englo Gloucester
+4589:14463  enbrs Bristol
+4589:14464  enmik Milton Keynes
+4589:14465  enhmi Hayes
+4589:14466  enlba Leeds
+4589:14467  entau Taunton
+4589:14468  encax Carlisle
+4589:14469  sabir Birmingham Saltley
+4589:14470  hobir Birmingham Hockley
+4589:14471  enncl Newcastle Easynet
+4589:14472  encdf Cardiff
+4589:14473  sycwr Chilworth (Southampton), Mac Room
+4589:14474  enbgk Basingstoke
+4589:14475  encmg Cambridge
+4589:14476  ennby Newbury
+4589:14477  pomnc Manchester Poland Street
+4589:14478  timik Tiscali Milton Keines
+4589:14479  tnlon London (Telehouse North - TFM5)
+4589:14480  telon London (Telehouse East - TFM 60)
+
+4589:148xx  PL
+4589:14800  Unspecified location (self-originated prefixes)
+4589:14801  xtwaw (Exatel Warsow)
+
+4589:149xx  DE
+4589:14900  Unspecified location (self-originated prefixes)
+4589:14901  ixfra (Frankfurt interXion / DECIX)
+4589:14902  lnrsk (Rostock / lambdanet)
+4589:14903  l3muc (Level(3) Munich)
+4589:14904  weham (GlobalConnect Hamburg / WORK-IX)
+4589:14905  kgham (Easynet Hamburg-Wilhelmsburg)
+4589:14906  isham (Easynet Hamburg-Harburg)
+4589:14907  eqstr (Equant Stuttgart)
+4589:14908  gsber (Level(3) Berlin)
+4589:14909  ixdus (interXion Duesseldorf)
+4589:14910  lnbre (lambdanet Bremen)
+
+4589:150xx  International
+4589:15000  Unspecified location (self-originated prefixes)
+
+4589:185xx  HK
+4589:18501  Hong Kong [mihkg.cn]
+
+
+Filtering Communities
+---------------------
+
+Easynet will filter all 4589:* and 11341:* communities received via any
+external BGP peering, apart from 4589:xxxx from customers which can be
+used to control announcements.
+
+All other communities are accepted and passed unchanged and ignored.
+
+-----------------------------------------------------------------------------
+
+BGP Local Preference
+--------------------
+
+Local Preferences:
+
+170 customer-preferred  Customer route, more preferred than default
+150 customer-default  Customer or Easynet route, learnt directly
+130 customer-depreferred  Customer route, less preferred than default
+100 default     Normal transit/peer route
+50  depreferred   Low preference Transit Route

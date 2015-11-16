@@ -1,0 +1,19 @@
+---
+#device information
+hostname: ar20.enlpl
+rack: D008
+
+#Uplink information
+bbpe:
+  1:
+    ipv4: '2.120.9.244/31'
+    ipv6: '2a02:c78:1:12::2/127'
+    bundle: 2
+    tgref: 2540
+    hostname: sr11.enlpl
+    lag: 50
+    array:
+      1:
+        a_end: '8/1/8'
+        b_end: '2/2'
+        cid: LOCAL

@@ -1,0 +1,6 @@
+mpls ldp no neighbor {{ system_address }} password
+
+interface Port-channel3.{{ sed_vlanid }}
+ description [no-mon,core,rd={{ node_name }}:sdp266,cid=SNS:1000/LNBL-{{ sed_remote_site_code }}/PW/{{ (sed_vlanid|int - 3000) + 999360000 }}] sedcanopy pw
+ shutdown
+end

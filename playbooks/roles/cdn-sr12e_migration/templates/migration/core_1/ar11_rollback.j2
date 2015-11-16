@@ -1,0 +1,16 @@
+exit all
+configure
+{% for key, value in core_1|dictsort %}
+    port {{ value.remote_port }}
+        description "[no-mon,core,ip=,rd={{ core_1_hostname }}:{{ value.port|replace("/","-") }},cid={{ value.cid }},iv-s=vcdn_sc]"
+        shutdown
+    exit
+{% endfor %}
+    lag 1
+        description "[no-mon,core,ip=,rd={{ core_1_hostname }}:be{{ system_last_octet|int + 256 }},iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 176
+        description "[no-mon,core,ip=,rd={{ old_node_name }}:lag176,iv-s=vcdn_sc]"
+        shutdown
+exit all

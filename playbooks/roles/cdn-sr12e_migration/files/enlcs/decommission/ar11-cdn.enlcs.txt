@@ -1,0 +1,48 @@
+pre-check
+-------------
+show port 6/1/1
+show port 6/2/1
+show lag 176 port
+monitor lag 176
+show lag 176 associations
+show router interface "base_ar10.enlcs_1"
+#Ensure that lag 176 bound to this interface.
+show card 6
+
+deploy
+----------
+\configure router "base_ar10.enlcs_1" shutdown
+\configure router no interface "base_ar10.enlcs_1"
+\configure lag 176 shutdown
+\configure lag 176 description "[no-mon]"
+\configure lag 176 no port 6/1/1
+\configure port 6/1/1 shutdown
+\configure port 6/1/1 network egress no pool
+\configure port 6/1/1 ethernet network no queue-policy
+\configure port 6/1/1 ethernet lldp dest-mac nearest-bridge no tx-tlvs
+\configure port 6/1/1 ethernet lldp dest-mac nearest-bridge no tx-mgmt-address
+\configure lag 176 no port 6/2/1
+\configure port 6/2/1 shutdown
+\configure port 6/2/1 network egress no pool
+\configure port 6/2/1 ethernet network no queue-policy
+\configure port 6/2/1 ethernet lldp dest-mac nearest-bridge no tx-tlvs
+\configure port 6/2/1 ethernet lldp dest-mac nearest-bridge no tx-mgmt-address
+\configure no lag 176
+\configure card 6 shutdown
+\configure card 6 mda [1..2] shutdown
+\configure card 6 mda [1..2] network ingress no queue-policy
+\configure card 6 mda [1..2] no mda-type
+\configure card 6 no mda [1..2]
+\configure card 6 no card-type
+\configure card 6 shutdown
+\configure no card 6
+
+
+post-check
+-------------
+show port 6/1/1
+show port 6/2/1
+show card 6
+show lag 176
+
+# cards should be unprovisioned.

@@ -1,0 +1,16 @@
+show port 9/1/1 | match expression "Oper State | Oper Speed"
+show port 9/1/1 optical
+show port 8/[1..2]/1 | match expression "Oper State | Oper Speed"
+show port 8/[1..2]/1 optical
+show lag 4
+show lag 4 associations
+show router interface "base_pr3.hobir_1"
+show router interface "base_pr3.hobir_1" detail | match Protocols
+show router isis interface "base_pr3.hobir_1"
+show router mpls interface "base_pr3.hobir_1"
+show router rsvp interface "base_pr3.hobir_1"
+show router ldp interface "base_pr3.hobir_1"
+show router isis topology
+show router isis adjacency
+show router isis routes | match No.
+show router isis database | match (2)

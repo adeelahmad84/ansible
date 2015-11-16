@@ -1,0 +1,139 @@
+
+########SR10.MIMNC################
+exit all
+configure
+    router
+        static-route 2a02:c7a:8000:404::/64 next-hop 2a02:c78:1:18::7
+        static-route 176.255.171.0/27 next-hop 2.120.8.83 tag 20200
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:404::/64 exact
+	    exit
+            community "cdn-bllon-akamai-mcdn" members "4589:4" "5607:1002" "4589:14415" "5607:14415" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 27
+                    from
+                        protocol static
+			tag 20200
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-bllon-akamai-mcdn"
+			local-preference 200
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-bllon-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+########SR10.MIMNC################
+########SR11.MIMNC################
+exit all
+configure
+    router
+        static-route 2a02:c7a:8000:404::/64 next-hop 2a02:c78:1:18::9
+        static-route 176.255.171.0/27 next-hop 2.120.8.85 tag 20160
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:404::/64 exact
+	    exit
+            community "cdn-bllon-akamai-mcdn" members "4589:4" "5607:1002" "4589:14415" "5607:14415" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 27
+                    from
+                        protocol static
+			tag 20160
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-bllon-akamai-mcdn"
+			local-preference 160
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-bllon-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+########SR11.MIMNC################
+########SR12.MIMNC################
+exit all
+configure
+    router
+        static-route 2a02:c7a:8000:404::/64 next-hop 2a02:c78:1:18::b
+        static-route 176.255.171.0/27 next-hop 2.120.8.87 tag 20190
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix 2A02:C7A:8000:404::/64 exact
+	    exit
+            community "cdn-bllon-akamai-mcdn" members "4589:4" "5607:1002" "4589:14415" "5607:14415" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry 27
+                    from
+                        protocol static
+			tag 20190
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-bllon-akamai-mcdn"
+			local-preference 190
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 296
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-bllon-akamai-mcdn"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+exit all
+########SR12.MIMNC################

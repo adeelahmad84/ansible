@@ -1,0 +1,12 @@
+! $Id: rr0.enlba.txt,v 1.1 2014/04/02 13:47:17 AJA09 Exp $
+router bgp 65444
+ neighbor 84.38.34.6 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.6 description sr17.syost
+ neighbor 84.38.34.6 password 0 JhdYCgmvbsnc5nbw
+!
+ address-family ipv4
+ neighbor 84.38.34.6 activate
+ neighbor 84.38.34.6 inherit peer-policy OVN-RR-client-IPV4
+end
+
+

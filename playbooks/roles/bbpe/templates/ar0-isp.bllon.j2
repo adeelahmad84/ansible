@@ -1,0 +1,10 @@
+!! $Id: ar0-isp.bllon.txt,v 1.2 2012/06/25 17:20:13 mivens Exp $
+
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session IRONMAN_PE_SESSION
+ neighbor {{ system_address }} description {{ node_name }} - IRONMAN_PE_SUBS_{{ ironman_bllon_policy }}_POLICY
+ neighbor {{ system_address }} password 0 {{ ar0_isp_bllon_bgp_password }}
+ address-family ipv4
+  neighbor {{ system_address }} activate
+  neighbor {{ system_address }} inherit peer-policy IRONMAN_PE_SUBS_{{ ironman_bllon_policy }}_POLICY
+end

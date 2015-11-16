@@ -1,0 +1,5 @@
+show router static-route 90.201.126.128/26
+show router static-route 2a02:c7a:8000:1907::/64
+show router policy prefix-list "POPCDN-IPV6-GGC-LAN"
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2a02:c7a:8000:1907::/64
+show router bgp neighbor 89.200.128.[88..90] ipv4 advertised-routes | match 90.201.126.128/26

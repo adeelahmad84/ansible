@@ -1,0 +1,35 @@
+{% for key, cdn in services|dictsort %}
+Business Justification:
+
+New DNS A/PTR Record
+
+This change is for creating new DNS records for the new {{ cdn_name|upper }} Region.
+By adding the DNS records we are able to analyse CDN traffic requests and further optimise CDN network.
+The change not going ahead will impact the delivery and activation of this region.
+
+Implementation Steps:
+1. Please add DNS records for a new {{ cdn_name|upper }} region in {{ site_id }}:
+{{ cdn.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} A host1-range{{ cdn.range }}-{{ prefix_name|lower }}.cdn.{{ site_id }}.isp.sky.com
+
+until the last:
+
+{{ cdn.ipv4 | ipaddr('-1')|regex_replace('/.*', ' ') }} A host$LAST-HOST-range{{ cdn.range }}-{{ prefix_name|lower }}.cdn.{{ site_id }}.isp.sky.com
+
+**NOTE** $LAST-HOST is the last usable octet in the given range.
+
+2. Please reverse add reverse PTR records for the whole range in the same fashion.
+
+{{ cdn.ipv4 | ipaddr('revdns') }} PTR host1-range{{ cdn.range }}-{{ prefix_name|lower }}.cdn.{{ site_id }}.isp.sky.com
+
+3. Please add only reverse PTR records for the range {{ cdn.ipv6 | ipaddr('0') }}.  Please use the same pointer for the complete range.
+
+{{ cdn.ipv6 | ipaddr('revdns')|replace("0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0", "*") }} IN PTR range{{ cdn.range }}-{{ prefix_name|lower }}.cdn.{{ site_id }}.isp.sky.com
+
+
+
+Test Plan:
+
+host {{ cdn.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }}
+host {{ cdn.ipv6 | ipaddr('1')|regex_replace('/.*', ' ') }}
+{% endfor %}
+

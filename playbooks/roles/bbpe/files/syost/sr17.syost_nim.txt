@@ -1,0 +1,4 @@
+Hostname: sr17.syost
+System IP: 84.38.34.6
+dist-bng IP address: 90.208.114.208/32 (2a02:c79:1::262/128)
+dist-gea IP address: 90.208.114.209/32 (2a02:c79:2::262/128)

@@ -1,0 +1,89 @@
+exit all
+configure
+    qos
+        network-queue "network-queue-metro" create
+            fc af create
+                multicast-queue 9
+                queue 1
+                egress-hsmda
+                    queue 3
+                exit
+            exit
+        exit
+        network 100 create
+            ingress
+                dscp ef fc ef profile in
+                dscp nc1 fc nc profile in
+                dscp nc2 fc nc profile in
+                dscp af22 fc h2 profile in
+                dscp af31 fc ef profile in
+                dscp af41 fc h2 profile in
+                lsp-exp 0 fc be profile out
+                lsp-exp 3 fc af profile in
+                lsp-exp 4 fc h2 profile in
+                lsp-exp 5 fc ef profile in
+                lsp-exp 6 fc nc profile in
+            exit
+            egress
+                fc nc
+                    dscp-in-profile nc1
+                    dscp-out-profile nc1
+                    lsp-exp-in-profile 6
+                    lsp-exp-out-profile 6
+                exit
+            exit
+        exit
+        network 300 create
+            description "Elevated Best Effort Egress QoS for WS"
+            ingress
+                default-action fc af profile in
+            exit
+            egress
+                fc af
+                    port-redirect-group queue 1
+                exit
+            exit
+        exit
+        queue-group-templates
+            ingress
+                queue-group "wholesale" create
+                    description "empty queue-group to allow ingress qos on spoke-sdp"
+                    queue 1 best-effort create
+                    exit
+                exit
+            exit
+            egress
+                queue-group "wholesale" create
+                    description "empty queue-group to allow egress qos on spoke-sdd to be put on FC AF"
+                    queue 1 best-effort create
+                        port-parent level 3 cir-level 3
+                        percent-rate 100.00 cir 100.00
+                    exit
+                exit
+            exit
+        exit
+        scheduler-policy "DISTBNG-SCHED" create
+            description "DISTBNG SCHEDULER-POLICY"
+            tier 1
+                scheduler "DISTBNG-TIER1" create
+                    description "DISTBNG TIER 1 SCHEDULER"
+                    port-parent weight 0 cir-level 1
+                    rate max cir 0
+                exit
+            exit
+        exit
+        scheduler-policy "DISTGEA-SCHED" create
+            description "DISTGEA SCHEDULER-POLICY"
+            tier 1
+                scheduler "DISTGEA-TIER1" create
+                    description "DISTGEA TIER 1 SCHEDULER"
+                    port-parent weight 0 cir-level 1
+                    rate max cir 0
+                exit
+            exit
+        exit
+    exit
+    service
+        customer 70 create
+            description "WHOLESALE"
+exit all

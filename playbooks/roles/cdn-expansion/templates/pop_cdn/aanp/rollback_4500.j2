@@ -1,0 +1,13 @@
+configure terminal
+!
+interface Port-channel{{ aanp.channel }}
+ description [no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Port-Channel To aanp Server
+ shutdown
+!
+{% for key, value in aanp.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ shutdown
+!
+{% endfor %}
+!
+end

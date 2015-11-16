@@ -1,0 +1,4 @@
+Hostname: sr12.enlpl
+System IP: 84.38.34.245
+dist-bng IP address: 90.208.114.210/32 (2a02:c79:1::501/128)
+dist-gea IP address: 90.208.114.211/32 (2a02:c79:2::501/128)

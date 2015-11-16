@@ -1,0 +1,48 @@
+exit all
+configure
+    port 5/1/5
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 3 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 5/1/6
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 4 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/1
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 5 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/2
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 6 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/3
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 7 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/4
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 8 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/5
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 9 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    port 6/1/6
+        description "[no-mon,ext,iv-g=PDL_edge,iv-s=cdn_pdl_edge] 10 of LAG 41 to Akamai HP2910 port A2 Rack C11 - PDL-2"
+        shutdown
+    exit
+    lag 41
+	shutdown
+	no port 5/1/5
+	no port 5/1/6
+	no port 6/1/1
+	no port 6/1/2
+	no port 6/1/3
+	no port 6/1/4
+	no port 6/1/5
+	no port 6/1/6
+        no lacp
+        lacp active
+        no shutdown
+exit all

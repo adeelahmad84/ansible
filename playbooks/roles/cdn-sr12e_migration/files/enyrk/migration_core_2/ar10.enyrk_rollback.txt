@@ -1,0 +1,9 @@
+\configure port 9/1/1 no shutdown
+\configure port 2/1/1 no shutdown
+\configure port 7/1/1 no shutdown
+\configure lag 4 no shutdown
+\configure router interface "base_pr2.hobir_1"  no shutdown
+\configure router isis interface "base_pr2.hobir_1" no shutdown
+\configure router mpls interface "base_pr2.hobir_1" no shutdown
+\configure router rsvp interface "base_pr2.hobir_1" no shutdown
+\configure router ldp interface-parameters interface "base_pr2.hobir_1" no shutdown

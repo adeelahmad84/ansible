@@ -1,0 +1,54 @@
+configure terminal
+!
+interface Bundle-Ether177
+ description [no-mon,core-o,rd=ar11-cdn.hobir:lag2,iv-s=bb]
+ shutdown
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links 2
+ load-interval 30
+ dampening 1 750 2000 1
+ logging events link-status
+ ipv4 mtu 8192
+ ipv4 address 89.200.132.48 255.255.255.254
+!
+router isis 65444
+ interface Bundle-Ether177
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 Yy8x0iASrCDQth2m
+  address-family ipv4 unicast
+   metric 99100000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor 89.200.128.177 password clear mf8k8h9mllgyKUOF
+ address-family ipv4
+  label
+   remote
+    accept
+     from 89.200.128.177:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether177
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether177
+ !
+!
+rsvp
+ interface Bundle-Ether177
+  bandwidth 300 Gbps
+  signalling dscp 48
+ !
+!
+commit

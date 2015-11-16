@@ -1,0 +1,17 @@
+! $Id: rr1.bllon.txt,v 1.1 2014/04/02 13:47:36 AJA09 Exp $
+router bgp 65444
+ neighbor 84.38.34.3 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.3 description sr11.ensts
+ neighbor 84.38.34.3 password 0 PwZK5HLXVjPMhdNf
+!
+ address-family ipv4
+ neighbor 84.38.34.3 activate
+ neighbor 84.38.34.3 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ !
+ address-family vpnv4
+ neighbor 84.38.34.3 activate
+ neighbor 84.38.34.3 send-community extended
+ neighbor 84.38.34.3 inherit peer-policy OVN-RR-client-VPNV4
+end
+
+

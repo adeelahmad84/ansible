@@ -1,0 +1,53 @@
+exit all
+/configure
+    port 10/1/7
+        description "[core,rd=ar21.enedi:te1-7,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C008"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/8
+        description "[core,rd=ar21.enedi:te1-8,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_C008"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 51
+        description "[core,rd=ar21.enedi:pc3,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO AR21.ENEDI"
+	port 10/1/7
+	port 1/1/8
+	lacp active
+	port-threshold 1 action down
+        no shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK-2"
+	    address 2.120.7.56/31
+            description "[core,rd=ar21.enedi:pc3,iv-s=cdn_pop]"
+            port lag-51
+            ipv6
+                address 2a02:c78:1:5::8/127
+            exit
+            cflowd interface both
+            no shutdown
+        exit
+        static-route 84.38.34.13/32 next-hop 2.120.7.57  tag 20100
+        policy-options
+            begin
+            prefix-list "PL-POP-CDN-LOOPBACK"
+                prefix 84.38.34.13/32 exact
+            exit
+	    commit
+	exit
+        bgp
+            group "IN-POP-CDN"
+                neighbor 2.120.7.57 
+                    description "ar21.enedi"
+                    authentication-key "oht0Cooth2iegh5i"
+                    import "IN-POP-CDN-PREFIXES"
+                    export "SKY-LOCAL-USER-PREFIXES"
+exit all

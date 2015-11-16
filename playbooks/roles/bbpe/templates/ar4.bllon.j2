@@ -1,0 +1,7 @@
+mpls ldp neighbor {{ system_address }} password {{ ar4_bllon_ldpkey }}
+
+interface Port-channel3.{{ sed_vlanid }}
+ description [core,rd={{ node_name }}:sdp266,cid=SNS:1000/LNBL-{{ sed_remote_site_code }}/PW/{{ (sed_vlanid|int - 3000) + 999360000 }}] sedcanopy pw
+ encapsulation dot1Q {{ sed_vlanid }}
+ xconnect {{ system_address }} {{ (sed_vlanid|int - 3000) + 999360000 }} pw-class SEDCANOPY
+end

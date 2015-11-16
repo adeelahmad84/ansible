@@ -1,0 +1,21 @@
+PRE-CHECK
+#########
+
+Please issue the commands found in ar11-cdn.hobir_prepost.txt, please capture the output for comparison later.
+
+
+IMPLEMENTATION
+###############
+
+Please issue the commands found in ar11-cdn.hobir.txt, ensure the syntaxes are applied successfully.
+
+
+POST-CHECK
+#########
+
+Please issue the commands found in ar11-cdn.hobir_prepost.txt, please read the prepost file to see what to expect.
+
+ROLLBACK
+#########
+
+If post checks are not satisfactory or you cannot access as103.hobir from nms then please proceed with rollback issuing the commands found in ar11-cdn.hobir_rollback.txt

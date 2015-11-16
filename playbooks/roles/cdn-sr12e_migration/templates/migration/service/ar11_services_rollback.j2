@@ -1,0 +1,67 @@
+{% for item, cdn in services|dictsort %}
+
+
+
+####SERVICE-{{ item|upper }}-BEGIN####
+{% for port, info in  cdn['array']|dictsort %}
+    port {{ info.new_port }}
+        description "[no-mon,{{ info.description }}"
+        shutdown
+    exit
+{% endfor %}
+{% if cdn.lag %}
+    lag {{ cdn.lag }}
+{% for port, info in  cdn['array']|dictsort %}
+        no port {{ info.new_port }}
+{% endfor %}
+        shutdown
+    exit
+{% endif %}
+    service
+{% if cdn.vpls_id %}
+        vpls {{ cdn.vpls_id }}
+{% if cdn.lag %}
+            sap lag-{{ cdn.lag }} shutdown
+            exit
+{% else %}
+{% for port, info in  cdn['array']|dictsort %}
+            sap {{ info.new_port }} shutdown
+            exit
+{% endfor %}
+{% endif %}
+            shutdown
+	exit
+{% endif %}
+        ies {{ cdn.ies_id }}
+            interface "ies{{ cdn.ies_id }}_{{ item|lower }}"
+                description "[no-mon,{{ cdn.ies_desc }}"
+		shutdown
+                exit
+{% if cdn.lag %}
+		sap lag-{{ cdn.lag }} 
+		    shutdown
+		exit
+{% else %}
+{% for port, info in  cdn['array']|dictsort %}
+		sap {{ info.new_port }}
+		    shutdown
+		exit
+{% endfor %}
+{% endif %}
+            exit
+            shutdown
+        exit
+    exit
+    router
+            group "cdn-aanp_offnet-ipv4"
+		shutdown
+            exit
+            group "cdn-aanp_mcdn_offnet-ipv4"
+		shutdown
+            exit all
+
+####SERVICE-{{ item|upper }}-END####
+
+
+
+{% endfor %}

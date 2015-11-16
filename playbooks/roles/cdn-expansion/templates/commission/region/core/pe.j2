@@ -1,0 +1,116 @@
+exit all
+configure
+{% for key, cdn in services|dictsort %}
+{% for key, info in cdn.array|dictsort %}
+    port {{ info.port }}
+        description "[ext,iv-g={{ cdn_name }},iv-s=cdn_{{ cdn_name }}] TO {{ cdn.remote_svr|upper }} PORT {{ info.remote_port|replace("/","-") }}"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+{% endfor %}
+{% if cdn_lag %}
+    lag {{ cdn_lag + cdn.lag }}
+        description "[ext,iv-g={{ cdn_name }},iv-s=cdn_{{ cdn_name }}] TO {{ cdn.remote_svr|upper }}_{{ cdn.svc_id }}"
+        mode access
+{% for key, info in cdn.array|dictsort %}
+	port {{ info.port }}
+{% endfor %}
+        lacp active
+        no shutdown
+    exit
+{% endif %}
+    service
+{% if cdn.svc_id == 1 %}
+        customer {{ cust_id }} create
+            description "{{ cdn_name|capitalize }}"
+        exit
+{% endif %}
+{% if cdn_name == 'google' %}
+	vpls {{ cdn_svc + cdn.svc_id + 1 }} customer {{ cust_id }} create
+            description "[ext,iv-g={{ cdn_name|lower }},iv-s=cdn_{{ cdn_name|lower }}] {{ cdn_name|capitalize }} Server VPLS"
+            allow-ip-int-binding
+            stp
+                shutdown
+            exit
+            service-name "vpls{{ cdn_svc + cdn.svc_id + 1 }}_cdn-{{ cdn_name|lower }}_{{ cdn.svc_id }}"
+{% for key, info in cdn.array|dictsort %}
+	    sap {{ info.port }} create
+	    exit
+{% endfor %}
+	exit
+{% endif %}
+        ies {{ cdn_svc + cdn.svc_id }} customer {{ cust_id }} create
+            interface "ies{{ cdn_svc + cdn.svc_id }}_{{ service_name }}-{{ cdn.svc_id }}" create
+                description "[ext,iv-g={{ cdn_name }},iv-s=cdn_{{ cdn_name }}] {{ cdn_name }}-{{ cdn.svc_id }} Gateway"
+                address {{ cdn.ipv4 | ipaddr('1') }}
+                cflowd interface
+                ipv6
+                    address {{ cdn.ipv6 | ipaddr('1') }}
+                exit
+{% if cdn_name == 'google' %}
+                vpls "vpls{{ cdn_svc + cdn.svc_id + 1 }}_cdn-{{ cdn_name|lower }}_{{ cdn.svc_id }}"
+                exit
+{% else %}
+{% if cdn_lag %}
+                sap lag-{{ cdn_lag + cdn.lag }} create
+                exit
+{% else %}
+{% for key, info in cdn.array|dictsort %}
+		sap {{ info.port }} create
+                exit
+{% endfor %}
+{% endif %}
+{% endif %}
+            exit
+            service-name "ies{{ cdn_svc + cdn.svc_id }}_{{ service_name }}-{{ cdn.svc_id }}"
+            no shutdown
+        exit
+    exit
+    router
+	policy-options
+	    begin
+            prefix-list "CORE-CDN-IPV4-{{ prefix_name|upper }}-LAN"
+                prefix {{ cdn.ipv4 | ipaddr('0') }} exact
+            exit
+            prefix-list "CORE-CDN-IPV6-{{ prefix_name|upper }}-LAN"
+                prefix {{ cdn.ipv6 | ipaddr('0') }} exact
+            exit
+{% if cdn.svc_id == 1 %}
+            community "cdn-{{ site_id }}-{{ prefix_name }}" members "4589:4" "5607:{{ svc_comm }}" "4589:{{ site_community_id }}" "5607:{{ site_community_id }}" "no-export-subconfed"
+            policy-statement "EXPORT-TO-IBGP"
+                entry {{ v4_entry }}
+                    description "{{ cdn_name|upper }} LAN subnets"
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV4-{{ prefix_name|upper }}-LAN"
+                    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-{{ prefix_name }}"
+                        metric set 1000
+                        next-hop-self
+                    exit
+                exit
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry {{ v6_entry }}
+                    from
+                        protocol direct
+                        prefix-list "CORE-CDN-IPV6-{{ prefix_name|upper }}-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-{{ site_id }}-{{ prefix_name }}"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+{% endif %}
+	    commit
+{% endfor %}
+exit all

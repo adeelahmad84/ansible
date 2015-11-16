@@ -1,0 +1,33 @@
+interface Bundle-Ether426
+ shutdown
+!
+interface Te0/7/0/8/2
+ shutdown
+ !
+!
+interface Te0/7/0/8/1
+ shutdown
+ !
+!
+interface Te0/7/0/8/0
+ shutdown
+ !
+!
+router isis 65444
+ no interface Bundle-Ether426
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.170 no password clear
+ no interface Bundle-Ether426
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether426
+ !
+!
+rsvp
+ no interface Bundle-Ether426
+ !
+!

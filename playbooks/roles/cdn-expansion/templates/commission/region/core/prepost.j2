@@ -1,0 +1,22 @@
+{% for key, cdn in services|dictsort %}
+{% for key, info in cdn.array|dictsort %}
+show port {{ info.port }} | match expression "Oper State|Oper Speed"
+{% endfor %}
+{% if cdn_lag %}
+show lag {{ cdn_lag + cdn.lag }}
+show lag {{ cdn_lag + cdn.lag }} description
+show lag {{ cdn_lag + cdn.lag }} port
+show lag {{ cdn_lag + cdn.lag }} lacp-partner
+{% endif %}
+
+{% if cdn.svc_id == 1 %}
+show service service-using customer {{ cust_id }}
+{% endif %}
+show service id {{ cdn_svc + cdn.svc_id }} base
+show router route-table ipv4 {{ cdn.ipv4 | ipaddr('0') }}
+show router route-table ipv6 {{ cdn.ipv6 | ipaddr('0') }}
+show router neighbor | match context all {{ cdn_svc + cdn.svc_id }}
+show router policy prefix-list "CORE-CDN-IPV4-{{ prefix_name|upper  }}-LAN"
+show router policy prefix-list "CORE-CDN-IPV6-{{ prefix_name|upper  }}-LAN"
+show router policy-edits
+{% endfor %}

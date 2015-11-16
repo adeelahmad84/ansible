@@ -1,0 +1,48 @@
+This change is to accomodate the commission/expansion for enbrs.
+
+n.b. this change is going ahead of the server plug ups therefore ports will be operationally down.
+
+Please apply the following steps:
+
+1. Run the prechecks specified in:
+
+ar20.enbrs_ggc_prepost.txt
+bbpe_ggc_prepost.txt
+sr10.enbrs_lag_upgrade_prepost.txt
+sr11.enbrs_lag_upgrade_prepost.txt
+
+Note: Please save the output for comparison later.
+
+2. Please apply the implementation commands in the following attached files:
+
+ar20.enbrs_ggc.txt
+sr10.enbrs_ggc_prefix_add.txt
+sr10.enbrs_lag_upgrade.txt
+sr11.enbrs_ggc_prefix_add.txt
+sr11.enbrs_lag_upgrade.txt
+
+Please note: On the BBPE the 'port-threshold' needs to change.  You will need to look at the total number of ports in a given lag after the above lag-upgrade implementation and calculate 'two-thirds of total, then minus 1'.
+
+after calculating please add the following configuration:
+
+***************
+exit all
+configure
+    lag 50
+	port-threshold $CALCULATED_NUMBER action down
+    exit all
+***************
+
+3. Run the postchecks specified in ar20.enbrs_ggc_prepost.txt and bbpe_ggc_prepost and bbpe_lag_upgrade_prepost.txt
+
+    Run a diff between the two, you should see new services, ports, prefixes although they will be down.
+
+4. If for any reason the implementation has impacted any live services please proceed to rollback using:
+
+ar20.enbrs_ggc_rollback.txt 
+bbpe_ggc_rollback.txt
+sr10.enbrs_lag_upgrade_rollback.txt
+sr11.enbrs_lag_upgrade_rollback.txt
+
+
+N.B. AS THIS IS A NEW SERVICE TO BE DEPLOYED, IF POST-CHECKS ARE NOT WHAT YOU EXPECT; AS LONG AS NO LIVE SERVICES ARE IMPACTED PLEASE DO NOT ROLLBACK THE DEPLOYMENT.  ALL PORTS/INTERFACES HAVE BEEN SET UP WITH 'NO-MON', PLEASE DOUBLE CHECK BEFORE CLOSING OFF THE CHANGE.

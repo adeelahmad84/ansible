@@ -1,0 +1,27 @@
+configure
+    router
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-GGC-LAN"
+                prefix 2a02:c7a:8000:1502::/64 exact
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                entry 298
+                    from
+                        protocol static
+                        prefix-list "POPCDN-IPV6-GGC-LAN"
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "cdn-enwkg-google"
+                        next-hop-self
+                    exit
+                exit
+	    exit
+	    commit
+	exit
+        static-route 2a02:c7a:8000:1502::/64 next-hop 2a02:c78:1:f::1
+        static-route 90.201.126.0/26 next-hop 2.120.9.235 tag 20200
+exit all

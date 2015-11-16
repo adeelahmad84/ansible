@@ -1,0 +1,17 @@
+/configure
+    port 1/2/4
+        description "[core,rd=ar20.enwkg:te1-6,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 50
+        description "[core,rd=ar20.enwkg:pc1,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO AR20.ENWKG"
+        port 1/2/4
+        lacp active
+	no port-threshold
+	port-threshold 2.33333333333
+        no shutdown
+    exit all

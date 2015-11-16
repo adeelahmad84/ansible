@@ -1,0 +1,2 @@
+show port 5/1/[23..28] | match expression "Oper State|Oper Speed"
+show lag 51 port

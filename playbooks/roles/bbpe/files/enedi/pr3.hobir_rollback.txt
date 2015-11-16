@@ -1,0 +1,34 @@
+interface Bundle-Ether261
+ shutdown
+!
+interface Te0/4/0/4/9
+ shutdown
+ !
+!
+interface Te0/4/0/4/8
+ shutdown
+ !
+!
+interface Te0/4/0/4/7
+ shutdown
+ !
+!
+router isis 65444
+ no interface Bundle-Ether261
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.5 no password clear
+ no interface Bundle-Ether261
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether261
+ !
+!
+rsvp
+ no interface Bundle-Ether261
+ !
+!
+

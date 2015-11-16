@@ -1,0 +1,42 @@
+exit all
+configure
+    port 9/1/1
+        description "[no-mon,core,ip=,rd=pr2.thlon:hu0-0-0-3,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 2/1/1
+        description "[no-mon,core,ip=,rd=pr2.thlon:hu0-0-0-6,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    lag 4
+        description [no-mon,core,ip=,rd=pr2.thlon:be281,iv-s=vcdn_sc]
+        shutdown
+	no port 9/1/1
+	no port 2/1/1
+    exit
+    router
+	interface "base_pr2.thlon_1"
+	    shutdown
+            no address
+            description "[no-mon,core-o,rd=pr2.thlon:be281]"
+	exit
+	isis
+	    interface "base_pr2.thlon_1"
+		shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_pr2.thlon_1"
+		shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_pr2.thlon_1"
+		shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_pr2.thlon_1"
+		    shutdown
+exit all

@@ -1,0 +1,14 @@
+exit all
+configure
+    port 4/1/40
+        description "[core,ip=,rd=ar11-cdn.enlcs:5-1-7,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    router
+	interface "base_ar10.enlcs"
+            description "[core-o,rd=ar10.enlcs:5-1-7]"
+	    shutdown
+	    no port
+	    port 4/1/40
+	    no shutdown
+exit all

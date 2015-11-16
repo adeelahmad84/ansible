@@ -1,0 +1,8 @@
+
+
+- name: generate for decom 7210
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'decommission/7210/pe.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/decommission/{{ pe }}.txt' }
+    - { src: 'decommission/7210/proc.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/decommission/procedure.txt' }
+    - { src: 'decommission/7210/prepost_pe.j2', dest: '~/ansible/playbooks/roles/common/files/{{ site_id }}/decommission/prepost_pe.txt' }

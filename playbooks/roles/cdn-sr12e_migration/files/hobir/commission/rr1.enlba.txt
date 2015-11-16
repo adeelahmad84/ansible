@@ -1,0 +1,14 @@
+router bgp 65444
+ neighbor 89.200.128.177 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 89.200.128.177 description ar11-cdn.hobir
+ neighbor 89.200.128.177 password 0 C3cQpu6qwzPuKbi9
+!
+ address-family ipv4
+ neighbor 89.200.128.177 activate
+ neighbor 89.200.128.177 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ !
+ address-family vpnv4
+ neighbor 89.200.128.177 activate
+ neighbor 89.200.128.177 send-community extended
+ neighbor 89.200.128.177 inherit peer-policy OVN-RR-client-VPNV4
+end

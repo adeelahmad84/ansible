@@ -1,0 +1,73 @@
+Summary:
+
+C2: MCDN Region - Management Enablement [TG2578]
+
+Business Justification:
+
+This change is to allow MCDN to gain management to their switch.
+This change will then allow MCDN to provision their region.
+This change not going ahead will impact the delivery of the region commissioning for MCDN.
+
+
+
+
+
+
+
+Implementation Steps:
+
+Tech Summary
+*******************
+The implementation steps should take approxiately 20 minutes to complete.
+
+This change is to:
+- Take a single port out of the existing LAG.
+- Replace the LAG bound to the existing IES interface with the single port taken out of the existing LAG.
+
+1. After running the pre-checks please apply the commands found in the file named ar14-cdn.thlon.txt
+2. Move onto post-checks found in Test Plan
+
+
+
+
+
+
+
+
+Test Plan:
+
+Pre-Checks
+***************
+1. Please go to the URL: https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells and ensure that the single port referenced in the change, is associated to reference TG2578.
+
+4. Please run the commands found in the file named ar14-cdn.thlon_prepost.txt (expected results are also in the file).
+
+Post-Checks
+***************
+Please run the commands found in the file named ar14-cdn.thlon_prepost.txt (expected results are also in the file)
+
+
+
+
+
+Backout Plan:
+
+If the post-check ouputs do not satisfy your expectation then please follow this action in the below situations:
+
+- if ports are up = Shut them down
+- LAG/Service-id isn't configured or not admin up = please reconfigure and ensure they are not shut down.
+- if prefixes are not visible in the prefix-list = please add the prefixes to the prefix-list.
+
+If the implementation was to impact any live services then proceed to back out with the file named ar14-cdn.thlon_rollback.txt.
+Upon completing rollback please re run the commands found in the file named ar14-cdn.thlon_prepost.txt  AND compare the results with the output of the precheck = ensure they are identical.
+
+
+
+
+
+
+Risk Assessment:
+
+This is a network configuration to be in place prior to introducing the new MCDN region.  No live services are anticipated to be impacted.
+If the change went wrong such as configuring the a duplicate IP address then any services with the same IP could be at risk.
+The chances are slim as a pre-check will be done using the findip2 tool to determine whether the IP range exists.

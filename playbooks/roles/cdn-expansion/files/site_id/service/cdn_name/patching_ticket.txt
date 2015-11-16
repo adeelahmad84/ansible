@@ -1,0 +1,11 @@
+Device - [HOSTNAME]
+Site - site_id, [ADDRESS OF THIS SITE]
+Circuit - LOCAL
+Config - N/A
+Summary - Please patch the following as per TG[TG-REF] in https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells
+
+[HOSTNAME]	[LOCAL_PORT]	    [REMOTE_SERVER_HOSTNAME]	     [REMOTE/PORT]
+[HOSTNAME]	[LOCAL_PORT]	    [REMOTE_SERVER_HOSTNAME]	     [REMOTE/PORT]
+[HOSTNAME]	[LOCAL_PORT]	    [REMOTE_SERVER_HOSTNAME]	     [REMOTE/PORT]
+[HOSTNAME]	[LOCAL_PORT]	    [REMOTE_SERVER_HOSTNAME]	     [REMOTE/PORT]
+[HOSTNAME]	[LOCAL_PORT]	    [REMOTE_SERVER_HOSTNAME]	     [REMOTE/PORT]

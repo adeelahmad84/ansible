@@ -1,0 +1,71 @@
+=================================================================================
+1. PROCEDURE Migrate Netflix over to ar21.englw
+=================================================================================
+## Please note that we are migrating the netflix servers from ar20 to ar21.englw 
+## If this is successful then we will add mcdn servers onto ar20.englw (see second part below)
+## if you need to rollback the changes on ar21.englw then ar20.englw will also have to be rollback 
+
+
+
+Implementation:
+=========================
+Please apply the configuration of the respected devices in the following order:
+
+The prechecks and postchecks are incorporated in the files:
+
+ar20.englw_shut.txt
+ar21.englw.txt
+
+ 
+    
+Backout Plan:
+=============
+In case the implementation was to impact any existing services.  Please apply the config in the following:
+
+If you rollback the config changes on ar21.englw then use:
+
+ar21.englw_rollback.txt
+
+Then we must rollback the config on ar20.englw:
+
+ar20.englw_rollback.txt
+    
+Run the prepost checks again to ensure they are the same as precheck output.
+
+
+========================================================================
+2. PROCEDURE to add mcdn to ar20.englw IF ABOVE CHANGE WAS SUCCESFUL
+========================================================================
+
+This change will follow after the ports on ar20.englw: Te1/31 & Te1/32 have been vacated and migrated to ar21.englw.
+and the 1st part above has been successful otherwise if you had rollback the above then you need do the work below as 
+the ports that are need will not be available.
+
+==============================================================
+
+## Pre-checks & Post-checks are included in the file ar20.englw_mcdn.txt
+
+Check that the ports on ar20.englw: Te1/31 & Te1/32 are available and shutdown
+
+show ip interface Te1/31
+show ip interface Te1/32
+
+## Apply configuration
+
+apply configuration using ar20.englw_mcdn.txt
+
+## Post-Checks
+
+Do Post-Checks included in ar20.englw_mcdn.txt
+
+## ROLLBACK Procedure
+
+If you need to backout/rollback the change then do the following:
+
+conf t
+interface Te1/31
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 3 - PCH60 to mcdn NIC_2 Server
+ shutdown
+interface Te1/32
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 4 - PCH60 to mcdn NIC_3 Server
+ shutdown

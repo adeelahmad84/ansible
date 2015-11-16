@@ -1,0 +1,31 @@
+configure terminal
+!
+interface Bundle-Ether281
+ description [core-o,rd=ar10.enlcs:lag4,iv-s=vcdn_sc]
+ no shutdown
+!
+interface Bundle-Ether110
+ description [no-mon,core-o,rd=ar11-cdn.enlcs:lag2,iv-s=vcdn_sc]
+ shutdown
+!
+interface Hu0/0/0/3
+ description [core-o,rd=ar10.enlcs:9-1-1,cid=SNS:1003/LEIA-LNTW/100G/CDN1,iv-s=bb]
+ bundle id 281 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/0/0/6
+ description [core-o,rd=ar10.enlcs:2-1-1,cid=SNS:1003/LEIA-LNTW/100G/CDN2,iv-s=bb]
+ bundle id 281 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+commit

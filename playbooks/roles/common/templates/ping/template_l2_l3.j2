@@ -1,0 +1,125 @@
+==================================================================================
+IMPORTANT NOTE: ONCE THE TESTS ARE COMPLETED, DON'T LEAVE THE CONFIG ON PORTS AND
+FOLLOW THE POST TEST PART TO REMOVE IP ADDRESSES AND OTHER CONFIG.
+==================================================================================
+ 
+++++++++++++++++++++++++++
+OPTICAL POWER LEVEL TEST
+++++++++++++++++++++++++++
+
+On Cisco 4500: {{ hostname }}
+==============
+ 
+For Layer2 Testing of new interconnects, need to check the Optical Power levels on relevant interfaces.
+First UNSHUT Relevant Interfaces and then check light levels..
+ 
+PRECHECKS
+ 
+Before doing any change on the port, the following needs to be checked to verify that the target ports are free.
+
+{% for key, value in bbpe|dictsort %}
+{% for cdn, info in value['ports']|dictsort %}
+{% for item, info in bbpe.1.ports|dictsort %}
+show running-config interface {{ info.remote_port }}
+
+# Verify that the port is not active/configured in a bundle:
+
+show etherchannel summary
+
+On ALU 7750:
+============
+{% for item, info in bbpe.1.ports|dictsort %}
+admin display-config | match {{ info.port }} context all
+  
+In case the port is already used in a bundle, this needs to be crossed verified manually.
+  
+If the ports are free, then proceed next.
+
+Implementation Stage:
+------------------------------
+Check the interfaces that have been patched by the field engineer and report any problems
+The port interfaces are as follows:
+
+=============================================================================================
+## L2 TESTS ##
+
+## ssh {{ hostname }}
+
+show interfaces transceiver detail module 1
+
+## and note if any of the above ports current values have high alarm or high Warn
+
+## ssh sr12.enedi
+{% for item, info in bbpe.1.ports|dictsort %}
+show port {{ info.port }}| match "(Tx|Rx).*Power" expression
+
+## In case the Optical Light Levels are not satisfactory and outside defined Thresholds, stop and inform Tx/ICC about it.
+## The Link needs to be fixed before proceeding to next step. In such case, keep the Interfaces Up and Update
+## Interface Descriptions as below.
+
+## In case the Optical Light Levels are not satisfactory and outside defined Thresholds, stop and inform Tx/ICC about it.
+## The Link needs to be fixed before proceeding to next step. In such case, keep the Interfaces Up and Update
+## Interface Descriptions as below.
+
+On the ar21.enedi configure the following description on the port that failed the L2 Test:
+
+Configure terminal
+ interface te1/7
+ description [no-mon, FAILED L2 TEST Implementation team Informed]
+ shutdown
+
+==============================================================================================================================================
+
+## IF the above L2 tests were successful please proceed with L3 Ping Test
+
+## Layer 3 Ping test - Please do usual 10,000 ping test for these local circuits
+
+## the addresses you can use are as follows:
+## on the ar21.enedi interface port that you are testing:
+
+configure terminal
+ interface Te1/7
+  mtu 8226
+  ip address 84.38.37.249 255.255.255.254
+  no shutdown
+
+##  On sr12 interface port you are testing each in turn use:
+  
+/configure router
+interface "ar21_L3Test"
+address 84.38.37.248/31
+description "[L3Test]"
+port 10/2/1
+exit all
+
+ICMP Tests - 100000 Packets should be sent over the link and drops/errors to be checked afterwards.
+Any drops/errors will mean a failed change.
+
+On Cisco Device:
+  
+ping 84.38.37.248 source 84.38.37.249 size 8164 repeat 10000 df-bit validate
+ 
+show interfaces Te1/7 | i err <Shouldn't see any incrementing errors>
+show interfaces Te1/7 | i drops <Shouldn't see any incrementing errors>  
+
+If L3 test failed please shut down port before proceeding to test next port 
+and on ar21.enedi configure description on the failed port as follows:
+
+configure terminal
+ interface 1/7
+ description [no-mon, FAILED L3 TEST Implementation team Informed]
+ shutdown
+
+## on the sr12
+
+ping 84.38.37.248 source 84.38.37.249 size 8164 count 100000 do-not-fragment rapid
+
+/configure router interface "ar21_L3Test"
+shutdown
+no address
+no description
+no port
+exit all
+
+Close The Ticket at the end, no matter if the Tests were failed or passed. Inform the owner about the results, in case
+of failed tests, a new ticket will be raised after troubleshooting/fix.

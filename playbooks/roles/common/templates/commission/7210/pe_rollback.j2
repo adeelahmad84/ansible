@@ -1,0 +1,17 @@
+exit all
+configure
+{% for key, info in ports|dictsort %}
+    port {{ info.remote_port }}
+        description "[no-mon,agg,rd={{ hostname }}:{{ info.port|replace("/","-") }},cid=LOCAL] LAG {{ lag }} to {{ hostname|upper }}"
+        shutdown
+    exit
+{% endfor %}
+    lag {{ lag }}
+        description "[no-mon,rd={{ hostname }}:lag1]"
+        shutdown
+    exit
+    router
+	interface "base_{{ hostname }}_1"
+	    description "[no-mon,agg,rd={{ hostname }}:lag1]"
+            shutdown
+        exit all

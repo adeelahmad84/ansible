@@ -1,0 +1,350 @@
+{% for key, bbpe in bbpe|dictsort %}
+Please check the patching schedule is as per the portal referenced TG{{ bbpe.tgref }} (https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells)
+A-END	    Port	    B-END	    Port	CID
+{% for info, port in bbpe.array|dictsort %}
+{{ bbpe.hostname }}   {{ port.a_end }}	    {{ hostname }}	    {{ port.b_end }}	{{ port.cid }}
+{% endfor %}
+
+Dependencies:
+This upgrade has a dependency on a successful completion of a layer 3 test on every circuit within this upgrade.
+
+Summary of Steps
+1. - Circuit Test
+2. - Check Resiliency
+3. - Pre-Checks
+4. - Weight Traffic Off
+5. - Apply Configuration
+6. - Post-Checks
+7. - Weight Traffic On
+8. - Roll Back Scenario
+
+1.0 Circuit Test:
+=================
+
+Unshut the ports and check the light levels on both circuits. Ensure that the values are within range.
+{{ bbpe.hostname|upper }}
+***************************
+{% for info, port in bbpe.array|dictsort %}
+configure port {{ port.a_end }} no shutdown
+show port {{ port.a_end }} optical | match Value post-lines 5
+{% endfor %}
+
+##example output:
+                              Value High Alarm  High Warn   Low Warn  Low Alarm
+-------------------------------------------------------------------------------
+Temperature (C)               +23.7     +78.0      +73.0       -8.0      -13.0
+Supply Voltage (V)             3.34      3.70       3.60       3.00       2.90
+Tx Bias Current (mA)           37.9      85.0       80.0       20.0       15.0
+Tx Output Power (dBm)         -1.39      2.00       1.00      -7.00      -8.00
+
+
+If there are any circuits out of range please perform basic troubleshooting.
+
+If you cannot resolve poor light readings, please put this change on hold.
+
+Assuming the light levels are satisfactory, we will test the circuits. Apply the configuration below to test the new circuit
+
+{% for info, port in bbpe.array|dictsort %}
+{{ bbpe.hostname|upper }}
+***************************
+clear port {{ port.a_end }} statistics
+
+/configure router interface "base_{{ hostname }}_l3_test"
+port {{ port.a_end }}
+address 84.38.37.248/31
+no shutdown
+
+{{ hostname|upper }}
+***************************
+clear counters Te{{ port.b_end }}
+
+configure terminal
+
+interface Te{{ port.b_end }}
+ip address 84.38.37.249 255.255.255.254
+no shut
+end
+
+ping 84.38.37.248 repeat 1000 df-bit
+
+Check the interface for errors
+show interface Te{{ port.b_end }} | inc error
+
+{{ bbpe.hostname|upper }}
+***************************
+ping 84.38.37.249 count 1000 rapid do-not-fragment
+show port {{ port.a_end }} ethernet detail | match errors ignore-case
+
+/configure router interface "base_{{ hostname }}_l3Test"
+  no port
+  shutdown
+/configure router
+  no interface base_{{ hostname }}_l3Test
+
+{{ hostname|upper }}
+***************************
+configure terminal
+
+interface Te{{ port.b_end }}
+no ip address
+end
+{% endfor %}
+
+2.0 - Check Resiliency
+======================
+
+{{ hostname }}
+==============
+{{ hostname }}#term len 0
+
+- Check that LACP is active on the resilient interface and that the ports are in an operational status. They should be up and enabled.
+- Check that there is traffic currently traversing the resilient LAG/BUNDLE ports.
+
+{{ hostname }}#
+{% if bbpe.bundle == 1 %}
+show lacp 2 neighbor
+show lacp 2 counters
+show lacp 2 internal
+show interfaces port-channel 2 counters
+
+show lacp 3 neighbor
+show lacp 3 counters
+show lacp 3 internal
+show interfaces port-channel 3 counters
+{% elif bbpe.bundle == 2 %}
+show lacp 1 neighbor
+show lacp 1 counters
+show lacp 1 internal
+show interfaces port-channel 1 counters
+
+show lacp 3 neighbor
+show lacp 3 counters
+show lacp 3 internal
+show interfaces port-channel 3 counters
+{% else %}
+show lacp 1 neighbor
+show lacp 1 counters
+show lacp 1 internal
+show interfaces port-channel 1 counters
+
+show lacp 2 neighbor
+show lacp 2 counters
+show lacp 2 internal
+show interfaces port-channel 2 counters
+{% endif %}
+
+3.0 - Pre-Checks
+===============
+
+Before proceeding with the upgrade, ensure that the following pre-checks have been adhered to.
+- Check monitoring systems to ensure that there are no unreported errors.
+- Ensure you are able to access both {{ hostname }} and {{ bbpe.hostname }} inband.
+- Please use URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_{{ site_id|lower }}.html to monitor the traffic between {{ hostname }} and {{ bbpe.hostname }}.
+
+{{ hostname }}#show ip route static
+{{ bbpe.hostname }}#show router static-route next-hop {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }}
+{{ bbpe.hostname }}#show router static-route next-hop {{ bbpe.ipv6 | ipaddr('1')|regex_replace('/.*', ' ') }}
+
+- Check the amount of circuits currently in the bundle.
+- Check there is a current BGP session and that it is in an operational status.
+- Check there is traffic currently traversing circuits in the bundle.
+
+{{ bbpe.hostname }}
+*******************
+show lag {{ bbpe.lag }} port
+monitor lag {{ bbpe.lag }}
+show router bgp neighbor {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} | match State
+
+4.0 - Weight Traffic Off
+========================
+
+Please shutdown the static-routes and BGP neighbors on {{ bbpe.hostname }} to weight the traffic off.
+
+{{ bbpe.hostname|upper }}
+****************************
+configure router static-route next-hop {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} disable
+configure router static-route next-hop {{ bbpe.ipv6 | ipaddr('1')|regex_replace('/.*', ' ') }} disable
+configure router bgp group "IN-POP-CDN" neighbor {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} shutdown
+
+
+Monitor LAG on {{ bbpe.hostname }} to ensure traffic has dropped off all links in the LAG.
+
+monitor lag {{ bbpe.lag }}
+
+also monitor the URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_{{ site_id|lower }}.html
+
+
+5.0 - Apply Configuration
+=========================
+
+Make sure the target interfaces on {{ bbpe.hostname }} are in a shut down state.
+
+{% for info, port in bbpe.array|dictsort %}
+configure port {{ port.a_end }} shutdown
+{% endfor %}
+
+Apply configuration to {{ bbpe.hostname }}
+
+exit all
+configure
+{% for info, port in bbpe.array|dictsort %}
+    port {{ port.a_end }}
+        description "[core,rd={{ hostname }}:te{{ port.b_end|replace('/', '-') }},cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_{{ rack|upper }}"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+{% endfor %}
+    lag {{ bbpe.lag }}
+	shutdown
+	no lacp
+{% for info, port in bbpe.array|dictsort %}
+	port {{ port.a_end }}
+{% endfor %}
+	lacp active
+	no shutdown
+exit all
+
+Apply configuration to {{ hostname }}
+
+{{ hostname }}#
+configure terminal
+!
+{% for info, port in bbpe.array|dictsort %}
+interface TenGigabitEthernet{{ port.b_end }}
+ description [core,rd={{ bbpe.hostname|lower }}:{{ port.a_end|replace('/', '-') }},cid=LOCAL,iv-s=cdn_pop] UPLINK TO {{ bbpe.hostname|upper }}
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group {{ bbpe.bundle }} mode active
+{% endfor %}
+!
+end
+wr mem
+
+5.0 - Post-Checks
+================
+
+- Check the all the circuits have joined the bundle and are in an active state.
+
+{{ bbpe.hostname }}
+*********************
+show lag {{ bbpe.lag }} port | match active | count
+{% for info, port in bbpe.array|dictsort %}
+show port {{ port.a_end }} ethernet efm-oam
+{% endfor %}
+
+{{ hostname }}
+**************
+show interfaces port-channel {{ bbpe.bundle }} etherchannel | i Number
+
+6.0 - Weight Traffic On
+=======================
+
+Please unshut the static-routes and BGP neighbors on {{ bbpe.hostname }} to weight the traffic on.
+
+{{ bbpe.hostname|upper }}
+****************************
+configure router static-route next-hop {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} enable
+configure router static-route next-hop {{ bbpe.ipv6 | ipaddr('1')|regex_replace('/.*', ' ') }} enable
+configure router bgp group "IN-POP-CDN" neighbor {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} no shutdown
+
+
+Monitor LAG on {{ bbpe.hostname }} to ensure traffic has picked up on all links in the LAG.
+
+monitor lag {{ bbpe.lag }}
+
+also monitor the URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_{{ site_id|lower }}.html
+
+Please wait 5 minutes while monitoring the interfaces to ensure both uplinks are functioning as expected. When you are happy traffic is flowing through pr2.hobir the change is complete.
+
+At this stage, the change is now complete.
+
+7.0 - Roll Back Scenario
+=======================
+
+Make sure traffic is weighted off {{ bbpe.hostname }} before rolling back.
+
+{{ bbpe.hostname|upper }}
+****************************
+configure router static-route next-hop {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} disable
+configure router static-route next-hop {{ bbpe.ipv6 | ipaddr('1')|regex_replace('/.*', ' ') }} disable
+configure router bgp group "IN-POP-CDN" neighbor {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} shutdown
+
+Monitor interfaces on {{ bbpe.hostname }} to ensure traffic has dropped off all links in the bundle.
+
+monitor lag {{ bbpe.lag }}
+
+After traffic has been weighted off successfully, shut down the ports.
+
+{{ bbpe.hostname }}
+******************
+exit all
+configure
+{% for info, port in bbpe.array|dictsort %}
+    port {{ port.a_end }}
+        description "[no-mon,core,rd={{ hostname }}:te{{ port.b_end|replace('/', '-') }},cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_{{ rack|upper }}"
+        shutdown
+    exit
+{% endfor %}
+    lag {{ bbpe.lag }}
+	shutdown
+	no lacp
+{% for info, port in bbpe.array|dictsort %}
+	no port {{ port.a_end }}
+{% endfor %}
+	lacp active
+	no shutdown
+exit all
+
+Apply configuration to {{ hostname }}
+
+{{ hostname }}#
+configure terminal
+!
+{% for info, port in bbpe.array|dictsort %}
+interface TenGigabitEthernet{{ port.b_end }}
+ description [no-mon,core,rd={{ bbpe.hostname|lower }}:{{ port.a_end|replace('/', '-') }},cid=LOCAL,iv-s=cdn_pop] UPLINK TO {{ bbpe.hostname|upper }}
+ no channel-group {{ bbpe.bundle }}
+ no channel-protocol lacp
+{% endfor %}
+!
+end
+wr mem
+
+
+Post Checks
+===========
+- Check the amount of circuits currently in the bundle. There should be the same amount as pre-checks
+
+{{ bbpe.hostname }}
+show lag {{ bbpe.lag }} port | match active | count
+
+
+After all post-checks have been completed we can weight traffic back onto the bundle
+
+Please unshut the static-routes and BGP neighbors on {{ bbpe.hostname }} to weight the traffic on.
+
+{{ bbpe.hostname|upper }}
+****************************
+configure router static-route next-hop {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} enable
+configure router static-route next-hop {{ bbpe.ipv6 | ipaddr('1')|regex_replace('/.*', ' ') }} enable
+configure router bgp group "IN-POP-CDN" neighbor {{ bbpe.ipv4 | ipaddr('1')|regex_replace('/.*', ' ') }} no shutdown
+
+
+Monitor LAG on {{ bbpe.hostname }} to ensure traffic has picked up on all links in the LAG.
+
+monitor lag {{ bbpe.lag }}
+
+also monitor the URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_{{ site_id|lower }}.html
+
+Please wait 5 minutes while monitoring the interfaces to ensure both uplinks are functioning as expected. When you are happy traffic is flowing through pr2.hobir the change is complete.
+
+Roll back is now complete
+{% endfor %}

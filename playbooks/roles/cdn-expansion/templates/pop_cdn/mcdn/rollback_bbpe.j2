@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-MCDN-LAN"
+                no prefix {{ mcdn.ipv6 | ipaddr('0') }} exact
+	commit
+	exit
+        no static-route {{ mcdn.ipv6 | ipaddr('0') }}
+        no static-route {{ mcdn.ipv4 | ipaddr('0') }}
+exit all

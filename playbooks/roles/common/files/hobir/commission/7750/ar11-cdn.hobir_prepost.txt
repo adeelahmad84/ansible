@@ -1,0 +1,2 @@
+show card 6
+show port 6

@@ -1,0 +1,34 @@
+exit all
+configure
+{% for key, info in ports|dictsort %}
+    port {{ info.remote_port }}
+        description "[agg,rd={{ hostname }}:{{ info.port|replace("/","-") }},cid=LOCAL] LAG {{ lag }} to {{ hostname|upper }}"
+        ethernet
+            mode hybrid
+            encap-type dot1q
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+{% endfor %}
+    lag {{ lag }}
+        description "[rd={{ hostname }}:lag1]"
+        mode hybrid
+        encap-type dot1q
+{% for key, info in ports|dictsort %}
+        port {{ info.remote_port }}
+{% endfor %}
+        lacp active
+        port-threshold {{ ((ports|length /3)|round|int * 2) - 1 }} action down
+        no shutdown
+    exit
+    router
+	interface "base_{{ hostname }}_1"
+            address {{ management | ipaddr('1') }}
+	    description "[agg,rd={{ hostname }}:lag1]"
+            cpu-protection 3
+            port lag-{{ lag }}:255
+            qos 10
+            cflowd interface both
+            no shutdown
+        exit all

@@ -1,0 +1,87 @@
+configure terminal
+!
+interface Bundle-Ether262
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr17.syost:lag1,iv-s=bb]
+ no shutdown
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links 2
+ load-interval 30
+ dampening 1 750 2000 1
+ logging events link-status
+ ipv4 mtu 8192
+ ipv4 address 89.200.131.218 255.255.255.254
+!
+interface Te0/2/0/6/2
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr17.syost:1-1-1,cid=1000/LNTW-OSTF/10GLAN/OVN14,iv-s=bb]
+ no shutdown
+ bundle id 262 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Te0/2/0/6/1
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr17.syost:1-1-2,cid=1000/LNTW-OSTF/10GLAN/OVN15,iv-s=bb]
+ no shutdown
+ bundle id 262 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Te0/2/0/6/0
+ description NOT-HANDED-OVER [no-mon,core-o,rd=sr17.syost:1-1-3,cid=1000/LNTW-OSTF/10GLAN/OVN16,iv-s=bb]
+ no shutdown
+ bundle id 262 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+router isis 65444
+ interface Bundle-Ether262
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 tZI0ouJ7jINEB6JY
+  address-family ipv4 unicast
+   metric 9910000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor 84.38.34.6 password clear QoEJe3MmNy57dMtf
+ address-family ipv4
+  label
+   remote
+    accept
+     from 84.38.34.6:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether262
+ !
+!
+rsvp
+ interface Bundle-Ether262
+  bandwidth 30 Gbps
+  signalling dscp 48
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether262
+ !
+!
+commit

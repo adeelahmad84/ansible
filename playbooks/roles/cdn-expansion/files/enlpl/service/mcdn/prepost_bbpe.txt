@@ -1,0 +1,7 @@
+show router route-table 2A02:C7A:8000:f804::/64 | ignore-case
+show router route-table 176.255.171.64/27 | ignore-case
+show router policy prefix "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+show router static-route 2A02:C7A:8000:f804::/64
+show router static-route 176.255.171.64/27
+show router bgp neighbor 89.200.128.1[2..4] advertised-routes ipv6 | match 2A02:C7A:8000:f804::/64 context all ignore-case
+show router bgp neighbor 89.200.128.[88..90] advertised-routes ipv4 | match 176.255.171.64/27 context all ignore-case

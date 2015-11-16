@@ -1,0 +1,14 @@
+exit all
+configure
+    port 9/1/1
+        description "[core,ip=,rd=pr2.thlon:0-0-3,cid=SNS:1003/LEIA-LNTW/100G/CDN1,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 9/2/1
+        description "[core,ip=,rd=pr2.thlon:0-0-6,cid=SNS:1003/LEIA-LNTW/100G/CDN2,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 2
+        description "[core,ip=,rd=pr2.thlon:be110,iv-s=vcdn_sc]"
+        no shutdown
+exit all

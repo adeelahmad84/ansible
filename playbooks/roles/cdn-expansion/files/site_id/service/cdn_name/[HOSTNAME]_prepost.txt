@@ -1,0 +1,17 @@
+show port [LOCAL_PORT] | match expression "Oper State|Oper Speed"
+show port [LOCAL_PORT] | match expression "Oper State|Oper Speed"
+show port [LOCAL_PORT] | match expression "Oper State|Oper Speed"
+show port [LOCAL_PORT] | match expression "Oper State|Oper Speed"
+show port [LOCAL_PORT] | match expression "Oper State|Oper Speed"
+show lag 80
+show lag 80 description
+show lag 80 port
+show lag 80 lacp-partner
+
+show service id 220900 base
+show router route-table ipv4 192.168.0.0/24
+show router route-table ipv6 2a08:def0::/64
+show router neighbor | match context all 220900
+show router policy prefix-list "CORE-CDN-IPV4-CDN_NAME-LAN"
+show router policy prefix-list "CORE-CDN-IPV6-CDN_NAME-LAN"
+show router policy-edits

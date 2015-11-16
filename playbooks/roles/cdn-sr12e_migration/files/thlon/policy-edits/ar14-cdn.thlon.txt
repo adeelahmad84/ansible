@@ -1,0 +1,18 @@
+exit all
+configure
+    router
+	policy-options
+	    begin
+            community "cdn-primary-Akamai-export-comm" members "4589:14424"
+            community "cdn-secondary-Akamai-export-comm" members "4589:14425"
+	    as-path "ASPATH-EXPORT-CLOUD-TO-AKAMAI" expression "41012+"
+	    policy-statement "EXPORT-TO-IBGP6"
+		entry 294
+		    from
+			no prefix-list
+		    exit
+		exit
+		no entry 299
+	    exit
+	    commit
+exit all

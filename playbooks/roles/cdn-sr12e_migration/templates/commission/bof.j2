@@ -1,0 +1,13 @@
+bof address          {{ dcn_primary_address }}/24 active
+bof address          {{ dcn_secondary_address }}/24 standby
+bof static-route     10.200.0.0/15 next-hop {{ dcn_default_gateway }}
+bof static-route     84.38.45.0/24 next-hop {{ dcn_default_gateway }}
+bof static-route     84.38.47.0/24 next-hop {{ dcn_default_gateway }}
+bof static-route     90.207.236.0/23 next-hop {{ dcn_default_gateway }}
+bof static-route     90.207.238.0/24 next-hop {{ dcn_default_gateway }}
+bof static-route     90.223.196.0/24 next-hop {{ dcn_default_gateway }}
+bof static-route     90.223.208.0/23 next-hop {{ dcn_default_gateway }}
+
+bof primary-image    cf3:\IMAGES\TiMOS-12.0R5
+bof primary-config   cf3:\CFG\{{ node_name }}.cfg
+bof secondary-image  cf3:\IMAGES\TiMOS-10.0R5

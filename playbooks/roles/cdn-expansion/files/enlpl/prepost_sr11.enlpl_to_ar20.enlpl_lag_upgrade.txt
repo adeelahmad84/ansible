@@ -1,0 +1,3 @@
+show port 3/1/3 | match expression "Oper State | Oper Speed"
+show port description 3/1/3 post-lines 1
+show lag 50 port

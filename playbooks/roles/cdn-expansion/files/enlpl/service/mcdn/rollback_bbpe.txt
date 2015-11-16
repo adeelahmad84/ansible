@@ -1,0 +1,64 @@
+
+########SR10.ENLPL################
+exit all
+configure
+    router
+        no static-route 2a02:c7a:8000:f804::/64 next-hop 2a02:c78:1:12::1
+        no static-route 176.255.171.64/27 next-hop 2.120.9.243 tag 20170
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                no prefix 2A02:C7A:8000:f804::/64
+	    exit
+            no community "cdn-enlpl-akamai-mcdn"
+            policy-statement "EXPORT-TO-IBGP"
+                no entry 27
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                no entry 296
+	    exit
+	    commit
+exit all
+########SR10.ENLPL################
+########SR11.ENLPL################
+exit all
+configure
+    router
+        no static-route 2a02:c7a:8000:f804::/64 next-hop 2a02:c78:1:12::3
+        no static-route 176.255.171.64/27 next-hop 2.120.9.245 tag 20180
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                no prefix 2A02:C7A:8000:f804::/64
+	    exit
+            no community "cdn-enlpl-akamai-mcdn"
+            policy-statement "EXPORT-TO-IBGP"
+                no entry 27
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                no entry 296
+	    exit
+	    commit
+exit all
+########SR11.ENLPL################
+########SR12.ENLPL################
+exit all
+configure
+    router
+        no static-route 2a02:c7a:8000:f804::/64 next-hop 2a02:c78:1:12::5
+        no static-route 176.255.171.64/27 next-hop 2.120.8.41 tag 20190
+        policy-options
+	    begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                no prefix 2A02:C7A:8000:f804::/64
+	    exit
+            no community "cdn-enlpl-akamai-mcdn"
+            policy-statement "EXPORT-TO-IBGP"
+                no entry 27
+	    exit
+            policy-statement "EXPORT-TO-IBGP6"
+                no entry 296
+	    exit
+	    commit
+exit all
+########SR12.ENLPL################

@@ -1,0 +1,22 @@
+Summary:
+C2: POP-CDN PE LAG Upgrade - Add 1 x 10G links [TG2540][SR11.ENLPL-TO-AR20.ENLPL]
+
+Business Justification:
+
+This change is to increase LAG/Bundle capacity in order to accomodate the growing capacity of CDN regions in ENLPL.
+This change not going ahead will impact the delivery of increasing any region capacity in this site, ultimately causing sup-optimal CDN performance in SNS.
+
+Implementation Plan:
+As this is a lengthy plan the details have been attached as procedure.txt
+
+Test Plan:
+As this is a lengthy plan the details have been attached as procedure.txt
+
+Backout Plan:
+As this is a lengthy plan the details have been attached as procedure.txt
+
+Risk Assessment:
+
+This change will positively impact data services. Successful implementation will increase data bandwidth capacity
+During the change, there is the risk of reduced resilience and traffic saturation on the backup link . However, this is mitigated by the fact that combined traffic levels from historical values do not exceed the bandwidth capacity of the single backup link.
+Worst case would be losing the backup link during the outage window. This is very low likelihood due to the high level of success recorded for this type of planned work.

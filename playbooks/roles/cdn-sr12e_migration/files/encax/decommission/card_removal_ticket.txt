@@ -1,0 +1,13 @@
+Summary:
+Removal of a decommssioned line card
+
+Implementation Steps:
+
+Device - ar11-cdn.encax
+Site - ENCAX, C09, Port Road Business Park, Carlisle CA2 7AJ Console: 10.200.48.100 port 23/24
+Summary -
+
+Please remove the following cards from ar11-cdn.encax:
+
+Card/slot 6
+Card/slot 7

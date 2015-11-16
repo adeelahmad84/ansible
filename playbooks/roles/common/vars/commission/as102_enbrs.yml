@@ -1,0 +1,27 @@
+---
+
+#[7210_RELATED BEGINS AS101, AS102...etc]
+hostname: as102.enbrs
+# ADDRESS AND RACK LOCATIONS #
+site_id: enbrs
+# ADDRESS AND RAK LOCATION #
+location: Bristol
+# GENERATE NEW KEY #
+tacacs: paChiePox5quoeph
+# PLEASE ADD RANGE IP IN "" #
+management: "90.222.232.0/29"
+#PLEASE USE 1/1/24
+mgt_port: 1/1/24
+ports:
+  1:
+    remote_port:
+    port: "1/1/25"
+  2:
+    remote_port:
+    port: "1/1/26"
+
+#[CDN_PE_RELATED]
+# USE NEXT AVAILABLE LAG#
+lag: 21
+# NAME OF UPLINK PE #
+pe: ar20.enbrs

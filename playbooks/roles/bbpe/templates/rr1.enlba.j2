@@ -1,0 +1,17 @@
+! $Id: rr1.enlba.txt,v 1.1 2014/04/02 13:47:55 AJA09 Exp $
+router bgp 65444
+ neighbor {{ system_address }} inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor {{ system_address }} description {{ node_name }}
+ neighbor {{ system_address }} password 0 {{ rr1_enlba_bgp_password }}
+!
+ address-family ipv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-IPV4-LABEL
+ !
+ address-family vpnv4
+ neighbor {{ system_address }} activate
+ neighbor {{ system_address }} send-community extended
+ neighbor {{ system_address }} inherit peer-policy OVN-RR-client-VPNV4
+end
+
+

@@ -1,0 +1,16 @@
+exit all
+configure
+{% for key, value in first_interconnect|dictsort %}
+    port {{ value.port_new }}
+        description "[core,ip=,rd={{ node_name }}:{{ value.port_old|replace("/","-") }},cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+{% endfor %}
+    router
+	interface "base_{{ old_node_name }}"
+            description "[core-o,rd={{ old_node_name }}:{{ first_interconnect.1.port_old|replace("/","-") }}]"
+	    shutdown
+	    no port
+	    port {{ first_interconnect.1.port_new }}
+	    no shutdown
+exit all

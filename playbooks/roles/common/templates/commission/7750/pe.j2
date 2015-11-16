@@ -1,0 +1,14 @@
+exit all
+configure
+    card {{ card }}
+        card-type imm40-10gb-sfp
+        mda 1
+            network
+                ingress
+                    queue-policy "network-queue-imm40-10gb-sfp"
+                exit
+            exit
+            no shutdown
+        exit
+        no shutdown
+exit all

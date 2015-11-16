@@ -1,0 +1,4 @@
+site_id : site_id
+site_community: bgp_site_community_id
+dcn_default_gateway: '[DCN_DEFAULT_GATEWAY]'
+location: '[ADDRESS OF THIS SITE]'

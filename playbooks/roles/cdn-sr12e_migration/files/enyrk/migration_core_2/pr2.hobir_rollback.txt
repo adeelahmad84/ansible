@@ -1,0 +1,31 @@
+interface Hu0/7/0/2
+ description [core-o,rd=ar10.enyrk:9-1-1,cid=1003/BHMB-YRKA/100G/CDN1,iv-s=bb]
+ bundle id 319 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/7/0/3
+ description [core-o,rd=ar10.enyrk:2-1-1,cid=1003/BHMB-YRKA/100G/CDN2,iv-s=bb]
+ bundle id 319 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface Hu0/7/0/5
+ description [core-o,rd=ar10.enyrk:7-1-1,cid=1003/BHMB-YRKA/100G/CDN3,iv-s=bb]
+ bundle id 319 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+commit

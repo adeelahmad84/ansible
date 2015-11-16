@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.221 password BpKJo4etDB65p3AS
+
+interface Port-channel3.3622
+ description [core,rd=sr15.bllon:sdp266,cid=SNS:1000/LNBL-LNBL/PW/999360622] sedcanopy pw
+ encapsulation dot1Q 3622
+ xconnect 84.38.34.221 999360622 pw-class SEDCANOPY
+end

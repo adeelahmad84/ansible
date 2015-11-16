@@ -1,0 +1,29 @@
+configure router mpls ingress-statistics lsp "SR11.ENSTS-1-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-1-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-2-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-2-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-3-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-3-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-4-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-4-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-5-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-5-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-6-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-6-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-7-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-7-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-8-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-8-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-9-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-9-AR13ENLBA" sender 84.38.34.3 no shutdown
+
+configure router mpls ingress-statistics lsp "SR11.ENSTS-10-AR13ENLBA" sender 84.38.34.3
+configure router mpls ingress-statistics lsp "SR11.ENSTS-10-AR13ENLBA" sender 84.38.34.3 no shutdown

@@ -1,0 +1,5 @@
+{% for key, value in bbpe.2.ports|dictsort %}
+show port {{ value.port }} | match expression "Oper State | Oper Speed"
+show port description {{ value.port }} post-lines 1
+{% endfor %}
+show lag 50 port

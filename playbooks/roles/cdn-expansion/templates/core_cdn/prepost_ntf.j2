@@ -1,0 +1,83 @@
+# services and ports will be down as this is configured prior to plug up.  Expect to atleast see the configured ports in the service, and the configured lag in the interface.
+{% for item, ports in ntf.array|dictsort %}
+{% for key, info in ports|dictsort %}
+show port {{ info.port }}
+show port {{ info.port }} description
+{% endfor %}
+{% endfor %}
+# during post-checks ensure the port descriptions are as applied.  Ensure the 'no-mon' is present, expect the ports to be down.
+show service id {{ ntf.ies }} base
+#during post-check expect to see output similar to example below:
+#===============================================================================
+#Service Basic Information
+#===============================================================================
+#Service Id        : {{ ntf.ies }}              Vpn Id            : 0
+#Service Type      : IES                 
+#Name              : ies{{ ntf.ies }}_cdn-netflix
+#Description       : [no-mon,ext,iv-g=netflix,iv-s=cdn_netflix] Netflix A-C Gateway IP
+#Customer Id       : 27                  
+#Last Status Change: 04/25/2015 00:16:38 
+#Last Mgmt Change  : 04/23/2015 00:08:15 
+#Admin State       : Up                  Oper State        : Down
+#SAP Count         : 0                   
+# 
+# -------------------------------------------------------------------------------
+# Service Access & Destination Points
+# -------------------------------------------------------------------------------
+# Identifier                               Type         AdmMTU  OprMTU  Adm  Opr
+# -------------------------------------------------------------------------------
+# vpls:vpls{{ ntf.vpls }}_cdn-netflix              rvpls        0       1500    Up   Down
+# ===============================================================================
+
+show service id {{ ntf.ies }} interface
+#during post-check expect to see output similar to example below:
+#===============================================================================
+#Interface Table
+#===============================================================================
+#Interface-Name                   Adm         Opr(v4/v6)  Type    Port/SapId
+#   IP-Address                                                    PfxState
+#-------------------------------------------------------------------------------
+#ies {{ ntf.ies }}_cdn-netflix           Up          Down/Down       IES     rvpls
+#    {{ ntf.ipv4 | ipaddr('1') }}                                             n/a
+#    {{ ntf.ipv6 | ipaddr('1') }}                                       PREFERRED
+#    FE80::EA4:2FF:FE13:BC30/64                                    PREFERRED
+#-------------------------------------------------------------------------------
+#Interfaces : 1
+#===============================================================================
+#
+show service id {{ ntf.vpls }} base
+#during post-check expect to see output similar to example below:
+#===============================================================================
+#Service Basic Information
+#===============================================================================
+#Service Id        : {{ ntf.vpls }}              Vpn Id            : 0
+#Service Type      : VPLS                
+#Name              : vpls{{ ntf.vpls }}_cdn-netflix
+#Description       : VPLS Interconnect Netflix Servers A-C
+#Customer Id       : 27                  
+#Last Status Change: 04/25/2015 00:16:38 
+#Last Mgmt Change  : 11/15/2015 00:24:34 
+#Admin State       : Up                  Oper State        : Down
+#MTU               : 1514                Def. Mesh VC Id   : {{ ntf.vpls }}
+#SAP Count         : {{ ntf.array|length }}                   SDP Bind Count    : 0
+#Snd Flush on Fail : Disabled            Host Conn Verify  : Disabled
+#Propagate MacFlush: Disabled            Per Svc Hashing   : Disabled
+#Allow IP Intf Bind: Enabled             
+#Def. Gateway IP   : None                
+#Def. Gateway MAC  : None                
+#Temp Flood Time   : Disabled            Temp Flood        : Inactive
+#Temp Flood Chg Cnt: 0                   
+# 
+# -------------------------------------------------------------------------------
+# Service Access & Destination Points
+# -------------------------------------------------------------------------------
+# Identifier                               Type         AdmMTU  OprMTU  Adm  Opr
+# -------------------------------------------------------------------------------
+{% for item, ports in ntf['array']|dictsort %}
+# sap:lag-{{ item }}                               null         8226    8226    Up   Down
+{% endfor %}
+# ===============================================================================
+
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match {{ ntf.ipv6 }}
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match {{ ntf.ipv4 }}
+# do not expect to see routes after checks as the interfaces will be down.

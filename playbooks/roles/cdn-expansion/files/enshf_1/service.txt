@@ -1,0 +1,88 @@
+interface TenGigabitEthernet1/19
+ description [core,rd=as101.enshf:ge1-1-25,cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link 1 of Lag_20 to as101
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ load-interval 30
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 20 mode active
+!
+interface TenGigabitEthernet1/20
+ description [core,rd=as101.enshf:ge1-1-26,cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link 2 of LAG_20 to as101
+ switchport trunk allowed vlan 20,201
+ switchport mode trunk
+ load-interval 30
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 20 mode active
+!
+interface TenGigabitEthernet1/25
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] Link_1 of P-CH_30 to Netflix NIC_1 Server_1
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet1/26
+ description [ext,iv-g=netflix,iv-s=cdn_netflix] Link_2 of P-CH_30 to Netflix NIC_2 Server_1
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 30 mode active
+!
+interface TenGigabitEthernet1/29
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 2 - PCH60 to mcdn NIC_2 Server
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/30
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link 1 - PCH60 to mcdn NIC_1 Server
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group 60 mode active
+!
+interface TenGigabitEthernet1/31
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Link 1 of Port-Channel 40 to Akamai Managed HP6600 Switch Port_5 AANP RACK_D013
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 40 mode active
+!
+interface TenGigabitEthernet1/32
+ description [ext,iv-g=aanp,iv-s=cdn_aanp] Link 2 of Port-Channel 40 to Akamai Managed HP6600 Switch Port_6 AANP RACK_D013
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 40 mode active
+!

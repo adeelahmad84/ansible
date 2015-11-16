@@ -1,0 +1,20 @@
+---
+
+- name: Decommission "{{ old_node_name }}"
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+  #[PROCEDURE]
+    - { src: 'decommission/7750/proc.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/procedure.txt' }
+  #[IMPLEMENTATION]
+    - { src: 'decommission/7750/ar11.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/{{ node_name }}.txt' }
+    - { src: 'decommission/7750/core.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/NCS.txt' }
+    - { src: 'decommission/7750/decom_device.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/{{ old_node_name }}.txt' }
+    - { src: 'decommission/7750/rr_decom.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/route-reflectors.txt' }
+  #[ROLLBACK]
+    - { src: 'decommission/7750/rr_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/rr_rollback.txt' }
+
+  #[DNS]
+    - { src: 'decommission/7750/dns.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/dns_ticket.txt' }
+
+  #[CARD_REMOVAL]
+    - { src: 'decommission/7750/card_removal.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/decommission/card_removal_ticket.txt' }

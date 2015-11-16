@@ -1,0 +1,514 @@
+---
+system_address:
+system_last_octet:
+
+location:
+dcn_primary_address:
+dcn_secondary_address:
+
+old_dcn_pri:
+old_dcn_sec:
+old_console:
+
+node_name:
+tacacs_secret:
+
+cards:
+  -
+  -
+
+#old_device_details
+old_node_name:
+old_system_address:
+old_last_octet:
+
+old_core_1_lag:
+  1:
+    lag:
+    description:
+
+old_core_2_lag:
+  1:
+    lag:
+    description:
+
+core_1_hostname:
+core_1_loopback:
+core_2_hostname:
+core_2_loopback:
+
+core_1:
+  1:
+    port:
+    old_port:
+    remote_port:
+    cid:
+  2:
+    port:
+    old_port:
+    remote_port:
+    cid:
+  3:
+    port:
+    old_port:
+    remote_port:
+    cid:
+
+core_2:
+  1:
+    port:
+    old_port:
+    remote_port:
+    cid:
+  2:
+    port:
+    old_port:
+    remote_port:
+    cid:
+  3:
+    port:
+    old_port:
+    remote_port:
+    cid:
+
+first_interconnect:
+  1:
+    port_old:
+    port_new:
+
+pe_interconnect_ports:
+  1:
+    port_old:
+    port_new:
+
+  2:
+    port_old:
+    port_new:
+
+  3:
+    port_old:
+    port_new:
+
+core_1_to_edge_address_range:
+core_2_to_edge_address_range:
+old_to_new_cdn_pe_address_range:
+old_to_new_cdn_ldp_auth:
+
+core_1_isis_auth:
+core_2_isis_auth:
+old_to_new_pe_auth:
+
+isis_metric: "100000"
+
+core_1_ldp_auth:
+core_2_ldp_auth:
+
+rr0_bllon_bgp_auth:
+rr0_enlba_bgp_auth:
+rr1_bllon_bgp_auth:
+rr1_enlba_bgp_auth:
+rr3_bllon_bgp_auth:
+rr3_enlba_bgp_auth:
+
+old_rr0_bllon_bgp_auth:
+old_rr0_enlba_bgp_auth:
+old_rr1_bllon_bgp_auth:
+old_rr1_enlba_bgp_auth:
+old_rr3_bllon_bgp_auth:
+old_rr3_enlba_bgp_auth:
+
+cdn_services_id:
+  ggc:
+    cdn: "google"
+    cust_id:
+    v4_1:
+    v4_2:
+    v4_3:
+    v6_1:
+    v6_2:
+
+  aanp:
+    cdn:
+    cust_id:
+    v4_1:
+    v4_2:
+    v4_3:
+    v6_1:
+    v6_2:
+
+  mcdn:
+    cdn:
+    cust_id:
+    v4_1:
+    v4_2:
+    v4_3:
+    v6_1:
+    v6_2:
+
+#  videocdn:
+#    cdn:
+#    cust_id:
+#    v4_1:
+#    v4_2:
+#    v4_3:
+#    v6_1:
+#    v6_2:
+
+  l3dec:
+    cdn:
+    cust_id:
+    v4_1:
+    v4_2:
+    v4_3:
+    v6_1:
+    v6_2:
+
+#  l3glo:
+#    name:
+#    cdn:
+#    cust_id:
+#    v4_1:
+#    v4_2:
+#    v4_3:
+#    v6_1:
+#    v6_2:
+#
+#  nflx:
+#    name:
+#    cdn:
+#    cust_id:
+#    v4_1:
+#    v4_2:
+#    v4_3:
+#    v6_1:
+#    v6_2:
+
+services:
+  aanp_data1:
+    cust_id:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    lag_desc:
+    array:
+      1:
+        old_port:
+        new_port:
+        description:
+      2:
+        old_port:
+        new_port:
+        description:
+
+#  ggc_data1:
+#    ipv4:
+#    ipv6:
+#    vpls_id:
+#    ies_id:
+#    ies_desc:
+#  #enter
+#    1G: false
+#    lag:
+#    ggc_mgt:
+#      ipv4:
+#      ies:
+#    cust_id:
+#    array:
+#          1:
+#            old_port:
+#            new_port:
+#            description:
+#          2:
+#            old_port:
+#            new_port:
+#            description:
+#          3:
+#            old_port:
+#            new_port:
+#            description:
+#          4:
+#            old_port:
+#            new_port:
+#            description:
+#          5:
+#            old_port:
+#            new_port:
+#            description:
+#          6:
+#            old_port:
+#            new_port:
+#            description:
+#          7:
+#            old_port:
+#            new_port:
+#            description:
+#          8:
+#            old_port:
+#            new_port:
+#            description:
+#  ggc_data2:
+#    ipv4:
+#    ipv6:
+#    vpls_id:
+#    ies_id:
+#    ies_desc:
+#  #enter
+#    1G: false
+#    lag:
+#    ggc_mgt:
+#      ipv4:
+#      ies:
+#    cust_id:
+#    array:
+#          1:
+#            old_port:
+#            new_port:
+#            description:
+#          2:
+#            old_port:
+#            new_port:
+#            description:
+#          3:
+#            old_port:
+#            new_port:
+#            description:
+#          4:
+#            old_port:
+#            new_port:
+#            description:
+#          5:
+#            old_port:
+#            new_port:
+#            description:
+#          6:
+#            old_port:
+#            new_port:
+#            description:
+#          7:
+#            old_port:
+#            new_port:
+#            description:
+#          8:
+#            old_port:
+#            new_port:
+#            description:
+  mcdn_data1:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    cust_id:
+    array:
+          1:
+            old_port:
+            new_port:
+            description:
+          2:
+            old_port:
+            new_port:
+            description:
+          3:
+            old_port:
+            new_port:
+            description:
+          4:
+            old_port:
+            new_port:
+            description:
+          5:
+            old_port:
+            new_port:
+            description:
+          6:
+            old_port:
+            new_port:
+            description:
+          7:
+            old_port:
+            new_port:
+            description:
+          8:
+            old_port:
+            new_port:
+            description:
+          9:
+            old_port:
+            new_port:
+            description:
+          10:
+            old_port:
+            new_port:
+            description:
+
+  mcdn_data2:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    cust_id:
+    array:
+          1:
+            old_port:
+            new_port:
+            description:
+          2:
+            old_port:
+            new_port:
+            description:
+          3:
+            old_port:
+            new_port:
+            description:
+          4:
+            old_port:
+            new_port:
+            description:
+          5:
+            old_port:
+            new_port:
+            description:
+          6:
+            old_port:
+            new_port:
+            description:
+          7:
+            old_port:
+            new_port:
+            description:
+          8:
+            old_port:
+            new_port:
+            description:
+          9:
+            old_port:
+            new_port:
+            description:
+          10:
+            old_port:
+            new_port:
+            description:
+
+  l3dec1:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    cust_id:
+    array:
+          1:
+            old_port:
+            new_port:
+            description:
+          2:
+            old_port:
+            new_port:
+            description:
+
+  l3dec2:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    cust_id:
+    array:
+          1:
+            old_port:
+            new_port:
+            description:
+          2:
+            old_port:
+            new_port:
+            description:
+
+  netflix1:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    cust_id:
+    array:
+          40:
+            old_port:
+            new_port:
+            description:
+          40:
+            old_port:
+            new_port:
+            description:
+          41:
+            old_port:
+            new_port:
+            description:
+          41:
+            old_port:
+            new_port:
+            description:
+          42:
+            old_port:
+            new_port:
+            description:
+          42:
+            old_port:
+            new_port:
+            description:
+
+  netflix2:
+    ipv4:
+    ipv4_2:
+    ipv4_3:
+    ipv6:
+    ies_id:
+    ies_desc:
+    vpls_id:
+    lag:
+    cust_id:
+    array:
+          43:
+            old_port:
+            new_port:
+            description:
+          43:
+            old_port:
+            new_port:
+            description:
+          44:
+            old_port:
+            new_port:
+            description:
+          44:
+            old_port:
+            new_port:
+            description:
+          45:
+            old_port:
+            new_port:
+            description:
+          45:
+            old_port:
+            new_port:
+            description:

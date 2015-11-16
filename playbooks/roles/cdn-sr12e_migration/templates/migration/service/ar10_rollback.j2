@@ -1,0 +1,35 @@
+{% for item, cdn in services|dictsort %}
+{% for port, info in  cdn['array']|dictsort %}
+/configure port {{ info.old_port }} no shutdown
+/configure port {{ info.old_port }} description "{{ info.description }}"
+{% endfor %}
+{% if cdn.lag %}
+/configure lag {{ cdn.lag }} no shutdown
+/configure lag {{ cdn.lag }} description {{ cdn.lag_desc }}
+{% for port, info in  cdn['array']|dictsort %}
+/configure lag {{ cdn.lag }} port {{ info.old_port }}
+{% endfor %}
+{% endif %}
+{% if cdn.vpls_id %}
+/configure service vpls {{ cdn.vpls_id }} no shutdown
+{% for port, info in  cdn['array']|dictsort %}
+/configure service vpls {{ cdn.vpls_id }} sap {{ info.old_port }} no shutdown
+{% endfor %}
+{% endif %}
+/configure service ies {{ cdn.ies_id }} no shutdown
+/configure service ies {{ cdn.ies_id }} interface ies{{ cdn.ies_id }}_{{ item }} no shutdown
+/configure service ies {{ cdn.ies_id }} interface ies{{ cdn.ies_id }}_{{ item }} description "{{ cdn.ies_desc }}"
+{% if cdn.vpls_id %}
+/configure service {{ cdn.ies_id }} interface ies{{ cdn.ies_id }}_{{ item }} no vpls vpls{{ cdn.vpls_id }}_cdn-{{ item }}-datafarm
+{% elif cdn.lag %}
+/configure service ies {{ cdn.ies_id }} interface ies{{ cdn.ies_id }}_{{ item }} sap lag-{{ cdn.lag }} no shutdown
+{% else %}
+{% for port, info in  cdn['array']|dictsort %}
+/configure service ies {{ cdn.ies_id }} interface ies{{ cdn.ies_id }}_{{ item }} sap {{ info.old_port }} no shutdown
+{% endfor %}
+{% endif %}
+{#
+#}
+
+
+{% endfor %}

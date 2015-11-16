@@ -1,0 +1,76 @@
+---
+#device information
+site_id: enbrs
+site_community: 14463
+hostname: ar20.enbrs
+loopback: "84.38.34.231/32"
+location: Bristol
+tacacs_key:
+console:
+second: false
+rack: "RACK_E010"
+
+#Uplink information
+bbpe:
+  1:
+            # USE NETWORK RANGE #
+    ipv4_p2p: "2.120.9.222/31"
+    ipv6_p2p: "2a02:c78:1:13::/127"
+    ggc_tag: 20180
+    ntf_tag:
+    aanp_tag:
+    mcdn_tag:
+    l3d_tag:
+    l3g_tag:
+    channel: 1
+    lag: 50
+    hostname: sr10.enbrs
+    bgp_auth: m0Pd5UmXLk8q4Aim
+    ports:
+      1:
+        remote_port: 2/1
+        port: 9/1/4
+      2:
+        remote_port: 2/2
+        port: 9/1/6
+
+  2:
+            # USE NETWORK RANGE #
+    ipv4_p2p: "2.120.10.216/31"
+    ipv6_p2p: "2a02:c78:1:1d::/127"
+    ggc_tag: 20200
+    ntf_tag:
+    aanp_tag:
+    mcdn_tag:
+    l3d_tag:
+    l3g_tag:
+    channel: 2
+    lag: 50
+    hostname: sr11.enbrs
+    bgp_auth: iecee8eiBeegeosi
+    ports:
+      1:
+        remote_port: 2/3
+        port: 10/1/5
+
+# Google services
+ggc:
+  vlan_id: 21
+  one_gig: false
+  farm: A
+  ipv4: "90.201.127.128/26"
+  ipv6: "2a02:c7a:8000:170d::/64"
+  v6_entry: 297 
+  array:
+    1:
+      port: 2/5
+      server_id: 1
+    2:
+      port: 2/6
+      server_id: 2
+    3:
+      port: 2/7
+      server_id: 3
+    4:
+      port: 2/8
+      server_id: 4

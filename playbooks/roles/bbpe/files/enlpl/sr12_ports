@@ -1,0 +1,272 @@
+exit all
+configure
+    port 1/1/1
+        description "[no-mon,core,ip=,rd=pr2.hobir:te0-1-0-5-6,cid=1000/BHMB-LVPA/10GLAN/OVN13,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 1/1/2
+        description "[no-mon,core,ip=,rd=pr2.hobir:te0-1-0-5-5,cid=1000/BHMB-LVPA/10GLAN/OVN14,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 1/1/3
+        description "[no-mon,core,ip=,rd=pr2.hobir:te0-1-0-5-4,cid=1000/BHMB-LVPA/10GLAN/OVN15,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 1/1/4
+        description "[no-mon,core,ip=,rd=pr2.hobir:te0-1-0-5-3,cid=1000/BHMB-LVPA/10GLAN/OVN16,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/1
+        description "[no-mon,core,ip=,rd=pr3.enlba:te0-4-0-7-5,cid=1000/LDSA-LVPA/10GLAN/OVN13,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/2
+        description "[no-mon,core,ip=,rd=pr3.enlba:te0-4-0-7-4,cid=1000/LDSA-LVPA/10GLAN/OVN14,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/3
+        description "[no-mon,core,ip=,rd=pr3.enlba:te0-4-0-7-3,cid=1000/LDSA-LVPA/10GLAN/OVN15,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/4
+        description "[no-mon,core,ip=,rd=pr3.enlba:te0-4-0-7-2,cid=1000/LDSA-LVPA/10GLAN/OVN16,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    lag 1
+        description "[no-mon,core,ip=,rd=pr2.hobir:be501,iv-s=bb]"
+        encap-type null
+        port 1/1/1
+        port 1/1/2
+        port 1/1/3
+        port 1/1/4
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    lag 2
+        description "[no-mon,core,ip=,rd=pr3.enlba:be501,iv-s=bb]"
+        encap-type null
+        port 10/1/1
+        port 10/1/2
+        port 10/1/3
+        port 10/1/4
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+exit all

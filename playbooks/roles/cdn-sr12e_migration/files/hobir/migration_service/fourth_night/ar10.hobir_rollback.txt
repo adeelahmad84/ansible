@@ -1,0 +1,91 @@
+exit all
+configure
+    port 8/2/14
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt - Link to Level3 Firewall  Rack _4"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 8/2/15
+        description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt - Link to Level3 C2960 switch"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 8/2/16
+        description "[ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_B - Link to Level3 Firewall   Rack_3"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 8/2/17
+        description "[ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_A - Link to Level3 Firewall   Rack_2"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    service
+        ies 22063 customer 12 create
+            interface "ies22063_cdn-l3dec-mgmt_2" create
+                description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt Rack_4"
+                address 2.127.244.13/30
+                ipv6
+                    address 2A02:C7A:8000:210::1/64
+                exit
+                sap 8/2/14 create
+                exit
+            exit
+            service-name "ies22063_cdn-l3dec-mgmt_2"
+            no shutdown
+        exit
+        ies 220001 customer 12 create
+            interface "ies220001_cdn-l3dec-mgmt_1" create
+                description "[ext,iv-g=l3dec,iv-s=cdn_l3dec] L3 DEC Mgmt"
+                address 2.127.244.1/30
+                ipv6
+                    address 2A02:C7A:8000:209::1/64
+                exit
+                sap 8/2/15 create
+                exit
+            exit
+            service-name "ies220001_cdn-l3dec-mgmt"
+            no shutdown
+        exit
+        ies 220504 customer 12 create
+            interface "ies220504_cdn-l3global-mgmt_b" create
+                description "[ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_B L3_Rack_3"
+                address 2.127.244.9/30
+                ipv6
+                    address 2A02:C7A:8000:20E::1/64
+                exit
+                sap 8/2/16 create
+                exit
+            exit
+            service-name "ies220504_cdn-l3global-mgmt_b"
+            no shutdown
+        exit
+        ies 220502 customer 12 create
+            interface "ies220502_cdn-l3global-mgmt_a" create
+                description "[ext,iv-g=l3global,iv-s=cdn_l3global] L3 Global Mgmt_A L3_Rack_2"
+                address 2.127.244.5/30
+                ipv6
+                    address 2A02:C7A:8000:20B::1/64
+                exit
+                sap 8/2/17 create
+                exit
+            exit
+            service-name "ies220502_cdn-l3global-mgmt_a"
+            no shutdown
+        exit

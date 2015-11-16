@@ -1,0 +1,15 @@
+---
+
+- name: generating for cdn dns
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+
+   - { src: 'pop_cdn/services/proc.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/procedure.txt' }
+   - { src: 'pop_cdn/services/4500.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/4500.txt' }
+   - { src: 'pop_cdn/services/4500_prepost.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/prepost_4500.txt' }
+   - { src: 'pop_cdn/services/4500_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/rollback_4500.txt' }
+     
+   - { src: 'pop_cdn/services/bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/bbpe.txt' }
+   - { src: 'pop_cdn/services/bbpe_rollback.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/rollback_bbpe.txt' }
+   - { src: 'pop_cdn/services/prepost_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/prepost_bbpe.txt' }
+   - { src: 'pop_cdn/services/dev_bbpe.j2', dest: '~/ansible/playbooks/roles/cdn-expansion/files/{{ site_id }}/service/{{ cdn_name }}/dev_bbpe.txt' }

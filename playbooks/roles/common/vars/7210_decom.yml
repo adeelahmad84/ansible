@@ -1,0 +1,16 @@
+---
+# Enter the name of the decommissioned 7210 #
+hostname: 
+site_id:
+# Enter Service ID for VPLS and IES below #
+ies:
+vpls:
+lag: 
+vlan:
+# Enter the name of the pe #
+pe: 
+ports: 
+
+  - 
+  -
+

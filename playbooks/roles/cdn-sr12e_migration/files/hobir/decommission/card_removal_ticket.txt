@@ -1,0 +1,13 @@
+Summary:
+Removal of a decommssioned line card
+
+Implementation Steps:
+
+Device - ar11-cdn.hobir
+Site - HOBIR, Rack H/I02 Console: 10.200.24.105 port 12 (SFM A) / port 13 (SFM B)
+Summary -
+
+Please remove the following cards from ar11-cdn.hobir:
+
+Card/slot 6
+Card/slot 7

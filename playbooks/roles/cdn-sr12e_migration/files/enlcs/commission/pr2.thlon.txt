@@ -1,0 +1,54 @@
+configure terminal
+!
+interface Bundle-Ether110
+ description [no-mon,core-o,rd=ar11-cdn.enlcs:lag2,iv-s=bb]
+ shutdown
+ mtu 8222
+ service-policy input P-CORE-INGRESS
+ service-policy output P-CORE-EGRESS-BUNDLE
+ bundle minimum-active links 2
+ load-interval 30
+ dampening 1 750 2000 1
+ logging events link-status
+ ipv4 mtu 8192
+ ipv4 address 2.120.10.54 255.255.255.254
+!
+router isis 65444
+ interface Bundle-Ether110
+  suppressed
+  circuit-type level-2-only
+  point-to-point
+  hello-padding disable
+  hello-password hmac-md5 iapoobekeigevaef
+  address-family ipv4 unicast
+   metric 99100000 level 2
+   mpls ldp sync
+  !
+ !
+!
+mpls ldp
+ neighbor 89.200.128.110 password clear feleichaixeolahd
+ address-family ipv4
+  label
+   remote
+    accept
+     from 89.200.128.110:0 for loopback-only
+     !
+    !
+   !
+  !
+ !
+ interface Bundle-Ether110
+ !
+!
+mpls traffic-eng
+ interface Bundle-Ether110
+ !
+!
+rsvp
+ interface Bundle-Ether110
+  bandwidth 200 Gbps
+  signalling dscp 48
+ !
+!
+commit

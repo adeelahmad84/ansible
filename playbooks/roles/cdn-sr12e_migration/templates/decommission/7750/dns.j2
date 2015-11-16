@@ -1,0 +1,4 @@
+Please remove the following DNS record as this device is decommissioned:
+
+{{ old_node_name }}.isp.sky.com	    in	A	{{ old_system_address }}
+{{ old_system_address | ipaddr('revdns') }}	in	PTR	{{ old_node_name }}.isp.sky.com

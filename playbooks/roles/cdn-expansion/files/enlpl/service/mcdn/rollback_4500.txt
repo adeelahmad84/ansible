@@ -1,0 +1,26 @@
+configure terminal
+interface Vlan60
+ no ip address 176.255.171.65  255.255.255.224
+ no ipv6 address 2a02:c7a:8000:f804::1/64
+ shutdown
+!
+interface Port-channel60
+ no switchport access vlan 60
+ no switchport mode access
+ no switchport
+ shutdown
+!
+interface TenGigabitEthernet2/7
+ no switchport access vlan 60
+ no switchport mode access
+ no channel-group 60
+ no channel-protocol lacp
+ shutdown
+!
+interface TenGigabitEthernet2/8
+ no switchport access vlan 60
+ no switchport mode access
+ no channel-group 60
+ no channel-protocol lacp
+ shutdown
+!

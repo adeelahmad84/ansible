@@ -1,0 +1,14 @@
+configure terminal
+!
+interface Port-channel40
+ description [no-mon,ext,iv-g=aanp,iv-s=cdn_aanp] Port-Channel To aanp Server
+ shutdown
+!
+interface TenGigabitEthernet1/31
+ shutdown
+!
+interface TenGigabitEthernet1/32
+ shutdown
+!
+!
+end

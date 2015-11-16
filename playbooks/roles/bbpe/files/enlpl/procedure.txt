@@ -1,0 +1,126 @@
+This work is to bring into service the Alcatel 7750 sr12.enlpl. This procedure will establish a DRFU status
+for this device on successful completeion. Steps have been taken to ensure that this process progresses
+without out any anomalies. In the event of any issues. Please do refer to the roll back plan for next action.
+
+Essentially it involves : Establishing ISIS, BGP peering with the P routers, Route Reflectors & Ironman Platform.
+
+Implementation:
+=========================
+Please apply the configuration of the respected devices in the following order:
+
+   ar0-isp.bllon.txt
+   ar0.enlba.txt
+   ar0-isp.enbgk.txt
+   ar0-isp.enlba.txt
+   ar0-isp.enshf.txt
+   ar0-isp.hobir.txt
+   ar4.bllon.txt
+   ar13.thlon.txt
+   ar13.enlba.txt
+   br0.hobir.txt
+   br0.enlba.txt
+   br0.bllon.txt
+   br0.thlon.txt
+   pr2.hobir.txt
+   pr3.enlba.txt
+   rr0.bllon.txt
+   rr0.enlba.txt
+   rr1.bllon.txt
+   rr1.enlba.txt
+   rr3.bllon.txt
+   rr3.enlba.txt
+
+Test Plan:
+===========
+1.0
+Pre-checks (Take appropriate records of these outputs as they will be handy in a rollback situation):-
+
+
+Before proceeding with the migration ensure that the following prechecks have been adhered to
+	-	Check monitoring systems to ensure that there are no unreported errors.
+	-   	Speak to the transmission team to confirm that there are no known outages.
+
+- please run the following commands on rr*, ar0-isp.*
+
+sh ip bgp neighbors 84.38.34.245
+
+- please run the following commands on br0.*:
+
+show service id 400010 base
+
+- please run the following commands on the ncs:
+
+- post checks:
+
+Check RX light levels at both ends of the circuits. Level should be comparable to existing
+uplinks.
+
+pr2.hobir Te0/1/0/5/6:
+sh controllers Te0/1/0/5/6 phy | i pow
+pr2.hobir Te0/1/0/5/5:
+sh controllers Te0/1/0/5/5 phy | i pow
+pr2.hobir Te0/1/0/5/4:
+sh controllers Te0/1/0/5/4 phy | i pow
+pr2.hobir Te0/1/0/5/3:
+sh controllers Te0/1/0/5/3 phy | i pow
+
+pr3.enlba Te0/4/0/7/5:
+sh controllers Te0/4/0/7/5 phy | i pow
+pr3.enlba Te0/4/0/7/4:
+sh controllers Te0/4/0/7/4 phy | i pow
+pr3.enlba Te0/4/0/7/3:
+sh controllers Te0/4/0/7/3 phy | i pow
+pr3.enlba Te0/4/0/7/2:
+sh controllers Te0/4/0/7/2 phy | i pow
+
+Ensure that the Tx Output Power (dBm) ,Rx Optical Power (avg dBm) values. These
+should be comparable to the sample in the first column shown below.
+
+Note, this check should not stop this work, however any abnormal values should be
+reported for investigation.
+
+Backout Plan:
+=============
+In case the implementation was to impact any existing services.
+
+For NCS if your commit(s) was/were the last ones use the "rollback configuration <last|to>" command.
+
+If there have been subsequent commits you do not wish to rollback:
+
+Identify your commit ID using the command
+    show config commit list
+
+Use the command
+     show configuration rollback changes <n>
+to identify the necessary configuration needed to rollback for the commit.
+
+The above are the preferable ways to rollback as they are less prone to error.
+
+Manual backout documented in below files.
+
+   pr2.hobir_rollback.txt
+   pr3.enlba_rollback.txt
+   ar0-isp.bllon-rollback.txt
+   ar0.enlba-rollback.txt
+   ar0-isp.enbgk-rollback.txt
+   ar0-isp.enlba-rollback.txt
+   ar0-isp.enshf-rollback.txt
+   ar0-isp.hobir-rollback.txt
+   ar4.bllon-rollback.txt
+   ar13.thlon-rollback.txt
+   ar13.enlba-rollback.txt
+   br0.hobir-rollback.txt
+   br0.enlba-rollback.txt
+   br0.bllon-rollback.txt
+   br0.thlon-rollback.txt
+   rr0.bllon-rollback.txt
+   rr0.enlba-rollback.txt
+   rr3.bllon-rollback.txt
+   rr3.enlba-rollback.txt
+
+
+Risk Assessment:
+==================
+No services are anticipated to be impacted as they no service traffic will be carried.  New device is being introduced with no traffic on it.
+
+If the change went wrong, for example applying the wrong peer address in the route-reflector knocks off an existing BGP session causing for the impacted PE to be less resilient.  However there will be no outage as the PE will have a neighbor established with the other route-reflector.

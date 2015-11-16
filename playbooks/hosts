@@ -1,0 +1,12 @@
+[local]
+localhost ansible_ssh_user=ubuntu
+
+[core_cdn_pe]
+ar14-cdn.thlon
+ar11-cdn.bllon
+ar11-cdn.hobir
+ar11-cdn.enlba
+ar11-cdn.enyrk
+ar11-cdn.encax
+ar11-cdn.enbgk
+ar11-cdn.enlcs

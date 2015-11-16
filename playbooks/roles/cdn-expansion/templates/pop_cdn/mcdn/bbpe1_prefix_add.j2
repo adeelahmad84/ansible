@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-AKAMAI-MCDN-LAN"
+                prefix {{ mcdn.ipv6 | ipaddr('0') }} exact
+	commit
+	exit
+        static-route {{ mcdn.ipv6 | ipaddr('0') }} next-hop {{ bbpe.1.ipv6_p2p | ipaddr('1')|replace('/127','') }}
+        static-route {{ mcdn.ipv4 | ipaddr('0') }} next-hop {{ bbpe.1.ipv4_p2p | ipaddr('1')|replace('/31','') }} tag {{ bbpe.1.mcdn_tag }}
+exit all

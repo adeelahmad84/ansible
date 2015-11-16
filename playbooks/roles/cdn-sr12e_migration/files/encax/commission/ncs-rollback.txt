@@ -1,0 +1,23 @@
+configure terminal
+!
+interface Bundle-Ether202
+ no ipv4 address
+!
+router isis 65444
+ interface Bundle-Ether202
+  shutdown
+ !
+!
+mpls ldp
+ no neighbor 89.200.128.54 password
+ no interface Bundle-Ether202
+ !
+!
+mpls traffic-eng
+ no interface Bundle-Ether202
+ !
+!
+rsvp
+ no interface Bundle-Ether202
+!
+commit

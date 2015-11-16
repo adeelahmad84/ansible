@@ -1,0 +1,89 @@
+rr0.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.25 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.25 description ar10.enlcs
+ neighbor 84.38.34.25 password 7 09415B51160A0E170E3F05227D2B202420
+ !
+ address-family ipv4
+ neighbor 84.38.34.25 activate
+ neighbor 84.38.34.25 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr0.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.25 inherit peer-session OVN-RR-IPV4-IBGP
+ neighbor 84.38.34.25 description ar10.enlcs
+ neighbor 84.38.34.25 password 7 0314540325072E4318210C500F1B0E180D
+ !
+ address-family ipv4
+ neighbor 84.38.34.25 activate
+ neighbor 84.38.34.25 inherit peer-policy OVN-RR-client-IPV4
+ exit-address-family
+!
+
+rr1.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.25 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.25 description ar10.enlcs
+ neighbor 84.38.34.25 password 7 02360C5E0E530634544B590F041211045F
+ !
+ address-family ipv4
+ neighbor 84.38.34.25 activate
+ neighbor 84.38.34.25 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 84.38.34.25 activate
+ neighbor 84.38.34.25 send-community extended
+ neighbor 84.38.34.25 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr1.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.25 inherit peer-session OVN-RR-VPVN4-IBGP
+ neighbor 84.38.34.25 description ar10.enlcs
+ neighbor 84.38.34.25 password 7 122810181A38035D3A232520236D34160E
+ !
+ address-family ipv4
+ neighbor 84.38.34.25 activate
+ neighbor 84.38.34.25 inherit peer-policy OVN-RR-client-IPV4-LABEL
+ exit-address-family
+ !
+ address-family vpnv4
+ neighbor 84.38.34.25 activate
+ neighbor 84.38.34.25 send-community extended
+ neighbor 84.38.34.25 inherit peer-policy OVN-RR-client-VPNV4
+ exit-address-family
+!
+
+rr3.bllon
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.25 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.25 description ar10.enlcs
+ neighbor 84.38.34.25 password 7 1316161A1F590B25282C29363E7B210819
+ !
+ address-family ipv6
+  neighbor 84.38.34.25 activate
+  neighbor 84.38.34.25 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!
+
+rr3.enlba
+-----------------------------
+router bgp 65444
+ neighbor 84.38.34.25 inherit peer-session CORE-RR-client
+ neighbor 84.38.34.25 description ar10.enlcs
+ neighbor 84.38.34.25 password 7 14071B5A230B2472222D320C23165E0C0C
+ !
+ address-family ipv6
+  neighbor 84.38.34.25 activate
+  neighbor 84.38.34.25 inherit peer-policy CORE-IPV6_LABELED_UNICAST-IBGP-RR-client
+ exit-address-family
+!

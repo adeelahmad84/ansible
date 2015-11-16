@@ -1,0 +1,61 @@
+configure terminal
+!
+vlan {{ ggc.vlan_id }}
+ name GOOGLE_DATA_{{ ggc.farm }}
+!
+{% if ggc.one_gig %}
+vlan 201
+ name Google_Management
+!
+{% endif %}
+!
+interface Vlan{{ ggc.vlan_id }}
+ description [no-mon,ext,rd=ggc,iv-s=cdn_pop] IN-POP-CDN Bundle to GGC {{ ggc.farm }}
+ ip address {{ ggc.ipv4 | ipaddr('1')|replace("/26", " ") }} {{ ggc.ipv4 | ipaddr('netmask') }}
+ no ip redirects
+ ipv6 address {{ ggc.ipv6 | ipaddr('1') }}
+ ipv6 nd cache interface-limit 256
+ ipv6 nd na glean
+ no shutdown
+!
+{% if ggc.one_gig %}
+interface Port-channel20
+ description [no-mon,core,rd=as101.{{ site_id }}:lag12,cid=LOCAL,iv-s=cdn_pop] Port-Channel To GGC as101
+ switchport
+ switchport trunk allowed vlan {{ ggc.vlan_id }},201
+ switchport mode trunk
+ no shutdown
+!
+interface Vlan201
+ description [no-mon,core,rd=as101.{{ site_id }}:vlan201,cid=LOCAL,v-s=cdn] Logical link to as101 for Google Management
+ ip address {{ ggc.one_gig_ipv4 | ipaddr('1')|replace("29", " ") }} 255.255.255.248
+ no ip redirects
+ no shutdown
+!
+{% for key, value in ggc.one_gig_array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ description [no-mon,core,rd=as101.enshf:ge{{ value.remote_port|replace("/", "-") }},cid=LOCAL,iv-s=cdn_pop] GGC Server Content - Link {{ value|length }} of Lag_20 to as101
+ switchport
+ switchport mode trunk
+ switchport trunk allowed vlan {{ ggc.vlan_id }},201
+ load-interval 30
+ channel-protocol lacp
+ channel-group 20 mode active
+ no shutdown
+!
+{% endfor %}
+{% else %}
+{% for key, value in ggc.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ description [no-mon,ext,iv-g=google,iv-s=cdn_google] GGC_{{ ggc.farm }} SERVER_{{ value.server_id }}
+ switchport
+ switchport access vlan {{ ggc.vlan_id }}
+ switchport mode access
+ flowcontrol receive off
+ flowcontrol send off
+ no shutdown
+!
+{% endfor %}
+{% endif %}
+!
+end

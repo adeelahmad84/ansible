@@ -1,0 +1,31 @@
+
+SUMMARY
+#############
+This change is to upgrade the mcdn services to higher capacity.
+
+IMPLEMENTATION
+###############
+
+Please issue the pre-checks commands found in ar10.encax_prepost.txt Record the output to compare with the post-checks.
+
+Instruct FE to patch the servers as per below:
+
+1/1/1
+1/1/2
+1/1/3
+1/1/4
+1/1/5
+1/1/6
+1/1/7
+1/1/8
+
+Please apply ar10.encax_deploy.txt to ar10.encax
+
+Please issue the post-checks found in ar10.encax_prepost.txt compare the output and ensure the output for prefixes and interface match.
+
+
+ROLLBACK
+########
+If the lag/routed-interface fails to come up or prefixes stopped advertising, please try and troubleshoot and if all fails then please apple the file below:
+
+ar10.encax_rollback.txt

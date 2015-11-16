@@ -1,0 +1,3003 @@
+exit all
+configure
+    port 1/1/10
+        description "[ce,rd=dvn-hbr-aswt-01:te1/31,cid=LOCAL,iv-s=mpls] PROD"
+        ethernet
+            mode access
+            encap-type dot1q
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 1/1/11
+        description "[ce,rd=dvn-hbr-aswt-01:te1/32,cid=LOCAL,iv-s=mpls] PROD"
+        ethernet
+            mode access
+            encap-type dot1q
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    port 8/1/1
+        description "[rd=cs1-esm-hbr-aswt,iv-s=cdn]  DVN Managed ESM_MGT Switch ESM-HBR-ASWT G1/24"
+        ethernet
+            mode access
+            mtu 8226
+            hold-time up 5
+            autonegotiate limited
+        exit
+        no shutdown
+    exit
+    lag 55
+        description "[ce,rd=dvn-hbr-aswt-01:po55,cid=LOCAL,iv-s=mpls] PROD"
+        mode access
+        encap-type dot1q
+        port 1/1/10
+        port 1/1/11
+        lacp active
+        no shutdown
+    exit
+    filter
+        ip-filter 136 create
+            default-action forward
+            description "access-list 136"
+            entry 10 create
+                description "permit 112 2.122.212.0 0.0.0.127 host 224.0.0.18"
+                match protocol vrrp
+                    dst-ip 224.0.0.18/32
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 20 create
+                description "permit 112 2.122.212.128 0.0.0.127 host 224.0.0.18"
+                match protocol vrrp
+                    dst-ip 224.0.0.18/32
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 30 create
+                description "deny ip host 0.0.0.0 any"
+                match
+                    src-ip 0.0.0.0/32
+                exit
+                action drop
+            exit
+            entry 40 create
+                description "deny ip 127.0.0.0 0.255.255.255 any"
+                match
+                    src-ip 127.0.0.0/8
+                exit
+                action drop
+            exit
+            entry 50 create
+                description "deny ip 169.254.0.0 0.0.255.255 any"
+                match
+                    src-ip 169.254.0.0/16
+                exit
+                action drop
+            exit
+            entry 60 create
+                description "deny ip 192.0.2.0 0.0.0.255 any"
+                match
+                    src-ip 192.0.2.0/24
+                exit
+                action drop
+            exit
+            entry 70 create
+                description "deny ip 224.0.0.0 31.255.255.255 any"
+                match
+                    src-ip 224.0.0.0/3
+                exit
+                action drop
+            exit
+            entry 80 create
+                description "deny ip 10.0.0.0 0.255.255.255 any"
+                match
+                    src-ip 10.0.0.0/8
+                exit
+                action drop
+            exit
+            entry 90 create
+                description "deny ip 172.16.0.0 0.15.255.255 any"
+                match
+                    src-ip 172.16.0.0/12
+                exit
+                action drop
+            exit
+            entry 100 create
+                description "deny ip 192.168.0.0 0.0.255.255 any"
+                match
+                    src-ip 192.168.0.0/16
+                exit
+                action drop
+            exit
+            entry 110 create
+                description "deny ip 100.64.0.0 0.63.255.255 any"
+                match
+                    src-ip 100.64.0.0/10
+                exit
+                action drop
+            exit
+            entry 120 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 130 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 140 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 150 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 160 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 170 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 180 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 190 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 200 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 210 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 220 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 230 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 240 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 250 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 260 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 270 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 280 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 290 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 300 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 310 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 320 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 330 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 340 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 350 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 360 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 370 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 380 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 390 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 400 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 410 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 420 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 430 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 440 create
+                description "permit ip any 84.38.40.0 0.0.7.255"
+                match
+                    dst-ip 84.38.40.0/21
+                exit
+                action forward
+            exit
+            entry 450 create
+                description "permit ip any 90.207.236.0 0.0.1.255"
+                match
+                    dst-ip 90.207.236.0/23
+                exit
+                action forward
+            exit
+            entry 460 create
+                description "permit ip any 90.223.196.0 0.0.0.255"
+                match
+                    dst-ip 90.223.196.0/24
+                exit
+                action forward
+            exit
+            entry 470 create
+                description "permit ip any 90.223.208.0 0.0.1.255"
+                match
+                    dst-ip 90.223.208.0/23
+                exit
+                action forward
+            exit
+            entry 480 create
+                description "permit tcp 2.122.212.0 0.0.0.127 80.238.0.0 0.0.31.255 eq 80"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 490 create
+                description "permit tcp 2.122.212.0 0.0.0.127 80.238.0.0 0.0.31.255 eq 443"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 500 create
+                description "permit tcp 2.122.212.0 0.0.0.127 90.216.128.0 0.0.31.255 eq 80"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 510 create
+                description "permit tcp 2.122.212.0 0.0.0.127 90.216.128.0 0.0.31.255 eq 443"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 520 create
+                description "permit tcp 2.122.212.0 0.0.0.127 176.255.204.0 0.0.1.255 eq 80"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 530 create
+                description "permit tcp 2.122.212.0 0.0.0.127 176.255.204.0 0.0.1.255 eq 443"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 540 create
+                description "permit tcp 2.122.212.128 0.0.0.127 80.238.0.0 0.0.31.255 eq 80"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 550 create
+                description "permit tcp 2.122.212.128 0.0.0.127 80.238.0.0 0.0.31.255 eq 443"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 560 create
+                description "permit tcp 2.122.212.128 0.0.0.127 90.216.128.0 0.0.31.255 eq 80"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 570 create
+                description "permit tcp 2.122.212.128 0.0.0.127 90.216.128.0 0.0.31.255 eq 443"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 580 create
+                description "permit tcp 2.122.212.128 0.0.0.127 176.255.204.0 0.0.1.255 eq 80"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 590 create
+                description "permit tcp 2.122.212.128 0.0.0.127 176.255.204.0 0.0.1.255 eq 443"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 600 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 80.238.0.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 610 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 80.238.0.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 620 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 90.216.128.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 630 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 90.216.128.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 640 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 176.255.204.0 0.0.1.255 est"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 650 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 176.255.204.0 0.0.1.255 est"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 660 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 80.238.0.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 670 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 80.238.0.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 680 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 90.216.128.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 690 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 90.216.128.0 0.0.31.255 est"
+                match protocol tcp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 700 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 176.255.204.0 0.0.1.255 est"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 710 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 176.255.204.0 0.0.1.255 est"
+                match protocol tcp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 720 create
+                description "permit icmp 2.122.212.0 0.0.0.127 80.238.0.0 0.0.31.255 echo"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 730 create
+                description "permit icmp 2.122.212.0 0.0.0.127 80.238.0.0 0.0.31.255 echo-reply"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 740 create
+                description "permit icmp 2.122.212.0 0.0.0.127 80.238.0.0 0.0.31.255 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 750 create
+                description "permit icmp 2.122.212.0 0.0.0.127 80.238.0.0 0.0.31.255 unreachable"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 760 create
+                description "permit icmp 2.122.212.0 0.0.0.127 90.216.128.0 0.0.31.255 echo"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 770 create
+                description "permit icmp 2.122.212.0 0.0.0.127 90.216.128.0 0.0.31.255 echo-reply"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 780 create
+                description "permit icmp 2.122.212.0 0.0.0.127 90.216.128.0 0.0.31.255 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 790 create
+                description "permit icmp 2.122.212.0 0.0.0.127 90.216.128.0 0.0.31.255 unreachable"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 800 create
+                description "permit icmp 2.122.212.0 0.0.0.127 176.255.204.0 0.0.1.255 echo"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 810 create
+                description "permit icmp 2.122.212.0 0.0.0.127 176.255.204.0 0.0.1.255 echo-reply"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 820 create
+                description "permit icmp 2.122.212.0 0.0.0.127 176.255.204.0 0.0.1.255 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 830 create
+                description "permit icmp 2.122.212.0 0.0.0.127 176.255.204.0 0.0.1.255 unreachable"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 840 create
+                description "permit icmp 2.122.212.128 0.0.0.127 80.238.0.0 0.0.31.255 echo"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 850 create
+                description "permit icmp 2.122.212.128 0.0.0.127 80.238.0.0 0.0.31.255 echo-reply"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 860 create
+                description "permit icmp 2.122.212.128 0.0.0.127 80.238.0.0 0.0.31.255 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 870 create
+                description "permit icmp 2.122.212.128 0.0.0.127 80.238.0.0 0.0.31.255 unreachable"
+                match protocol icmp
+                    dst-ip 80.238.0.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 880 create
+                description "permit icmp 2.122.212.128 0.0.0.127 90.216.128.0 0.0.31.255 echo"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 890 create
+                description "permit icmp 2.122.212.128 0.0.0.127 90.216.128.0 0.0.31.255 echo-reply"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 900 create
+                description "permit icmp 2.122.212.128 0.0.0.127 90.216.128.0 0.0.31.255 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 910 create
+                description "permit icmp 2.122.212.128 0.0.0.127 90.216.128.0 0.0.31.255 unreachable"
+                match protocol icmp
+                    dst-ip 90.216.128.0/19
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 920 create
+                description "permit icmp 2.122.212.128 0.0.0.127 176.255.204.0 0.0.1.255 echo"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 930 create
+                description "permit icmp 2.122.212.128 0.0.0.127 176.255.204.0 0.0.1.255 echo-reply"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 940 create
+                description "permit icmp 2.122.212.128 0.0.0.127 176.255.204.0 0.0.1.255 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 950 create
+                description "permit icmp 2.122.212.128 0.0.0.127 176.255.204.0 0.0.1.255 unreachable"
+                match protocol icmp
+                    dst-ip 176.255.204.0/23
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 960 create
+                description "permit udp 2.122.212.0 0.0.0.127 host 90.207.238.97 eq 53"
+                match protocol udp
+                    dst-ip 90.207.238.97/32
+                    dst-port eq 53
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 970 create
+                description "permit udp 2.122.212.0 0.0.0.127 host 90.207.238.99 eq 53"
+                match protocol udp
+                    dst-ip 90.207.238.99/32
+                    dst-port eq 53
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 980 create
+                description "permit udp 2.122.212.128 0.0.0.127 host 90.207.238.97 eq 53"
+                match protocol udp
+                    dst-ip 90.207.238.97/32
+                    dst-port eq 53
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 990 create
+                description "permit udp 2.122.212.128 0.0.0.127 host 90.207.238.99 eq 53"
+                match protocol udp
+                    dst-ip 90.207.238.99/32
+                    dst-port eq 53
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1000 create
+                description "permit icmp 2.122.212.0 0.0.0.127 any echo"
+                match protocol icmp
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1010 create
+                description "permit icmp 2.122.212.0 0.0.0.127 any echo-reply"
+                match protocol icmp
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1020 create
+                description "permit icmp 2.122.212.0 0.0.0.127 any ttl-exceeded"
+                match protocol icmp
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1030 create
+                description "permit icmp 2.122.212.0 0.0.0.127 any unreachable"
+                match protocol icmp
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 1040 create
+                description "permit icmp 2.122.212.128 0.0.0.127 any echo"
+                match protocol icmp
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1050 create
+                description "permit icmp 2.122.212.128 0.0.0.127 any echo-reply"
+                match protocol icmp
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1060 create
+                description "permit icmp 2.122.212.128 0.0.0.127 any ttl-exceeded"
+                match protocol icmp
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1070 create
+                description "permit icmp 2.122.212.128 0.0.0.127 any unreachable"
+                match protocol icmp
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 1080 create
+                description "permit tcp 2.122.212.0 0.0.0.127 any eq 80"
+                match protocol tcp
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1090 create
+                description "permit tcp 2.122.212.0 0.0.0.127 any eq 443"
+                match protocol tcp
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1100 create
+                description "permit tcp 2.122.212.128 0.0.0.127 any eq 80"
+                match protocol tcp
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1110 create
+                description "permit tcp 2.122.212.128 0.0.0.127 any eq 443"
+                match protocol tcp
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1120 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 any est"
+                match protocol tcp
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1130 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 any est"
+                match protocol tcp
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1140 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 any est"
+                match protocol tcp
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1150 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 any est"
+                match protocol tcp
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1160 create
+                description "permit udp 2.122.212.0 0.0.0.127 any eq 53"
+                match protocol udp
+                    dst-port eq 53
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1170 create
+                description "permit udp 2.122.212.128 0.0.0.127 any eq 53"
+                match protocol udp
+                    dst-port eq 53
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1180 create
+                description "permit tcp 2.122.212.0 0.0.0.127 any eq 8247"
+                match protocol tcp
+                    dst-port eq 8247
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1190 create
+                description "permit tcp 2.122.212.128 0.0.0.127 any eq 8247"
+                match protocol tcp
+                    dst-port eq 8247
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1200 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 8247 any est"
+                match protocol tcp
+                    src-ip 2.122.212.0/25
+                    src-port eq 8247
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1210 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 8247 any est"
+                match protocol tcp
+                    src-ip 2.122.212.128/25
+                    src-port eq 8247
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1220 create
+                description "permit udp 2.122.212.0 0.0.0.127 any eq 8247"
+                match protocol udp
+                    dst-port eq 8247
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1230 create
+                description "permit udp 2.122.212.128 0.0.0.127 any eq 8247"
+                match protocol udp
+                    dst-port eq 8247
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1240 create
+                description "permit udp 2.122.212.0 0.0.0.127 eq 8247 any"
+                match protocol udp
+                    src-ip 2.122.212.0/25
+                    src-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1250 create
+                description "permit udp 2.122.212.128 0.0.0.127 eq 8247 any"
+                match protocol udp
+                    src-ip 2.122.212.128/25
+                    src-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1260 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 53 any est"
+                match protocol tcp
+                    src-ip 2.122.212.0/25
+                    src-port eq 53
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1270 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 53 any est"
+                match protocol tcp
+                    src-ip 2.122.212.128/25
+                    src-port eq 53
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1280 create
+                description "permit udp 2.122.212.0 0.0.0.127 eq 53 any"
+                match protocol udp
+                    src-ip 2.122.212.0/25
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 1290 create
+                description "permit udp 2.122.212.128 0.0.0.127 eq 53 any"
+                match protocol udp
+                    src-ip 2.122.212.128/25
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 1300 create
+                description "permit udp 2.122.212.0 0.0.0.127 84.38.36.0 0.0.0.127 eq 1967"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    dst-port eq 1967
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1310 create
+                description "permit udp 2.122.212.128 0.0.0.127 84.38.36.0 0.0.0.127 eq 1967"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    dst-port eq 1967
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1320 create
+                description "permit udp 2.122.212.0 0.0.0.127 eq 1967 84.38.36.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 1967
+                exit
+                action forward
+            exit
+            entry 1330 create
+                description "permit udp 2.122.212.128 0.0.0.127 eq 1967 84.38.36.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 1967
+                exit
+                action forward
+            exit
+            entry 1340 create
+                description "permit udp 2.122.212.0 0.0.0.127 84.38.36.0 0.0.0.127 eq 16384"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    dst-port eq 16384
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 1350 create
+                description "permit udp 2.122.212.128 0.0.0.127 84.38.36.0 0.0.0.127 eq 16384"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    dst-port eq 16384
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 1360 create
+                description "permit udp 2.122.212.0 0.0.0.127 eq 16384 84.38.36.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 16384
+                exit
+                action forward
+            exit
+            entry 1370 create
+                description "permit udp 2.122.212.128 0.0.0.127 eq 16384 84.38.36.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 84.38.36.0/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 16384
+                exit
+                action forward
+            exit
+            entry 1380 create
+                description "deny icmp any any log-input"
+                match protocol icmp
+                exit
+                log 136
+                action drop
+            exit
+            entry 1390 create
+                description "deny tcp any any log-input"
+                match protocol tcp
+                exit
+                log 136
+                action drop
+            exit
+            entry 1400 create
+                description "deny udp any any log-input"
+                match protocol udp
+                exit
+                log 136
+                action drop
+            exit
+            entry 1410 create
+                description "deny ip any any log-input"
+                match
+                exit
+                log 136
+                action drop
+            exit
+	exit
+        ip-filter 137 create
+            default-action forward
+            description "access-list 137"
+            entry 10 create
+                description "permit 112 2.122.212.0 0.0.0.127 host 224.0.0.18"
+                match protocol vrrp
+                    dst-ip 224.0.0.18/32
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 20 create
+                description "permit 112 2.122.212.128 0.0.0.127 host 224.0.0.18"
+                match protocol vrrp
+                    dst-ip 224.0.0.18/32
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 30 create
+                description "deny ip host 0.0.0.0 any"
+                match
+                    src-ip 0.0.0.0/32
+                exit
+                action drop
+            exit
+            entry 40 create
+                description "deny ip 127.0.0.0 0.255.255.255 any"
+                match
+                    src-ip 127.0.0.0/8
+                exit
+                action drop
+            exit
+            entry 50 create
+                description "deny ip 169.254.0.0 0.0.255.255 any"
+                match
+                    src-ip 169.254.0.0/16
+                exit
+                action drop
+            exit
+            entry 60 create
+                description "deny ip 192.0.2.0 0.0.0.255 any"
+                match
+                    src-ip 192.0.2.0/24
+                exit
+                action drop
+            exit
+            entry 70 create
+                description "deny ip 224.0.0.0 31.255.255.255 any"
+                match
+                    src-ip 224.0.0.0/3
+                exit
+                action drop
+            exit
+            entry 80 create
+                description "deny ip 10.0.0.0 0.255.255.255 any"
+                match
+                    src-ip 10.0.0.0/8
+                exit
+                action drop
+            exit
+            entry 90 create
+                description "deny ip 172.16.0.0 0.15.255.255 any"
+                match
+                    src-ip 172.16.0.0/12
+                exit
+                action drop
+            exit
+            entry 100 create
+                description "deny ip 192.168.0.0 0.0.255.255 any"
+                match
+                    src-ip 192.168.0.0/16
+                exit
+                action drop
+            exit
+            entry 110 create
+                description "deny ip 100.64.0.0 0.63.255.255 any"
+                match
+                    src-ip 100.64.0.0/10
+                exit
+                action drop
+            exit
+            entry 120 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 130 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 140 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 150 create
+                description "permit tcp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 2.122.212.0/25
+                exit
+                action forward
+            exit
+            entry 160 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 170 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 180 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 190 create
+                description "permit tcp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 2.122.212.128/25
+                exit
+                action forward
+            exit
+            entry 200 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 210 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 220 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 230 create
+                description "permit tcp 2.122.212.0 0.0.0.127 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 240 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 250 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 260 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 270 create
+                description "permit tcp 2.122.212.128 0.0.0.127 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 280 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 290 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 300 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 310 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 320 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 330 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 340 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 350 create
+                description "permit icmp 2.122.212.0 0.0.0.127 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 360 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 370 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 380 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 390 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 400 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 410 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 420 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 430 create
+                description "permit icmp 2.122.212.128 0.0.0.127 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 440 create
+                description "permit ip 84.38.40.0 0.0.7.255 any"
+                match
+                    src-ip 84.38.40.0/21
+                exit
+                action forward
+            exit
+            entry 450 create
+                description "permit ip 90.207.236.0 0.0.1.255 any"
+                match
+                    src-ip 90.207.236.0/23
+                exit
+                action forward
+            exit
+            entry 460 create
+                description "permit ip 90.223.196.0 0.0.0.255 any"
+                match
+                    src-ip 90.223.196.0/24
+                exit
+                action forward
+            exit
+            entry 470 create
+                description "permit ip 90.223.208.0 0.0.1.255 any"
+                match
+                    src-ip 90.223.208.0/23
+                exit
+                action forward
+            exit
+            entry 480 create
+                description "permit tcp 80.238.0.0 0.0.31.255 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 80.238.0.0/19
+                exit
+                action forward
+            exit
+            entry 490 create
+                description "permit tcp 80.238.0.0 0.0.31.255 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 80.238.0.0/19
+                exit
+                action forward
+            exit
+            entry 500 create
+                description "permit tcp 80.238.0.0 0.0.31.255 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 80.238.0.0/19
+                exit
+                action forward
+            exit
+            entry 510 create
+                description "permit tcp 80.238.0.0 0.0.31.255 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 80.238.0.0/19
+                exit
+                action forward
+            exit
+            entry 520 create
+                description "permit tcp 90.216.128.0 0.0.31.255 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 90.216.128.0/19
+                exit
+                action forward
+            exit
+            entry 530 create
+                description "permit tcp 90.216.128.0 0.0.31.255 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 90.216.128.0/19
+                exit
+                action forward
+            exit
+            entry 540 create
+                description "permit tcp 90.216.128.0 0.0.31.255 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 90.216.128.0/19
+                exit
+                action forward
+            exit
+            entry 550 create
+                description "permit tcp 90.216.128.0 0.0.31.255 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 90.216.128.0/19
+                exit
+                action forward
+            exit
+            entry 560 create
+                description "permit tcp 176.255.204.0 0.0.1.255 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                    src-ip 176.255.204.0/23
+                exit
+                action forward
+            exit
+            entry 570 create
+                description "permit tcp 176.255.204.0 0.0.1.255 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                    src-ip 176.255.204.0/23
+                exit
+                action forward
+            exit
+            entry 580 create
+                description "permit tcp 176.255.204.0 0.0.1.255 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                    src-ip 176.255.204.0/23
+                exit
+                action forward
+            exit
+            entry 590 create
+                description "permit tcp 176.255.204.0 0.0.1.255 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                    src-ip 176.255.204.0/23
+                exit
+                action forward
+            exit
+            entry 600 create
+                description "permit tcp 80.238.0.0 0.0.31.255 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 80.238.0.0/19
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 610 create
+                description "permit tcp 80.238.0.0 0.0.31.255 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 80.238.0.0/19
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 620 create
+                description "permit tcp 80.238.0.0 0.0.31.255 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 80.238.0.0/19
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 630 create
+                description "permit tcp 80.238.0.0 0.0.31.255 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 80.238.0.0/19
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 640 create
+                description "permit tcp 90.216.128.0 0.0.31.255 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.216.128.0/19
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 650 create
+                description "permit tcp 90.216.128.0 0.0.31.255 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.216.128.0/19
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 660 create
+                description "permit tcp 90.216.128.0 0.0.31.255 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.216.128.0/19
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 670 create
+                description "permit tcp 90.216.128.0 0.0.31.255 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.216.128.0/19
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 680 create
+                description "permit tcp 176.255.204.0 0.0.1.255 eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 176.255.204.0/23
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 690 create
+                description "permit tcp 176.255.204.0 0.0.1.255 eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-ip 176.255.204.0/23
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 700 create
+                description "permit tcp 176.255.204.0 0.0.1.255 eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 176.255.204.0/23
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 710 create
+                description "permit tcp 176.255.204.0 0.0.1.255 eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-ip 176.255.204.0/23
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 720 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 80.238.0.0/19
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 730 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 80.238.0.0/19
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 740 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 80.238.0.0/19
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 750 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 80.238.0.0/19
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 760 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 80.238.0.0/19
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 770 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 80.238.0.0/19
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 780 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 80.238.0.0/19
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 790 create
+                description "permit icmp 80.238.0.0 0.0.31.255 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 80.238.0.0/19
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 800 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.216.128.0/19
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 810 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.216.128.0/19
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 820 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.216.128.0/19
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 830 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.216.128.0/19
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 840 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.216.128.0/19
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 850 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.216.128.0/19
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 860 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.216.128.0/19
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 870 create
+                description "permit icmp 90.216.128.0 0.0.31.255 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.216.128.0/19
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 880 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 176.255.204.0/23
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 890 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 176.255.204.0/23
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 900 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 176.255.204.0/23
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 910 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    src-ip 176.255.204.0/23
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 920 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 176.255.204.0/23
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 930 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 176.255.204.0/23
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 940 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 176.255.204.0/23
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 950 create
+                description "permit icmp 176.255.204.0 0.0.1.255 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    src-ip 176.255.204.0/23
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 960 create
+                description "permit udp host 90.207.238.97 eq 53 2.122.212.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.207.238.97/32
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 970 create
+                description "permit udp host 90.207.238.97 eq 53 2.122.212.128 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.207.238.97/32
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 980 create
+                description "permit udp host 90.207.238.99 eq 53 2.122.212.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    src-ip 90.207.238.99/32
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 990 create
+                description "permit udp host 90.207.238.99 eq 53 2.122.212.128 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    src-ip 90.207.238.99/32
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 1000 create
+                description "permit icmp any 2.122.212.0 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1010 create
+                description "permit icmp any 2.122.212.0 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1020 create
+                description "permit icmp any 2.122.212.0 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1030 create
+                description "permit icmp any 2.122.212.0 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.0/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 1040 create
+                description "permit icmp any 2.122.212.128 0.0.0.127 echo"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    icmp-type echo-request
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1050 create
+                description "permit icmp any 2.122.212.128 0.0.0.127 echo-reply"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    icmp-type echo-reply
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1060 create
+                description "permit icmp any 2.122.212.128 0.0.0.127 ttl-exceeded"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    icmp-type time-exceeded
+                    icmp-code 0
+                exit
+                action forward
+            exit
+            entry 1070 create
+                description "permit icmp any 2.122.212.128 0.0.0.127 unreachable"
+                match protocol icmp
+                    dst-ip 2.122.212.128/25
+                    icmp-type dest-unreachable
+                exit
+                action forward
+            exit
+            entry 1080 create
+                description "permit tcp any 2.122.212.0 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 80
+                exit
+                action forward
+            exit
+            entry 1090 create
+                description "permit tcp any 2.122.212.0 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 443
+                exit
+                action forward
+            exit
+            entry 1100 create
+                description "permit tcp any 2.122.212.128 0.0.0.127 eq 80"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 80
+                exit
+                action forward
+            exit
+            entry 1110 create
+                description "permit tcp any 2.122.212.128 0.0.0.127 eq 443"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 443
+                exit
+                action forward
+            exit
+            entry 1120 create
+                description "permit tcp any eq 80 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1130 create
+                description "permit tcp any eq 443 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1140 create
+                description "permit tcp any eq 80 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-port eq 80
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1150 create
+                description "permit tcp any eq 443 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-port eq 443
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1160 create
+                description "permit udp any eq 53 2.122.212.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 1170 create
+                description "permit udp any eq 53 2.122.212.128 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    src-port eq 53
+                exit
+                action forward
+            exit
+            entry 1180 create
+                description "permit tcp any 2.122.212.0 0.0.0.127 eq 8247"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1190 create
+                description "permit tcp any 2.122.212.128 0.0.0.127 eq 8247"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1200 create
+                description "permit tcp any eq 8247 2.122.212.0 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    src-port eq 8247
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1210 create
+                description "permit tcp any eq 8247 2.122.212.128 0.0.0.127 est"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    src-port eq 8247
+                    tcp-ack true
+                exit
+                action forward
+            exit
+            entry 1220 create
+                description "permit udp any 2.122.212.0 0.0.0.127 eq 8247"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1230 create
+                description "permit udp any 2.122.212.128 0.0.0.127 eq 8247"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1240 create
+                description "permit udp any eq 8247 2.122.212.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    src-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1250 create
+                description "permit udp any eq 8247 2.122.212.128 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    src-port eq 8247
+                exit
+                action forward
+            exit
+            entry 1260 create
+                description "permit tcp any 2.122.212.0 0.0.0.127 eq 53"
+                match protocol tcp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 53
+                exit
+                action forward
+            exit
+            entry 1270 create
+                description "permit tcp any 2.122.212.128 0.0.0.127 eq 53"
+                match protocol tcp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 53
+                exit
+                action forward
+            exit
+            entry 1280 create
+                description "permit udp any 2.122.212.0 0.0.0.127 eq 53"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 53
+                exit
+                action forward
+            exit
+            entry 1290 create
+                description "permit udp any 2.122.212.128 0.0.0.127 eq 53"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 53
+                exit
+                action forward
+            exit
+            entry 1300 create
+                description "permit udp 84.38.36.0 0.0.0.127 eq 1967 2.122.212.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    src-ip 84.38.36.0/25
+                    src-port eq 1967
+                exit
+                action forward
+            exit
+            entry 1310 create
+                description "permit udp 84.38.36.0 0.0.0.127 eq 1967 2.122.212.128 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    src-ip 84.38.36.0/25
+                    src-port eq 1967
+                exit
+                action forward
+            exit
+            entry 1320 create
+                description "permit udp 84.38.36.0 0.0.0.127 2.122.212.0 0.0.0.127 eq 1967"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 1967
+                    src-ip 84.38.36.0/25
+                exit
+                action forward
+            exit
+            entry 1330 create
+                description "permit udp 84.38.36.0 0.0.0.127 2.122.212.128 0.0.0.127 eq 1967"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 1967
+                    src-ip 84.38.36.0/25
+                exit
+                action forward
+            exit
+            entry 1340 create
+                description "permit udp 84.38.36.0 0.0.0.127 eq 16384 2.122.212.0 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    src-ip 84.38.36.0/25
+                    src-port eq 16384
+                exit
+                action forward
+            exit
+            entry 1350 create
+                description "permit udp 84.38.36.0 0.0.0.127 eq 16384 2.122.212.128 0.0.0.127"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    src-ip 84.38.36.0/25
+                    src-port eq 16384
+                exit
+                action forward
+            exit
+            entry 1360 create
+                description "permit udp 84.38.36.0 0.0.0.127 2.122.212.0 0.0.0.127 eq 16384"
+                match protocol udp
+                    dst-ip 2.122.212.0/25
+                    dst-port eq 16384
+                    src-ip 84.38.36.0/25
+                exit
+                action forward
+            exit
+            entry 1370 create
+                description "permit udp 84.38.36.0 0.0.0.127 2.122.212.128 0.0.0.127 eq 16384"
+                match protocol udp
+                    dst-ip 2.122.212.128/25
+                    dst-port eq 16384
+                    src-ip 84.38.36.0/25
+                exit
+                action forward
+            exit
+            entry 1380 create
+                description "deny icmp any any log-input"
+                match protocol icmp
+                exit
+                log 137
+                action drop
+            exit
+            entry 1390 create
+                description "deny tcp any any log-input"
+                match protocol tcp
+                exit
+                log 137
+                action drop
+            exit
+            entry 1400 create
+                description "deny udp any any log-input"
+                match protocol udp
+                exit
+                log 137
+                action drop
+            exit
+            entry 1410 create
+                description "deny ip any any log-input"
+                match
+                exit
+                log 137
+                action drop
+            exit
+	exit
+    exit
+    router
+        policy-options
+            begin
+            community "esm-mgt-exp" members "target:4589:44001941"
+            community "esm-mgt-imp" members "target:4589:44001941"
+            community "cdn-exp-dvn-prod" members "target:65444:22220"
+            community "cdn-exp-dvn-stage" members "target:65444:22320"
+            community "cdn-imp-dvn-prod_1" members "target:65444:22201"
+            community "cdn-imp-dvn-prod_2" members "target:65444:22202"
+            community "cdn-imp-dvn-prod_3" members "target:65444:22203"
+            community "cdn-imp-dvn-prod_4" members "target:65444:22204"
+            community "cdn-imp-dvn-prod_5" members "target:65444:22210"
+            community "cdn-imp-dvn-prod_6" members "target:65444:22230"
+            community "cdn-imp-dvn-prod_7" members "target:65444:22240"
+            community "cdn-exp-dvn-f5-sync" members "target:65444:22332"
+            community "cdn-imp-dvn-f5-sync" members "target:65444:22331"
+            community "cdn-imp-dvn-stage_1" members "target:65444:22301"
+            community "cdn-imp-dvn-stage_2" members "target:65444:22302"
+            community "cdn-imp-dvn-stage_3" members "target:65444:22303"
+            community "cdn-imp-dvn-stage_4" members "target:65444:22304"
+            community "cdn-imp-dvn-stage_5" members "target:65444:22310"
+            community "cdn-imp-dvn-stage_6" members "target:65444:22321"
+            community "cdn-imp-dvn-stage_7" members "target:65444:22322"
+            community "cdn-imp-dvn-f5-sync_1" members "target:65444:22333"
+            community "cdn-imp-dvn-f5-sync_2" members "target:65444:22334"
+            policy-statement "esm-mgt-exp"
+                entry 10
+                    from
+                        protocol direct
+                    exit
+                    to
+                        protocol bgp-vpn
+                    exit
+                    action accept
+                        community add "esm-mgt-exp"
+                        origin incomplete
+                    exit
+                exit
+            exit
+            policy-statement "esm-mgt-imp"
+                entry 10
+                    from
+                        protocol bgp-vpn
+                        community "esm-mgt-imp"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            policy-statement "cdn-exp-dvn-prod"
+                entry 10
+                    from
+                        protocol direct
+                    exit
+                    to
+                        protocol bgp-vpn
+                    exit
+                    action accept
+                        community add "cdn-exp-dvn-prod"
+                        origin incomplete
+                    exit
+                exit
+                entry 20
+                    from
+                        protocol static
+                    exit
+                    to
+                        protocol bgp-vpn
+                    exit
+                    action accept
+                        community add "cdn-exp-dvn-prod"
+                        origin incomplete
+                    exit
+                exit
+            exit
+            policy-statement "cdn-imp-dvn-prod"
+                entry 10
+                    description "route-target import 65444:22201"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_1"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 20
+                    description "route-target import 65444:22202"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_2"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 30
+                    description "route-target import 65444:22203"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_3"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 40
+                    description "route-target import 65444:22204"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_4"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 50
+                    description "route-target import 65444:22210"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_5"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 60
+                    description "route-target import 65444:22230"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_6"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 70
+                    description "route-target import 65444:22240"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-prod_7"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            policy-statement "cdn-exp-dvn-stage"
+                entry 10
+                    from
+                        protocol direct
+                    exit
+                    to
+                        protocol bgp-vpn
+                    exit
+                    action accept
+                        community add "cdn-exp-dvn-stage"
+                        origin incomplete
+                    exit
+                exit
+            exit
+            policy-statement "cdn-imp-dvn-stage"
+                entry 10
+                    description "route-target import 65444:22301"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_1"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 20
+                    description "route-target import 65444:22302"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_2"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 30
+                    description "route-target import 65444:22303"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_3"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 40
+                    description "route-target import 65444:22304"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_4"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 50
+                    description "route-target import 65444:22310"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_5"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 60
+                    description "route-target import 65444:22321"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_6"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 70
+                    description "route-target import 65444:22322"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-stage_7"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            policy-statement "cdn-exp-dvn-f5-sync"
+                entry 10
+                    description "route-target export 65444:22332"
+                    from
+                        protocol direct
+                    exit
+                    to
+                        protocol bgp-vpn
+                    exit
+                    action accept
+                        community add "cdn-exp-dvn-f5-sync"
+                        origin incomplete
+                    exit
+                exit
+            exit
+            policy-statement "cdn-imp-dvn-f5-sync"
+                entry 10
+                    description "route-target import 65444:22331"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-f5-sync"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 20
+                    description "route-target import 65444:22333"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-f5-sync_1"
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 30
+                    description "route-target import 65444:22334"
+                    from
+                        protocol bgp-vpn
+                        community "cdn-imp-dvn-f5-sync_2"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            commit
+        exit
+    exit
+    service
+        customer 48 create
+            description "CDN-DVN-Origin Cache Farm"
+	exit
+        vpls 220908 customer 48 create
+            description "VPLS Interconnect DVN ESM Origin Cache ESX Host ILO/Console Interfaces"
+            allow-ip-int-binding
+            stp
+                no shutdown
+            exit
+            service-name "vpls220908_dvn-esm"
+            sap 8/1/1 create
+            exit
+            no shutdown
+        exit
+        vprn 220907 customer 48 create
+            description "vprn-esm"
+            vrf-import "esm-mgt-imp"
+            vrf-export "esm-mgt-exp"
+            router-id 84.38.34.30
+            route-distinguisher 65444:4641
+            auto-bind ldp
+            interface "vprn-dvn-esm" create
+                description "[agg,iv-s=cdn] DVN ESM ILO/Console Gateway Interface "
+                address 10.254.152.126/26
+                icmp
+                    no redirects
+                exit
+                vpls "vpls220908_dvn-esm"
+                exit
+            exit
+            service-name "vprn220907_dvn-esm"
+            no shutdown
+        exit
+        vpls 220901 customer 48 create
+            description "Interconnect DVN Production Origin Cache ESX Host GRTExtrenal facing Interfaces"
+            allow-ip-int-binding
+            stp
+                no shutdown
+            exit
+            service-name "vpls220901_dvn-grt"
+            sap lag-55:100 create
+                ingress
+                    filter ip 136
+                exit
+                egress
+                    filter ip 137
+                exit
+            exit
+            no shutdown
+        exit
+        ies 220900 customer 48 create
+            interface "ies220900_dvn-grt" create
+                description "[agg,iv-s=cdn] DVN GRT Gateway Interface "
+                address 2.122.212.126/25
+                cflowd interface
+                vpls "vpls220901_dvn-grt"
+                exit
+            exit
+            service-name "ies220900_dvn-grt"
+            no shutdown
+        exit
+        vpls 220904 customer 48 create
+            description "VPLS Interconnect DVN Stage ( Origin Cache ESX ) Host Backend facing Interfaces"
+            allow-ip-int-binding
+            stp
+                no shutdown
+            exit
+            service-name "vpls220904_dvn-stage"
+            sap lag-55:105 create
+            exit
+            no shutdown
+        exit
+        vprn 220903 customer 48 create
+            description "vprn-cdn-dvn-backend-staging"
+            vrf-import "cdn-imp-dvn-stage"
+            vrf-export "cdn-exp-dvn-stage"
+            router-id 84.38.34.30
+            route-distinguisher 65444:22310
+            auto-bind ldp
+            interface "vprn-dvn-stage" create
+                description "[agg,iv-s=cdn] DVN Stage VPRN Backend Gateway Interface "
+                address 10.232.84.126/25
+                icmp
+                    no redirects
+                exit
+                vpls "vpls220904_dvn-stage"
+                exit
+            exit
+            service-name "vprn220903_dvn-stage"
+            no shutdown
+        exit
+        vpls 220906 customer 48 create
+            description "VPLS Interconnect DVN Production Origin Cache ESX Host Backend facing Interfaces"
+            allow-ip-int-binding
+            stp
+                no shutdown
+            exit
+            service-name "vpls220906_dvn-prod"
+            sap lag-55:110 create
+            exit
+            no shutdown
+        exit
+        vprn 220905 customer 48 create
+            description "vprn-cdn-dvn-backend-production"
+            vrf-import "cdn-imp-dvn-prod"
+            vrf-export "cdn-exp-dvn-prod"
+            router-id 84.38.34.30
+            route-distinguisher 65444:22210
+            auto-bind ldp
+            interface "vprn-dvn-prod" create
+                description "[agg,iv-s=cdn] DVN Production VPRN Backend Gateway Interface "
+                address 10.232.80.126/25
+                icmp
+                    no redirects
+                exit
+                vpls "vpls220906_dvn-prod"
+                exit
+            exit
+            static-route 10.232.80.253/32 next-hop 10.232.80.120
+            static-route 10.232.80.254/32 next-hop 10.232.80.120
+            service-name "vprn220905_dvn-prod"
+            no shutdown
+        exit
+        vpls 220910 customer 48 create
+            description "VPLS Interconnect DVN VPRN Dedicated F5 SYNC Control Plane Interface"
+            allow-ip-int-binding
+            stp
+                no shutdown
+            exit
+            service-name "vpls2209910_dvn-f5-sync"
+            sap lag-55:102 create
+            exit
+            no shutdown
+        exit
+        vprn 220909 customer 48 create
+            description "vprn-cdn-dvn-f5-sync-channel"
+            vrf-import "cdn-imp-dvn-f5-sync"
+            vrf-export "cdn-exp-dvn-f5-sync"
+            router-id 84.38.34.30
+            route-distinguisher 65444:22332
+            auto-bind ldp
+            interface "vprn-dvn-f5-sync" create
+                description "[agg,iv-s=cdn] DVN  VPRN Dedicated F5 SYNC Control Plane Interface "
+                address 10.232.87.30/27
+                icmp
+                    no redirects
+                exit
+                vpls "vpls2209910_dvn-f5-sync"
+                exit
+            exit
+            service-name "vprn220909_dvn-f5-sync"
+            no shutdown
+        exit all

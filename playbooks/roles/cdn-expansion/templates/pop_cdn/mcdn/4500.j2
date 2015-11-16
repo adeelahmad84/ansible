@@ -1,0 +1,26 @@
+configure terminal
+!
+!
+interface Port-channel{{ mcdn.channel }}
+ description [ext,iv-g=mcdn,iv-s=cdn_mcdn] Port-Channel to Cisco 4900M Akamai Managed Switch
+ mtu 8226
+ ip address {{ mcdn.ipv4 | ipaddr('1')|replace("/27", " ")  }} {{ mcdn.ipv4 | ipaddr('netmask')  }}
+ ipv6 address {{ mcdn.ipv6 | ipaddr('1') }}
+ no shutdown
+!
+{% for key, value in mcdn.array|dictsort %}
+interface TenGigabitEthernet{{ value.port }}
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Link {{ value.server_id }} - PCH{{ mcdn.channel }} to mcdn NIC_{{ value.server_id }} Server
+ mtu 8226
+ no switchport
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ no cdp enable
+ channel-protocol lacp
+ channel-group {{ mcdn.channel }} mode active
+!
+{% endfor %}
+!
+end

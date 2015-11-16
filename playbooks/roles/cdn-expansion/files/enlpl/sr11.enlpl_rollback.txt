@@ -1,0 +1,22 @@
+exit all
+configure
+    port 1/1/11
+        description "[no-mon,core,rd=ar20.enlpl:te1-6,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        shutdown
+    exit    
+    lag 
+	description "[no-mon,core,rd=ar20.enlpl:pc1,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar20.enlpl"
+	shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK"
+	    address 2.120.9.242/31
+	    description "[no-mon,core,rd=ar20.enlpl:pc1,iv-s=cdn_pop]"
+	    shutdown
+	exit
+        bgp
+            group "remote-popcdn-ipv4"
+		shutdown
+                neighbor 2.120.9.243 
+		    shutdown
+                exit all

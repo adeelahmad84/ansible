@@ -1,0 +1,12 @@
+/configure
+{% for key, value in bbpe.1.ports|dictsort %}
+    port {{ value.port }}
+        shutdown
+    exit
+{% endfor %}
+    lag 50
+{% for key, value in bbpe.1.ports|dictsort %}
+        no port {{ value.port }}
+{% endfor %}
+        no port-threshold
+    exit all

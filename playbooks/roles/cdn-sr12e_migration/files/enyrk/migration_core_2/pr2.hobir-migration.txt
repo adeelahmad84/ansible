@@ -1,0 +1,36 @@
+configure terminal
+!
+interface HundredGigE0/7/0/2
+ description [core-o,rd=ar11-cdn.enyrk:9-1-1,cid=SNS:1003/BHMB-YRKA/100G/CDN1,iv-s=bb]
+ shutdown
+ bundle id 309 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface HundredGigE0/7/0/3
+ description [core-o,rd=ar11-cdn.enyrk:9-1-2,cid=SNS:1003/BHMB-YRKA/100G/CDN2,iv-s=bb]
+ shutdown
+ bundle id 309 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+interface HundredGigE0/7/0/5
+ description [core-o,rd=ar11-cdn.enyrk:9-1-3,cid=SNS:1003/BHMB-YRKA/100G/CDN3,iv-s=bb]
+ shutdown
+ bundle id 309 mode active
+ lacp period short
+ load-interval 30
+ dampening 1 750 2000 1
+ ethernet oam
+  profile oam-100x3
+ !
+!
+commit

@@ -1,0 +1,21 @@
+configure terminal
+!
+interface TenGigabitEthernet1/13
+ shutdown
+!
+interface TenGigabitEthernet1/14
+ shutdown
+!
+interface TenGigabitEthernet1/15
+ shutdown
+!
+interface TenGigabitEthernet1/16
+ shutdown
+!
+interface TenGigabitEthernet1/17
+ shutdown
+!
+interface TenGigabitEthernet1/18
+ shutdown
+!
+end

@@ -1,0 +1,7 @@
+mpls ldp neighbor 84.38.34.170 password JxY0wNJkgXCAcSHz
+
+interface Port-channel3.3617
+ description [core,rd=sr12.enntg:sdp266,cid=SNS:1000/LNBL-STKA/PW/999360617] sedcanopy pw
+ encapsulation dot1Q 3617
+ xconnect 84.38.34.170 999360617 pw-class SEDCANOPY
+end

@@ -1,0 +1,14 @@
+show port 5/1/36
+show port 5/1/37
+show port 5/1/35
+show lag 55 port
+show service id 220908 base
+show service id 220907 base
+show service id 220901 base
+show service id 220900 base
+show service id 220904 base
+show service id 220903 base
+show service id 220906 base
+show service id 220905 base
+show service id 220910 base
+show service id 220909 base

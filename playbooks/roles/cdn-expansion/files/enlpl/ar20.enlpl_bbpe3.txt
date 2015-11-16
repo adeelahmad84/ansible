@@ -1,0 +1,97 @@
+    port 1/1/6
+        description "[core,rd=ar20.enlpl:te1-13,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 1/2/1
+        description "[core,rd=ar20.enlpl:te1-14,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 1/2/2
+        description "[core,rd=ar20.enlpl:te1-15,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 10/1/6
+        description "[core,rd=ar20.enlpl:te1-16,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 10/2/1
+        description "[core,rd=ar20.enlpl:te1-17,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    port 10/2/2
+        description "[core,rd=ar20.enlpl:te1-18,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN "
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+	lag 
+        description "[core,rd=ar20.enlpl:pc3,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO ar20.enlpl"
+		port 1/1/6
+		port 1/2/1
+		port 1/2/2
+		port 10/1/6
+		port 10/2/1
+		port 10/2/2
+		
+		lacp active 
+		port-threshold 3 action down
+        no shutdown
+    exit
+	router
+        interface "IN-POP-CDN-LINK"
+		    address 2.120.8.40/31
+            description "[core,,rd={+{ hostname }}:pc3,iv-s=cdn_pop]"
+            port lag-
+            ipv6
+                address 2a02:c78:1:12::4/127
+            exit
+            cflowd interface both
+            no shutdown
+        exit
+        static-route 84.38.34.238/32 next-hop 2.120.9.247/31 tag 20110
+        policy-options
+            begin
+            prefix-list "PL-POP-CDN-LOOPBACK"
+                prefix 84.38.34.238/32exact
+            exit
+            policy-statement "EXPORT-TO-IBGP"
+                entry 48
+                    description "CDN-AR20-Lo0 static needs to be allowed prior to blocking infrastructure range"
+                    from
+                        protocol static
+                        prefix-list "PL-POP-CDN-LOOPBACK"
+                        tag 0x4e8e
+                    exit
+                    to
+                        protocol bgp
+                    exit
+                    action accept
+                        community add "Subconfed-local"
+                        next-hop-self
+                    exit
+		exit
+            exit
+	    commit
+	exit all

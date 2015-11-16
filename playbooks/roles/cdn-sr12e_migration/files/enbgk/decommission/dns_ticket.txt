@@ -1,0 +1,4 @@
+Please remove the following DNS record as this device is decommissioned:
+
+ar10.enbgk.isp.sky.com	    in	A	84.38.34.61
+61.34.38.84.in-addr.arpa.	in	PTR	ar10.enbgk.isp.sky.com

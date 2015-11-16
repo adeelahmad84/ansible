@@ -1,0 +1,18 @@
+exit all
+configure
+    port 1/1/1
+        description "[core,ip=,rd=pr3.enlba:4-0-0,cid=SNS:1003/CRLA-LDSA/100G/CDN1,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 1/2/1
+        description "[core,ip=,rd=pr3.enlba:4-0-1,cid=SNS:1003/CRLA-LDSA/100G/CDN3,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    port 2/1/1
+        description "[core,ip=,rd=pr3.enlba:4-0-2,cid=SNS:1003/CRLA-LDSA/100G/CDN2,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 2
+        description "[core,ip=,rd=pr3.enlba:be202,iv-s=vcdn_sc]"
+        no shutdown
+exit all

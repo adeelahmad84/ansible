@@ -1,0 +1,12 @@
+exit all
+configure
+    router
+        policy-options
+	begin
+            prefix-list "POPCDN-IPV6-GOOGLE-LAN"
+                no prefix 2a02:c7a:8000:170d::/64 exact
+	commit
+	exit
+        no static-route 2a02:c7a:8000:170d::/64
+        no static-route 90.201.127.128/26
+exit all

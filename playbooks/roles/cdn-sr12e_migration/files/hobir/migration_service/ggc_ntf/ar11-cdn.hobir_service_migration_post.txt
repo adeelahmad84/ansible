@@ -1,0 +1,95 @@
+show port 4/1/17
+show port 4/1/17 description
+show port 4/1/18
+show port 4/1/18 description
+show port 4/1/19
+show port 4/1/19 description
+show port 4/1/20
+show port 4/1/20 description
+show port 4/1/21
+show port 4/1/21 description
+show port 4/1/22
+show port 4/1/22 description
+show port 4/1/23
+show port 4/1/23 description
+show port 4/1/24
+show port 4/1/24 description
+show service id 220105 base
+show service id 220105 sap
+show service id 220102 base
+show service id 220102 interface
+show service id 220102 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220102 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 4/1/29
+show port 4/1/29 description
+show port 4/1/30
+show port 4/1/30 description
+show port 4/1/31
+show port 4/1/31 description
+show port 4/1/32
+show port 4/1/32 description
+show port 4/1/33
+show port 4/1/33 description
+show port 4/1/34
+show port 4/1/34 description
+show port 4/1/35
+show port 4/1/35 description
+show port 4/1/36
+show port 4/1/36 description
+show service id 220111 base
+show service id 220111 sap
+show service id 220103 base
+show service id 220103 interface
+show service id 220103 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220103 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 5/1/12
+show port 5/1/12 description
+show port 5/1/14
+show port 5/1/14 description
+show port 5/1/16
+show port 5/1/16 description
+show lag 40
+show lag 40 port
+show service sap-using sap lag-40
+show service id 220402 base
+show service id 220402 sap
+show service id 220401 base
+show service id 220401 interface
+show service id 220401 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220401 context all
+# ping all ipv6 addresses in the neighbor entry
+show port 4/1/6
+show port 4/1/6 description
+show port 4/1/8
+show port 4/1/8 description
+show port 4/1/10
+show port 4/1/10 description
+show lag 43
+show lag 43 port
+show service sap-using sap lag-43
+show service id 220412 base
+show service id 220412 sap
+show service id 220411 base
+show service id 220411 interface
+show service id 220411 arp
+# ping all addresses in the arp entry
+show router neighbor | match 220411 context all
+# ping all ipv6 addresses in the neighbor entry
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:205::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:206::/64 ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 2.127.251.64/26
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 2.127.251.128/26
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:20A::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:20D::/64 ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 2.127.242.32/27
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 2.127.242.64/27
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:207::/64 ignore-case
+show router bgp neighbor 89.200.128.[12..14] ipv6 advertised-routes | match 2A02:C7A:8000:211::/64 ignore-case
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.223.194.208/29
+show router bgp neighbor 89.200.128.[88..91] ipv4 advertised-routes | match 90.208.115.0/28
+show router policy-edit

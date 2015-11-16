@@ -1,0 +1,35 @@
+configure terminal
+{% for key, cdn in services|dictsort %}
+vlan {{ cdn_lag + cdn.svc_id }}
+ name {{ cdn_name|upper }}_DATA_{{ cdn.svc_id }}
+!
+interface Vlan{{ cdn_lag + cdn.svc_id }}
+ description [no-mon,ext,rd={{ cdn_name|lower }},iv-s=cdn_pop] IN-POP-CDN Bundle to {{ cdn_name|upper }} {{ cdn.svc_id }}
+ ip address {{ cdn.ipv4 | ipaddr('1') | regex_replace('/.*', ' ') }} {{ cdn.ipv4 | ipaddr('netmask') }}
+ no ip redirects
+ ipv6 address {{ cdn.ipv6 | ipaddr('1') }}
+{% if cdn_name == 'google ' %}
+ ipv6 nd cache interface-limit 256
+ ipv6 nd na glean
+{% endif %}
+ no shutdown
+!
+interface Port-channel{{ cdn_lag + cdn.lag }}
+ description [no-mon,ext,rd={{ cdn_name|lower }},iv-s=cdn_pop] IN-POP-CDN Bundle to {{ cdn_name|upper }} {{ cdn.svc_id }}
+ switchport
+ switchport mode access
+ switchport access vlan {{ cdn_lag + cdn.svc_id }}
+ no shutdown
+!
+{% for key, info in cdn.array|dictsort %}
+interface TenGigabitEthernet{{ info.port }}
+ description [no-mon,ext,iv-g={{ cdn_name|lower }},iv-s=cdn_{{ cdn_name|lower }}] {{ prefix_name|lower }}{{ cdn.svc_id }} SERVER_{{ cdn.remote_svr }}
+ switchport access vlan {{ cdn_lag + cdn.svc_id }}
+ switchport mode access
+ load-interval 30
+ channel-protocol lacp
+ channel-group {{ cdn_lag + cdn.lag }} mode active
+ no shutdown
+!
+{% endfor %}
+{% endfor %}

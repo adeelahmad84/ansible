@@ -1,0 +1,28 @@
+exit all
+configure
+    port 3/1/1
+        description "[no-mon,core,ip=,rd=pr2.bllon:6-1-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 3/2/1
+        description "[no-mon,core,ip=,rd=pr2.bllon:6-2-1,cid=LOCAL,iv-s=vcdn_sc]"
+        shutdown
+    exit
+    port 5/1/7
+        description "[core,ip=,rd=ar11-cdn.enlcs:4-1-40,cid=LOCAL,iv-s=vcdn_sc]"
+        no shutdown
+    exit
+    lag 176
+        description "[no-mon,core,ip=,rd=ar11-cdn.enlcs:lag176,iv-s=vcdn_sc]"
+        shutdown
+	no port 3/1/1
+	no port 3/2/1
+    exit
+    router
+        interface "base_ar11-cdn.enlcs_1"
+            description "[core-o,rd=ar11-cdn.enlcs:4-1-40]"
+	    shutdown
+	    no port
+            port 5/1/7
+            no shutdown
+exit all

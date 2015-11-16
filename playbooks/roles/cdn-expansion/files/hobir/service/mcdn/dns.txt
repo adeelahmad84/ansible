@@ -1,0 +1,13 @@
+90.211.179.192/26 A host1-rangeC-akamai-mcdn.cdn.hobir.isp.sky.com
+
+# reverse will follow the same pattern e.g:
+192.179.211.90.in-addr.arpa. PTR host1-rangeC-akamai-mcdn.cdn.hobir.isp.sky.com
+
+N.B. host1 in the A/PTR record belonging to the first useable address in that range and would increment till the last useable.
+
+...for ipv6 please apply the following convention:
+
+*.4.1.2.0.0.0.0.8.a.7.c.0.2.0.a.2.ip6.arpa. IN PTR rangeC-akamai-mcdn.cdn.hobir.isp.sky.com
+
+...complete /64 to have the same PTR record
+

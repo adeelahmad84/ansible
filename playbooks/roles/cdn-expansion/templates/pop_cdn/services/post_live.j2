@@ -1,0 +1,328 @@
+
+Testing
+Contents [hide]
+
+    1 Google
+        1.1 GGC YouTube
+            1.1.1 Fetching Content
+            1.1.2 Checking Performance
+            1.1.3 Graphs
+    2 Akamai
+        2.1 AANP
+            2.1.1 Fetching Content
+            2.1.2 Graphs
+        2.2 MCDN (PDL, PCDN, AnyTime+, CatchupTV)
+            2.2.1 Fetching Content
+            2.2.2 Graphs
+                2.2.2.1 Cricket Graphs
+                2.2.2.2 Luna Control Panel Graphs
+        2.3 Akamai Staging Network
+    3 Netflix
+        3.1 Netflix Caches
+            3.1.1 Fetching Content
+            3.1.2 Graphs
+    4 Level 3
+        4.1 L3 DEC
+            4.1.1 Fetching Content
+            4.1.2 Graphs
+        4.2 L3 Global Cache
+            4.2.1 Fetching Content
+                4.2.1.1 Curltime
+            4.2.2 Graphs
+    5 All Providers
+        5.1 Wireshark
+            5.1.1 To see congestion
+            5.1.2 To see irregular buffer filling
+        5.2 Roku TCPDump
+    6 Scripting
+
+Google
+GGC YouTube
+Fetching Content
+
+1) You need to lookup the IPaddress from the site you want to test in the Pop Guide.
+
+2) By using the Curl command from a UNIX host with the -x<IPADDRESS>:80 option you can force the pulling of a youtube video from a cache.
+
+File:YouTubeTest.PNG
+Checking Performance
+
+Required:
+
+Check which node is supplying content:
+
+    http://redirector.c.youtube.com/report_mapping 
+
+IP of GGC to test (example “2.127.251.68”) Method:
+
+    Configure browser proxy setting with IP to be tested on port 80
+    Browse to http://www.youtube.com/my_speed#
+    Click “show test video”
+    Right click and “show video info” 
+
+File:googleperf.PNG
+Graphs
+
+To verify the caches traffic volumes please see the graphs here.
+Akamai
+AANP
+Fetching Content
+
+1) You need to lookup the IPaddress from the site you want to test in the Pop Guide.
+
+2) http://www.sky.com uses Akamai AANP. To test this we first get a URL of an image from the www.sky.com home page:
+
+File:ImageURL.PNG
+
+3) We just need to confirm that this is indeed being served from the Akamai Solution:
+
+File:IsitAkamai.PNG
+
+4) Then the URL can be used with Curl and the -x<IPADDRESS>:80 option to test the AANP caches
+
+File:AANPTest.PNG
+Graphs
+
+To verify the caches traffic volumes please see the graphs here.
+MCDN (PDL, PCDN, AnyTime+, CatchupTV)
+Fetching Content
+
+1) First we need to get a URL of a VOD asset. The easiest way to do this is with the Desktop client and Fiddler2.
+
+2) Login to go.sky.com and download a programme.
+
+3) Open Fiddler and look for the movie file.
+
+File:vodtesting.PNG
+
+4) You will be able to download this asset with curl from what every MCDN node you wish (but you will NOT be able to play it in Windows Media Player due to DRM restrictions.
+
+5) You need to grab an IP address from the Pop Guide.
+
+6) Then using Curl with the -x<IPADDRESS> option can test a MCDN node:
+
+File:curlvodtest.PNG
+Graphs
+Cricket Graphs
+
+To verify that the caches traffic volumes please see the graphs here.
+Luna Control Panel Graphs
+
+You can see graphs for PDL by looking under "Monitor" the Assets Streaming.vod.sky.com
+
+File:Lunapdl.png
+
+
+Akamai Staging Network
+
+Akamai provide an limited number of servers so called ‘Staging Network’ that are externally accessible to the outside world for customers to test Any new configuration. These servers are acting as An normal Edge Server, but they are not introduced to the public. In order to test new behavior through the staging network, one needs to full his browser to use an IP address of the Staging Machine instead of the IP that would be normally resolved via the DNS. This is usually achieved by changing the Local HOST file on the machine to contain a record of:
+
+1.2.3.4 my.website.com
+
+Where 1.2.3.4 is an IP address of the Staging Network machine, and my.website.com is the Name of the website.
+
+Giving an example, in case of go.sky.com
+
+Resolution of go.sky.com will give you the following CNAME:
+go.sky.com.             86400   IN      CNAME   wildcard.sky.com.edgekey.net.
+
+This CNAME ‘wildcard.sky.com.edgekey.net’ will Resolve to the Production IP address
+
+In order to get the Staging Network IP Address you need to add ‘-staging’ to the CNAME : wildcard.sky.com.edgekey-staging.net and resolve it. This will give you the IP address of: 96.16.29.52
+
+So you need to Add the Following Entry to the HOST file:
+
+96.16.29.52         go.sky.com
+
+There are different ways to achieve that goal. The point is to force the browser to use Different IP address, that it would usually do.
+
+
+Netflix
+Netflix Caches
+Fetching Content
+
+Because the Netflix caches are supplied as 3rd party caches only we do not have means (or need) to test the content.
+Graphs
+
+To verify the caches traffic volumes please see the graphs here.
+Level 3
+L3 DEC
+Fetching Content
+
+The L3 DEC provides streaming content. There is no way of testing a cache at this time from within Sky. Level 3 Support would need to assist if you need this testing.
+Graphs
+
+To verify the caches traffic volumes please see the graphs here.
+L3 Global Cache
+Fetching Content
+
+1) You need to lookup the IPaddress from the site you want to test in the Pop Guide.
+
+2) By using the Curl command from a UNIX host with the -x<IPADDRESS>:80 option you can force the pulling of a Level 3 asset from a cache.
+
+3) Skysports.com uses the L3 Global Cache so is good to test with a SkySports asset:
+
+File:l3gctest.PNG
+Curltime
+
+to get this:
+
+HTTP/1.0 200 OK
+Date: Sun, 21 Apr 2013 16:44:37 GMT
+Server: Apache
+Cache-Control: max-age=30, s-maxage=30
+Expires: Sun, 21 Apr 2013 16:45:07 GMT
+ETag: 584cac3edecdb095faf62435c37daaab7bbe418f
+Content-Type: application/json
+X-Cache: MISS from squid18.teamtalk.com
+Via: 1.0 squid18.teamtalk.com (squid/3.1.23)
+Connection: keep-alive
+
+nslookup: 0.000 connect: 0.004  1st byte: 9.197 total: 9.197    size: 0 rate: 0.000
+
+You can write a quick oneline, like this:
+
+curl -I -H "Host: www1.skysports.com" -w "nslookup: %{time_namelookup}\tconnect: %{time_connect}\t1st byte: %{time_starttransfer}\ttotal: %{time_total}\tsize: %{size_download}\trate: %{speed_download}\n\n" origin.skysports.com/football/match/live/1366559280/commentary/283163
+Graphs
+
+To verify the caches traffic volumes please see the graphs here.
+All Providers
+Wireshark
+To see congestion
+
+File:Congestion.png
+
+Note: Not from Sky network, can never find it when you want it!
+To see irregular buffer filling
+
+File:bufferwire.png
+
+
+Other useful seach strings:
+
+ !(http.request.uri contains "345") && http.request.uri contains "video"
+
+In IO graphs: ip.dst_host contains "hobir"
+Roku TCPDump
+
+Enabling tcpdump on the Roku box
+
+There is an undocumented feature useful in debugging some issues.
+
+To enable tcpdump packet traces on the Roku box, enter the remote code: Home 5x, FF 3x, Rewind 2x
+
+This brings you to a "secret" screen, where you can select: "enable debug logging"
+
+tcpdump is now enabled on the box. It creates a circular log of packet traces that can be accessed at http://<ipaddr>/pkgs/ in log0,log1, log2,log3 that can be filled circularly.
+
+Once the log is downloaded to your host, you can view it in your favorite tcpdump viewer (eg wireshark: http://www.wireshark.org/)
+Scripting
+
+For reasons, scripts that were resident on an AdminJumpHost are being migrated to dedicated script servers
+
+•   scripts2.nme.bllon.isp.sky.com 
+•   Scripthost1
+
+    Page Discussion View source History	
+
+    Log in / create account 
+
+Navigation
+
+    Main page
+    4am Guide
+    Weathermap
+    Graphs
+    Pop Guide
+    Contacts
+    OTT Service Centre Osterley
+    Sporting Events
+    Whats Where
+    Links
+
+Search
+ 
+Supplier Information
+
+    Conviva
+    Level 3
+    Akamai
+    Netflix
+    Google Global Cache
+    EE
+    Talk Talk
+    CDN_Selector
+
+Solutions
+
+    SkyGo
+    Nowtv
+    Web Caching
+    Third Party Caches
+    CatchUp TV
+    Pop Site CDNs
+    Wholesale DVN
+    DNS Sieve
+    Route Servers
+    Sky Store
+    MultiCDN
+    Mapper
+    CDN Netflow
+    Velocix
+    Octopus
+
+Tech Guides
+
+    Video URLS
+    Testing Services
+    Cache Control Headers
+    5xx Errors
+    Quick Guide to DNS
+    Not a DOS
+    Cache Draining
+    Loadbalancing
+    Moving Origin
+    Network Diagram
+    Arbor
+    iOS Releases
+    Ironman DNS
+    IWF Filter
+    Conviva Alerts
+    IPv6 Testing
+    Waf IP Blocking
+    Akamai Spining Globe
+
+CDN Team Guides
+
+    Cheetsheet
+    CDN Team Lab
+    CDN Team Wiki
+    OTT Analyst Guide
+    Editing Weathermap
+    Packages Guide
+    Sports Calendar
+    Event Centre
+    Example Callouts
+    Acronym Guide
+    Router Commands
+    Heightened Awareness
+    CMP Alerts
+    Pop CDN Go-Live
+    Webscreens
+    MicroSoft Home Use Program
+    Office IP Ranges
+    ITV Stream Testing
+    ROI related content
+
+Toolbox
+
+    What links here
+    Related changes
+    Special pages
+    Printable version
+    Permanent link
+
+Powered by MediaWiki
+
+    This page was last modified on 10 October 2014, at 13:13. This page has been accessed 327 times. Privacy policy About CDNWiki Disclaimers 
+

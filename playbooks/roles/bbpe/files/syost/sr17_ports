@@ -1,0 +1,208 @@
+exit all
+configure
+    port 1/1/1
+        description "[no-mon,core,ip=,rd=pr2.thlon:te0-2-0-6-2,cid=1000/LNTW-OSTF/10GLAN/OVN14,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 1/1/2
+        description "[no-mon,core,ip=,rd=pr2.thlon:te0-2-0-6-1,cid=1000/LNTW-OSTF/10GLAN/OVN15,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 1/1/3
+        description "[no-mon,core,ip=,rd=pr2.thlon:te0-2-0-6-0,cid=1000/LNTW-OSTF/10GLAN/OVN16,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/1
+        description "[no-mon,core,ip=,rd=pr3.bllon:te0-2-0-6-3,cid=1000/LNBL-OSTF/10GLAN/OVN14,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/2
+        description "[no-mon,core,ip=,rd=pr3.bllon:te0-2-0-6-2,cid=1000/LNBL-OSTF/10GLAN/OVN15,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    port 10/1/3
+        description "[no-mon,core,ip=,rd=pr3.bllon:te0-2-0-6-1,cid=1000/LNBL-OSTF/10GLAN/OVN16,iv-s=bb]"
+        network
+            egress
+                pool
+                    slope-policy "Sky slope-policy"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 8222
+            egress-scheduler-policy "P-CORE-EGRESS-10G"
+            network
+                queue-policy "network-queue-10Gig-imm"
+            exit
+            hold-time up 5
+            efm-oam
+                transmit-interval 1 multiplier 3
+				hold-time 5
+                no shutdown
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                exit
+            exit
+        exit
+        no shutdown
+    exit
+    lag 1
+        description "[core,ip=,rd=pr2.thlon:be262,iv-s=bb]"
+        encap-type null
+        port 1/1/1
+        port 1/1/2
+        port 1/1/3
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+    exit
+    lag 2
+        description "[core,ip=,rd=pr3.bllon:be262,iv-s=bb]"
+        encap-type null
+        port 10/1/1
+        port 10/1/2
+        port 10/1/3
+        lacp active
+        port-threshold 1 action down
+        no shutdown
+exit all

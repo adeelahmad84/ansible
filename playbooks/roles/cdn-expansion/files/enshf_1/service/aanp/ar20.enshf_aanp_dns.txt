@@ -1,0 +1,14 @@
+
+94.15.95.130/25 A host1-rangeNone-akamai-aanp.cdn.enshf.isp.sky.com
+... all the way till..
+94.15.95.254/25 A host62-rangeNone-akamai-aanp.cdn.enshf.isp.sky.com
+
+# reverse will follow the same pattern e.g:
+
+128.95.15.94.in-addr.arpa. PTR hostx-rangeNone-akamai-aanp.cdn.enshf.isp.sky.com
+
+...for ipv6 please apply the following convention:
+
+False PTR rangeNone-akamai-aanp.cdn.enshf.isp.sky.com
+
+...complete /64 to have the same PTR record

@@ -1,0 +1,72 @@
+Check the existing module is working:
+
+rs0-cdn.thlon
+=============
+
+show inventory
+show platform
+show facility-alarm status
+show interface description
+
+
+If everything is OK, ask the FE to continue below:
+
+1. Remove the blanking plate from the expansion slot
+2. Insert the SPA into the slot
+
+Check the new module has initialised correctly.
+
+
+RS0-CDN.ENLBA
+=============
+
+1.  Check the status LED of the new SPA (daughtercard)
+
+This should be solid green, after amber for a few seconds.
+
+
+2.  Check the status LED of the SIP (fathercard)
+
+This should be solid green
+
+3. Enter command 'show inventory'
+
+Expect to see (serial number will be different):
+
+NAME: "SPA subslot 0/1", DESCR: "1-port 10 Gigabit Ethernet Shared Port Adapter XFP based"
+PID: SPA-1X10GE-L-V2   , VID: V01, SN: JAB105005QJ
+
+NAME: "subslot 0/1 transceiver 0", DESCR: "OC192 + 10GBASE-L"
+PID: XFP10GLR-192SR-L    , VID: 00 , SN: ONT163200S9
+
+4. Enter command 'show platform'
+
+This should show exact as prechecks, with the below addition:
+
+Slot      Type                State                 Insert time (ago)
+--------- ------------------- --------------------- -----------------
+ 0/1      SPA-1X10GE-L-V2     ok                    1d
+
+
+5. Enter command "show facility-alarm status"
+
+This should be exactly the same as prechecks, with no new errors
+
+
+6.  Enter command 'show int desc'
+
+expect to see:
+
+Interface                      Status         Protocol Description
+Te0/1/0                        up             up
+
+7.  Enter command 'show log'
+
+Check to ensure there are no errors/warnings relating to the SPA install, and the successful messages are shown:
+
+%SPA_OIR-6-ONLINECARD: SPA (SPA-1X10GE-L-V2) online in subslot 0/1
+%IOSXE_SPA-6-UPDOWN: Interface TenGigabitEthernet0/1/0, link down due to local fault
+%LINK-3-UPDOWN: SIP0/1: Interface EOBC0/1, changed state to up
+
+
+Ensure everything is successful before completing change. If there are problems, troubleshoot, and rollback if necessary.

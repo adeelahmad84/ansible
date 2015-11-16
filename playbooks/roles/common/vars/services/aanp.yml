@@ -1,0 +1,11 @@
+---
+
+cdn_lag: 50
+cdn_name: aanp
+cdn_svc: 220200
+cust_id: 20
+prefix_name: akamai-aanp
+service_name: Akamai-AANP
+svc_comm: 1001
+v4_entry: 26
+v6_entry: 294

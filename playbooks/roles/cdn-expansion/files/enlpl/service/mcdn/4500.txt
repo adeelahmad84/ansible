@@ -1,0 +1,36 @@
+configure terminal
+vlan 60
+ name MCDN_DATA_0
+!
+interface Vlan60
+ description [no-mon,ext,rd=mcdn,iv-s=cdn_pop] IN-POP-CDN Bundle to MCDN 0
+ ip address 176.255.171.65  255.255.255.224
+ no ip redirects
+ ipv6 address 2a02:c7a:8000:f804::1/64
+ no shutdown
+!
+interface Port-channel60
+ description [no-mon,ext,rd=mcdn,iv-s=cdn_pop] IN-POP-CDN Bundle to MCDN 0
+ switchport
+ switchport mode access
+ switchport access vlan 60
+ no shutdown
+!
+interface TenGigabitEthernet2/7
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] akamai-mcdn0 SERVER_MCDN
+ switchport access vlan 60
+ switchport mode access
+ load-interval 30
+ channel-protocol lacp
+ channel-group 60 mode active
+ no shutdown
+!
+interface TenGigabitEthernet2/8
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] akamai-mcdn0 SERVER_MCDN
+ switchport access vlan 60
+ switchport mode access
+ load-interval 30
+ channel-protocol lacp
+ channel-group 60 mode active
+ no shutdown
+!

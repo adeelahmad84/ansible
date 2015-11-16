@@ -1,0 +1,44 @@
+1. Login into ar10.hobir using the following command:
+
+cms ar10.hobir
+
+
+2. Rename the bof: 'file move bof.cfg bof.cfg.bak'
+
+3. Reboot ar10.hobir using 'admin reboot'
+
+    a. The 7750 will produce an error stating that it's unable to find a bof.
+    b. The device will prompt you to state the path of the image, type in:
+
+	- 'cf3:\IMAGES\TiMOS-10.0.R5\'
+
+    c. It will ask you for primary config url, please press ENTER to keep it blank, then save the bof and it will boot a blank configuration.
+
+4. Login using the default username and password:
+
+    Login: admin
+    Password: admin
+
+5. You will know its default as the device serial number will be shown at the prompt, configure the primary-config path in the bof.
+
+    - 'bof primary-config cf3:\config.cfg'
+
+6. Save the blank config: 'admin save'
+
+7. The quickest and cleanest way to reset the flash drives is shut, format and then unshut the standby CPM.
+
+    - file shutdown cf3-B:
+    - file format cf3-B:
+    - file no shutdown cf3-B:
+    - admin redundancy synchronise boot-env
+
+8. Switchover to CPM-B using 'admin redundancy force-switchover now'
+
+    N.B. You will need to console into the secondary console port to access CPM-B.
+
+9. Once logged into CPM-B using the default credentials repeat step 7 but for cf3-A instead.
+
+10. Finally run the below commands and reboot.
+
+    - show chassis
+    - show card detail

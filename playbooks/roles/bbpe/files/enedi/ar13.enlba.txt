@@ -1,0 +1,29 @@
+configure router mpls ingress-statistics lsp "SR12.ENEDI-1-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-1-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-2-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-2-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-3-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-3-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-4-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-4-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-5-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-5-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-6-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-6-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-7-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-7-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-8-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-8-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-9-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-9-AR13ENLBA" sender 84.38.34.5 no shutdown
+
+configure router mpls ingress-statistics lsp "SR12.ENEDI-10-AR13ENLBA" sender 84.38.34.5
+configure router mpls ingress-statistics lsp "SR12.ENEDI-10-AR13ENLBA" sender 84.38.34.5 no shutdown

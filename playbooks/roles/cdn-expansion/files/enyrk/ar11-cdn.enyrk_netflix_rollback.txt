@@ -1,0 +1,54 @@
+\configure
+    port 5/1/3
+        shutdown
+    exit
+    port 5/1/4
+        shutdown
+    exit
+    port 5/1/5
+        shutdown
+    exit
+    port 5/1/6
+        shutdown
+    exit
+    port 5/1/7
+        shutdown
+    exit
+    port 5/1/8
+        shutdown
+    exit
+    lag 30
+        no port 5/1/3
+        no port 5/1/4
+        shutdown
+    exit
+    lag 31
+        no port 5/1/5
+        no port 5/1/6
+        shutdown
+    exit
+    lag 32
+        no port 5/1/7
+        no port 5/1/8
+        shutdown
+    exit
+    service
+        vpls 220401
+            sap lag-30
+		shutdown
+            exit
+            sap lag-31
+		shutdown
+            exit
+            sap lag-32
+		shutdown
+            exit
+            shutdown
+	exit
+        ies 220400
+            interface "ies 220400_cdn-netflix"
+		shutdown
+	    exit
+            shutdown
+	exit
+    exit all

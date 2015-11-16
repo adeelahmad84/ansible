@@ -1,0 +1,21 @@
+---
+
+#[7210_RELATED]
+hostname: as102.thlon
+location: TFM5, Telehouse North Telehouse Europe 14 Coriander Avenue E14 2AA London United Kingdom
+tacacs: "opVUFFdkJ97DfqUC"
+management: "90.223.190.216/29"
+first: true
+#PLEASE USE 1/1/24
+mgt_port: "1/1/24"
+ports:
+  1:
+    remote_port: "4/1/39"
+    port: "1/1/25"
+  2:
+    remote_port: "4/1/40"
+    port: "1/1/26"
+
+#[CDN_PE_RELATED]
+lag: 4
+pe: "ar14-cdn.thlon"

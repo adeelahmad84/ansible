@@ -1,0 +1,19 @@
+Device - ar11-cdn.bllon
+Site - bllon, Sky Network Services 1 Brick Lane London E1 6PU
+Circuit - LOCAL
+Config - N/A
+Summary - Please patch the following as per TG2353 in https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells
+
+ar11-cdn.bllon	5/1/29	    AGG100-CELESTICA	     0/1
+ar11-cdn.bllon	5/1/30	    AGG100-CELESTICA	     0/2
+ar11-cdn.bllon	5/1/31	    AGG100-CELESTICA	     0/3
+ar11-cdn.bllon	5/1/32	    AGG100-CELESTICA	     0/4
+ar11-cdn.bllon	5/1/33	    AGG100-CELESTICA	     0/5
+ar11-cdn.bllon	5/1/34	    AGG100-CELESTICA	     0/6
+ar11-cdn.bllon	5/1/35	    AGG100-CELESTICA	     0/7
+ar11-cdn.bllon	5/1/36	    AGG100-CELESTICA	     0/8
+
+
+Test-Plan:
+
+T&D engineer to run an L3-test on all the ports specified above.

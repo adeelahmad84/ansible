@@ -1,0 +1,45 @@
+exit all
+configure
+    port 10/2/1
+        description "[core,rd=ar21.enntg:te1-1,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN SUITE_B_"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit    
+    lag 51
+	description "[core,rd=ar21.enntg:pc1,iv-s=cdn_pop] IN-POP-CDN BUNDLE TO AR21.ENNTG"
+	port 10/2/1
+		
+	lacp active
+	port-threshold -1 action down   
+	no shutdown
+    exit
+    router
+	interface "IN-POP-CDN-LINK-2"
+	    address 2.120.7.46/31
+	    description "[core,rd=ar21.enntg:pc1,iv-s=cdn_pop]"
+	    port lag-51
+	    ipv6
+		address 2a02:c78:1:c::4/127
+	    exit
+	    cflowd interface both
+	    no shutdown
+	exit
+	static-route 84.38.34.12/32 next-hop 2.120.7.47  tag 20100
+	policy-options
+	    begin
+	    prefix-list "PL-POP-CDN-LOOPBACK"
+		prefix 84.38.34.12/32 exact
+	    exit
+	    commit
+	exit
+        bgp
+            group "IN-POP-CDN"
+                neighbor 2.120.7.47 
+                    description "ar21.enntg"
+                    authentication-key "Ahwae4ESh1oochai"
+                    import "IN-POP-CDN-PREFIXES"
+                    export "SKY-LOCAL-USER-PREFIXES"
+exit all

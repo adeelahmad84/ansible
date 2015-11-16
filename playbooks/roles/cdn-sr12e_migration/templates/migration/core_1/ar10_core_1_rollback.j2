@@ -1,0 +1,43 @@
+exit all
+configure
+{% for key, value in core_1|dictsort %}
+    port {{ value.old_port }}
+        description "[core,ip=,rd={{ core_1_hostname }}:hu0-{{ value.port|replace("/","-") }},cid={{ value.cid }},iv-s=vcdn_sc]"
+        no shutdown
+    exit
+{% endfor %}
+{% for cdn, info in old_core_1_lag|dictsort %}
+    lag {{ info.lag }}
+        description {{ info.description|replace("[","[") }}
+        no shutdown
+{% for key, value in core_1|dictsort %}
+	port {{ value.old_port }}
+{% endfor %}
+    exit
+{% endfor %}
+    router
+	interface "base_{{ core_1_hostname }}_1"
+	    no shutdown
+            address {{ core_1_to_edge_address_range | ipaddr('1') }}
+            description "[core-o,rd={{ core_1_hostname }}:be{{ old_last_octet|int + 256 }}]"
+	exit
+	isis
+	    interface "base_{{ core_1_hostname }}_1"
+		no shutdown
+	    exit
+	exit
+	mpls
+	    interface "base_{{ core_1_hostname }}_1"
+		no shutdown
+	    exit
+	exit
+	rsvp
+	    interface "base_{{ core_1_hostname }}_1"
+		no shutdown
+	    exit
+	exit
+	ldp
+	    interface-parameters
+		interface "base_{{ core_1_hostname }}_1"
+		    no shutdown
+exit all

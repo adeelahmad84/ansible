@@ -1,0 +1,21 @@
+---
+
+- name: generate for new pe
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'commission/bof.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/{{ node_name }}.bof' }
+    - { src: 'commission/updated_cdn_pe.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/{{ node_name }}.cfg' }
+    - { src: 'commission/core_router_1.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/{{ core_1_hostname }}.txt' }
+    - { src: 'commission/core_router_2.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/{{ core_2_hostname }}.txt' }
+    - { src: 'commission/old_cdn_pe.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/{{ old_node_name }}.txt' }
+    - { src: 'commission/rr0.bllon.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr0.bllon.txt' }
+    - { src: 'commission/rr1.bllon.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr1.bllon.txt' }
+    - { src: 'commission/rr3.bllon.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr3.bllon.txt' }
+    - { src: 'commission/rr0.enlba.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr0.enlba.txt' }
+    - { src: 'commission/rr1.enlba.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr1.enlba.txt' }
+    - { src: 'commission/rr3.enlba.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr3.enlba.txt' }
+    - { src: 'commission/proc.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/procedure.txt' }
+    - { src: 'commission/core_router-rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/ncs-rollback.txt' }
+    - { src: 'commission/rr0-rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr0-rollback.txt' }
+    - { src: 'commission/rr1-rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr1-rollback.txt' }
+    - { src: 'commission/rr3-rollback.j2', dest: '~/ansible/playbooks/roles/cdn-sr12e_migration/files/{{ site_id }}/commission/rr3-rollback.txt' }

@@ -1,0 +1,41 @@
+hostname: 'ar11-cdn.enlba'
+services:
+  mcdn:
+    tgref: 2575
+    lag: 0
+    remote_svr: 'FEBE-01'
+    svc_id: 3
+    range: C
+    ipv4: "90.211.179.64/26"
+    ipv6: "2a02:c7a:8000:130c::/64"
+    array:
+      1:
+        port: "6/1/31"
+        remote_port: "0/39"
+      2:
+        port: "6/1/32"
+        remote_port: "0/40"
+      3:
+        port: "6/1/33"
+        remote_port: "0/41"
+      4:
+        port: "6/1/34"
+        remote_port: "0/42"
+      5:
+        port: "6/1/35"
+        remote_port: "0/43"
+      6:
+        port: "6/1/36"
+        remote_port: "0/44"
+      7:
+        port: "6/1/37"
+        remote_port: "0/45"
+      8:
+        port: "6/1/38"
+        remote_port: "0/46"
+      9:
+        port: "6/1/39"
+        remote_port: "0/47"
+      10:
+        port: "6/1/40"
+        remote_port: "1/48"

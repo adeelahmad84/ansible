@@ -1,0 +1,94 @@
+exit all
+configure
+    port 5/1/36
+        description "[no-mon,ce,rd=dvn-hbr-aswt-01:te1/31,cid=LOCAL,iv-s=mpls] PROD"
+        shutdown
+    exit
+    port 5/1/37
+        description "[no-mon,ce,rd=dvn-hbr-aswt-01:te1/32,cid=LOCAL,iv-s=mpls] PROD"
+        shutdown
+    exit
+    port 5/1/35
+        description "[no-mon,rd=cs1-esm-hbr-aswt,iv-s=cdn]  DVN Managed ESM_MGT Switch ESM-HBR-ASWT G1/1"
+        shutdown
+    exit
+    lag 55
+        description "[no-mon,ce,rd=dvn-hbr-aswt-01:po55,cid=LOCAL,iv-s=mpls] PROD"
+        no port 5/1/36
+        no port 5/1/37
+        shutdown
+    exit
+    service
+        vpls 220908
+            sap 5/1/35
+		shutdown
+            exit
+            shutdown
+        exit
+        vprn 220907
+            interface "vprn-dvn-esm"
+		shutdown
+                description "[no-mon,agg,iv-s=cdn] DVN ESM ILO/Console Gateway Interface "
+                no address 10.254.152.126/26
+                exit
+            exit
+            shutdown
+        exit
+        vpls 220901
+            sap lag-55:100
+		shutdown
+            exit
+            shutdown
+        exit
+        ies 220900
+            interface "ies220900_dvn-grt"
+		shutdown
+                description "[no-mon,agg,iv-s=cdn] DVN GRT Gateway Interface "
+                no address 2.122.212.126/25
+            exit
+            shutdown
+        exit
+        vpls 220904
+            sap lag-55:105
+		shutdown
+            exit
+            shutdown
+        exit
+        vprn 220903
+            interface "vprn-dvn-stage"
+		shutdown
+                description "[no-mon,agg,iv-s=cdn] DVN Stage VPRN Backend Gateway Interface "
+                no address 10.232.84.126/25
+                exit
+            exit
+            shutdown
+        exit
+        vpls 220906
+            sap lag-55:110
+		shutdown
+            exit
+            shutdown
+        exit
+        vprn 220905
+            interface "vprn-dvn-prod"
+		shutdown
+                description "[no-mon,agg,iv-s=cdn] DVN Production VPRN Backend Gateway Interface "
+                no address 10.232.80.126/25
+                exit
+            exit
+            shutdown
+        exit
+        vpls 220910
+            sap lag-55:102
+		shutdown
+            exit
+            shutdown
+        exit
+        vprn 220909
+            interface "vprn-dvn-f5-sync"
+                description "[no-mon,agg,iv-s=cdn] DVN  VPRN Dedicated F5 SYNC Control Plane Interface "
+		shutdown
+                no address 10.232.87.30/27
+            exit
+            shutdown
+        exit all

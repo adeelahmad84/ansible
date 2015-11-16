@@ -1,0 +1,304 @@
+Please check the patching schedule is as per the portal referenced TG2540 (https://insightandplanning.sns.sky.com/apps#/ut/cdn/cells)
+A-END	    Port	    B-END	    Port	CID
+sr11.enlpl   8/1/8	    ar20.enlpl	    2/2	LOCAL
+
+Dependencies:
+This upgrade has a dependency on a successful completion of a layer 3 test on every circuit within this upgrade.
+
+Summary of Steps
+1. - Circuit Test
+2. - Check Resiliency
+3. - Pre-Checks
+4. - Weight Traffic Off
+5. - Apply Configuration
+6. - Post-Checks
+7. - Weight Traffic On
+8. - Roll Back Scenario
+
+1.0 Circuit Test:
+=================
+
+Unshut the ports and check the light levels on both circuits. Ensure that the values are within range.
+SR11.ENLPL
+***************************
+configure port 8/1/8 no shutdown
+show port 8/1/8 optical | match Value post-lines 5
+
+##example output:
+                              Value High Alarm  High Warn   Low Warn  Low Alarm
+-------------------------------------------------------------------------------
+Temperature (C)               +23.7     +78.0      +73.0       -8.0      -13.0
+Supply Voltage (V)             3.34      3.70       3.60       3.00       2.90
+Tx Bias Current (mA)           37.9      85.0       80.0       20.0       15.0
+Tx Output Power (dBm)         -1.39      2.00       1.00      -7.00      -8.00
+
+
+If there are any circuits out of range please perform basic troubleshooting.
+
+If you cannot resolve poor light readings, please put this change on hold.
+
+Assuming the light levels are satisfactory, we will test the circuits. Apply the configuration below to test the new circuit
+
+SR11.ENLPL
+***************************
+clear port 8/1/8 statistics
+
+/configure router interface "base_ar20.enlpl_l3_test"
+port 8/1/8
+address 84.38.37.248/31
+no shutdown
+
+AR20.ENLPL
+***************************
+clear counters Te2/2
+
+configure terminal
+
+interface Te2/2
+ip address 84.38.37.249 255.255.255.254
+no shut
+end
+
+ping 84.38.37.248 repeat 1000 df-bit
+
+Check the interface for errors
+show interface Te2/2 | inc error
+
+SR11.ENLPL
+***************************
+ping 84.38.37.249 count 1000 rapid do-not-fragment
+show port 8/1/8 ethernet detail | match errors ignore-case
+
+/configure router interface "base_ar20.enlpl_l3Test"
+  no port
+  shutdown
+/configure router
+  no interface base_ar20.enlpl_l3Test
+
+AR20.ENLPL
+***************************
+configure terminal
+
+interface Te2/2
+no ip address
+end
+
+2.0 - Check Resiliency
+======================
+
+ar20.enlpl
+==============
+ar20.enlpl#term len 0
+
+- Check that LACP is active on the resilient interface and that the ports are in an operational status. They should be up and enabled.
+- Check that there is traffic currently traversing the resilient LAG/BUNDLE ports.
+
+ar20.enlpl#
+show lacp 1 neighbor
+show lacp 1 counters
+show lacp 1 internal
+show interfaces port-channel 1 counters
+
+show lacp 3 neighbor
+show lacp 3 counters
+show lacp 3 internal
+show interfaces port-channel 3 counters
+
+3.0 - Pre-Checks
+===============
+
+Before proceeding with the upgrade, ensure that the following pre-checks have been adhered to.
+- Check monitoring systems to ensure that there are no unreported errors.
+- Ensure you are able to access both ar20.enlpl and sr11.enlpl inband.
+- Please use URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_enlpl.html to monitor the traffic between ar20.enlpl and sr11.enlpl.
+
+ar20.enlpl#show ip route static
+sr11.enlpl#show router static-route next-hop 2.120.9.245 
+sr11.enlpl#show router static-route next-hop 2a02:c78:1:12::3 
+
+- Check the amount of circuits currently in the bundle.
+- Check there is a current BGP session and that it is in an operational status.
+- Check there is traffic currently traversing circuits in the bundle.
+
+sr11.enlpl
+*******************
+show lag 50 port
+monitor lag 50
+show router bgp neighbor 2.120.9.245  | match State
+
+4.0 - Weight Traffic Off
+========================
+
+Please shutdown the static-routes and BGP neighbors on sr11.enlpl to weight the traffic off.
+
+SR11.ENLPL
+****************************
+configure router static-route next-hop 2.120.9.245  disable
+configure router static-route next-hop 2a02:c78:1:12::3  disable
+configure router bgp group "IN-POP-CDN" neighbor 2.120.9.245  shutdown
+
+
+Monitor LAG on sr11.enlpl to ensure traffic has dropped off all links in the LAG.
+
+monitor lag 50
+
+also monitor the URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_enlpl.html
+
+
+5.0 - Apply Configuration
+=========================
+
+Make sure the target interfaces on sr11.enlpl are in a shut down state.
+
+configure port 8/1/8 shutdown
+
+Apply configuration to sr11.enlpl
+
+exit all
+configure
+    port 8/1/8
+        description "[core,rd=ar20.enlpl:te2-2,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_D008"
+        ethernet
+            mtu 8226
+            hold-time up 5
+        exit
+        no shutdown
+    exit
+    lag 50
+	shutdown
+	no lacp
+	port 8/1/8
+	lacp active
+	no shutdown
+exit all
+
+Apply configuration to ar20.enlpl
+
+ar20.enlpl#
+configure terminal
+!
+interface TenGigabitEthernet2/2
+ description [core,rd=sr11.enlpl:8-1-8,cid=LOCAL,iv-s=cdn_pop] UPLINK TO SR11.ENLPL
+ no switchport
+ mtu 8226
+ no ip address
+ no ip redirects
+ flowcontrol receive off
+ flowcontrol send off
+ channel-protocol lacp
+ channel-group 2 mode active
+!
+end
+wr mem
+
+5.0 - Post-Checks
+================
+
+- Check the all the circuits have joined the bundle and are in an active state.
+
+sr11.enlpl
+*********************
+show lag 50 port | match active | count
+show port 8/1/8 ethernet efm-oam
+
+ar20.enlpl
+**************
+show interfaces port-channel 2 etherchannel | i Number
+
+6.0 - Weight Traffic On
+=======================
+
+Please unshut the static-routes and BGP neighbors on sr11.enlpl to weight the traffic on.
+
+SR11.ENLPL
+****************************
+configure router static-route next-hop 2.120.9.245  enable
+configure router static-route next-hop 2a02:c78:1:12::3  enable
+configure router bgp group "IN-POP-CDN" neighbor 2.120.9.245  no shutdown
+
+
+Monitor LAG on sr11.enlpl to ensure traffic has picked up on all links in the LAG.
+
+monitor lag 50
+
+also monitor the URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_enlpl.html
+
+Please wait 5 minutes while monitoring the interfaces to ensure both uplinks are functioning as expected. When you are happy traffic is flowing through pr2.hobir the change is complete.
+
+At this stage, the change is now complete.
+
+7.0 - Roll Back Scenario
+=======================
+
+Make sure traffic is weighted off sr11.enlpl before rolling back.
+
+SR11.ENLPL
+****************************
+configure router static-route next-hop 2.120.9.245  disable
+configure router static-route next-hop 2a02:c78:1:12::3  disable
+configure router bgp group "IN-POP-CDN" neighbor 2.120.9.245  shutdown
+
+Monitor interfaces on sr11.enlpl to ensure traffic has dropped off all links in the bundle.
+
+monitor lag 50
+
+After traffic has been weighted off successfully, shut down the ports.
+
+sr11.enlpl
+******************
+exit all
+configure
+    port 8/1/8
+        description "[no-mon,core,rd=ar20.enlpl:te2-2,cid=LOCAL,iv-s=cdn_pop] IN-POP-CDN RACK_D008"
+        shutdown
+    exit
+    lag 50
+	shutdown
+	no lacp
+	no port 8/1/8
+	lacp active
+	no shutdown
+exit all
+
+Apply configuration to ar20.enlpl
+
+ar20.enlpl#
+configure terminal
+!
+interface TenGigabitEthernet2/2
+ description [no-mon,core,rd=sr11.enlpl:8-1-8,cid=LOCAL,iv-s=cdn_pop] UPLINK TO SR11.ENLPL
+ no channel-group 2
+ no channel-protocol lacp
+!
+end
+wr mem
+
+
+Post Checks
+===========
+- Check the amount of circuits currently in the bundle. There should be the same amount as pre-checks
+
+sr11.enlpl
+show lag 50 port | match active | count
+
+
+After all post-checks have been completed we can weight traffic back onto the bundle
+
+Please unshut the static-routes and BGP neighbors on sr11.enlpl to weight the traffic on.
+
+SR11.ENLPL
+****************************
+configure router static-route next-hop 2.120.9.245  enable
+configure router static-route next-hop 2a02:c78:1:12::3  enable
+configure router bgp group "IN-POP-CDN" neighbor 2.120.9.245  no shutdown
+
+
+Monitor LAG on sr11.enlpl to ensure traffic has picked up on all links in the LAG.
+
+monitor lag 50
+
+also monitor the URL: http://stats0.bllon.isp.sky.com/weathermaps/popcdn/popcdn_enlpl.html
+
+Please wait 5 minutes while monitoring the interfaces to ensure both uplinks are functioning as expected. When you are happy traffic is flowing through pr2.hobir the change is complete.
+
+Roll back is now complete

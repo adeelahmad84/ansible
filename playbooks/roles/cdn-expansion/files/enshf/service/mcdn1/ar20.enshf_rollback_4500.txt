@@ -1,0 +1,14 @@
+configure terminal
+!
+interface Port-channel60
+ description [no-mon,ext,iv-g=mcdn,iv-s=cdn_mcdn] Port-Channel To mcdn Server
+ shutdown
+!
+interface TenGigabitEthernet1/29
+ shutdown
+!
+interface TenGigabitEthernet1/30
+ shutdown
+!
+!
+end

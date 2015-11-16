@@ -1,0 +1,17 @@
+configure terminal
+ default interface Bundle-Ether281
+ default router isis interface Bundle-Ether281
+ default rsvp interface Bundle-Ether281
+ default mpls ldp interface Bundle-Ether281
+ default mpls traffic-eng interface Bundle-Ether281
+mpls ldp
+ neighbor
+  no 84.38.34.25:0 password
+ !
+ address-family ipv4
+  label
+   remote
+    accept
+     no from 84.38.34.25:0 for loopback-only
+ !
+commit

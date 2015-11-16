@@ -1,0 +1,6 @@
+router bgp 65444
+ no neighbor {{ system_address }}
+!
+ address-family ipv4
+  no neighbor {{ system_address }}
+end
